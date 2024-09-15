@@ -65,15 +65,14 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.DUELIST){
+		if (ch instanceof Hero){
 			Buff.affect(ch, Charger.class);
 		}
 	}
 
 	@Override
 	public String defaultAction() {
-		if (Dungeon.hero != null && (Dungeon.hero.heroClass == HeroClass.DUELIST
-			|| Dungeon.hero.hasTalent(Talent.SWIFT_EQUIP))){
+		if (Dungeon.hero != null){
 			return AC_ABILITY;
 		} else {
 			return super.defaultAction();
@@ -83,7 +82,7 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero) && hero.heroClass == HeroClass.DUELIST){
+		if (isEquipped(hero) && !(this instanceof MagesStaff)){
 			actions.add(AC_ABILITY);
 		}
 		return actions;
@@ -109,14 +108,12 @@ public class MeleeWeapon extends Weapon {
 					if (hero.buff(Talent.SwiftEquipCooldown.class) == null
 						|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
 						execute(hero, AC_EQUIP);
-					} else if (hero.heroClass == HeroClass.DUELIST) {
+					} else {
 						GLog.w(Messages.get(this, "ability_need_equip"));
 					}
-				} else if (hero.heroClass == HeroClass.DUELIST) {
+				} else {
 					GLog.w(Messages.get(this, "ability_need_equip"));
 				}
-			} else if (hero.heroClass != HeroClass.DUELIST){
-				//do nothing
 			} else if (STRReq() > hero.STR()){
 				GLog.w(Messages.get(this, "ability_low_str"));
 			} else if ((Buff.affect(hero, Charger.class).charges + Buff.affect(hero, Charger.class).partialCharge) < abilityChargeUse(hero, null)) {
@@ -356,7 +353,7 @@ public class MeleeWeapon extends Weapon {
 		}
 
 		//the mage's staff has no ability as it can only be gained by the mage
-		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST && !(this instanceof MagesStaff)){
+		if (!(this instanceof MagesStaff)){
 			info += "\n\n" + abilityInfo();
 		}
 		
@@ -378,7 +375,8 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public String status() {
 		if (isEquipped(Dungeon.hero)
-				&& Dungeon.hero.buff(Charger.class) != null) {
+				&& Dungeon.hero.buff(Charger.class) != null
+				&& !(this instanceof MagesStaff)) {
 			Charger buff = Dungeon.hero.buff(Charger.class);
 			return buff.charges + "/" + buff.chargeCap();
 		} else {

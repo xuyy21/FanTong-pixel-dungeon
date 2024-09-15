@@ -1378,6 +1378,10 @@ public class Hero extends Char {
 			}
 			sprite.attack( enemy.pos );
 
+			if (hasTalent(Talent.HOLD_FAST) && (pointsInTalent(Talent.HOLD_FAST) >= 2)){
+				Buff.affect(this, HoldFast.class).pos = pos;
+			}
+
 			return false;
 
 		} else {

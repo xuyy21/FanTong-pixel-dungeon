@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.EnhancedRings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
@@ -569,6 +570,9 @@ public enum Talent {
 				Buff.affect( hero, PhysicalEmpower.class).set(Math.round(hero.lvl / (4f - hero.pointsInTalent(FOCUSED_MEAL))), 1);
 			}
 		}
+		if (hero.hasTalent(HOLD_FAST) && (hero.pointsInTalent(HOLD_FAST) >= 2)){
+			Buff.affect(hero, HoldFast.class).pos = hero.pos;
+		}
 	}
 
 	public static class WarriorFoodImmunity extends FlavourBuff{
@@ -659,6 +663,9 @@ public enum Talent {
 				Buff.prolong(hero, LiquidAgilACCTracker.class, 5f).uses = Math.round(factor);
 			}
 		}
+		if (hero.hasTalent(HOLD_FAST) && (hero.pointsInTalent(HOLD_FAST) >= 3)){
+			Buff.affect(hero, HoldFast.class).pos = hero.pos;
+		}
 	}
 
 	public static void onScrollUsed( Hero hero, int pos, float factor ){
@@ -670,6 +677,9 @@ public enum Talent {
 			// 3/5 turns of stealth
 			Buff.affect(hero, Invisibility.class, factor * (1 + 2*hero.pointsInTalent(INSCRIBED_STEALTH)));
 			Sample.INSTANCE.play( Assets.Sounds.MELD );
+		}
+		if (hero.hasTalent(HOLD_FAST) && (hero.pointsInTalent(HOLD_FAST) >= 3)){
+			Buff.affect(hero, HoldFast.class).pos = hero.pos;
 		}
 	}
 
@@ -691,6 +701,9 @@ public enum Talent {
 	public static void onArtifactUsed( Hero hero ){
 		if (hero.hasTalent(ENHANCED_RINGS)){
 			Buff.prolong(hero, EnhancedRings.class, 3f*hero.pointsInTalent(ENHANCED_RINGS));
+		}
+		if (hero.hasTalent(HOLD_FAST) && (hero.pointsInTalent(HOLD_FAST) >= 3)){
+			Buff.affect(hero, HoldFast.class).pos = hero.pos;
 		}
 	}
 

@@ -45,11 +45,18 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -60,6 +67,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
@@ -89,7 +102,11 @@ public enum HeroClass {
 		this.subClasses = subClasses;
 	}
 
-	public void initHero( Hero hero ) {
+	public  void initHero(Hero hero) {
+		initHero(hero, true);
+	}
+
+	public void initHero( Hero hero, boolean Testing) {
 
 		hero.heroClass = this;
 		Talent.initClassTalents(hero);
@@ -102,11 +119,63 @@ public enum HeroClass {
 
 		new VelvetPouch().collect();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
+		if (Testing) {
+			new MagicalHolster().collect();
+			Dungeon.LimitedDrops.MAGICAL_HOLSTER.drop();
+			new PotionBandolier().collect();
+			Dungeon.LimitedDrops.POTION_BANDOLIER.drop();
+			new ScrollHolder().collect();
+			Dungeon.LimitedDrops.SCROLL_HOLDER.drop();
+		}
 
 		Waterskin waterskin = new Waterskin();
 		waterskin.collect();
 
 		new ScrollOfIdentify().identify();
+
+		if (Testing) {
+			new ScrollOfUpgrade().identify();
+			new ScrollOfMagicMapping().identify();
+			new ScrollOfRemoveCurse().identify();
+			new ScrollOfLullaby().identify();
+			new ScrollOfMirrorImage().identify();
+			new ScrollOfRage().identify();
+			new ScrollOfRetribution().identify();
+			new ScrollOfRecharging().identify();
+			new ScrollOfTeleportation().identify();
+			new ScrollOfTerror().identify();
+			new ScrollOfTransmutation().identify();
+
+			new PotionOfStrength().identify();
+			new PotionOfHealing().identify();
+			new PotionOfExperience().identify();
+		}
+		if (Testing) {
+			new ScrollOfIdentify().quantity(100).collect();
+			new ScrollOfUpgrade().quantity(100).collect();
+			new ScrollOfMagicMapping().quantity(100).collect();
+			new ScrollOfRemoveCurse().quantity(100).collect();
+			new ScrollOfLullaby().quantity(100).collect();
+			new ScrollOfMirrorImage().quantity(100).collect();
+			new ScrollOfRage().quantity(100).collect();
+			new ScrollOfRetribution().quantity(100).collect();
+			new ScrollOfRecharging().quantity(100).collect();
+			new ScrollOfTeleportation().quantity(100).collect();
+			new ScrollOfTerror().quantity(100).collect();
+			new ScrollOfTransmutation().quantity(100).collect();
+
+			new PotionOfStrength().quantity(100).collect();
+			new PotionOfHealing().quantity(100).collect();
+			new PotionOfExperience().quantity(100).collect();
+		}
+		if (Testing) {
+			new UnstableSpellbook().collect();
+			AlchemistsToolkit toolkit = new AlchemistsToolkit();
+			toolkit.identify();
+			toolkit.level(10);
+			toolkit.collect();
+			new Stylus().quantity(10).collect();
+		}
 
 		switch (this) {
 			case WARRIOR:
@@ -176,6 +245,7 @@ public enum HeroClass {
 		MagesStaff staff;
 
 		staff = new MagesStaff(new WandOfMagicMissile());
+		staff.upgrade();
 
 		(hero.belongings.weapon = staff).identify();
 		hero.belongings.weapon.activate(hero);
@@ -219,6 +289,9 @@ public enum HeroClass {
 
 		(hero.belongings.weapon = new Rapier()).identify();
 		hero.belongings.weapon.activate(hero);
+
+		new Gloves().identify().collect();
+		new Dagger().identify().collect();
 
 		ThrowingSpike spikes = new ThrowingSpike();
 		spikes.quantity(2).collect();

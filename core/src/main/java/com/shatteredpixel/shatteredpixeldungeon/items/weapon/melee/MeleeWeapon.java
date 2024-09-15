@@ -419,6 +419,10 @@ public class MeleeWeapon extends Weapon {
 						chargeToGain *= 1.5f;
 					}
 
+					if (Dungeon.hero.heroClass != HeroClass.DUELIST) {
+						chargeToGain *= 0.75f;
+					}
+
 					//50% slower charge gain with brawler's stance enabled, even if buff is inactive
 					if (Dungeon.hero.buff(RingOfForce.BrawlersStance.class) != null){
 						chargeToGain *= 0.50f;
@@ -467,8 +471,12 @@ public class MeleeWeapon extends Weapon {
 			//caps at level 19 with 8 or 10 charges
 			if (Dungeon.hero.subClass == HeroSubClass.CHAMPION){
 				return Math.min(10, 4 + (Dungeon.hero.lvl - 1) / 3);
-			} else {
+			} else if (Dungeon.hero.heroClass == HeroClass.DUELIST) {
 				return Math.min(8, 2 + (Dungeon.hero.lvl - 1) / 3);
+			} else if (Dungeon.hero.heroClass == HeroClass.WARRIOR) {
+				return Math.min(6, 2 + (Dungeon.hero.lvl - 1) / 4);
+			} else {
+				return 2;
 			}
 		}
 

@@ -177,6 +177,7 @@ public enum HeroClass {
 			toolkit.collect();
 			new Stylus().quantity(10).collect();
 			new TengusMask().collect();
+			new WandOfMagicMissile().collect();
 		}
 
 		switch (this) {

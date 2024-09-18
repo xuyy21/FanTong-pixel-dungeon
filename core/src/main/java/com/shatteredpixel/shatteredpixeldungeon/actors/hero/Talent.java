@@ -575,23 +575,22 @@ public enum Talent {
 			Buff.affect(hero, HoldFast.class).pos = hero.pos;
 		}
 		if (hero.hasTalent(MEAL_WILL)){
-			if (foodVal > 0f) {
-				float factor = min(foodVal / 2*Hunger.STARVING + 0.5f, 1.0f);
-				if (hero.heroClass == HeroClass.WARRIOR) {
-					BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
-					if (shield != null) {
-						// 50/75% of total shield
-						int shieldToGive = Math.round(factor * shield.maxShield() * 0.25f * (2 + hero.pointsInTalent(MEAL_WILL)));
-						hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-						shield.supercharge(shieldToGive);
-					}
-				} else {
-					// 5/7.5% of max HP
-					int shieldToGive = Math.round(factor * hero.HT * (0.025f * (2+hero.pointsInTalent(MEAL_WILL))));
+			float factor = min(0.75f * foodVal / Hunger.STARVING + 0.25f, 1.0f);
+			if (hero.heroClass == HeroClass.WARRIOR) {
+				BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
+				if (shield != null) {
+					// 50/75% of total shield
+					int shieldToGive = Math.round(factor * shield.maxShield() * 0.25f * (2 + hero.pointsInTalent(MEAL_WILL)));
 					hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-					Buff.affect(hero, Barrier.class).setShield(shieldToGive);
+					shield.supercharge(shieldToGive);
 				}
+			} else {
+				// 5/7.5% of max HP
+				int shieldToGive = Math.round(factor * hero.HT * (0.025f * (2+hero.pointsInTalent(MEAL_WILL))));
+				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+				Buff.affect(hero, Barrier.class).setShield(shieldToGive);
 			}
+
 		}
 	}
 

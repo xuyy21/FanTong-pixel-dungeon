@@ -99,7 +99,7 @@ public enum Talent {
 	//Berserker T3
 	ENDLESS_RAGE(11, 3), DEATHLESS_FURY(12, 3), ENRAGED_CATALYST(13, 3),
 	//Gladiator T3
-	CLEAVE(14, 3), LETHAL_DEFENSE(15, 3), ENHANCED_COMBO(16, 3),
+	CLEAVE(14, 3), HIGH_FREQUENCY(15, 3), ENHANCED_COMBO(16, 3),
 	//Heroic Leap T4
 	BODY_SLAM(17, 4), IMPACT_WAVE(18, 4), DOUBLE_JUMP(19, 4),
 	//Shockwave T4
@@ -967,7 +967,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, ENDLESS_RAGE, DEATHLESS_FURY, ENRAGED_CATALYST);
 				break;
 			case GLADIATOR:
-				Collections.addAll(tierTalents, CLEAVE, LETHAL_DEFENSE, ENHANCED_COMBO);
+				Collections.addAll(tierTalents, CLEAVE, HIGH_FREQUENCY, ENHANCED_COMBO);
 				break;
 			case BATTLEMAGE:
 				Collections.addAll(tierTalents, EMPOWERED_STRIKE, MYSTICAL_CHARGE, EXCESS_CHARGE);
@@ -1056,6 +1056,7 @@ public enum Talent {
 		//v2.5.0based-indev
 		renamedTalents.put("IRON_WILL",					"MEAL_WILL");
 		renamedTalents.put("LIQUID_WILLPOWER",			"BLOODY_WILLPOWER");
+		renamedTalents.put("LETHAL_DEFENSE", 			"HIGH_FREQUENCY");
 		//v2.4.0
 		renamedTalents.put("SECONDARY_CHARGE",          "VARIED_CHARGE");
 

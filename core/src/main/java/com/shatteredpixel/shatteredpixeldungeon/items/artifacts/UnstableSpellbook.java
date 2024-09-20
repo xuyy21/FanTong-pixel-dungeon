@@ -161,11 +161,9 @@ public class UnstableSpellbook extends Artifact {
 									scroll.anonymize();
 									scroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
-									Talent.onScrollUsed(Dungeon.hero, Dungeon.hero.pos, 0.5f);
 								} else if (index == 0) {
 									fScroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
-									Talent.onScrollUsed(Dungeon.hero, Dungeon.hero.pos, 0.5f);
 								} else {
 									Scroll scroll;
 									do {
@@ -182,7 +180,6 @@ public class UnstableSpellbook extends Artifact {
 									scroll.anonymize();
 									scroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
-									Talent.onScrollUsed(Dungeon.hero, Dungeon.hero.pos, 0.5f);
 								}
 								updateQuickslot();
 							}
@@ -217,11 +214,9 @@ public class UnstableSpellbook extends Artifact {
 									scroll.anonymize();
 									scroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
-									Talent.onScrollUsed(Dungeon.hero, Dungeon.hero.pos, 0.5f);
 								} else {
 									fScroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
-									Talent.onScrollUsed(Dungeon.hero, Dungeon.hero.pos, 0.5f);
 								}
 								updateQuickslot();
 							}
@@ -235,7 +230,6 @@ public class UnstableSpellbook extends Artifact {
 				} else {
 					scroll.doRead();
 					Talent.onArtifactUsed(Dungeon.hero);
-					Talent.onScrollUsed(Dungeon.hero, Dungeon.hero.pos, 0.5f);
 				}
 				updateQuickslot();
 			}

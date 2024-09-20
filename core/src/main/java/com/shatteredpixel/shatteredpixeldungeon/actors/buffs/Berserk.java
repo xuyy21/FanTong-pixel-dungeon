@@ -54,7 +54,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 	}
 	private State state = State.NORMAL;
 
-	private static final float LEVEL_RECOVER_START = 4f;
+	private static final float LEVEL_RECOVER_START = 1f;
 	private float levelRecovery;
 
 	private static final int TURN_RECOVERY_START = 100;
@@ -116,6 +116,11 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 				if (target.shielding() <= 0){
 					state = State.RECOVERING;
 					power = ((Hero)target).pointsInTalent(Talent.ENDLESS_RAGE) * 0.2f;
+					if (((Hero)target).hasTalent(Talent.DEATHLESS_FURY)) {
+						if ((float)target.HP/(float)target.HT < 0.05f * (1 + ((Hero)target).pointsInTalent(Talent.DEATHLESS_FURY))) {
+							target.HP = Math.round(target.HT * 0.05f * (1 + ((Hero)target).pointsInTalent(Talent.DEATHLESS_FURY)));
+						}
+					}
 					BuffIndicator.refreshHero();
 					if (!target.isAlive()){
 						target.die(this);
@@ -181,8 +186,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 		if (target.HP == 0
 				&& state == State.NORMAL
 				&& power >= 1f
-				&& target.buff(WarriorShield.class) != null
-				&& ((Hero)target).hasTalent(Talent.DEATHLESS_FURY)){
+				&& target.buff(WarriorShield.class) != null){
 			startBerserking();
 			ActionIndicator.clearAction(this);
 		}
@@ -200,7 +204,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 			turnRecovery = TURN_RECOVERY_START;
 			levelRecovery = 0;
 		} else {
-			levelRecovery = LEVEL_RECOVER_START - ((Hero)target).pointsInTalent(Talent.DEATHLESS_FURY);
+			levelRecovery = LEVEL_RECOVER_START;
 			turnRecovery = 0;
 		}
 
@@ -210,7 +214,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 		//Endless rage effect on shield and cooldown
 		if (power > 1f){
 			shieldMultiplier *= power;
-			levelRecovery *= 2f - power;
+//			levelRecovery *= 2f - power;
 			turnRecovery *= 2f - power;
 		}
 
@@ -220,8 +224,8 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 		target.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shieldAmount), FloatingText.SHIELDING );
 
 		if (((Hero)target).hasTalent(Talent.ENRAGED_CATALYST)) {
-			Buff.affect(target, Recharging.class, 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 4);
-			Buff.affect(target, ArtifactRecharge.class).set( 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 4).ignoreHornOfPlenty = false;
+			Buff.affect(target, Recharging.class, 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 5);
+			Buff.affect(target, ArtifactRecharge.class).set( 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 5).ignoreHornOfPlenty = false;
 		}
 
 		BuffIndicator.refreshHero();
@@ -316,7 +320,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 				return 0f;
 			case RECOVERING:
 				if (levelRecovery > 0) {
-					return 1f - levelRecovery/(LEVEL_RECOVER_START-Dungeon.hero.pointsInTalent(Talent.DEATHLESS_FURY));
+					return 1f - levelRecovery/LEVEL_RECOVER_START;
 				} else {
 					return 1f - turnRecovery/(float)TURN_RECOVERY_START;
 				}

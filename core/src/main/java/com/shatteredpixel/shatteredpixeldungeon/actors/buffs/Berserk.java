@@ -219,6 +219,11 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 		shield.supercharge(shieldAmount);
 		target.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shieldAmount), FloatingText.SHIELDING );
 
+		if (((Hero)target).hasTalent(Talent.ENRAGED_CATALYST)) {
+			Buff.affect(target, Recharging.class, 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 4);
+			Buff.affect(target, ArtifactRecharge.class).set( 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 4).ignoreHornOfPlenty = false;
+		}
+
 		BuffIndicator.refreshHero();
 	}
 	

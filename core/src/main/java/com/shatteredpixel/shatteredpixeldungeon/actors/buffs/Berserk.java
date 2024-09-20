@@ -115,7 +115,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 
 				if (target.shielding() <= 0){
 					state = State.RECOVERING;
-					power = 0f;
+					power = ((Hero)target).pointsInTalent(Talent.ENDLESS_RAGE) * 0.2f;
 					BuffIndicator.refreshHero();
 					if (!target.isAlive()){
 						target.die(this);
@@ -125,7 +125,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 
 			} else {
 				state = State.RECOVERING;
-				power = 0f;
+				power = ((Hero)target).pointsInTalent(Talent.ENDLESS_RAGE) * 0.2f;
 				if (!target.isAlive()){
 					target.die(this);
 					if (!target.isAlive()) Dungeon.fail(this);
@@ -142,6 +142,10 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 					ActionIndicator.clearAction(this);
 				} else {
 					ActionIndicator.refresh();
+				}
+
+				if (power < ((Hero)target).pointsInTalent(Talent.ENDLESS_RAGE) * 0.2f) {
+					power = ((Hero)target).pointsInTalent(Talent.ENDLESS_RAGE) * 0.2f;
 				}
 
 				if (power <= 0) {
@@ -221,7 +225,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 	public void damage(int damage){
 		if (state != State.NORMAL) return;
 		float maxPower = 1f + 0.1667f*((Hero)target).pointsInTalent(Talent.ENDLESS_RAGE);
-		power = Math.min(maxPower, power + (damage/(float)target.HT)/3f );
+		power = Math.min(maxPower, power + (damage/(float)target.HT)/2f );
 		BuffIndicator.refreshHero(); //show new power immediately
 		powerLossBuffer = 3; //2 turns until rage starts dropping
 		if (power >= 1f){

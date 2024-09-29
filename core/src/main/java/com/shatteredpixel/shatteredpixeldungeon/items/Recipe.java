@@ -209,7 +209,8 @@ public abstract class Recipe {
 		new CurseInfusion.Recipe(),
 		new ReclaimTrap.Recipe(),
 		new WildEnergy.Recipe(),
-		new StewedMeat.twoMeat()
+		new StewedMeat.twoMeat(),
+		new GooStylus.Recipe()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

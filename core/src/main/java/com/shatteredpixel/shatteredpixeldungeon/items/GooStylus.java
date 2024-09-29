@@ -73,7 +73,7 @@ public class GooStylus extends Item{
 
     private void inscribe( Item item ) {
         if (((Item)item).level() > 0) {
-            GLog.h(Messages.get(this, "inscribed_upgraded"));
+            GLog.p(Messages.get(this, "inscribed_upgraded"));
         }
         else {
             GLog.h(Messages.get(this, "inscribed_unupgraded"));
@@ -107,7 +107,7 @@ public class GooStylus extends Item{
 
         @Override
         public boolean itemSelectable(Item item) {
-            return (item instanceof MeleeWeapon) || (item instanceof Armor);
+            return !item.isIdentified() && ((item instanceof MeleeWeapon) || (item instanceof Armor));
         }
 
         @Override

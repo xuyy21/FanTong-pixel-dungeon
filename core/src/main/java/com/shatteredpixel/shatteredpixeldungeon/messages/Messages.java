@@ -133,7 +133,7 @@ public class Messages {
 			if (c != null && c.getSuperclass() != null){
 				return get(c.getSuperclass(), k, args);
 			} else {
-				if (key != null) {
+				if (key != null && !key.contains(".meta_desc")) {
 					String name = "Ms:" + key;
 					GLog.w(name);
 					return name;

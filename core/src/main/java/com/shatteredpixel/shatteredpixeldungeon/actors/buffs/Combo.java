@@ -411,14 +411,14 @@ public class Combo extends Buff implements ActionIndicator.Action {
 							ch.sprite.bloodBurstA(target.sprite.center(), aoeHit);
 							ch.sprite.flash();
 
-							if (!ch.isAlive()) {
-								if (hero.hasTalent(Talent.LETHAL_DEFENSE) && hero.buff(BrokenSeal.WarriorShield.class) != null) {
-									BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
-									int shieldAmt = Math.round(shield.maxShield() * hero.pointsInTalent(Talent.LETHAL_DEFENSE) / 3f);
-									shield.supercharge(shieldAmt);
-									hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldAmt), FloatingText.SHIELDING);
-								}
-							}
+//							if (!ch.isAlive()) {
+//								if (hero.hasTalent(Talent.LETHAL_DEFENSE) && hero.buff(BrokenSeal.WarriorShield.class) != null) {
+//									BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
+//									int shieldAmt = Math.round(shield.maxShield() * hero.pointsInTalent(Talent.LETHAL_DEFENSE) / 3f);
+//									shield.supercharge(shieldAmt);
+//									hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldAmt), FloatingText.SHIELDING);
+//								}
+//							}
 						}
 					}
 					break;
@@ -468,14 +468,14 @@ public class Combo extends Buff implements ActionIndicator.Action {
 				break;
 		}
 
-		if (!enemy.isAlive() || (!wasAlly && enemy.alignment == target.alignment)) {
-			if (hero.hasTalent(Talent.LETHAL_DEFENSE) && hero.buff(BrokenSeal.WarriorShield.class) != null){
-				BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
-				int shieldAmt = Math.round(shield.maxShield() * hero.pointsInTalent(Talent.LETHAL_DEFENSE) / 3f);
-				shield.supercharge(shieldAmt);
-				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldAmt), FloatingText.SHIELDING);
-			}
-		}
+//		if (!enemy.isAlive() || (!wasAlly && enemy.alignment == target.alignment)) {
+//			if (hero.hasTalent(Talent.LETHAL_DEFENSE) && hero.buff(BrokenSeal.WarriorShield.class) != null){
+//				BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
+//				int shieldAmt = Math.round(shield.maxShield() * hero.pointsInTalent(Talent.LETHAL_DEFENSE) / 3f);
+//				shield.supercharge(shieldAmt);
+//				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldAmt), FloatingText.SHIELDING);
+//			}
+//		}
 
 	}
 

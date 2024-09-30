@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
@@ -34,6 +37,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.EnhancedRings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
@@ -86,15 +91,15 @@ import java.util.LinkedHashMap;
 public enum Talent {
 
 	//Warrior T1
-	HEARTY_MEAL(0), VETERANS_INTUITION(1), PROVOKED_ANGER(2), IRON_WILL(3),
+	HEARTY_MEAL(0), VETERANS_INTUITION(1), PROVOKED_ANGER(2), MEAL_WILL(3),
 	//Warrior T2
-	IRON_STOMACH(4), LIQUID_WILLPOWER(5), RUNIC_TRANSFERENCE(6), LETHAL_MOMENTUM(7), IMPROVISED_PROJECTILES(8),
+	IRON_STOMACH(4), BLOODY_WILLPOWER(5), RUNIC_TRANSFERENCE(6), LETHAL_MOMENTUM(7), IMPROVISED_PROJECTILES(8),
 	//Warrior T3
 	HOLD_FAST(9, 3), STRONGMAN(10, 3),
 	//Berserker T3
 	ENDLESS_RAGE(11, 3), DEATHLESS_FURY(12, 3), ENRAGED_CATALYST(13, 3),
 	//Gladiator T3
-	CLEAVE(14, 3), LETHAL_DEFENSE(15, 3), ENHANCED_COMBO(16, 3),
+	CLEAVE(14, 3), HIGH_FREQUENCY(15, 3), ENHANCED_COMBO(16, 3),
 	//Heroic Leap T4
 	BODY_SLAM(17, 4), IMPACT_WAVE(18, 4), DOUBLE_JUMP(19, 4),
 	//Shockwave T4
@@ -178,7 +183,7 @@ public enum Talent {
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0.15f, 0.2f, 0.5f); }
-		public float iconFadePercent() { return Math.max(0, visualcooldown() / 50); }
+		public float iconFadePercent() { return max(0, visualcooldown() / 50); }
 	};
 	public static class LethalMomentumTracker extends FlavourBuff{};
 	public static class StrikingWaveTracker extends FlavourBuff{};
@@ -234,7 +239,7 @@ public enum Talent {
 	public static class SeerShotCooldown extends FlavourBuff{
 		public int icon() { return target.buff(RevealedArea.class) != null ? BuffIndicator.NONE : BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0.7f, 0.4f, 0.7f); }
-		public float iconFadePercent() { return Math.max(0, visualcooldown() / 20); }
+		public float iconFadePercent() { return max(0, visualcooldown() / 20); }
 	};
 	public static class SpiritBladesTracker extends FlavourBuff{};
 	public static class PatientStrikeTracker extends Buff {
@@ -266,7 +271,7 @@ public enum Talent {
 	public static class AggressiveBarrierCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0.35f, 0f, 0.7f); }
-		public float iconFadePercent() { return Math.max(0, visualcooldown() / 50); }
+		public float iconFadePercent() { return max(0, visualcooldown() / 50); }
 	};
 	public static class LiquidAgilEVATracker extends FlavourBuff{};
 	public static class LiquidAgilACCTracker extends FlavourBuff{
@@ -275,7 +280,7 @@ public enum Talent {
 		{ type = buffType.POSITIVE; }
 		public int icon() { return BuffIndicator.INVERT_MARK; }
 		public void tintIcon(Image icon) { icon.hardlight(0.5f, 0f, 1f); }
-		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
+		public float iconFadePercent() { return max(0, 1f - (visualcooldown() / 5)); }
 
 		private static final String USES = "uses";
 		@Override
@@ -292,7 +297,7 @@ public enum Talent {
 	public static class LethalHasteCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0.35f, 0f, 0.7f); }
-		public float iconFadePercent() { return Math.max(0, visualcooldown() / 100); }
+		public float iconFadePercent() { return max(0, visualcooldown() / 100); }
 	};
 	public static class SwiftEquipCooldown extends FlavourBuff{
 		public boolean secondUse;
@@ -324,7 +329,7 @@ public enum Talent {
 		{ type = Buff.buffType.POSITIVE; }
 		public int icon() { return BuffIndicator.INVERT_MARK; }
 		public void tintIcon(Image icon) { icon.hardlight(0.5f, 0f, 1f); }
-		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
+		public float iconFadePercent() { return max(0, 1f - (visualcooldown() / 5)); }
 		private static final String OBJECT    = "object";
 		@Override
 		public void storeInBundle(Bundle bundle) {
@@ -341,7 +346,7 @@ public enum Talent {
 		{ type = buffType.POSITIVE; }
 		public int icon() { return BuffIndicator.INVERT_MARK; }
 		public void tintIcon(Image icon) { icon.hardlight(1f, 1f, 0.0f); }
-		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
+		public float iconFadePercent() { return max(0, 1f - (visualcooldown() / 5)); }
 	};
 	public static class VariedChargeTracker extends Buff{
 		public Class weapon;
@@ -446,10 +451,10 @@ public enum Talent {
 	}
 
 	public static void onTalentUpgraded( Hero hero, Talent talent ){
-		//for metamorphosis
-		if (talent == IRON_WILL && hero.heroClass != HeroClass.WARRIOR){
-			Buff.affect(hero, BrokenSeal.WarriorShield.class);
-		}
+//		//for metamorphosis
+//		if (talent == IRON_WILL && hero.heroClass != HeroClass.WARRIOR){
+//			Buff.affect(hero, BrokenSeal.WarriorShield.class);
+//		}
 
 		if (talent == VETERANS_INTUITION && hero.pointsInTalent(VETERANS_INTUITION) == 2){
 			if (hero.belongings.armor() != null && !ShardOfOblivion.passiveIDDisabled())  {
@@ -516,15 +521,12 @@ public enum Talent {
 	public static class CachedRationsDropped extends CounterBuff{{revivePersists = true;}};
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}};
 
-	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
+	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource){
 		if (hero.hasTalent(HEARTY_MEAL)){
-			//3/5 HP healed, when hero is below 30% health
-			if (hero.HP/(float)hero.HT <= 0.3f) {
-				int healing = 1 + 2 * hero.pointsInTalent(HEARTY_MEAL);
-				hero.HP = Math.min(hero.HP + healing, hero.HT);
-				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(healing), FloatingText.HEALING);
-
-			}
+			//3/5 HP healed, always
+			int healing = 1 + 2 * hero.pointsInTalent(HEARTY_MEAL);
+			hero.HP = min(hero.HP + healing, hero.HT);
+			hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(healing), FloatingText.HEALING);
 		}
 		if (hero.hasTalent(IRON_STOMACH)){
 			if (hero.cooldown() > 0) {
@@ -569,6 +571,27 @@ public enum Talent {
 				Buff.affect( hero, PhysicalEmpower.class).set(Math.round(hero.lvl / (4f - hero.pointsInTalent(FOCUSED_MEAL))), 1);
 			}
 		}
+		if (hero.hasTalent(HOLD_FAST) && (hero.pointsInTalent(HOLD_FAST) >= 2)){
+			Buff.affect(hero, HoldFast.class).pos = hero.pos;
+		}
+		if (hero.hasTalent(MEAL_WILL)){
+			float factor = min(0.75f * foodVal / Hunger.STARVING + 0.25f, 1.0f);
+			if (hero.heroClass == HeroClass.WARRIOR) {
+				BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
+				if (shield != null) {
+					// 50/75% of total shield
+					int shieldToGive = Math.round(factor * shield.maxShield() * 0.25f * (2 + hero.pointsInTalent(MEAL_WILL)));
+					hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+					shield.supercharge(shieldToGive);
+				}
+			} else {
+				// 5/7.5% of max HP
+				int shieldToGive = Math.round(factor * hero.HT * (0.025f * (2+hero.pointsInTalent(MEAL_WILL))));
+				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+				Buff.affect(hero, Barrier.class).setShield(shieldToGive);
+			}
+
+		}
 	}
 
 	public static class WarriorFoodImmunity extends FlavourBuff{
@@ -601,22 +624,22 @@ public enum Talent {
 	}
 
 	public static void onPotionUsed( Hero hero, int cell, float factor ){
-		if (hero.hasTalent(LIQUID_WILLPOWER)){
-			if (hero.heroClass == HeroClass.WARRIOR) {
-				BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
-				if (shield != null) {
-					// 50/75% of total shield
-					int shieldToGive = Math.round(factor * shield.maxShield() * 0.25f * (1 + hero.pointsInTalent(LIQUID_WILLPOWER)));
-					hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-					shield.supercharge(shieldToGive);
-				}
-			} else {
-				// 5/7.5% of max HP
-				int shieldToGive = Math.round( factor * hero.HT * (0.025f * (1+hero.pointsInTalent(LIQUID_WILLPOWER))));
-				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-				Buff.affect(hero, Barrier.class).setShield(shieldToGive);
-			}
-		}
+//		if (hero.hasTalent(LIQUID_WILLPOWER)){
+//			if (hero.heroClass == HeroClass.WARRIOR) {
+//				BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
+//				if (shield != null) {
+//					// 50/75% of total shield
+//					int shieldToGive = Math.round(factor * shield.maxShield() * 0.25f * (1 + hero.pointsInTalent(LIQUID_WILLPOWER)));
+//					hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+//					shield.supercharge(shieldToGive);
+//				}
+//			} else {
+//				// 5/7.5% of max HP
+//				int shieldToGive = Math.round( factor * hero.HT * (0.025f * (1+hero.pointsInTalent(LIQUID_WILLPOWER))));
+//				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+//				Buff.affect(hero, Barrier.class).setShield(shieldToGive);
+//			}
+//		}
 		if (hero.hasTalent(LIQUID_NATURE)){
 			ArrayList<Integer> grassCells = new ArrayList<>();
 			for (int i : PathFinder.NEIGHBOURS9){
@@ -654,10 +677,13 @@ public enum Talent {
 			Dungeon.observe();
 		}
 		if (hero.hasTalent(LIQUID_AGILITY)){
-			Buff.prolong(hero, LiquidAgilEVATracker.class, hero.cooldown() + Math.max(0, factor-1));
+			Buff.prolong(hero, LiquidAgilEVATracker.class, hero.cooldown() + max(0, factor-1));
 			if (factor >= 0.5f){
 				Buff.prolong(hero, LiquidAgilACCTracker.class, 5f).uses = Math.round(factor);
 			}
+		}
+		if (hero.hasTalent(HOLD_FAST) && (hero.pointsInTalent(HOLD_FAST) >= 3)){
+			Buff.affect(hero, HoldFast.class).pos = hero.pos;
 		}
 	}
 
@@ -670,6 +696,9 @@ public enum Talent {
 			// 3/5 turns of stealth
 			Buff.affect(hero, Invisibility.class, factor * (1 + 2*hero.pointsInTalent(INSCRIBED_STEALTH)));
 			Sample.INSTANCE.play( Assets.Sounds.MELD );
+		}
+		if (hero.hasTalent(HOLD_FAST) && (hero.pointsInTalent(HOLD_FAST) >= 3)){
+			Buff.affect(hero, HoldFast.class).pos = hero.pos;
 		}
 	}
 
@@ -691,6 +720,9 @@ public enum Talent {
 	public static void onArtifactUsed( Hero hero ){
 		if (hero.hasTalent(ENHANCED_RINGS)){
 			Buff.prolong(hero, EnhancedRings.class, 3f*hero.pointsInTalent(ENHANCED_RINGS));
+		}
+		if (hero.hasTalent(HOLD_FAST) && (hero.pointsInTalent(HOLD_FAST) >= 3)){
+			Buff.affect(hero, HoldFast.class).pos = hero.pos;
 		}
 	}
 
@@ -789,13 +821,13 @@ public enum Talent {
 		{ type = Buff.buffType.POSITIVE; }
 		public int icon() { return BuffIndicator.WEAPON; }
 		public void tintIcon(Image icon) { icon.hardlight(1.43f, 1.43f, 1.43f); }
-		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
+		public float iconFadePercent() { return max(0, 1f - (visualcooldown() / 5)); }
 	}
 	public static class LingeringMagicTracker extends FlavourBuff{
 		{ type = Buff.buffType.POSITIVE; }
 		public int icon() { return BuffIndicator.WEAPON; }
 		public void tintIcon(Image icon) { icon.hardlight(1.43f, 1.43f, 0f); }
-		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
+		public float iconFadePercent() { return max(0, 1f - (visualcooldown() / 5)); }
 	}
 	public static class SuckerPunchTracker extends Buff{};
 	public static class FollowupStrikeTracker extends FlavourBuff{
@@ -803,7 +835,7 @@ public enum Talent {
 		{ type = Buff.buffType.POSITIVE; }
 		public int icon() { return BuffIndicator.INVERT_MARK; }
 		public void tintIcon(Image icon) { icon.hardlight(0f, 0.75f, 1f); }
-		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
+		public float iconFadePercent() { return max(0, 1f - (visualcooldown() / 5)); }
 		private static final String OBJECT    = "object";
 		@Override
 		public void storeInBundle(Bundle bundle) {
@@ -837,7 +869,7 @@ public enum Talent {
 		//tier 1
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, HEARTY_MEAL, VETERANS_INTUITION, PROVOKED_ANGER, IRON_WILL);
+				Collections.addAll(tierTalents, HEARTY_MEAL, VETERANS_INTUITION, PROVOKED_ANGER, MEAL_WILL);
 				break;
 			case MAGE:
 				Collections.addAll(tierTalents, EMPOWERING_MEAL, SCHOLARS_INTUITION, LINGERING_MAGIC, BACKUP_BARRIER);
@@ -863,7 +895,7 @@ public enum Talent {
 		//tier 2
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, IRON_STOMACH, LIQUID_WILLPOWER, RUNIC_TRANSFERENCE, LETHAL_MOMENTUM, IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents, IRON_STOMACH, BLOODY_WILLPOWER, RUNIC_TRANSFERENCE, LETHAL_MOMENTUM, IMPROVISED_PROJECTILES);
 				break;
 			case MAGE:
 				Collections.addAll(tierTalents, ENERGIZING_MEAL, INSCRIBED_POWER, WAND_PRESERVATION, ARCANE_VISION, SHIELD_BATTERY);
@@ -935,7 +967,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, ENDLESS_RAGE, DEATHLESS_FURY, ENRAGED_CATALYST);
 				break;
 			case GLADIATOR:
-				Collections.addAll(tierTalents, CLEAVE, LETHAL_DEFENSE, ENHANCED_COMBO);
+				Collections.addAll(tierTalents, CLEAVE, HIGH_FREQUENCY, ENHANCED_COMBO);
 				break;
 			case BATTLEMAGE:
 				Collections.addAll(tierTalents, EMPOWERED_STRIKE, MYSTICAL_CHARGE, EXCESS_CHARGE);
@@ -997,7 +1029,7 @@ public enum Talent {
 					tierBundle.put(talent.name(), tier.get(talent));
 				}
 				if (tierBundle.contains(talent.name())){
-					tier.put(talent, Math.min(tierBundle.getInt(talent.name()), talent.maxPoints()));
+					tier.put(talent, min(tierBundle.getInt(talent.name()), talent.maxPoints()));
 				}
 			}
 			bundle.put(TALENT_TIER+(i+1), tierBundle);
@@ -1021,6 +1053,10 @@ public enum Talent {
 
 	private static final HashMap<String, String> renamedTalents = new HashMap<>();
 	static{
+		//v2.5.0based-indev
+		renamedTalents.put("IRON_WILL",					"MEAL_WILL");
+		renamedTalents.put("LIQUID_WILLPOWER",			"BLOODY_WILLPOWER");
+		renamedTalents.put("LETHAL_DEFENSE", 			"HIGH_FREQUENCY");
 		//v2.4.0
 		renamedTalents.put("SECONDARY_CHARGE",          "VARIED_CHARGE");
 
@@ -1071,7 +1107,7 @@ public enum Talent {
 						try {
 							Talent talent = Talent.valueOf(tName);
 							if (tier.containsKey(talent)) {
-								tier.put(talent, Math.min(points, talent.maxPoints()));
+								tier.put(talent, min(points, talent.maxPoints()));
 							}
 						} catch (Exception e) {
 							ShatteredPixelDungeon.reportException(e);

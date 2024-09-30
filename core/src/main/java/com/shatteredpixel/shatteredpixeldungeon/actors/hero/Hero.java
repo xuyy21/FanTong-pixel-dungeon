@@ -468,7 +468,7 @@ public class Hero extends Char {
 			Buff.affect( this, Combo.class ).hit( enemy );
 		}
 
-		if (hit && heroClass == HeroClass.DUELIST && wasEnemy){
+		if (hit && wasEnemy){
 			Buff.affect( this, Sai.ComboStrikeTracker.class).addHit();
 		}
 
@@ -524,6 +524,9 @@ public class Hero extends Char {
 						buff.detach();
 					}
 				}
+			}
+			if (hasTalent(Talent.HIGH_FREQUENCY)) {
+				accuracy *= 1f + pointsInTalent(Talent.HIGH_FREQUENCY) * 0.2f;
 			}
 		}
 
@@ -666,6 +669,10 @@ public class Hero extends Char {
 			dmg = Math.round(dmg * 1.025f + (.025f*pointsInTalent(Talent.WEAPON_RECHARGING)));
 		}
 
+		if (!(wep instanceof MissileWeapon)) {
+			if (hasTalent(Talent.HIGH_FREQUENCY)) dmg = Math.round(dmg / (1f + pointsInTalent(Talent.HIGH_FREQUENCY) / 3f));
+		}
+
 		if (dmg < 0) dmg = 0;
 		return dmg;
 	}
@@ -740,12 +747,20 @@ public class Hero extends Char {
 	}
 	
 	public float attackDelay() {
+		KindOfWeapon wep = belongings.attackingWeapon();
+
 		if (buff(Talent.LethalMomentumTracker.class) != null){
 			buff(Talent.LethalMomentumTracker.class).detach();
 			return 0;
 		}
 
 		float delay = 1f;
+
+		if (!(wep instanceof MissileWeapon)) {
+			if (hasTalent(Talent.HIGH_FREQUENCY)) {
+				delay /= 1f + pointsInTalent(Talent.HIGH_FREQUENCY) / 3f;
+			}
+		}
 
 		if (!RingOfForce.fightingUnarmed(this)) {
 			
@@ -1383,6 +1398,10 @@ public class Hero extends Char {
 
 			}
 			sprite.attack( enemy.pos );
+
+			if (hasTalent(Talent.HOLD_FAST) && (pointsInTalent(Talent.HOLD_FAST) >= 2)){
+				Buff.affect(this, HoldFast.class).pos = pos;
+			}
 
 			return false;
 
@@ -2225,7 +2244,7 @@ public class Hero extends Char {
 			Buff.affect( this, Combo.class ).hit( enemy );
 		}
 
-		if (hit && heroClass == HeroClass.DUELIST && wasEnemy){
+		if (hit && wasEnemy){
 			Buff.affect( this, Sai.ComboStrikeTracker.class).addHit();
 		}
 

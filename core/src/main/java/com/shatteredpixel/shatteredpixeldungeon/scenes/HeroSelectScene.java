@@ -772,6 +772,30 @@ public class HeroSelectScene extends PixelScene {
 			add(challengeButton);
 			buttons.add(challengeButton);
 
+			StyledButton testingButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "testing"), 6){
+				@Override
+				protected void onClick() {
+					super.onClick();
+
+					if (!DeviceCompat.isDebug()){
+						ShatteredPixelDungeon.scene().addToFront( new WndTitledMessage(
+								Icons.get(Icons.CALENDAR),
+								Messages.get(HeroSelectScene.class, "testing"),
+								Messages.get(HeroSelectScene.class, "testing_disable"))
+						);
+						return;
+					}
+
+					SPDSettings.testing(!SPDSettings.testing());
+					icon(Icons.get(SPDSettings.testing() ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
+					updateOptionsColor();
+				}
+			};
+			testingButton.leftJustify = true;
+			testingButton.icon(Icons.get(SPDSettings.testing() ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
+			add(testingButton);
+			buttons.add(testingButton);
+
 			for (int i = 1; i < buttons.size(); i++){
 				ColorBlock spc = new ColorBlock(1, 1, 0xFF000000);
 				add(spc);

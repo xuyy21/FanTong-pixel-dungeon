@@ -288,7 +288,7 @@ public class Dungeon {
 		
 		Badges.reset();
 		
-		GamesInProgress.selectedClass.initHero( hero );
+		GamesInProgress.selectedClass.initHero( hero, SPDSettings.testing() );
 	}
 
 	public static boolean isChallenged( int mask ) {

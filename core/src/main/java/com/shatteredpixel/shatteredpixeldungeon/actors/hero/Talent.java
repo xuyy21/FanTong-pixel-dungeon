@@ -969,6 +969,9 @@ public enum Talent {
 			case GLADIATOR:
 				Collections.addAll(tierTalents, CLEAVE, HIGH_FREQUENCY, ENHANCED_COMBO);
 				break;
+			case CHIEF:
+				Collections.addAll(tierTalents, ENDLESS_RAGE, HIGH_FREQUENCY, ENHANCED_COMBO);// TODO
+				break;
 			case BATTLEMAGE:
 				Collections.addAll(tierTalents, EMPOWERED_STRIKE, MYSTICAL_CHARGE, EXCESS_CHARGE);
 				break;

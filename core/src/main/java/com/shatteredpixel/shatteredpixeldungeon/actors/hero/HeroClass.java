@@ -90,6 +90,20 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSp
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.BlandfruitBush;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Fadeleaf;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Mageroyal;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Rotberry;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.watabou.utils.DeviceCompat;
 
 public enum HeroClass {
@@ -189,6 +203,21 @@ public enum HeroClass {
 			new WornShortsword().collect();
 			new Dagger().upgrade().collect();
 			new ClothArmor().upgrade().collect();
+		}
+		if (Testing) {
+			new Sungrass.Seed().quantity(100).collect();
+			new Swiftthistle.Seed().quantity(100).collect();
+			new Earthroot.Seed().quantity(100).collect();
+			new Fadeleaf.Seed().quantity(100).collect();
+			new Blindweed.Seed().quantity(100).collect();
+			new Firebloom.Seed().quantity(100).collect();
+			new Sorrowmoss.Seed().quantity(100).collect();
+			new Stormvine.Seed().quantity(100).collect();
+			new BlandfruitBush.Seed().quantity(100).collect();
+			new Icecap.Seed().quantity(100).collect();
+			new Mageroyal.Seed().quantity(100).collect();
+			new Rotberry.Seed().quantity(100).collect();
+			new Starflower.Seed().quantity(100).collect();
 		}
 
 		switch (this) {

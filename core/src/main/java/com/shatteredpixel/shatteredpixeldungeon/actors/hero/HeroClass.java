@@ -271,9 +271,12 @@ public enum HeroClass {
 
 	private static void initWarrior( Hero hero ) {
 		(hero.belongings.weapon = new WornShortsword()).identify();
+		hero.belongings.weapon.activate(hero);
 		ThrowingStone stones = new ThrowingStone();
 		stones.quantity(3).collect();
-		Dungeon.quickslot.setSlot(0, stones);
+
+		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
+		Dungeon.quickslot.setSlot(1, stones);
 
 		if (hero.belongings.armor != null){
 			hero.belongings.armor.affixSeal(new BrokenSeal());
@@ -301,6 +304,7 @@ public enum HeroClass {
 
 	private static void initRogue( Hero hero ) {
 		(hero.belongings.weapon = new Dagger()).identify();
+		hero.belongings.weapon.activate(hero);
 
 		CloakOfShadows cloak = new CloakOfShadows();
 		(hero.belongings.artifact = cloak).identify();
@@ -310,7 +314,8 @@ public enum HeroClass {
 		knives.quantity(3).collect();
 
 		Dungeon.quickslot.setSlot(0, cloak);
-		Dungeon.quickslot.setSlot(1, knives);
+		Dungeon.quickslot.setSlot(1, hero.belongings.weapon);
+		Dungeon.quickslot.setSlot(2, knives);
 
 		new ScrollOfMagicMapping().identify();
 		new PotionOfInvisibility().identify();
@@ -319,10 +324,12 @@ public enum HeroClass {
 	private static void initHuntress( Hero hero ) {
 
 		(hero.belongings.weapon = new Gloves()).identify();
+		hero.belongings.weapon.activate(hero);
 		SpiritBow bow = new SpiritBow();
 		bow.identify().collect();
 
 		Dungeon.quickslot.setSlot(0, bow);
+		Dungeon.quickslot.setSlot(1, hero.belongings.weapon);
 
 		new PotionOfMindVision().identify();
 		new ScrollOfLullaby().identify();

@@ -79,6 +79,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
@@ -203,6 +204,7 @@ public enum HeroClass {
 			new WornShortsword().collect();
 			new Dagger().upgrade().collect();
 			new ClothArmor().upgrade().collect();
+			new WandOfTransfusion().upgrade(10).collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

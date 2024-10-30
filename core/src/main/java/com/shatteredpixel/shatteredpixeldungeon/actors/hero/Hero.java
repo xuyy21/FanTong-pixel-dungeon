@@ -526,7 +526,7 @@ public class Hero extends Char {
 				}
 			}
 			if (hasTalent(Talent.HIGH_FREQUENCY)) {
-				accuracy *= 1f + pointsInTalent(Talent.HIGH_FREQUENCY) * 0.2f;
+				accuracy *= 1f + pointsInTalent(Talent.HIGH_FREQUENCY) * 0.1f;
 			}
 		}
 

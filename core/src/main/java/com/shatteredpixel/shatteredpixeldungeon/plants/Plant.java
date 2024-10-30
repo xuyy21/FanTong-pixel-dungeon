@@ -198,7 +198,7 @@ public abstract class Plant implements Bundlable {
 				Sample.INSTANCE.play(Assets.Sounds.PLANT);
 				Sample.INSTANCE.playDelayed(Assets.Sounds.TRAMPLE, 0.25f, 1, Random.Float( 0.96f, 1.05f ) );
 				hero.spend( TIME_TO_PLANT );
-				hero.buff(Hunger.class).affectHunger((Dungeon.isChallenged(Challenges.NO_HERBALISM) ? -150 : -90));
+				hero.buff(Hunger.class).affectHunger((Dungeon.isChallenged(Challenges.NO_HERBALISM) ? -Hunger.STARVING/3 : -Hunger.STARVING/5));
 
 				detach( hero.belongings.backpack );
 

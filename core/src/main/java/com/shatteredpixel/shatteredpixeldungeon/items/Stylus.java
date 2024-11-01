@@ -115,6 +115,11 @@ public class Stylus extends Item {
 		return 30 * quantity;
 	}
 
+	@Override
+	public int energyVal() {
+		return 3 * quantity;
+	}
+
 	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 
 		@Override

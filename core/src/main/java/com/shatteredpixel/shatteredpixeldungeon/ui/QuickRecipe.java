@@ -311,10 +311,10 @@ public class QuickRecipe extends Component {
 								return "";
 							}
 						}));
-				result.add(null);
-				result.add(new QuickRecipe( new GooStylus.Recipe(),
-						new ArrayList<Item>(Arrays.asList(new Stylus(), new GooBlob())),
-						new GooStylus().quantity(2)));
+//				result.add(null);
+//				result.add(new QuickRecipe( new GooStylus.Recipe(),
+//						new ArrayList<Item>(Arrays.asList(new Stylus(), new GooBlob())),
+//						new GooStylus().quantity(2)));
 				return result;
 			case 3:
 				r = new ExoticPotion.PotionToExotic();
@@ -396,6 +396,9 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new ReclaimTrap.Recipe()));
 				result.add(new QuickRecipe(new SummonElemental.Recipe()));
 				result.add(new QuickRecipe(new BeaconOfReturning.Recipe()));
+				result.add(new QuickRecipe( new GooStylus.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new Stylus(), new GooBlob())),
+						new GooStylus().quantity(2)));
 				return result;
 		}
 	}

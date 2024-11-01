@@ -90,6 +90,11 @@ public class ArcaneResin extends Item {
 		return 30*quantity();
 	}
 
+	@Override
+	public int energyVal() {
+		return 5*quantity();
+	}
+
 	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 
 		@Override

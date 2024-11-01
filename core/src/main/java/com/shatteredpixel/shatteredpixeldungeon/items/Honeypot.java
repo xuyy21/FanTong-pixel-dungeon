@@ -253,5 +253,10 @@ public class Honeypot extends Item {
 		public int value() {
 			return 5 * quantity;
 		}
+
+		@Override
+		public int energyVal() {
+			return 2 * quantity;
+		}
 	}
 }

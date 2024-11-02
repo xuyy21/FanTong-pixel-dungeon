@@ -376,7 +376,7 @@ public class Ghost extends NPC {
 				}
 
 				potion = (Potion) Generator.random(Generator.Category.POTION);
-				potion_quantity = Random.chances(new float[]{0, 0, 10, 8, 2});
+				potion_quantity = Random.chances(new float[]{0, 0, 7, 3});
 
 			}
 		}

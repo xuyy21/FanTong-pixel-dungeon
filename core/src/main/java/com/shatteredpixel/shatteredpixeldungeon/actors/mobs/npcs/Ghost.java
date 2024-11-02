@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FetidRat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollTrickster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GreatCrab;
@@ -37,6 +38,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -226,8 +229,10 @@ public class Ghost extends NPC {
 		
 		public static Weapon weapon;
 		public static Armor armor;
+		public static Potion potion;
 		public static Weapon.Enchantment enchant;
 		public static Armor.Glyph glyph;
+		public static int potion_quantity;
 		
 		public static void reset() {
 			spawned = false;
@@ -236,6 +241,7 @@ public class Ghost extends NPC {
 			armor = null;
 			enchant = null;
 			glyph = null;
+			potion_quantity = 0;
 		}
 		
 		private static final String NODE		= "sadGhost";
@@ -247,8 +253,10 @@ public class Ghost extends NPC {
 		private static final String DEPTH		= "depth";
 		private static final String WEAPON		= "weapon";
 		private static final String ARMOR		= "armor";
+		private static final String POTION		= "potion";
 		private static final String ENCHANT		= "enchant";
 		private static final String GLYPH		= "glyph";
+		private static final String QUANTITY		= "potion_quantity";
 		
 		public static void storeInBundle( Bundle bundle ) {
 			
@@ -266,11 +274,14 @@ public class Ghost extends NPC {
 				
 				node.put( WEAPON, weapon );
 				node.put( ARMOR, armor );
+				node.put( POTION, potion );
 
 				if (enchant != null) {
 					node.put(ENCHANT, enchant);
 					node.put(GLYPH, glyph);
 				}
+
+				node.put(QUANTITY, potion_quantity);
 			}
 			
 			bundle.put( NODE, node );
@@ -290,11 +301,14 @@ public class Ghost extends NPC {
 				
 				weapon	= (Weapon)node.get( WEAPON );
 				armor	= (Armor)node.get( ARMOR );
+				potion	= (Potion)node.get( POTION );
 
 				if (node.contains(ENCHANT)) {
 					enchant = (Weapon.Enchantment) node.get(ENCHANT);
 					glyph   = (Armor.Glyph) node.get(GLYPH);
 				}
+
+				potion_quantity = node.getInt( QUANTITY );
 			} else {
 				reset();
 			}
@@ -361,6 +375,9 @@ public class Ghost extends NPC {
 					glyph = null;
 				}
 
+				potion = (Potion) Generator.random(Generator.Category.POTION);
+				potion_quantity = Random.chances(new float[]{0, 0, 10, 8, 2});
+
 			}
 		}
 		
@@ -394,6 +411,7 @@ public class Ghost extends NPC {
 		public static void complete() {
 			weapon = null;
 			armor = null;
+			potion = null;
 			
 			Notes.remove( Notes.Landmark.GHOST );
 		}
@@ -403,7 +421,7 @@ public class Ghost extends NPC {
 		}
 		
 		public static boolean completed(){
-			return processed() && weapon == null && armor == null;
+			return processed() && weapon == null && armor == null && potion == null;
 		}
 	}
 }

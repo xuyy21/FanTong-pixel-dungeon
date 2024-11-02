@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -88,7 +89,7 @@ public class WndSadGhost extends Window {
 			}
 		};
 		btnWeapon.item( Ghost.Quest.weapon );
-		btnWeapon.setRect( (WIDTH - BTN_GAP) / 2 - BTN_SIZE, message.top() + message.height() + BTN_GAP, BTN_SIZE, BTN_SIZE );
+		btnWeapon.setRect( (WIDTH - BTN_GAP) / 3 - BTN_SIZE, message.top() + message.height() + BTN_GAP, BTN_SIZE, BTN_SIZE );
 		add( btnWeapon );
 
 		ItemButton btnArmor = new ItemButton(){
@@ -100,6 +101,16 @@ public class WndSadGhost extends Window {
 		btnArmor.item( Ghost.Quest.armor );
 		btnArmor.setRect( btnWeapon.right() + BTN_GAP, btnWeapon.top(), BTN_SIZE, BTN_SIZE );
 		add(btnArmor);
+
+		ItemButton btnPotion = new ItemButton(){
+			@Override
+			protected void onClick() {
+				GameScene.show(new RewardWindow(item()));
+			}
+		};
+		btnPotion.item( Ghost.Quest.potion );
+		btnPotion.setRect( btnArmor.right() + BTN_GAP, btnWeapon.top(), BTN_SIZE, BTN_SIZE );
+		add( btnPotion );
 
 		resize(WIDTH, (int) btnArmor.bottom() + BTN_GAP);
 	}
@@ -114,6 +125,8 @@ public class WndSadGhost extends Window {
 			((Weapon) reward).enchant(Ghost.Quest.enchant);
 		} else if (reward instanceof Armor && Ghost.Quest.glyph != null){
 			((Armor) reward).inscribe(Ghost.Quest.glyph);
+		} else if (reward instanceof Potion && Ghost.Quest.potion_quantity > 0){
+			((Potion) reward).quantity(Ghost.Quest.potion_quantity);
 		}
 		
 		reward.identify(false);

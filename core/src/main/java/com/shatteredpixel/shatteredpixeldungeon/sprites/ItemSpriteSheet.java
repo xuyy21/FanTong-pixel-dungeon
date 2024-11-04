@@ -710,6 +710,18 @@ public class ItemSpriteSheet {
 		assignItemRect(SUPPLY_RATION,   16, 12);
 	}
 
+	private static  final int COOKED_FOOD	=								xy(1, 34);
+	public static final int Honey_MEAT		= COOKED_FOOD+1;
+	public static final int GOLDEN_PUDDING	= COOKED_FOOD+2;
+	public static final int JUICE			= COOKED_FOOD+3;
+	public static final int TEMPURA			= COOKED_FOOD+4;
+	static{
+		assignItemRect(Honey_MEAT,    	15, 11);
+		assignItemRect(GOLDEN_PUDDING, 	11, 9);
+		assignItemRect(JUICE,          	8, 12);
+		assignItemRect(TEMPURA,      	15, 11);
+	}
+
 	private static final int HOLIDAY_FOOD   =                               xy(1, 29);  //16 slots
 	public static final int STEAMED_FISH    = HOLIDAY_FOOD+0;
 	public static final int FISH_LEFTOVER   = HOLIDAY_FOOD+1;

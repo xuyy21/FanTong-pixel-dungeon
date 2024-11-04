@@ -24,8 +24,14 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -193,7 +199,10 @@ public abstract class Recipe {
 		new SummonElemental.Recipe(),
 		new StewedMeat.oneMeat(),
 		new TrinketCatalyst.Recipe(),
-		new Trinket.UpgradeTrinket()
+		new Trinket.UpgradeTrinket(),
+		new SmallRation.Recipe(),
+		new Juice.Recipe(),
+		new Tempura.Recipe()
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{
@@ -210,7 +219,10 @@ public abstract class Recipe {
 		new ReclaimTrap.Recipe(),
 		new WildEnergy.Recipe(),
 		new StewedMeat.twoMeat(),
-		new GooStylus.Recipe()
+		new GooStylus.Recipe(),
+		new Pasty.Recipe(),
+		new GoldenPudding.Recipe(),
+		new HoneyMeat.Recipe()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

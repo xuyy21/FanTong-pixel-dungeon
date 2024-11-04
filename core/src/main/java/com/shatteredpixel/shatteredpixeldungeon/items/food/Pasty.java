@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.ROGUE;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -31,8 +34,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -41,6 +47,8 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.watabou.noosa.audio.Sample;
+
+import java.util.ArrayList;
 
 public class Pasty extends Food {
 
@@ -238,6 +246,51 @@ public class Pasty extends Food {
 		@Override
 		public int value() {
 			return 10 * quantity;
+		}
+	}
+
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
+
+		@Override
+		public boolean testIngredients(ArrayList<Item> ingredients) {
+			boolean meat = false;
+			boolean food = false;
+
+			for (Item ingredient : ingredients){
+				if (ingredient.quantity() > 0) {
+					if (ingredient.isSimilar(new Food())) {
+						food = true;
+					} else if (ingredient instanceof MysteryMeat
+							|| ingredient instanceof StewedMeat
+							|| ingredient instanceof ChargrilledMeat
+							|| ingredient instanceof FrozenCarpaccio) {
+						meat = true;
+					}
+				}
+			}
+
+			return food && meat && (Dungeon.hero.heroClass==WARRIOR || Dungeon.hero.subClass== HeroSubClass.CHIEF);
+		}
+
+		@Override
+		public int cost(ArrayList<Item> ingredients) {
+			return 0;
+		}
+
+		@Override
+		public Item brew(ArrayList<Item> ingredients) {
+			if (!testIngredients(ingredients)) return null;
+
+			for (Item ingredient : ingredients){
+				ingredient.quantity(ingredient.quantity() - 1);
+			}
+
+			return sampleOutput(null);
+		}
+
+		@Override
+		public Item sampleOutput(ArrayList<Item> ingredients) {
+			return new Pasty();
 		}
 	}
 }

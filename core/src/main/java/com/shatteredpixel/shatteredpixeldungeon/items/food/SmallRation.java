@@ -21,8 +21,16 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.HUNTRESS;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
+
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class SmallRation extends Food {
 
@@ -34,5 +42,44 @@ public class SmallRation extends Food {
 	@Override
 	public int value() {
 		return 10 * quantity;
+	}
+
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
+
+		@Override
+		public boolean testIngredients(ArrayList<Item> ingredients) {
+			boolean food = false;
+
+			for (Item ingredient : ingredients){
+				if (ingredient.quantity() > 0) {
+					if (ingredient.isSimilar(new Food())) {
+						food = true;
+					}
+				}
+			}
+
+			return food && (Dungeon.hero.heroClass==WARRIOR || Dungeon.hero.subClass== HeroSubClass.CHIEF);
+		}
+
+		@Override
+		public int cost(ArrayList<Item> ingredients) {
+			return 0;
+		}
+
+		@Override
+		public Item brew(ArrayList<Item> ingredients) {
+			if (!testIngredients(ingredients)) return null;
+
+			for (Item ingredient : ingredients){
+				ingredient.quantity(ingredient.quantity() - 1);
+			}
+
+			return sampleOutput(null);
+		}
+
+		@Override
+		public Item sampleOutput(ArrayList<Item> ingredients) {
+			return new SmallRation().quantity(2);
+		}
 	}
 }

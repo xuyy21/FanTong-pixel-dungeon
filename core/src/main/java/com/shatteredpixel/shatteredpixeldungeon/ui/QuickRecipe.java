@@ -21,11 +21,19 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.DUELIST;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.HUNTRESS;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.MAGE;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.ROGUE;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.GooStylus;
+import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
@@ -33,10 +41,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -311,10 +324,28 @@ public class QuickRecipe extends Component {
 								return "";
 							}
 						}));
-//				result.add(null);
-//				result.add(new QuickRecipe( new GooStylus.Recipe(),
-//						new ArrayList<Item>(Arrays.asList(new Stylus(), new GooBlob())),
-//						new GooStylus().quantity(2)));
+				result.add(null);
+				result.add(null);
+				if (Dungeon.hero.heroClass==WARRIOR || Dungeon.hero.subClass== HeroSubClass.CHIEF) {
+					result.add(new QuickRecipe(new SmallRation.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new Food())),
+							new SmallRation().quantity(2)));
+					result.add(new QuickRecipe(new Pasty.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Food())),
+							new Pasty()));
+				}
+				if (Dungeon.hero.heroClass==ROGUE || Dungeon.hero.subClass== HeroSubClass.CHIEF)
+					result.add(new QuickRecipe(new HoneyMeat.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.ShatteredPot())),
+							new HoneyMeat()));
+				if (Dungeon.hero.heroClass==MAGE || Dungeon.hero.subClass== HeroSubClass.CHIEF)
+					result.add(new QuickRecipe(new GoldenPudding.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new Potion.PlaceHolder(), new Honeypot.ShatteredPot())),
+							new GoldenPudding()));
+				if (Dungeon.hero.heroClass==HUNTRESS || Dungeon.hero.subClass== HeroSubClass.CHIEF)
+					result.add(new QuickRecipe(new Juice.Recipe()));
+				if (Dungeon.hero.heroClass==DUELIST || Dungeon.hero.subClass== HeroSubClass.CHIEF)
+					result.add(new QuickRecipe(new Tempura.Recipe()));
 				return result;
 			case 3:
 				r = new ExoticPotion.PotionToExotic();

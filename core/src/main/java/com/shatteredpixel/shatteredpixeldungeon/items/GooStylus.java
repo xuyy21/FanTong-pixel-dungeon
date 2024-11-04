@@ -25,20 +25,13 @@ public class GooStylus extends Item{
     private static final String AC_INSCRIBE = "INSCRIBE";
 
     {
-        image = ItemSpriteSheet.STYLUS;
+        image = ItemSpriteSheet.GOO_STYLUS;
 
         stackable = true;
 
         defaultAction = AC_INSCRIBE;
 
         bones = true;
-    }
-
-    private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x440066 );
-
-    @Override
-    public ItemSprite.Glowing glowing() {
-        return BLACK;
     }
 
     @Override

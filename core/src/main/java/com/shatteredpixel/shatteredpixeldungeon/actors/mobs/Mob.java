@@ -837,6 +837,8 @@ public abstract class Mob extends Char {
 		if (alignment == Alignment.ENEMY){
 			rollToDropLoot();
 
+			rollToDropFood();
+
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
 				if (Dungeon.hero.hasTalent(Talent.LETHAL_MOMENTUM)
 						&& Random.Float() < 0.34f + 0.33f* Dungeon.hero.pointsInTalent(Talent.LETHAL_MOMENTUM)){
@@ -910,6 +912,14 @@ public abstract class Mob extends Char {
 
 		return lootChance * dropBonus;
 	}
+
+	public float foodChance(){
+		float foodChance = this.foodChance;
+
+		foodChance *= (Dungeon.hero.subClass == HeroSubClass.CHIEF)? 1 : 0;
+
+		return foodChance;
+	}
 	
 	public void rollToDropLoot(){
 		if (Dungeon.hero.lvl > maxLvl + 2) return;
@@ -949,9 +959,22 @@ public abstract class Mob extends Char {
 		}
 
 	}
+
+	public void rollToDropFood(){
+		if (Dungeon.hero.lvl > maxLvl) return;
+
+		if (Random.Float() < foodChance()) {
+			Item food = createFood();
+			if (food != null) {
+				Dungeon.level.drop(food, pos).sprite.drop();
+			}
+		}
+	}
 	
 	protected Object loot = null;
 	protected float lootChance = 0;
+	protected Object food = null;
+	protected float foodChance = 0;
 	
 	@SuppressWarnings("unchecked")
 	public Item createLoot() {
@@ -980,6 +1003,10 @@ public abstract class Mob extends Char {
 
 		}
 		return item;
+	}
+
+	public Item createFood() {
+		return (Item) food;
 	}
 
 	//how many mobs this one should count as when determining spawning totals

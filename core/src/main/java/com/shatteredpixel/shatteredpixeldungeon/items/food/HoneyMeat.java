@@ -36,7 +36,7 @@ public class HoneyMeat extends Food {
     }
 
     public static void effect(Hero hero) {
-        GLog.w( Messages.get(HoneyMeat.class, "effect") );
+        GLog.p( Messages.get(HoneyMeat.class, "effect") );
         Buff.prolong( hero, Haste.class, 8f);
     }
 

@@ -83,10 +83,10 @@ public class Food extends Item {
 			hero.busy();
 			SpellSprite.show( hero, SpellSprite.FOOD );
 			eatSFX();
-			
-			hero.spend( eatingTime() );
 
-			Talent.onFoodEaten(hero, energy, this);
+			hero.spend( eatingTime() * (Dungeon.hero.pointsInTalent(Talent.SLOW_EATING)+3f) / 3f );
+
+			Talent.onFoodEaten(hero, energy * (Dungeon.hero.pointsInTalent(Talent.SLOW_EATING)+6f) / 6f, this);
 			
 			Statistics.foodEaten++;
 			Badges.validateFoodEaten();
@@ -121,6 +121,8 @@ public class Food extends Item {
 			foodVal *= 0.67f;
 			GLog.n( Messages.get(Hunger.class, "cursedhorn") );
 		}
+
+		foodVal *= (Dungeon.hero.pointsInTalent(Talent.SLOW_EATING)+6f) / 6f;
 
 		Buff.affect(hero, Hunger.class).satisfy(foodVal);
 	}

@@ -100,6 +100,8 @@ public enum Talent {
 	ENDLESS_RAGE(11, 3), DEATHLESS_FURY(12, 3), ENRAGED_CATALYST(13, 3),
 	//Gladiator T3
 	CLEAVE(14, 3), HIGH_FREQUENCY(15, 3), ENHANCED_COMBO(16, 3),
+	//Chief T3
+	SLOW_EATING(11, 3), MEAL_ENERGY(12, 3), MORE_RECIPE(13, 3),
 	//Heroic Leap T4
 	BODY_SLAM(17, 4), IMPACT_WAVE(18, 4), DOUBLE_JUMP(19, 4),
 	//Shockwave T4
@@ -538,17 +540,17 @@ public enum Talent {
 			Buff.affect( hero, WandEmpower.class).set(1 + hero.pointsInTalent(EMPOWERING_MEAL), 3);
 			ScrollOfRecharging.charge( hero );
 		}
-		if (hero.hasTalent(ENERGIZING_MEAL)){
+		if (hero.hasTalent(ENERGIZING_MEAL) || hero.pointsInTalent(MEAL_ENERGY)>=1){
 			//5/8 turns of recharging
-			Buff.prolong( hero, Recharging.class, 2 + 3*(hero.pointsInTalent(ENERGIZING_MEAL)) );
+			Buff.prolong( hero, Recharging.class, 2 + 3*(hero.pointsInTalent(ENERGIZING_MEAL)) + (hero.pointsInTalent(MEAL_ENERGY)>=1?3:0) );
 			ScrollOfRecharging.charge( hero );
 			SpellSprite.show(hero, SpellSprite.CHARGE);
 		}
-		if (hero.hasTalent(MYSTICAL_MEAL)){
+		if (hero.hasTalent(MYSTICAL_MEAL) || hero.pointsInTalent(MEAL_ENERGY)>=2){
 			//3/5 turns of recharging
 			ArtifactRecharge buff = Buff.affect( hero, ArtifactRecharge.class);
 			if (buff.left() < 1 + 2*(hero.pointsInTalent(MYSTICAL_MEAL))){
-				Buff.affect( hero, ArtifactRecharge.class).set(1 + 2*(hero.pointsInTalent(MYSTICAL_MEAL))).ignoreHornOfPlenty = foodSource instanceof HornOfPlenty;
+				Buff.affect( hero, ArtifactRecharge.class).set(1 + 2*(hero.pointsInTalent(MYSTICAL_MEAL)) + (hero.pointsInTalent(MEAL_ENERGY)>=2?2:0)).ignoreHornOfPlenty = foodSource instanceof HornOfPlenty;
 			}
 			ScrollOfRecharging.charge( hero );
 			SpellSprite.show(hero, SpellSprite.CHARGE, 0, 1, 1);
@@ -570,6 +572,10 @@ public enum Talent {
 				// lvl/3 / lvl/2 bonus dmg on next hit for other classes
 				Buff.affect( hero, PhysicalEmpower.class).set(Math.round(hero.lvl / (4f - hero.pointsInTalent(FOCUSED_MEAL))), 1);
 			}
+		}
+		if (hero.pointsInTalent(MEAL_ENERGY)>=3) {
+			Buff.affect( hero, MeleeWeapon.Charger.class ).gainCharge(2f/3f);
+			ScrollOfRecharging.charge( hero );
 		}
 		if (hero.hasTalent(HOLD_FAST) && (hero.pointsInTalent(HOLD_FAST) >= 2)){
 			Buff.affect(hero, HoldFast.class).pos = hero.pos;
@@ -970,7 +976,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, CLEAVE, HIGH_FREQUENCY, ENHANCED_COMBO);
 				break;
 			case CHIEF:
-				Collections.addAll(tierTalents, ENDLESS_RAGE, HIGH_FREQUENCY, ENHANCED_COMBO);// TODO
+				Collections.addAll(tierTalents, SLOW_EATING, MEAL_ENERGY, MORE_RECIPE);// TODO
 				break;
 			case BATTLEMAGE:
 				Collections.addAll(tierTalents, EMPOWERED_STRIKE, MYSTICAL_CHARGE, EXCESS_CHARGE);

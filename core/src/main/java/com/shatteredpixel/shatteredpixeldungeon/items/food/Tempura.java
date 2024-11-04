@@ -38,7 +38,7 @@ public class Tempura extends Food {
     }
 
     public static void effect(Hero hero) {
-        GLog.w( Messages.get(Tempura.class, "effect") );
+        GLog.p( Messages.get(Tempura.class, "effect") );
         Buff.affect( hero, MeleeWeapon.Charger.class ).gainCharge(1);
     }
 
@@ -48,7 +48,7 @@ public class Tempura extends Food {
             inputs =  new Class[]{MysteryMeat.class};
             inQuantity = new int[]{1};
 
-            cost = 5;
+            cost = 4;
 
             output = Tempura.class;
             outQuantity = 1;

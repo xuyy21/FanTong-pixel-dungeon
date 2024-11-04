@@ -51,7 +51,7 @@ public class Juice extends Food {
     }
 
     public static void effect(Hero hero) {
-        GLog.w( Messages.get(Juice.class, "effect") );
+        GLog.p( Messages.get(Juice.class, "effect") );
         Buff.affect(Dungeon.hero, Healing.class).setHeal(8, 0, 1);
     }
 

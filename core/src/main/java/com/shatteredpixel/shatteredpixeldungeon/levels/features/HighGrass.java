@@ -110,7 +110,18 @@ public class HighGrass {
 							level.drop(new Berry(), pos).sprite.drop();
 						}
 					}
+				}
 
+				if (ch instanceof Hero && ((Hero) ch).hasTalent(Talent.BERRY_HARVEST)) {
+					int berriesAvailable = 3 * Dungeon.depth;
+
+					Talent.NatureBerriesDropped dropped = Buff.affect(ch, Talent.NatureBerriesDropped.class);
+					berriesAvailable -= dropped.count();
+
+					if (berriesAvailable > 0 && Random.Float() < Dungeon.hero.pointsInTalent(Talent.BERRY_HARVEST)*0.01f) {
+						dropped.countUp(1);
+						level.drop(new Berry(), pos).sprite.drop();
+					}
 				}
 			}
 

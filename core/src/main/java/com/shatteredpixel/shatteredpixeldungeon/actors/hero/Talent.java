@@ -976,7 +976,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, CLEAVE, HIGH_FREQUENCY, ENHANCED_COMBO);
 				break;
 			case CHIEF:
-				Collections.addAll(tierTalents, SLOW_EATING, MEAL_ENERGY, MORE_RECIPE);// TODO
+				Collections.addAll(tierTalents, SLOW_EATING, MEAL_ENERGY, MORE_RECIPE);
 				break;
 			case BATTLEMAGE:
 				Collections.addAll(tierTalents, EMPOWERED_STRIKE, MYSTICAL_CHARGE, EXCESS_CHARGE);

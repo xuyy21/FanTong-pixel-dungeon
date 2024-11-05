@@ -714,6 +714,22 @@ public class ItemSpriteSheet {
 		assignItemRect(SUPPLY_RATION,   16, 12);
 	}
 
+	private static  final int RAW_FOOD		=								xy(1, 33);
+	public static final int RATTAIL			= RAW_FOOD+1;
+	public static final int CRABCLAW		= RAW_FOOD+2;
+	public static final int MYSTERYBONE		= RAW_FOOD+4;
+	public static final int BATBODY			= RAW_FOOD+7;
+	public static final int ELEMENTALCORE	= RAW_FOOD+10;
+	public static final int BIGEYE			= RAW_FOOD+13;
+	static{
+		assignItemRect(RATTAIL,			14, 11);
+		assignItemRect(CRABCLAW,		14, 13);
+		assignItemRect(MYSTERYBONE,		13, 13);
+		assignItemRect(BATBODY,			15, 14);
+		assignItemRect(ELEMENTALCORE,	13, 11);
+		assignItemRect(BIGEYE,			12, 12);
+	}
+
 	private static  final int COOKED_FOOD	=								xy(1, 34);
 	public static final int Honey_MEAT		= COOKED_FOOD+1;
 	public static final int GOLDEN_PUDDING	= COOKED_FOOD+2;

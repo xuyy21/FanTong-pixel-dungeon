@@ -37,7 +37,7 @@ public class GoldenPudding extends Food{
 
     public static void effect(Hero hero) {
         GLog.p( Messages.get(GoldenPudding.class, "effect") );
-        Buff.affect(curUser, Recharging.class, 20f);
+        Buff.affect(curUser, Recharging.class, 25f);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

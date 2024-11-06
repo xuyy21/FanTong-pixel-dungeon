@@ -258,7 +258,7 @@ public class Pasty extends Food {
 
 			for (Item ingredient : ingredients){
 				if (ingredient.quantity() > 0) {
-					if (ingredient.isSimilar(new Food())) {
+					if (ingredient.getClass() == Food.class) {
 						food = true;
 					} else if (ingredient instanceof MysteryMeat
 							|| ingredient instanceof StewedMeat

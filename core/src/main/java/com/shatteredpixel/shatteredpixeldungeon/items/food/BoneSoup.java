@@ -1,26 +1,22 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
-import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.ROGUE;
-
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
-import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 import java.util.ArrayList;
 
-public class HoneyMeat extends Food {
+public class BoneSoup extends Food{
 
     {
-        image = ItemSpriteSheet.Honey_MEAT;
+        image = ItemSpriteSheet.BONESOUP;
         energy = Hunger.HUNGRY/2f;
     }
 
@@ -32,12 +28,12 @@ public class HoneyMeat extends Food {
 
     @Override
     public int value() {
-        return 10 * quantity;
+        return 8 * quantity;
     }
 
-    public static void effect(Hero hero) {
-        GLog.i( Messages.get(HoneyMeat.class, "effect") );
-        Buff.prolong( hero, Haste.class, 8f);
+    public static void effect(Hero hero){
+        GLog.i( Messages.get(BoneSoup.class, "effect") );
+        Barkskin.conditionallyAppend( hero, 5 + hero.lvl, 1 );
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
@@ -45,12 +41,12 @@ public class HoneyMeat extends Food {
         @Override
         public boolean testIngredients(ArrayList<Item> ingredients) {
             boolean meat = false;
-            boolean honey = false;
+            boolean bone = false;
 
             for (Item ingredient : ingredients){
                 if (ingredient.quantity() > 0) {
-                    if (ingredient instanceof Honeypot.ShatteredPot) {
-                        honey = true;
+                    if (ingredient instanceof MysteryBone) {
+                        bone = true;
                     } else if (ingredient instanceof MysteryMeat
                             || ingredient instanceof StewedMeat
                             || ingredient instanceof ChargrilledMeat
@@ -60,12 +56,12 @@ public class HoneyMeat extends Food {
                 }
             }
 
-            return honey && meat && (Dungeon.hero.heroClass==ROGUE || Dungeon.hero.subClass==HeroSubClass.CHIEF);
+            return meat && bone && (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=2);
         }
 
         @Override
         public int cost(ArrayList<Item> ingredients) {
-            return 4;
+            return 5;
         }
 
         @Override
@@ -81,7 +77,7 @@ public class HoneyMeat extends Food {
 
         @Override
         public Item sampleOutput(ArrayList<Item> ingredients) {
-            return new HoneyMeat();
+            return new BoneSoup();
         }
     }
 }

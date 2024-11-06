@@ -1,27 +1,27 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
-import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.ROGUE;
-
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
-import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 import java.util.ArrayList;
 
-public class HoneyMeat extends Food {
+public class BBQ extends Food{
 
     {
-        image = ItemSpriteSheet.Honey_MEAT;
-        energy = Hunger.HUNGRY/2f;
+        image = ItemSpriteSheet.BBQ;
+        energy = Hunger.STARVING;
     }
 
     @Override
@@ -32,40 +32,44 @@ public class HoneyMeat extends Food {
 
     @Override
     public int value() {
-        return 10 * quantity;
+        return 35 * quantity;
     }
 
-    public static void effect(Hero hero) {
-        GLog.i( Messages.get(HoneyMeat.class, "effect") );
-        Buff.prolong( hero, Haste.class, 8f);
+    public static void effect(Hero hero){
+        Barkskin.conditionallyAppend( hero, hero.HT / 4, 1 );
+        Buff.affect( hero, Invisibility.class, Invisibility.DURATION );
+        hero.HP = Math.min( hero.HP + hero.HT / 4, hero.HT );
+        hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hero.HT / 4), FloatingText.HEALING );
+        PotionOfHealing.cure(hero);
+        GLog.i( Messages.get(BBQ.class, "effect") );
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
         @Override
         public boolean testIngredients(ArrayList<Item> ingredients) {
-            boolean meat = false;
-            boolean honey = false;
+            boolean salad = false;
+            boolean meat1 = false;
+            boolean meat2 = false;
 
             for (Item ingredient : ingredients){
                 if (ingredient.quantity() > 0) {
-                    if (ingredient instanceof Honeypot.ShatteredPot) {
-                        honey = true;
-                    } else if (ingredient instanceof MysteryMeat
-                            || ingredient instanceof StewedMeat
-                            || ingredient instanceof ChargrilledMeat
-                            || ingredient instanceof FrozenCarpaccio) {
-                        meat = true;
+                    if (ingredient instanceof Salad) {
+                        salad = true;
+                    } else if (ingredient instanceof ChargrilledMeat) {
+                        meat1 = true;
+                    } else if (ingredient instanceof FrozenCarpaccio) {
+                        meat2 = true;
                     }
                 }
             }
 
-            return honey && meat && (Dungeon.hero.heroClass==ROGUE || Dungeon.hero.subClass==HeroSubClass.CHIEF);
+            return salad && meat1 && meat2 && (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=2);
         }
 
         @Override
         public int cost(ArrayList<Item> ingredients) {
-            return 4;
+            return 5;
         }
 
         @Override
@@ -81,7 +85,7 @@ public class HoneyMeat extends Food {
 
         @Override
         public Item sampleOutput(ArrayList<Item> ingredients) {
-            return new HoneyMeat();
+            return new BBQ();
         }
     }
 }

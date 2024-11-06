@@ -30,26 +30,35 @@ import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WAR
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.GooStylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
+import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -346,6 +355,20 @@ public class QuickRecipe extends Component {
 					result.add(new QuickRecipe(new Juice.Recipe()));
 				if (Dungeon.hero.heroClass==DUELIST || Dungeon.hero.subClass== HeroSubClass.CHIEF)
 					result.add(new QuickRecipe(new Tempura.Recipe()));
+				if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=1) {
+					result.add(new QuickRecipe(new Salad.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new Berry(), new Plant.Seed.PlaceHolder(), new Plant.Seed.PlaceHolder())),
+							new Salad()));
+					result.add(new QuickRecipe(new ToastBat.Recipe()));
+				}
+				if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=2) {
+					result.add(new QuickRecipe(new BoneSoup.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new MysteryBone(), new MysteryMeat.PlaceHolder())),
+							new BoneSoup()));
+					result.add(new QuickRecipe(new BBQ.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new ChargrilledMeat(), new Salad(), new FrozenCarpaccio())),
+							new BBQ()));
+				}
 				return result;
 			case 3:
 				r = new ExoticPotion.PotionToExotic();

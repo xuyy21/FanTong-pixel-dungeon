@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.DUELIST;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.HUNTRESS;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -38,7 +39,7 @@ public class Tempura extends Food {
     }
 
     public static void effect(Hero hero) {
-        GLog.p( Messages.get(Tempura.class, "effect") );
+        GLog.i( Messages.get(Tempura.class, "effect") );
         Buff.affect( hero, MeleeWeapon.Charger.class ).gainCharge(1);
     }
 
@@ -52,6 +53,13 @@ public class Tempura extends Food {
 
             output = Tempura.class;
             outQuantity = 1;
+        }
+
+        @Override
+        public boolean testIngredients(ArrayList<Item> ingredients){
+            if (!(Dungeon.hero.heroClass==DUELIST || Dungeon.hero.subClass==HeroSubClass.CHIEF)) return false;
+
+            return super.testIngredients(ingredients);
         }
 
     }

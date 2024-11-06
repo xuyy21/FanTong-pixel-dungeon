@@ -10,33 +10,18 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.ShockingBrew;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Juice extends Food {
+public class ToastBat extends Food{
 
     {
-        image = ItemSpriteSheet.JUICE;
-        energy = Hunger.HUNGRY/3f;
-    }
-
-    @Override
-    protected float eatingTime(){
-        if (Dungeon.hero.hasTalent(Talent.IRON_STOMACH)
-                || Dungeon.hero.hasTalent(Talent.ENERGIZING_MEAL)
-                || Dungeon.hero.hasTalent(Talent.MYSTICAL_MEAL)
-                || Dungeon.hero.hasTalent(Talent.INVIGORATING_MEAL)
-                || Dungeon.hero.hasTalent(Talent.FOCUSED_MEAL)){
-            return 0;
-        } else {
-            return 1;
-        }
+        image = ItemSpriteSheet.TOASTBAT;
+        energy = Hunger.HUNGRY/2f;
     }
 
     @Override
@@ -51,25 +36,25 @@ public class Juice extends Food {
     }
 
     public static void effect(Hero hero) {
-        GLog.i( Messages.get(Juice.class, "effect") );
-        Buff.affect(hero, Healing.class).setHeal(8, 0, 1);
+        GLog.i( Messages.get(ToastBat.class, "effect") );
+        Buff.affect(hero, Healing.class).setHeal(Random.Int(10, 40), 0, 1);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 
         {
-            inputs =  new Class[]{Berry.class};
+            inputs =  new Class[]{BatBody.class};
             inQuantity = new int[]{1};
 
-            cost = 1;
+            cost = 3;
 
-            output = Juice.class;
+            output = ToastBat.class;
             outQuantity = 1;
         }
 
         @Override
         public boolean testIngredients(ArrayList<Item> ingredients){
-            if (!(Dungeon.hero.heroClass==HUNTRESS || Dungeon.hero.subClass==HeroSubClass.CHIEF)) return false;
+            if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)<1) return false;
 
             return super.testIngredients(ingredients);
         }

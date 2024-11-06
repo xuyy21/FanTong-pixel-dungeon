@@ -31,7 +31,7 @@ public class BigEye extends Food{
     }
 
     public static void effect(Hero hero) {
-        GLog.p( Messages.get(BigEye.class, "effect") );
+        GLog.i( Messages.get(BigEye.class, "effect") );
         Buff.affect( hero, MindVision.class, 3f );
     }
 }

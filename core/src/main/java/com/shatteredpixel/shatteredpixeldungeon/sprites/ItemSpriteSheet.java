@@ -735,11 +735,19 @@ public class ItemSpriteSheet {
 	public static final int GOLDEN_PUDDING	= COOKED_FOOD+2;
 	public static final int JUICE			= COOKED_FOOD+3;
 	public static final int TEMPURA			= COOKED_FOOD+4;
+	public static final int SALAD			= COOKED_FOOD+6;
+	public static final int BONESOUP		= COOKED_FOOD+7;
+	public static final int BBQ				= COOKED_FOOD+8;
+	public static final int TOASTBAT		= COOKED_FOOD+9;
 	static{
 		assignItemRect(Honey_MEAT,    	15, 11);
 		assignItemRect(GOLDEN_PUDDING, 	11, 9);
 		assignItemRect(JUICE,          	8, 12);
 		assignItemRect(TEMPURA,      	15, 11);
+		assignItemRect(SALAD,    		14, 10);
+		assignItemRect(BONESOUP, 		15, 13);
+		assignItemRect(BBQ,          	14, 14);
+		assignItemRect(TOASTBAT,      	15, 16);
 	}
 
 	private static final int HOLIDAY_FOOD   =                               xy(1, 29);  //16 slots

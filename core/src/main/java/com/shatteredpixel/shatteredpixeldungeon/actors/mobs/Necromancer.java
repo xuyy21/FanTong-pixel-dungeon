@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -59,6 +60,8 @@ public class Necromancer extends Mob {
 		
 		loot = new PotionOfHealing();
 		lootChance = 0.2f; //see lootChance()
+		food = new MysteryBone();
+		foodChance = 0.2f;
 		
 		properties.add(Property.UNDEAD);
 		

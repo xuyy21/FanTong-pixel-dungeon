@@ -916,7 +916,7 @@ public abstract class Mob extends Char {
 	public float foodChance(){
 		float foodChance = this.foodChance;
 
-		foodChance *= (Dungeon.hero.subClass == HeroSubClass.CHIEF)? 1 : 0;
+		foodChance *= (Dungeon.hero.subClass == HeroSubClass.CHIEF)? 1 : 0.01f;
 
 		return foodChance;
 	}

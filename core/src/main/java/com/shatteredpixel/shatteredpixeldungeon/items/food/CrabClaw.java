@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CrabClaw extends Food{
 
     {
-        image = ItemSpriteSheet.RATTAIL;
+        image = ItemSpriteSheet.CRABCLAW;
         energy = Hunger.HUNGRY/3f;
     }
 

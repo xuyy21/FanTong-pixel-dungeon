@@ -82,6 +82,6 @@ public class EnergyCrystal extends Item {
 	}
 
 	@Override
-	public int value() {return 5 * quantity;}
+	public int value() {return 4 * quantity;}
 
 }

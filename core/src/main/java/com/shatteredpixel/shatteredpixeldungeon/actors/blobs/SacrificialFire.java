@@ -80,7 +80,7 @@ public class SacrificialFire extends Blob {
 					volume += off[cell];
 
 					if (off[cell] > 0){
-						for (int k : PathFinder.NEIGHBOURS9){
+						for (int k : PathFinder.NEIGHBOURS25){
 							Char ch = Actor.findChar( cell+k );
 							if (ch != null){
 								if (Dungeon.level.heroFOV[cell+k] && ch.buff( Marked.class ) == null) {

@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
@@ -44,6 +45,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
@@ -276,6 +278,12 @@ public class ShopRoom extends SpecialRoom {
 
 		itemsToSpawn.add( new SmallRation() );
 		itemsToSpawn.add( new SmallRation() );
+
+		itemsToSpawn.add(new EnergyCrystal(5));
+		itemsToSpawn.add(new EnergyCrystal(5));
+
+		itemsToSpawn.add(new Berry());
+		itemsToSpawn.add(new Berry());
 		
 		switch (Random.Int(4)){
 			case 0:

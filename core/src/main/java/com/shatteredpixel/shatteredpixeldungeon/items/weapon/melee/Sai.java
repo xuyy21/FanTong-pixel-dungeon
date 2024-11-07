@@ -63,13 +63,13 @@ public class Sai extends MeleeWeapon {
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 		//+(3+0.67*lvl) damage, roughly +45% base damage, +45% scaling
-		int dmgBoost = augment.damageFactor(3 + Math.round(0.67f*buffedLvl()));
+		int dmgBoost = augment.damageFactor(3 + Math.round(0.67f*abilityLvl()));
 		Sai.comboStrikeAbility(hero, target, 0, dmgBoost, this);
 	}
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 3 + Math.round(0.67f*buffedLvl()) : 3;
+		int dmgBoost = levelKnown ? 3 + Math.round(0.67f*abilityLvl()) : 3;
 		if (levelKnown){
 			return Messages.get(this, "ability_desc", augment.damageFactor(dmgBoost));
 		} else {

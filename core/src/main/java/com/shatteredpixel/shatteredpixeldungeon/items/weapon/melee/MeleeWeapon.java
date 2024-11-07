@@ -40,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSkill;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -289,6 +290,13 @@ public class MeleeWeapon extends Weapon {
 		return super.buffedLvl();
 	}
 
+	public int abilityLvl() {
+		if (Dungeon.hero != null && isEquipped(Dungeon.hero)){
+			return buffedLvl() + RingOfSkill.weaponSkillBonus(Dungeon.hero);
+		}
+		else return buffedLvl();
+	}
+
 	@Override
 	public int damageRoll(Char owner) {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
@@ -431,6 +439,8 @@ public class MeleeWeapon extends Weapon {
 					if (Dungeon.hero.buff(RingOfForce.BrawlersStance.class) != null){
 						chargeToGain *= 0.50f;
 					}
+
+					chargeToGain *= RingOfSkill.weaponChargeMultiplier(target);
 
 					partialCharge += chargeToGain;
 				}

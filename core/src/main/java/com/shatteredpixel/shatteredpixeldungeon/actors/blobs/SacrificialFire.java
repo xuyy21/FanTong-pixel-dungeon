@@ -148,7 +148,7 @@ public class SacrificialFire extends Blob {
 	public void sacrifice( Char ch ) {
 
 		int firePos = -1;
-		for (int i : PathFinder.NEIGHBOURS9){
+		for (int i : PathFinder.NEIGHBOURS25){
 			if (volume > 0 && cur[ch.pos+i] > 0){
 				firePos = ch.pos+i;
 				break;
@@ -192,7 +192,7 @@ public class SacrificialFire extends Blob {
 					clear(firePos);
 					if (volume <= 0) Notes.remove( landmark() );
 
-					for (int i : PathFinder.NEIGHBOURS9){
+					for (int i : PathFinder.NEIGHBOURS25){
 						CellEmitter.get(firePos+i).burst( SacrificialParticle.FACTORY, 20 );
 					}
 					Sample.INSTANCE.play(Assets.Sounds.BURNING );

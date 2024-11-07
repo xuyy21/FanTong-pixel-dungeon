@@ -14,15 +14,15 @@ public class RingOfSkill extends Ring{
     public String statsInfo() {
         if (isIdentified()){
             String info = Messages.get(this, "stats", soloBuffedBonus(),
-                    Messages.decimalFormat("#.##", 100f * (Math.pow(1.175f, soloBuffedBonus()) - 1f)));
+                    Messages.decimalFormat("#.##", 100f * (Math.pow(1.125f, soloBuffedBonus()) - 1f)));
             if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
                 info += "\n\n" + Messages.get(this, "combined_stats", combinedBuffedBonus(Dungeon.hero),
-                        Messages.decimalFormat("#.##", 100f * (Math.pow(1.175f, combinedBuffedBonus(Dungeon.hero)) - 1f)));
+                        Messages.decimalFormat("#.##", 100f * (Math.pow(1.125f, combinedBuffedBonus(Dungeon.hero)) - 1f)));
             }
             return info;
         } else {
             return Messages.get(this, "typical_stats", 1,
-                    Messages.decimalFormat("#.##", 17.5f));
+                    Messages.decimalFormat("#.##", 12.5f));
         }
     }
 
@@ -33,7 +33,7 @@ public class RingOfSkill extends Ring{
 
     public String upgradeStat2(int level){
         if (cursed && cursedKnown) level = Math.min(-1, level-3);
-        return Messages.decimalFormat("#.##", 100f * (Math.pow(1.175f, level+1)-1f)) + "%";
+        return Messages.decimalFormat("#.##", 100f * (Math.pow(1.125f, level+1)-1f)) + "%";
     }
 
     @Override
@@ -42,7 +42,7 @@ public class RingOfSkill extends Ring{
     }
 
     public static float weaponChargeMultiplier( Char target ){
-        return (float)Math.pow(1.175, getBuffedBonus(target, RingOfSkill.Skill.class));
+        return (float)Math.pow(1.125f, getBuffedBonus(target, RingOfSkill.Skill.class));
     }
 
     public static int weaponSkillBonus( Char target ){

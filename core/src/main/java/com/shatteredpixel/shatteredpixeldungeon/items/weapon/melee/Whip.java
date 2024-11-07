@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Callback;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,18 @@ public class Whip extends MeleeWeapon {
 	public int max(int lvl) {
 		return  5*(tier) +      //15 base, down from 20
 				lvl*(tier);     //+3 per level, down from +4
+	}
+
+	public int abilityLvlBoost() {
+		return abilityLvl()-buffedLvl();
+	}
+
+	public int abilityDmgBoost() {
+		return abilityDmgBoost(abilityLvlBoost());
+	}
+
+	public int abilityDmgBoost(int lvl){
+		return Random.Int(0, 3 * lvl);
 	}
 
 	@Override
@@ -83,8 +96,8 @@ public class Whip extends MeleeWeapon {
 			public void call() {
 				beforeAbilityUsed(hero, finalClosest);
 				for (Char ch : targets) {
-					//ability does no extra damage
-					hero.attack(ch, 1, 0, Char.INFINITE_ACCURACY);
+					//ability does no extra damage but with ringofskill
+					hero.attack(ch, 1, abilityDmgBoost(), Char.INFINITE_ACCURACY);
 					if (!ch.isAlive()){
 						onAbilityKill(hero, ch);
 					}
@@ -99,13 +112,13 @@ public class Whip extends MeleeWeapon {
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", augment.damageFactor(min()), augment.damageFactor(max()));
+			return Messages.get(this, "ability_desc", augment.damageFactor(min()), augment.damageFactor(max()+3*abilityLvlBoost()));
 		} else {
-			return Messages.get(this, "typical_ability_desc", min(0), max(0));
+			return Messages.get(this, "typical_ability_desc", min(0), max(0)+abilityDmgBoost()+3*abilityLvlBoost());
 		}
 	}
 
 	public String upgradeAbilityStat(int level){
-		return augment.damageFactor(min(level)) + "-" + augment.damageFactor(max(level));
+		return augment.damageFactor(min(level)) + "-" + augment.damageFactor(max(level)+3*abilityLvlBoost());
 	}
 }

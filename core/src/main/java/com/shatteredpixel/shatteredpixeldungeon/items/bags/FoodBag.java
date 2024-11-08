@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class FoodBag extends Bag {
     {
-        image = ItemSpriteSheet.BACKPACK;
+        image = ItemSpriteSheet.FOODBAG;
     }
 
     @Override

@@ -487,7 +487,7 @@ public class InventoryPane extends Component {
 		} else if (bag instanceof PotionBandolier) {
 			return Icons.get( Icons.POTION_BANDOLIER );
 		} else if (bag instanceof FoodBag) {
-			return Icons.get( Icons.BACKPACK );
+			return Icons.get( Icons.FOODBAG );
 		} else {
 			return Icons.get( Icons.BACKPACK );
 		}

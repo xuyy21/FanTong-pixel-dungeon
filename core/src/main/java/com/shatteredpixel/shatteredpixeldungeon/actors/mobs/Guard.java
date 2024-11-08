@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -57,7 +58,7 @@ public class Guard extends Mob {
 
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.2f; //by default, see lootChance()
-		food = new MysteryBone();
+		food = new Mushroom();
 		foodChance = 0.2f;
 
 		properties.add(Property.UNDEAD);

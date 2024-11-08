@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -68,6 +69,10 @@ public class MysteryMeat extends Food {
 			case 3:
 				GLog.w( Messages.get(MysteryMeat.class, "stuffed") );
 				Buff.prolong( hero, Slow.class, Slow.DURATION );
+				break;
+			case 4:
+				GLog.w( Messages.get(MysteryMeat.class, "vertigo") );
+				Buff.prolong(hero, Vertigo.class, 8);
 				break;
 		}
 	}

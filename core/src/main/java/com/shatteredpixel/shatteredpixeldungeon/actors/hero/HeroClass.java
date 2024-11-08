@@ -67,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.BigEye;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.CrabClaw;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.RatTail;
@@ -246,6 +247,7 @@ public enum HeroClass {
 			new BatBody().quantity(10).collect();
 			new ElementalCore().quantity(10).collect();
 			new BigEye().quantity(10).collect();
+			new Mushroom().quantity(10).collect();
 		}
 
 			switch (this) {

@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
 import com.watabou.utils.Random;
 
@@ -39,6 +40,8 @@ public class Gnoll extends Mob {
 		
 		loot = Gold.class;
 		lootChance = 0.5f;
+		food = new Mushroom();
+		foodChance = 0.2f;
 	}
 	
 	@Override

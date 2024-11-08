@@ -76,6 +76,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMi
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -334,7 +335,6 @@ public class QuickRecipe extends Component {
 							}
 						}));
 				result.add(null);
-				result.add(null);
 				if (Dungeon.hero.heroClass==WARRIOR || Dungeon.hero.subClass== HeroSubClass.CHIEF) {
 					result.add(new QuickRecipe(new SmallRation.Recipe(),
 							new ArrayList<Item>(Arrays.asList(new Food())),
@@ -368,6 +368,11 @@ public class QuickRecipe extends Component {
 					result.add(new QuickRecipe(new BBQ.Recipe(),
 							new ArrayList<Item>(Arrays.asList(new ChargrilledMeat(), new Salad(), new FrozenCarpaccio())),
 							new BBQ()));
+				}
+				ArrayList<RecipeBook> recipes = Dungeon.hero.belongings.getAllItems(RecipeBook.class);
+				for (RecipeBook recipe: recipes) {
+					if (recipe.recipe() != null)
+						result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
 				}
 				return result;
 			case 3:

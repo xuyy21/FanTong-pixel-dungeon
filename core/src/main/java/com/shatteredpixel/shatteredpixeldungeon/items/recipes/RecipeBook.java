@@ -16,17 +16,17 @@ public class RecipeBook extends Item {
         image = ItemSpriteSheet.ALCH_PAGE;
     }
 
-    public com.shatteredpixel.shatteredpixeldungeon.items.Recipe recipe() {
+    public static com.shatteredpixel.shatteredpixeldungeon.items.Recipe recipe() {
         //return null by default
         return null;
     }
 
-    public ArrayList<Item> input() {
+    public static ArrayList<Item> input() {
         //return null by default
         return null;
     }
 
-    public Item output() {
+    public static Item output() {
         //return null by default
         return null;
     }

@@ -76,6 +76,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMi
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeOfHoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -343,10 +345,8 @@ public class QuickRecipe extends Component {
 							new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Food())),
 							new Pasty()));
 				}
-				if (Dungeon.hero.heroClass==ROGUE || Dungeon.hero.subClass== HeroSubClass.CHIEF)
-					result.add(new QuickRecipe(new HoneyMeat.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.ShatteredPot())),
-							new HoneyMeat()));
+				if (RecipeBook.hasRecipe(RecipeOfHoneyMeat.class))
+					result.add(new QuickRecipe(RecipeOfHoneyMeat.recipe(), RecipeOfHoneyMeat.input(), RecipeOfHoneyMeat.output()));
 				if (Dungeon.hero.heroClass==MAGE || Dungeon.hero.subClass== HeroSubClass.CHIEF)
 					result.add(new QuickRecipe(new GoldenPudding.Recipe(),
 							new ArrayList<Item>(Arrays.asList(new Potion.PlaceHolder(), new Honeypot.ShatteredPot())),

@@ -78,6 +78,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlam
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeOfHoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSkill;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
@@ -214,11 +216,10 @@ public enum HeroClass {
 			new WandOfMagicMissile().collect();
 			new GooStylus().quantity(100).collect();
 			new GooBlob().quantity(100).collect();
-			new WornShortsword().collect();
-			new Dagger().upgrade().collect();
-			new ClothArmor().upgrade().collect();
+			new Dagger().upgrade(30).collect();
+			new ClothArmor().upgrade(30).collect();
 			new WandOfTransfusion().upgrade(10).collect();
-			new RingOfSkill().collect();
+			new RingOfSkill().upgrade(30).collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();
@@ -248,6 +249,7 @@ public enum HeroClass {
 			new ElementalCore().quantity(10).collect();
 			new BigEye().quantity(10).collect();
 			new Mushroom().quantity(10).collect();
+			new RecipeOfHoneyMeat().collect();
 		}
 
 			switch (this) {
@@ -349,6 +351,8 @@ public enum HeroClass {
 
 		new ScrollOfMagicMapping().identify();
 		new PotionOfInvisibility().identify();
+
+		new RecipeOfHoneyMeat().collect();
 	}
 
 	private static void initHuntress( Hero hero ) {

@@ -11,6 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeOfHoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -60,7 +62,7 @@ public class HoneyMeat extends Food {
                 }
             }
 
-            return honey && meat && (Dungeon.hero.heroClass==ROGUE || Dungeon.hero.subClass==HeroSubClass.CHIEF);
+            return honey && meat && (RecipeBook.hasRecipe(RecipeOfHoneyMeat.class) || Dungeon.hero.subClass==HeroSubClass.CHIEF);
         }
 
         @Override

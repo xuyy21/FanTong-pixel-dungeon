@@ -260,11 +260,11 @@ public class WandOfTransfusion extends DamageWand {
 	public String statsDesc() {
 		int selfDMG = Dungeon.hero != null ? Math.round(Dungeon.hero.HT*0.05f): 1;
 		if (levelKnown) {
-			int selfDMG2 = Math.round(curUser.HT * 4f / (5f + buffedLvl()));
+			int selfDMG2 = Dungeon.hero != null ? Math.round(Dungeon.hero.HT * 4f / (5f + buffedLvl())) : 10;
 			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3 * buffedLvl(), 5 + buffedLvl(), min(), max(), selfDMG2);
 		}
 		else {
-			int selfDMG2 = Math.round(curUser.HT * 4f / (5f + 3));
+			int selfDMG2 = Dungeon.hero != null ? Math.round(Dungeon.hero.HT * 4f / (5f + 3)) : 10;
 			return Messages.get(this, "stats_desc", selfDMG, selfDMG, 5, min(0), max(0), selfDMG2);
 		}
 	}

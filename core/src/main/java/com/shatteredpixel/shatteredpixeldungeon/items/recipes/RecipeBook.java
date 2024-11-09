@@ -16,7 +16,7 @@ public class RecipeBook extends Item {
         image = ItemSpriteSheet.ALCH_PAGE;
     }
 
-    public static com.shatteredpixel.shatteredpixeldungeon.items.Recipe recipe() {
+    public com.shatteredpixel.shatteredpixeldungeon.items.Recipe recipe() {
         //return null by default
         return null;
     }

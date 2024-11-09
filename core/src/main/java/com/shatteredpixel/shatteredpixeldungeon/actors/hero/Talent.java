@@ -101,7 +101,7 @@ public enum Talent {
 	//Gladiator T3
 	CLEAVE(14, 3), HIGH_FREQUENCY(15, 3), ENHANCED_COMBO(16, 3),
 	//Chief T3
-	SLOW_EATING(27, 3), MEAL_ENERGY(28, 3), MORE_RECIPE(29, 3),
+	FAKE_EATING(27, 3), MEAL_ENERGY(28, 3), MORE_RECIPE(29, 3),
 	//Heroic Leap T4
 	BODY_SLAM(17, 4), IMPACT_WAVE(18, 4), DOUBLE_JUMP(19, 4),
 	//Shockwave T4
@@ -976,7 +976,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, CLEAVE, HIGH_FREQUENCY, ENHANCED_COMBO);
 				break;
 			case CHIEF:
-				Collections.addAll(tierTalents, SLOW_EATING, MEAL_ENERGY, MORE_RECIPE);
+				Collections.addAll(tierTalents, FAKE_EATING, MEAL_ENERGY, MORE_RECIPE);
 				break;
 			case BATTLEMAGE:
 				Collections.addAll(tierTalents, EMPOWERED_STRIKE, MYSTICAL_CHARGE, EXCESS_CHARGE);
@@ -1062,6 +1062,8 @@ public enum Talent {
 
 	private static final HashMap<String, String> renamedTalents = new HashMap<>();
 	static{
+		//v0.2.0
+		renamedTalents.put("SLOW_EATING", 				"FAKE_EATING");
 		//v2.5.0based-indev
 		renamedTalents.put("SHIELDING_DEW",				"BERRY_HARVEST");
 		renamedTalents.put("IRON_WILL",					"MEAL_WILL");

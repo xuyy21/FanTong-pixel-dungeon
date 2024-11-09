@@ -47,6 +47,8 @@ public class Food extends Item {
 	public static final float TIME_TO_EAT	= 3f;
 	
 	public static final String AC_EAT	= "EAT";
+
+	public static final String AC_IMAGINE = "IMAGINE";
 	
 	public float energy = Hunger.HUNGRY;
 
@@ -65,6 +67,7 @@ public class Food extends Item {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		actions.add( AC_EAT );
+		if (hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) actions.add( AC_IMAGINE );
 		return actions;
 	}
 
@@ -90,13 +93,30 @@ public class Food extends Item {
 			SpellSprite.show( hero, SpellSprite.FOOD );
 			eatSFX();
 
-			hero.spend( eatingTime() * (Dungeon.hero.pointsInTalent(Talent.SLOW_EATING)+3f) / 3f );
+			hero.spend( eatingTime() );
 
-			Talent.onFoodEaten(hero, energy * (Dungeon.hero.pointsInTalent(Talent.SLOW_EATING)+6f) / 6f, this);
+			Talent.onFoodEaten(hero, energy * (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f, this);
 			
 			Statistics.foodEaten++;
 			Badges.validateFoodEaten();
 			
+		}
+		if (action.equals( AC_IMAGINE )) {
+
+			float foodVal = energy;
+			if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+				foodVal /= 3f;
+			}
+			hero.buff(Hunger.class).affectHunger(-foodVal*0.5f);
+
+			hero.sprite.operate( hero.pos );
+			hero.busy();
+			SpellSprite.show( hero, SpellSprite.FOOD );
+			eatSFX();
+
+			hero.spend( eatingTime() );
+
+			effect(hero);
 		}
 	}
 
@@ -128,7 +148,7 @@ public class Food extends Item {
 			GLog.n( Messages.get(Hunger.class, "cursedhorn") );
 		}
 
-		foodVal *= (Dungeon.hero.pointsInTalent(Talent.SLOW_EATING)+6f) / 6f;
+		foodVal *= (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f;
 
 		Buff.affect(hero, Hunger.class).satisfy(foodVal);
 	}

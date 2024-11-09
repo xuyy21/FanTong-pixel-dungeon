@@ -18,6 +18,7 @@ public class ElementalCore extends Food{
     {
         image = ItemSpriteSheet.ELEMENTALCORE;
         energy = Hunger.HUNGRY;
+        canFakeEat = true;
     }
 
     @Override
@@ -31,7 +32,8 @@ public class ElementalCore extends Food{
         return 5 * quantity;
     }
 
-    public static void effect(Hero hero) {
+    @Override
+    public void effect(Hero hero) {
         GLog.i( Messages.get(ElementalCore.class, "effect") );
         Buff.affect(curUser, Recharging.class, 15f);
         Buff.affect(curUser, ArtifactRecharge.class).set( 15f ).ignoreHornOfPlenty = false;

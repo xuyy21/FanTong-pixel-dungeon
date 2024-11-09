@@ -17,6 +17,7 @@ public class BigEye extends Food{
     {
         image = ItemSpriteSheet.BIGEYE;
         energy = Hunger.HUNGRY/3f;
+        canFakeEat = true;
     }
 
     @Override
@@ -30,7 +31,8 @@ public class BigEye extends Food{
         return 5 * quantity;
     }
 
-    public static void effect(Hero hero) {
+    @Override
+    public void effect(Hero hero) {
         GLog.i( Messages.get(BigEye.class, "effect") );
         Buff.affect( hero, MindVision.class, 3f );
     }

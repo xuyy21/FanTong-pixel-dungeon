@@ -22,6 +22,7 @@ public class BatBody extends Food{
     {
         image = ItemSpriteSheet.BATBODY;
         energy = Hunger.HUNGRY/2f;
+        canFakeEat = true;
     }
 
     @Override
@@ -34,7 +35,8 @@ public class BatBody extends Food{
         return 3 * quantity;
     }
 
-    public static void effect(Hero hero){
+    @Override
+    public void effect(Hero hero){
         switch (Random.Int( 5 )) {
             case 0:
                 GLog.w( Messages.get(MysteryMeat.class, "hot") );

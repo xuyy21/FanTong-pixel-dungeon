@@ -25,6 +25,7 @@ public class Tempura extends Food {
     {
         image = ItemSpriteSheet.TEMPURA;
         energy = Hunger.HUNGRY/2f;
+        canFakeEat = true;
     }
 
     @Override
@@ -38,7 +39,8 @@ public class Tempura extends Food {
         return 5 * quantity;
     }
 
-    public static void effect(Hero hero) {
+    @Override
+    public void effect(Hero hero) {
         GLog.i( Messages.get(Tempura.class, "effect") );
         Buff.affect( hero, MeleeWeapon.Charger.class ).gainCharge(1);
     }

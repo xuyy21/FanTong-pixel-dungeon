@@ -39,6 +39,7 @@ public class FrozenCarpaccio extends Food {
 	{
 		image = ItemSpriteSheet.CARPACCIO;
 		energy = Hunger.HUNGRY/2f;
+		canFakeEat = true;
 	}
 	
 	@Override
@@ -51,7 +52,8 @@ public class FrozenCarpaccio extends Food {
 		return 10 * quantity;
 	}
 
-	public static void effect(Hero hero){
+	@Override
+	public void effect(Hero hero){
 		switch (Random.Int( 5 )) {
 			case 0:
 				GLog.i( Messages.get(FrozenCarpaccio.class, "invis") );

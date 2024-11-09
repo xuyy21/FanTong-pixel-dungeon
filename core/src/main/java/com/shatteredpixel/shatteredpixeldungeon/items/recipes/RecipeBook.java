@@ -21,12 +21,12 @@ public class RecipeBook extends Item {
         return null;
     }
 
-    public static ArrayList<Item> input() {
+    public ArrayList<Item> input() {
         //return null by default
         return null;
     }
 
-    public static Item output() {
+    public Item output() {
         //return null by default
         return null;
     }

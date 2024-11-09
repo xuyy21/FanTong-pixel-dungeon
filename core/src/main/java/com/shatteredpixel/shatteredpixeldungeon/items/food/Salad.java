@@ -24,6 +24,7 @@ public class Salad extends Food{
     {
         image = ItemSpriteSheet.SALAD;
         energy = Hunger.HUNGRY/2f;
+        canFakeEat = true;
     }
 
     @Override
@@ -37,7 +38,8 @@ public class Salad extends Food{
         return 25 * quantity;
     }
 
-    public static void effect(Hero hero){
+    @Override
+    public void effect(Hero hero){
         switch (Random.Int( 5 )) {
             case 0:
                 GLog.i( Messages.get(FrozenCarpaccio.class, "invis") );

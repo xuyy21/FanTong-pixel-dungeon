@@ -22,6 +22,7 @@ public class GoldenPudding extends Food{
     {
         image = ItemSpriteSheet.GOLDEN_PUDDING;
         energy = Hunger.HUNGRY/2f;
+        canFakeEat = true;
     }
 
     @Override
@@ -35,7 +36,8 @@ public class GoldenPudding extends Food{
         return 35 * quantity;
     }
 
-    public static void effect(Hero hero) {
+    @Override
+    public void effect(Hero hero) {
         GLog.i( Messages.get(GoldenPudding.class, "effect") );
         Buff.affect(curUser, Recharging.class, 25f);
     }

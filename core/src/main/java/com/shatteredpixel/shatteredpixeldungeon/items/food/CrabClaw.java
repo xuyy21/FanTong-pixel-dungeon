@@ -28,7 +28,4 @@ public class CrabClaw extends Food{
         return 3 * quantity;
     }
 
-    public static void effect(Hero hero) {
-        //do nothing
-    }
 }

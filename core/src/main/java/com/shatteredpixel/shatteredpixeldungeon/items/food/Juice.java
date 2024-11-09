@@ -50,7 +50,8 @@ public class Juice extends Food {
         return 5 * quantity;
     }
 
-    public static void effect(Hero hero) {
+    @Override
+    public void effect(Hero hero) {
         GLog.i( Messages.get(Juice.class, "effect") );
         Buff.affect(hero, Healing.class).setHeal(8, 0, 1);
     }

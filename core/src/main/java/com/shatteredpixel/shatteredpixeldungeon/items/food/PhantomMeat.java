@@ -36,6 +36,7 @@ public class PhantomMeat extends Food {
 	{
 		image = ItemSpriteSheet.PHANTOM_MEAT;
 		energy = Hunger.STARVING;
+		canFakeEat = true;
 	}
 
 	@Override
@@ -48,7 +49,8 @@ public class PhantomMeat extends Food {
 		return 30 * quantity;
 	}
 
-	public static void effect(Hero hero){
+	@Override
+	public void effect(Hero hero){
 
 		Barkskin.conditionallyAppend( hero, hero.HT / 4, 1 );
 		Buff.affect( hero, Invisibility.class, Invisibility.DURATION );

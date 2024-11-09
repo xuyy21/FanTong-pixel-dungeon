@@ -35,7 +35,8 @@ public class ToastBat extends Food{
         return 5 * quantity;
     }
 
-    public static void effect(Hero hero) {
+    @Override
+    public void effect(Hero hero) {
         GLog.i( Messages.get(ToastBat.class, "effect") );
         Buff.affect(hero, Healing.class).setHeal(Random.Int(10, 40), 0, 1);
     }

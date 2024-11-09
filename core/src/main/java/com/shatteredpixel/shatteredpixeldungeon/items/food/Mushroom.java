@@ -18,6 +18,7 @@ public class Mushroom extends Food{
     {
         image = ItemSpriteSheet.MUSHROOM;
         energy = Hunger.HUNGRY/3f;
+        canFakeEat = true;
     }
 
     @Override
@@ -30,7 +31,8 @@ public class Mushroom extends Food{
         return 3 * quantity;
     }
 
-    public static void effect(Hero hero){
+    @Override
+    public void effect(Hero hero){
         switch (Random.Int( 5 )) {
             case 0:
                 GLog.w( Messages.get(MysteryMeat.class, "hot") );

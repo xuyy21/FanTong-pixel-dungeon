@@ -21,6 +21,7 @@ public class HoneyMeat extends Food {
     {
         image = ItemSpriteSheet.Honey_MEAT;
         energy = Hunger.HUNGRY/2f;
+        canFakeEat = true;
     }
 
     @Override
@@ -34,7 +35,8 @@ public class HoneyMeat extends Food {
         return 10 * quantity;
     }
 
-    public static void effect(Hero hero) {
+    @Override
+    public void effect(Hero hero) {
         GLog.i( Messages.get(HoneyMeat.class, "effect") );
         Buff.prolong( hero, Haste.class, 8f);
     }

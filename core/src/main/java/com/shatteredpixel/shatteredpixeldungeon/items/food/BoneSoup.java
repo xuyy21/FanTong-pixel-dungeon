@@ -18,6 +18,7 @@ public class BoneSoup extends Food{
     {
         image = ItemSpriteSheet.BONESOUP;
         energy = Hunger.HUNGRY/2f;
+        canFakeEat = true;
     }
 
     @Override
@@ -31,7 +32,8 @@ public class BoneSoup extends Food{
         return 8 * quantity;
     }
 
-    public static void effect(Hero hero){
+    @Override
+    public void effect(Hero hero){
         GLog.i( Messages.get(BoneSoup.class, "effect") );
         Barkskin.conditionallyAppend( hero, 5 + hero.lvl, 1 );
     }

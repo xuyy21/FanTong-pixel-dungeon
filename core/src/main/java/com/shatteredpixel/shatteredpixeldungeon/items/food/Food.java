@@ -49,6 +49,8 @@ public class Food extends Item {
 	public static final String AC_EAT	= "EAT";
 	
 	public float energy = Hunger.HUNGRY;
+
+	public boolean canFakeEat = false;
 	
 	{
 		stackable = true;
@@ -64,6 +66,10 @@ public class Food extends Item {
 		ArrayList<String> actions = super.actions( hero );
 		actions.add( AC_EAT );
 		return actions;
+	}
+
+	public void effect(Hero hero) {
+		//do nothing by default
 	}
 	
 	@Override

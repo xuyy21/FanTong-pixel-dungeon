@@ -76,9 +76,9 @@ public class Pasty extends Food {
 			case EASTER:
 				image = ItemSpriteSheet.EASTER_EGG;
 				break;
-			case PRIDE:
-				image = ItemSpriteSheet.RAINBOW_POTION;
-				break;
+//			case PRIDE:
+//				image = ItemSpriteSheet.RAINBOW_POTION;
+//				break;
 			case SHATTEREDPD_BIRTHDAY:
 				image = ItemSpriteSheet.SHATTERED_CAKE;
 				break;
@@ -100,7 +100,7 @@ public class Pasty extends Food {
 	@Override
 	protected void eatSFX() {
 		switch(Holiday.getCurrentHoliday()){
-			case PRIDE:
+//			case PRIDE:
 			case NEW_YEARS:
 				Sample.INSTANCE.play( Assets.Sounds.DRINK );
 				return;
@@ -133,26 +133,26 @@ public class Pasty extends Food {
 				ArtifactRecharge.chargeArtifacts(hero, 2f);
 				ScrollOfRecharging.charge( hero );
 				break;
-			case PRIDE:
-				Char target = null;
-
-				//charms an adjacent non-boss enemy, prioritizing the one the hero is focusing on
-				for (Char ch : Actor.chars()){
-					if (!Char.hasProp(ch, Char.Property.BOSS)
-							&& !Char.hasProp(ch, Char.Property.MINIBOSS)
-							&& ch.alignment == Char.Alignment.ENEMY
-							&& Dungeon.level.adjacent(hero.pos, ch.pos)){
-						if (target == null || ch == TargetHealthIndicator.instance.target()){
-							target = ch;
-						}
-					}
-				}
-
-				if (target != null){
-					Buff.affect(target, Charm.class, 5f).object = hero.id();
-				}
-				hero.sprite.emitter().burst(RainbowParticle.BURST, 15);
-				break;
+//			case PRIDE:
+//				Char target = null;
+//
+//				//charms an adjacent non-boss enemy, prioritizing the one the hero is focusing on
+//				for (Char ch : Actor.chars()){
+//					if (!Char.hasProp(ch, Char.Property.BOSS)
+//							&& !Char.hasProp(ch, Char.Property.MINIBOSS)
+//							&& ch.alignment == Char.Alignment.ENEMY
+//							&& Dungeon.level.adjacent(hero.pos, ch.pos)){
+//						if (target == null || ch == TargetHealthIndicator.instance.target()){
+//							target = ch;
+//						}
+//					}
+//				}
+//
+//				if (target != null){
+//					Buff.affect(target, Charm.class, 5f).object = hero.id();
+//				}
+//				hero.sprite.emitter().burst(RainbowParticle.BURST, 15);
+//				break;
 			case SHATTEREDPD_BIRTHDAY:
 			case PD_BIRTHDAY:
 				//gives 10% of level in exp, min of 2
@@ -190,8 +190,8 @@ public class Pasty extends Food {
 				return Messages.get(this, "amulet_name");
 			case EASTER:
 				return Messages.get(this, "egg_name");
-			case PRIDE:
-				return Messages.get(this, "rainbow_name");
+//			case PRIDE:
+//				return Messages.get(this, "rainbow_name");
 			case SHATTEREDPD_BIRTHDAY:
 				return Messages.get(this, "shattered_name");
 			case HALLOWEEN:
@@ -216,8 +216,8 @@ public class Pasty extends Food {
 				return Messages.get(this, "amulet_desc");
 			case EASTER:
 				return Messages.get(this, "egg_desc");
-			case PRIDE:
-				return Messages.get(this, "rainbow_desc");
+//			case PRIDE:
+//				return Messages.get(this, "rainbow_desc");
 			case SHATTEREDPD_BIRTHDAY:
 				return Messages.get(this, "shattered_desc");
 			case HALLOWEEN:

@@ -65,7 +65,7 @@ public class Eye extends Mob {
 		loot = new Dewdrop();
 		lootChance = 1f;
 		food = new BigEye();
-		foodChance = 0.3f;
+		foodChance = 0.4f;
 
 		properties.add(Property.DEMONIC);
 	}

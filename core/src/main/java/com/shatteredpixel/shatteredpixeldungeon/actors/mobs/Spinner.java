@@ -53,7 +53,7 @@ public class Spinner extends Mob {
 		loot = new MysteryMeat();
 		lootChance = 0.125f;
 		food = new Berry();
-		foodChance = 0.1f;
+		foodChance = 0.2f;
 
 		HUNTING = new Hunting();
 		FLEEING = new Fleeing();

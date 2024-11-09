@@ -52,7 +52,7 @@ public class Skeleton extends Mob {
 		loot = Generator.Category.WEAPON;
 		lootChance = 0.1667f; //by default, see lootChance()
 		food = new MysteryBone();
-		foodChance = 0.2f;
+		foodChance = 0.5f;
 
 		properties.add(Property.UNDEAD);
 		properties.add(Property.INORGANIC);

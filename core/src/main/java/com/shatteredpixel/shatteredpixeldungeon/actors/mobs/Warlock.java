@@ -59,7 +59,7 @@ public class Warlock extends Mob implements Callback {
 		loot = Generator.Category.POTION;
 		lootChance = 0.5f;
 		food = new Mushroom();
-		foodChance = 0.2f;
+		foodChance = 0.4f;
 
 		properties.add(Property.UNDEAD);
 	}

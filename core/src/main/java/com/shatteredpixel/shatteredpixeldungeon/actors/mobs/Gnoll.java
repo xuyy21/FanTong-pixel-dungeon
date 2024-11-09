@@ -41,7 +41,7 @@ public class Gnoll extends Mob {
 		loot = Gold.class;
 		lootChance = 0.5f;
 		food = new Mushroom();
-		foodChance = 0.2f;
+		foodChance = 0.4f;
 	}
 	
 	@Override

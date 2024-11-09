@@ -95,7 +95,8 @@ public class Food extends Item {
 
 			hero.spend( eatingTime() );
 
-			Talent.onFoodEaten(hero, energy * (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f, this);
+//			Talent.onFoodEaten(hero, energy * (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f, this);
+			Talent.onFoodEaten(hero, energy, this);
 			
 			Statistics.foodEaten++;
 			Badges.validateFoodEaten();
@@ -107,7 +108,9 @@ public class Food extends Item {
 			if (Dungeon.isChallenged(Challenges.NO_FOOD)){
 				foodVal /= 3f;
 			}
-			hero.buff(Hunger.class).affectHunger(-foodVal*0.5f);
+			if (Dungeon.hero.hasTalent(Talent.FAKE_EATING))
+				foodVal *= 10f / (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING));
+			hero.buff(Hunger.class).affectHunger(-foodVal);
 
 			hero.sprite.operate( hero.pos );
 			hero.busy();
@@ -148,7 +151,7 @@ public class Food extends Item {
 			GLog.n( Messages.get(Hunger.class, "cursedhorn") );
 		}
 
-		foodVal *= (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f;
+//		foodVal *= (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f;
 
 		Buff.affect(hero, Hunger.class).satisfy(foodVal);
 	}

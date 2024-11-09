@@ -21,7 +21,7 @@ public class GoldenPudding extends Food{
 
     {
         image = ItemSpriteSheet.GOLDEN_PUDDING;
-        energy = Hunger.HUNGRY/2f;
+        energy = Hunger.HUNGRY*5/6;
         canFakeEat = true;
     }
 

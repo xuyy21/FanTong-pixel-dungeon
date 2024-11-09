@@ -17,7 +17,7 @@ public class ElementalCore extends Food{
 
     {
         image = ItemSpriteSheet.ELEMENTALCORE;
-        energy = Hunger.HUNGRY;
+        energy = Hunger.STARVING*8/9;
         canFakeEat = true;
     }
 

@@ -16,7 +16,7 @@ public class BigEye extends Food{
 
     {
         image = ItemSpriteSheet.BIGEYE;
-        energy = Hunger.HUNGRY/3f;
+        energy = Hunger.HUNGRY/2f;
         canFakeEat = true;
     }
 

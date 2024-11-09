@@ -108,8 +108,7 @@ public class Food extends Item {
 			if (Dungeon.isChallenged(Challenges.NO_FOOD)){
 				foodVal /= 3f;
 			}
-			if (Dungeon.hero.hasTalent(Talent.FAKE_EATING))
-				foodVal *= 10f / (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING));
+			foodVal *=  (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
 			hero.buff(Hunger.class).affectHunger(-foodVal);
 
 			hero.sprite.operate( hero.pos );

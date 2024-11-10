@@ -30,11 +30,14 @@ public class StfNPC extends NPC{
         properties.add(Property.IMMOVABLE);
     }
 
-    public Item goods = new Food();
+    public Item goods() {
+        return new Food();
+    }
     public int basic_value = 50;
     public int buy_times = 0;
 
     public void buy_goods(Hero hero) {
+        Item goods = goods();
         if (goods != null) {
             Dungeon.gold -= basic_value * buy_times;
             buy_times++;
@@ -62,7 +65,7 @@ public class StfNPC extends NPC{
             public void call() {
                 String[] options = new String[2];
                 int maxLen = PixelScene.landscape() ? 30 : 25;
-                options[0] = Messages.get(StfNPC.class, "buy", goods.name(), basic_value * buy_times);
+                options[0] = Messages.get(StfNPC.class, "buy", goods().name(), basic_value * buy_times);
                 options[1] = interact();
                 GameScene.show(new WndOptions(sprite(), Messages.titleCase(name()), description(), options){
                     @Override
@@ -91,8 +94,8 @@ public class StfNPC extends NPC{
 
                     @Override
                     protected Image getIcon(int index) {
-                        if (index == 0 && goods != null){
-                            return new ItemSprite(goods);
+                        if (index == 0 && goods() != null){
+                            return new ItemSprite(goods());
                         }
                         return null;
                     }

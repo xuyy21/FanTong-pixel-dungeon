@@ -81,6 +81,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlam
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROCookit;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGlandcandy;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROHoneyMeat;
@@ -266,6 +267,7 @@ public enum HeroClass {
 			new ROJuice().collect();
 			new ROHoneyMeat().collect();
 			new ROTempura().collect();
+			new ROCookit().collect();
 		}
 
 			switch (this) {

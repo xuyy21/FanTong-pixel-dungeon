@@ -1,25 +1,26 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.recipes;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class ROScorpioTempura extends RecipeBook{
+public class ROSmallRation extends RecipeBook{
 
     @Override
     public com.shatteredpixel.shatteredpixeldungeon.items.Recipe recipe() {
-        return new ScorpioTempura.Recipe();
+        return new SmallRation.Recipe();
     }
 
     @Override
     public ArrayList<Item> input() {
-        //return null by default
-        return new ScorpioTempura.Recipe().getIngredients();
+        return new ArrayList<Item>(Arrays.asList(new Food()));
     }
 
     @Override
     public Item output() {
-        return new ScorpioTempura.Recipe().sampleOutput(null);
+        return new SmallRation().quantity(2);
     }
 }

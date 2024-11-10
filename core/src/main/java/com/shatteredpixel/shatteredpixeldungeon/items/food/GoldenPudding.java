@@ -11,6 +11,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -59,7 +62,7 @@ public class GoldenPudding extends Food{
                 }
             }
 
-            return honey && potion && (Dungeon.hero.heroClass==MAGE || Dungeon.hero.subClass==HeroSubClass.CHIEF);
+            return honey && potion && (Dungeon.hero.heroClass==MAGE || Dungeon.hero.subClass==HeroSubClass.CHIEF || RecipeBook.hasRecipe(ROGoldenPudding.class));
         }
 
         @Override

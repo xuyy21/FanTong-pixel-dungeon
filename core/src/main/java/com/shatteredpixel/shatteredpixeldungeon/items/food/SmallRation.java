@@ -28,6 +28,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
@@ -58,7 +61,7 @@ public class SmallRation extends Food {
 				}
 			}
 
-			return food && (Dungeon.hero.heroClass==WARRIOR || Dungeon.hero.subClass== HeroSubClass.CHIEF);
+			return food && (Dungeon.hero.heroClass==WARRIOR || Dungeon.hero.subClass== HeroSubClass.CHIEF || RecipeBook.hasRecipe(ROSmallRation.class));
 		}
 
 		@Override

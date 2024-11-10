@@ -13,6 +13,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -59,7 +61,7 @@ public class Tempura extends Food {
 
         @Override
         public boolean testIngredients(ArrayList<Item> ingredients){
-            if (!(Dungeon.hero.heroClass==DUELIST || Dungeon.hero.subClass==HeroSubClass.CHIEF)) return false;
+            if (!(Dungeon.hero.heroClass==DUELIST || Dungeon.hero.subClass==HeroSubClass.CHIEF || RecipeBook.hasRecipe(ROTempura.class))) return false;
 
             return super.testIngredients(ingredients);
         }

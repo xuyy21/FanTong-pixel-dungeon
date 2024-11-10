@@ -13,6 +13,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.ShockingBrew;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROJuice;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -70,7 +73,7 @@ public class Juice extends Food {
 
         @Override
         public boolean testIngredients(ArrayList<Item> ingredients){
-            if (!(Dungeon.hero.heroClass==HUNTRESS || Dungeon.hero.subClass==HeroSubClass.CHIEF)) return false;
+            if (!(Dungeon.hero.heroClass==HUNTRESS || Dungeon.hero.subClass==HeroSubClass.CHIEF || RecipeBook.hasRecipe(ROJuice.class))) return false;
 
             return super.testIngredients(ingredients);
         }

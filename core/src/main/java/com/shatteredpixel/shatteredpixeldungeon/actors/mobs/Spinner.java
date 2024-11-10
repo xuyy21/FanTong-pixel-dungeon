@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
@@ -54,10 +55,15 @@ public class Spinner extends Mob {
 		loot = new MysteryMeat();
 		lootChance = 0.125f;
 		food = new Gland();
-		foodChance = 0.5f;
+		foodChance = adjustfoodChance();
 
 		HUNTING = new Hunting();
 		FLEEING = new Fleeing();
+	}
+
+	public final float adjustfoodChance() {
+		if (Dungeon.hero.subClass == HeroSubClass.CHIEF) return 0.5f;
+		return 4f;
 	}
 
 	@Override

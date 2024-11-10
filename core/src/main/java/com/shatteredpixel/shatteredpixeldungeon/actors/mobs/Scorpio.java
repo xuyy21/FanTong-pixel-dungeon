@@ -26,9 +26,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTail;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
@@ -51,10 +53,15 @@ public class Scorpio extends Mob {
 		
 		loot = Generator.Category.POTION;
 		lootChance = 0.5f;
-		food = new Mushroom();
-		foodChance = 0.4f;
+		food = new ScorpioTail();
+		foodChance = adjustfoodChance();
 
 		properties.add(Property.DEMONIC);
+	}
+
+	public final float adjustfoodChance() {
+		if (Dungeon.hero.subClass == HeroSubClass.CHIEF) return 0.5f;
+		return 4f;
 	}
 	
 	@Override

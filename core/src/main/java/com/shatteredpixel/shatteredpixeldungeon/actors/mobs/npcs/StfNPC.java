@@ -1,7 +1,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
@@ -28,6 +30,21 @@ public class StfNPC extends NPC{
         spriteClass = ShopkeeperSprite.class;
 
         properties.add(Property.IMMOVABLE);
+    }
+
+    @Override
+    public int defenseSkill( Char enemy ) {
+        return INFINITE_EVASION;
+    }
+
+    @Override
+    public void damage( int dmg, Object src ) {
+        //do nothing
+    }
+
+    @Override
+    public boolean add( Buff buff ) {
+        return false;
     }
 
     public Item goods() {
@@ -145,6 +162,7 @@ public class StfNPC extends NPC{
                     || level.map[npc.pos] == Terrain.EMPTY_SP){
                 validPos = false;
             }
+            Char ch = Actor.findChar(npc.pos);
         } while (!validPos);
         level.mobs.add( npc );
     }

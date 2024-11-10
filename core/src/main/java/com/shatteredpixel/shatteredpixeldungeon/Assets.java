@@ -283,6 +283,7 @@ public class Assets {
 		public static final String SHEEP    = "sprites/sheep.png";
 		public static final String KEEPER   = "sprites/shopkeeper.png";
 		public static final String XUYY		= "sprites/xuyy.png";
+		public static final String ZAKO		= "sprites/zako.png";
 		public static final String BAT      = "sprites/bat.png";
 		public static final String ELEMENTAL= "sprites/elemental.png";
 		public static final String MONK     = "sprites/monk.png";

@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -52,8 +53,8 @@ public class Spinner extends Mob {
 
 		loot = new MysteryMeat();
 		lootChance = 0.125f;
-		food = new Berry();
-		foodChance = 0.2f;
+		food = new Gland();
+		foodChance = 0.5f;
 
 		HUNTING = new Hunting();
 		FLEEING = new Fleeing();

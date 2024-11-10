@@ -721,6 +721,7 @@ public class ItemSpriteSheet {
 	public static final int MYSTERYBONE		= RAW_FOOD+3;
 	public static final int MUSHROOM		= RAW_FOOD+4;
 	public static final int BATBODY			= RAW_FOOD+6;
+	public static final int GLAND			= RAW_FOOD+7;
 	public static final int ELEMENTALCORE	= RAW_FOOD+9;
 	public static final int BIGEYE			= RAW_FOOD+12;
 	static{
@@ -729,6 +730,7 @@ public class ItemSpriteSheet {
 		assignItemRect(MYSTERYBONE,		13, 13);
 		assignItemRect(MUSHROOM,		15, 15);
 		assignItemRect(BATBODY,			15, 14);
+		assignItemRect(GLAND,			11, 16);
 		assignItemRect(ELEMENTALCORE,	13, 11);
 		assignItemRect(BIGEYE,			12, 12);
 	}
@@ -742,6 +744,7 @@ public class ItemSpriteSheet {
 	public static final int BONESOUP		= COOKED_FOOD+7;
 	public static final int BBQ				= COOKED_FOOD+8;
 	public static final int TOASTBAT		= COOKED_FOOD+9;
+	public static final int GLANDCANDY		= COOKED_FOOD+10;
 	static{
 		assignItemRect(Honey_MEAT,    	15, 11);
 		assignItemRect(GOLDEN_PUDDING, 	11, 9);
@@ -751,6 +754,7 @@ public class ItemSpriteSheet {
 		assignItemRect(BONESOUP, 		15, 13);
 		assignItemRect(BBQ,          	14, 14);
 		assignItemRect(TOASTBAT,      	15, 16);
+		assignItemRect(GLANDCANDY,			12, 12);
 	}
 
 	private static final int HOLIDAY_FOOD   =                               xy(1, 29);  //16 slots

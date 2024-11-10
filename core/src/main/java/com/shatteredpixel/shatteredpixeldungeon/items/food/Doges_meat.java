@@ -12,7 +12,7 @@ public class Doges_meat extends Food{
 
     {
         image = ItemSpriteSheet.DOGESMEAT;
-        energy = Hunger.HUNGRY*2f/3f;
+        energy = Hunger.HUNGRY;
         canFakeEat = true;
     }
 

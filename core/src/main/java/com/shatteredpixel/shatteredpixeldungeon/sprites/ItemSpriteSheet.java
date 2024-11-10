@@ -724,10 +724,10 @@ public class ItemSpriteSheet {
 	public static final int ELEMENTALCORE	= RAW_FOOD+9;
 	public static final int BIGEYE			= RAW_FOOD+12;
 	static{
-		assignItemRect(RATTAIL,			14, 11);
-		assignItemRect(CRABCLAW,		14, 13);
+		assignItemRect(RATTAIL,			15, 16);
+		assignItemRect(CRABCLAW,		16, 16);
 		assignItemRect(MYSTERYBONE,		13, 13);
-		assignItemRect(MUSHROOM,		13, 13);
+		assignItemRect(MUSHROOM,		15, 15);
 		assignItemRect(BATBODY,			15, 14);
 		assignItemRect(ELEMENTALCORE,	13, 11);
 		assignItemRect(BIGEYE,			12, 12);
@@ -746,7 +746,7 @@ public class ItemSpriteSheet {
 		assignItemRect(Honey_MEAT,    	15, 11);
 		assignItemRect(GOLDEN_PUDDING, 	11, 9);
 		assignItemRect(JUICE,          	8, 12);
-		assignItemRect(TEMPURA,      	15, 11);
+		assignItemRect(TEMPURA,      	16, 16);
 		assignItemRect(SALAD,    		14, 10);
 		assignItemRect(BONESOUP, 		15, 13);
 		assignItemRect(BBQ,          	14, 14);

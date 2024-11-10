@@ -65,14 +65,14 @@ public class Salad extends Food{
 
         @Override
         public boolean testIngredients(ArrayList<Item> ingredients) {
-            boolean berry = false;
+            boolean mushromm = false;
             boolean seed1 = false;
             boolean seed2 = false;
 
             for (Item ingredient : ingredients){
                 if (ingredient.quantity() > 0) {
-                    if (ingredient instanceof Berry) {
-                        berry = true;
+                    if (ingredient instanceof Mushroom) {
+                        mushromm = true;
                     } else if (ingredient instanceof Plant.Seed) {
                         if (seed1)
                             seed2 = true;
@@ -82,7 +82,7 @@ public class Salad extends Food{
                 }
             }
 
-            return berry && seed1 && seed2 && (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=1);
+            return mushromm && seed1 && seed2 && (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=1);
         }
 
         @Override

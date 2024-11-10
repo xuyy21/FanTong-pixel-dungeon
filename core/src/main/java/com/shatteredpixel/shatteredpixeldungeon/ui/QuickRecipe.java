@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
@@ -357,7 +358,7 @@ public class QuickRecipe extends Component {
 					result.add(new QuickRecipe(new Tempura.Recipe()));
 				if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=1) {
 					result.add(new QuickRecipe(new Salad.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new Berry(), new Plant.Seed.PlaceHolder(), new Plant.Seed.PlaceHolder())),
+							new ArrayList<Item>(Arrays.asList(new Mushroom(), new Plant.Seed.PlaceHolder(), new Plant.Seed.PlaceHolder())),
 							new Salad()));
 					result.add(new QuickRecipe(new ToastBat.Recipe()));
 				}

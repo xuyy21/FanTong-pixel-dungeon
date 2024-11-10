@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -65,8 +66,8 @@ public class Succubus extends Mob {
 		
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.33f;
-		food = new Berry();
-		foodChance = 0.2f;
+		food = new Mushroom();
+		foodChance = 0.4f;
 
 		properties.add(Property.DEMONIC);
 	}

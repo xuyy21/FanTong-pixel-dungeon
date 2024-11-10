@@ -194,7 +194,10 @@ public class WndHero extends WndTabbed {
 			if (hero.shielding() > 0)   statSlot( Messages.get(this, "health"), hero.HP + "+" + hero.shielding() + "/" + hero.HT );
 			else                        statSlot( Messages.get(this, "health"), (hero.HP) + "/" + hero.HT );
 			statSlot( Messages.get(this, "exp"), hero.exp + "/" + hero.maxExp() );
-			statSlot( Messages.get(this, "hunger"), (Hunger.STARVING-hero.buff(Hunger.class).hunger()) + "/" + Hunger.STARVING );
+			if (hero.buff(Hunger.class) != null) {
+				statSlot( Messages.get(this, "hunger"), (Hunger.STARVING-hero.buff(Hunger.class).hunger()) + "/" + Hunger.STARVING );
+			}
+			else statSlot( Messages.get(this, "hunger"), (0 + "/" + Hunger.STARVING ));
 
 			pos += GAP;
 

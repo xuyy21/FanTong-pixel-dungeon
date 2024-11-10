@@ -218,7 +218,7 @@ public abstract class RegularLevel extends Level {
 	protected void createMobs() {
 		//place NPC
 		Xuyy.spawn(this, roomExit, 1);
-		Doge.spawn(this, roomEntrance, 6);
+		Doge.spawn(this, roomEntrance, 1);
 		Zako.spawn(this, roomEntrance, 11);
 
 		//on floor 1, 8 pre-set mobs are created so the player can get level 2.

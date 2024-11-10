@@ -9,7 +9,7 @@ public class DogeSprite extends MobSprite{
         super();
 
         texture( Assets.Sprites.DOGE );
-        TextureFilm film = new TextureFilm( texture, 13, 16 );
+        TextureFilm film = new TextureFilm( texture, 11, 16 );
 
         idle = new Animation( 10, true );
         idle.frames( film, 1, 1, 1, 0, 0, 0, 0, 0, 0 );

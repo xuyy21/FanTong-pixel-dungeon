@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
@@ -48,6 +49,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROCookit;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGlandcandy;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROHoneyMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROJuice;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROScorpioTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
@@ -213,6 +223,23 @@ public class ShopRoom extends SpecialRoom {
 		}
 
 	}
+
+	protected static RecipeBook generaRecipe(int depth) {
+		switch (depth)  {
+			case 6: default:
+				int r = Random.Int(0,5);
+				HeroClass[] classes = {HeroClass.WARRIOR, HeroClass.MAGE, HeroClass.ROGUE, HeroClass.HUNTRESS, HeroClass.DUELIST};
+				while (Dungeon.hero.heroClass == classes[r]) r = Random.Int(0,5);
+				RecipeBook[] recipeBooks = {new ROSmallRation(), new ROGoldenPudding(), new ROHoneyMeat(), new ROJuice(), new ROTempura()};
+				return recipeBooks[r];
+			case 11:
+				return new ROGlandcandy();
+			case 16:
+				return new ROCookit();
+			case 20: case 21:
+				return new ROScorpioTempura();
+		}
+	}
 	
 	protected static ArrayList<Item> generateItems() {
 
@@ -342,6 +369,8 @@ public class ShopRoom extends SpecialRoom {
 		rare.cursed = false;
 		rare.cursedKnown = true;
 		itemsToSpawn.add( rare );
+
+		itemsToSpawn.add( generaRecipe(Dungeon.depth) );
 
 		//use a new generator here to prevent items in shop stock affecting levelgen RNG (e.g. sandbags)
 		//we can use a random long for the seed as it will be the same long every time

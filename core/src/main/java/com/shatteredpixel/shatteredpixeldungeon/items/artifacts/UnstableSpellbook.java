@@ -138,7 +138,7 @@ public class UnstableSpellbook extends Artifact {
 				curUser = hero;
 
 				//if there are charges left and the scroll has been given to the book
-				if (charge > 0) {
+				if (!scrolls.contains(scroll.getClass())) {
 					final Scroll fScroll = scroll;
 
 					final ExploitHandler handler = Buff.affect(hero, ExploitHandler.class);
@@ -194,7 +194,7 @@ public class UnstableSpellbook extends Artifact {
 								Messages.get(this, "prompt"),
 								Messages.get(this, "read_empowered"),
 								scroll.trueName(),
-								"释放另一种卷轴") {
+								Messages.get(this, "reroll")) {
 							@Override
 							protected void onSelect(int index) {
 								handler.detach();

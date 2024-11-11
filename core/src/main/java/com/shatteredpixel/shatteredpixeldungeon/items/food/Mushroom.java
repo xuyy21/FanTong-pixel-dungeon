@@ -27,9 +27,13 @@ public class Mushroom extends Food{
         effect(hero);
     }
 
+    @Override
     public int value() {
         return 3 * quantity;
     }
+
+    @Override
+    public int energyVal() { return 2 * quantity; }
 
     @Override
     public void effect(Hero hero){

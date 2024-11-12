@@ -48,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
@@ -303,6 +304,7 @@ public class QuickRecipe extends Component {
 						return "";
 					}
 				}));
+				result.add(new QuickRecipe( new Gland.GlandToPotion(),  new ArrayList<>(Arrays.asList(new Gland().quantity(3))), new Gland.GlandToPotion().sampleOutput(null)));
 				return result;
 			case 1:
 				Recipe r = new Scroll.ScrollToStone();
@@ -424,6 +426,7 @@ public class QuickRecipe extends Component {
 				return result;
 			case 7:
 				result.add(new QuickRecipe(new UnstableBrew.Recipe(), new ArrayList<>(Arrays.asList(new Potion.PlaceHolder(), new  Plant.Seed.PlaceHolder())), new UnstableBrew()));
+				result.add(new QuickRecipe(new Mushroom.MushroomToPotion(), new ArrayList<>(Arrays.asList(new Mushroom().quantity(3))), new UnstableBrew()));
 				result.add(new QuickRecipe(new CausticBrew.Recipe()));
 				result.add(new QuickRecipe(new BlizzardBrew.Recipe()));
 				result.add(new QuickRecipe(new ShockingBrew.Recipe()));

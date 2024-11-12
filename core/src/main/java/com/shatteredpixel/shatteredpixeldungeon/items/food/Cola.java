@@ -26,7 +26,7 @@ public class Cola extends Food{
     @Override
     public void effect(Hero hero) {
         GLog.i( Messages.get(Cola.class, "effect") );
-        Buff.prolong(hero, Bless.class, 10);
+        Buff.prolong(hero, Bless.class, 20f);
         new Flare(6, 32).color(0xFFFF00, true).show(hero.sprite, 2f);
     }
 

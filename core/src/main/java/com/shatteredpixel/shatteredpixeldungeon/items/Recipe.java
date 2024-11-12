@@ -27,11 +27,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cookit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Glandcandy;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
@@ -242,7 +244,9 @@ public abstract class Recipe {
 		new StewedMeat.threeMeat(),
 		new MeatPie.Recipe(),
 		new Salad.Recipe(),
-		new BBQ.Recipe()
+		new BBQ.Recipe(),
+		new Mushroom.MushroomToPotion(),
+		new Gland.GlandToPotion()
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){

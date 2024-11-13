@@ -195,6 +195,7 @@ public enum HeroClass {
 			new PotionOfStrength().identify();
 			new PotionOfHealing().identify();
 			new PotionOfExperience().identify();
+			new PotionOfMindVision().identify();
 		}
 		if (Testing) {
 			new ScrollOfIdentify().quantity(100).collect();
@@ -213,6 +214,7 @@ public enum HeroClass {
 			new PotionOfStrength().quantity(100).collect();
 			new PotionOfHealing().quantity(100).collect();
 			new PotionOfExperience().quantity(100).collect();
+			new PotionOfMindVision().quantity(100).collect();
 		}
 		if (Testing) {
 			new UnstableSpellbook().collect();

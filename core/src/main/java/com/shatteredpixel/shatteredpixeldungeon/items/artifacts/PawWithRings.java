@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
@@ -74,6 +75,38 @@ public class PawWithRings extends Artifact{
             if (!isEquipped( hero ))        GLog.i( Messages.get(Artifact.class, "need_to_equip") );
             else if (charge <= 0)         GLog.i( Messages.get(this, "no_charge") );
             else if (cursed)                GLog.i( Messages.get(this, "cursed") );
+            else if (level()==levelCap && charge>=2)
+                GameScene.show(
+                        new WndOptions(new ItemSprite(this),
+                                Messages.titleCase(name()),
+                                Messages.get(this, "prompt2"),
+                                Messages.get(this, "spell"),
+                                Messages.get(this, "teleport"),
+                                Messages.get(this, "transmute"),
+                                Messages.get(this, "confuse")) {
+                            @Override
+                            protected void onSelect(int index) {
+                                if (index == 0) {
+                                    new PawSpell().execute(hero);
+                                } else if (index == 1) {
+                                    new ScrollOfTeleportation().execute(hero);
+                                    charge--;
+                                } else if (index == 2) {
+                                    GameScene.selectItem( itemSelector );
+                                } else if (index == 3) {
+                                    charge -= 2;
+                                    Sample.INSTANCE.play(Assets.Sounds.READ);
+                                    GameScene.flash(0x80FFFFFF);
+                                    for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+                                        if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
+                                            Buff.affect(mob, Vertigo.class, 6f);
+                                        }
+                                    }
+                                    Dungeon.hero.spendAndNext(1f);
+                                }
+                            }
+                        }
+                );
             else GameScene.show(
                         new WndOptions(new ItemSprite(this),
                                 Messages.titleCase(name()),
@@ -84,16 +117,11 @@ public class PawWithRings extends Artifact{
                             @Override
                             protected void onSelect(int index) {
                                 if (index == 0) {
-//                                    GLog.i( Messages.get(TimekeepersHourglass.class, "onspell") );
                                     new PawSpell().execute(hero);
                                 } else if (index == 1) {
-//                                    GLog.i( Messages.get(TimekeepersHourglass.class, "onteleport") );
-                                    GameScene.flash(0x80FFFFFF);
-                                    Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
                                     new ScrollOfTeleportation().execute(hero);
                                     charge--;
                                 } else if (index == 2) {
-//                                    GLog.i( Messages.get(TimekeepersHourglass.class, "ontransmute") );
                                     GameScene.selectItem( itemSelector );
                                 }
                             }
@@ -164,7 +192,8 @@ public class PawWithRings extends Artifact{
             if (!cursed) {
                 if (level() < levelCap )
                     desc += "\n\n" + Messages.get(this, "desc_hint");
-
+                else if(level() >= levelCap )
+                    desc += "\n\n" + Messages.get(this, "desc_full");
             } else
                 desc += "\n\n" + Messages.get(this, "desc_cursed");
         }

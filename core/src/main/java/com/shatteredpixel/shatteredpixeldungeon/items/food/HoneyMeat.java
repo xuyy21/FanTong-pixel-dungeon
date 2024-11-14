@@ -41,7 +41,7 @@ public class HoneyMeat extends Food {
     @Override
     public void effect(Hero hero) {
         GLog.i( Messages.get(HoneyMeat.class, "effect") );
-        Buff.prolong( hero, Haste.class, 8f);
+        Buff.prolong( hero, Haste.class, 12f);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

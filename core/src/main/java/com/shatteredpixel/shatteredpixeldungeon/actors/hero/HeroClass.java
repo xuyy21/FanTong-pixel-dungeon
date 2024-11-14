@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.PawWithRings;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.FoodBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -234,6 +235,10 @@ public enum HeroClass {
 			new PlateArmor().upgrade(30).identify().collect();
 			new WandOfTransfusion().upgrade(10).collect();
 			new RingOfSkill().upgrade(30).collect();
+			new PawWithRings().collect();
+			new RingOfSkill().identify().collect();
+			new RingOfSkill().identify().upgrade(1).collect();
+			new RingOfSkill().identify().upgrade(2).collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

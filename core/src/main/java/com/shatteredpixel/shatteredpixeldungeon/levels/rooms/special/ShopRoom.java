@@ -311,6 +311,8 @@ public class ShopRoom extends SpecialRoom {
 
 		itemsToSpawn.add(new Berry());
 		itemsToSpawn.add(new Berry());
+
+		itemsToSpawn.add(new Honeypot.ShatteredPot());
 		
 		switch (Random.Int(4)){
 			case 0:

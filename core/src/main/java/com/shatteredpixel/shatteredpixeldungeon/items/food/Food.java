@@ -169,4 +169,19 @@ public class Food extends Item {
 	public int value() {
 		return 10 * quantity;
 	}
+
+	@Override
+	public String desc() {
+		String desc = super.desc();
+		float foodVal = energy;
+		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+			foodVal /= 3f;
+		}
+		desc += "\n\n" + Messages.get(Food.class, "energy", (int)foodVal);
+		if (Dungeon.hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) {
+			foodVal *= (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
+			desc += Messages.get(Food.class, "imagine_energy", (int)foodVal);
+		}
+		return desc;
+	}
 }

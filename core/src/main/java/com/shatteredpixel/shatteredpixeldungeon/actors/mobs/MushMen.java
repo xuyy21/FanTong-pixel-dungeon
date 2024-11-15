@@ -5,13 +5,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MushmenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SpinnerSprite;
 import com.watabou.utils.Random;
 
 public class MushMen extends Mob{
 
     {
-        spriteClass = SpinnerSprite.class;
+        spriteClass = MushmenSprite.class;
 
         HP = HT = 45;
         defenseSkill = 16;
@@ -43,8 +44,8 @@ public class MushMen extends Mob{
         damage = super.attackProc( enemy, damage );
         if (Random.Int(2) == 0) {
             Buff buff = enemy.buff(Poison.class);
-            if (buff == null) Buff.affect(enemy, Poison.class).set(3);
-            else Buff.affect(enemy, Poison.class).extend(1);
+            if (buff == null) Buff.affect(enemy, Poison.class).set(4);
+            else Buff.affect(enemy, Poison.class).extend(2);
         }
         else {
             Buff.prolong(enemy, Vertigo.class, 4);

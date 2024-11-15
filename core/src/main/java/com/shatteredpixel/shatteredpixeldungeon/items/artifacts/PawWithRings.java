@@ -75,11 +75,11 @@ public class PawWithRings extends Artifact{
             if (!isEquipped( hero ))        GLog.i( Messages.get(Artifact.class, "need_to_equip") );
             else if (charge <= 0)         GLog.i( Messages.get(this, "no_charge") );
             else if (cursed)                GLog.i( Messages.get(this, "cursed") );
-            else if (level()==levelCap && charge>=2)
+            else if (level()>=levelCap && charge>=2)
                 GameScene.show(
                         new WndOptions(new ItemSprite(this),
                                 Messages.titleCase(name()),
-                                Messages.get(this, "prompt2"),
+                                Messages.get(this, "prompt3"),
                                 Messages.get(this, "spell"),
                                 Messages.get(this, "teleport"),
                                 Messages.get(this, "transmute"),
@@ -99,7 +99,7 @@ public class PawWithRings extends Artifact{
                                     GameScene.flash(0x80FFFFFF);
                                     for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
                                         if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
-                                            Buff.affect(mob, Vertigo.class, 6f);
+                                            Buff.affect(mob, Vertigo.class, 10f);
                                         }
                                     }
                                     Dungeon.hero.spendAndNext(1f);
@@ -107,10 +107,10 @@ public class PawWithRings extends Artifact{
                             }
                         }
                 );
-            else GameScene.show(
+            else if (level()>=levelCap/2 && charge>=2) GameScene.show(
                         new WndOptions(new ItemSprite(this),
                                 Messages.titleCase(name()),
-                                Messages.get(this, "prompt"),
+                                Messages.get(this, "prompt2"),
                                 Messages.get(this, "spell"),
                                 Messages.get(this, "teleport"),
                                 Messages.get(this, "transmute")) {
@@ -123,6 +123,23 @@ public class PawWithRings extends Artifact{
                                     charge--;
                                 } else if (index == 2) {
                                     GameScene.selectItem( itemSelector );
+                                }
+                            }
+                        }
+                );
+            else GameScene.show(
+                        new WndOptions(new ItemSprite(this),
+                                Messages.titleCase(name()),
+                                Messages.get(this, "prompt1"),
+                                Messages.get(this, "spell"),
+                                Messages.get(this, "teleport")) {
+                            @Override
+                            protected void onSelect(int index) {
+                                if (index == 0) {
+                                    new PawSpell().execute(hero);
+                                } else if (index == 1) {
+                                    new ScrollOfTeleportation().execute(hero);
+                                    charge--;
                                 }
                             }
                         }
@@ -208,8 +225,9 @@ public class PawWithRings extends Artifact{
                     && !cursed
                     && target.buff(MagicImmune.class) == null
                     && Regeneration.regenOn()) {
-
-                float chargeGain = 1 / (90f - level()*4f);
+                // 100 turns at level +0, 50 turns at level +10
+                // use such method to bigger the bonus of upgrading low-level paw
+                float chargeGain = 0.01f + 0.001f * level();
                 chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
                 partialCharge += chargeGain;
 
@@ -248,12 +266,23 @@ public class PawWithRings extends Artifact{
 
         @Override
         protected void fx(Ballistica bolt, Callback callback) {
-            CursedWand.CursedEffect effect = CursedWand.randomValidEffect(this, curUser, bolt, true);
-
-            effect.FX(this, curUser, bolt, new Callback() {
+            // zap twice but spend 1 turn only
+            Dungeon.hero.spend(-1);
+            // first zap
+            CursedWand.CursedEffect effect1 = CursedWand.randomValidEffect(this, curUser, bolt, true);
+            effect1.FX(this, curUser, bolt, new Callback() {
                 @Override
                 public void call() {
-                    effect.effect(null, curUser, bolt, true);
+                    effect1.effect(null, curUser, bolt, true);
+                    callback.call();
+                }
+            });
+            // second zap
+            CursedWand.CursedEffect effect2 = CursedWand.randomValidEffect(this, curUser, bolt, true);
+            effect2.FX(this, curUser, bolt, new Callback() {
+                @Override
+                public void call() {
+                    effect2.effect(null, curUser, bolt, true);
                     callback.call();
                 }
             });

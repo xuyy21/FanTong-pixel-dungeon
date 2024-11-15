@@ -99,7 +99,7 @@ public class PawWithRings extends Artifact{
                                     GameScene.flash(0x80FFFFFF);
                                     for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
                                         if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
-                                            Buff.affect(mob, Vertigo.class, 10f);
+                                            Buff.affect(mob, Vertigo.class, 20f);
                                         }
                                     }
                                     Dungeon.hero.spendAndNext(1f);
@@ -178,7 +178,7 @@ public class PawWithRings extends Artifact{
     @Override
     public void charge(Hero target, float amount) {
         if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null){
-            partialCharge += 0.1f*amount;
+            partialCharge += amount/15f;
             while (partialCharge >= 1){
                 partialCharge--;
                 charge++;
@@ -225,9 +225,9 @@ public class PawWithRings extends Artifact{
                     && !cursed
                     && target.buff(MagicImmune.class) == null
                     && Regeneration.regenOn()) {
-                // 100 turns at level +0, 50 turns at level +10
+                // 200 turns at level +0, 100 turns at level +10
                 // use such method to bigger the bonus of upgrading low-level paw
-                float chargeGain = 0.01f + 0.001f * level();
+                float chargeGain = 0.005f + 0.0005f * level();
                 chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
                 partialCharge += chargeGain;
 
@@ -240,8 +240,10 @@ public class PawWithRings extends Artifact{
                         GLog.p( Messages.get(PawWithRings.class, "full") );
                     }
                 }
-            } else if (cursed && Random.Int(10) == 0)
+            } else if (cursed && Random.Int(10) == 0) {
                 Buff.prolong(target, Vertigo.class, 4);
+                GLog.n(Messages.get(PawWithRings.class, "cursed_effect"));
+            }
 
             updateQuickslot();
 
@@ -266,8 +268,8 @@ public class PawWithRings extends Artifact{
 
         @Override
         protected void fx(Ballistica bolt, Callback callback) {
-            // zap twice but spend 1 turn only
-            Dungeon.hero.spend(-1);
+            // zap three times but spend 1 turn only
+            Dungeon.hero.spend(-2);
             // first zap
             CursedWand.CursedEffect effect1 = CursedWand.randomValidEffect(this, curUser, bolt, true);
             effect1.FX(this, curUser, bolt, new Callback() {
@@ -283,6 +285,15 @@ public class PawWithRings extends Artifact{
                 @Override
                 public void call() {
                     effect2.effect(null, curUser, bolt, true);
+                    callback.call();
+                }
+            });
+            // third zap
+            CursedWand.CursedEffect effect3 = CursedWand.randomValidEffect(this, curUser, bolt, true);
+            effect3.FX(this, curUser, bolt, new Callback() {
+                @Override
+                public void call() {
+                    effect3.effect(null, curUser, bolt, true);
                     callback.call();
                 }
             });

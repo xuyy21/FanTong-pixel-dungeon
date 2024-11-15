@@ -22,6 +22,8 @@ public class Glandcandy extends Food{
     {
         image = ItemSpriteSheet.GLANDCANDY;
         energy = Hunger.HUNGRY;
+
+        canFakeEat = true;
     }
 
     @Override

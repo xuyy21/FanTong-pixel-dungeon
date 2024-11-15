@@ -71,6 +71,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.CrabClaw;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MagicHeart;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
@@ -279,6 +280,7 @@ public enum HeroClass {
 			new ROHoneyMeat().collect();
 			new ROTempura().collect();
 			new ROCookit().collect();
+			new MagicHeart().quantity(10).collect();
 		}
 
 			switch (this) {

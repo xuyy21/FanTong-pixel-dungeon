@@ -55,15 +55,15 @@ public class Spinner extends Mob {
 		loot = new MysteryMeat();
 		lootChance = 0.125f;
 		food = new Gland();
-		foodChance = adjustfoodChance();
+		foodChance = 0;
 
 		HUNTING = new Hunting();
 		FLEEING = new Fleeing();
 	}
 
-	public final float adjustfoodChance() {
-		if (Dungeon.hero.subClass == HeroSubClass.CHIEF) return 0.5f;
-		return 4f;
+	@Override
+	public float foodChance() {
+		return 0.5f;
 	}
 
 	@Override

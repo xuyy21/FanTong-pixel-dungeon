@@ -54,14 +54,14 @@ public class Scorpio extends Mob {
 		loot = Generator.Category.POTION;
 		lootChance = 0.5f;
 		food = new ScorpioTail();
-		foodChance = adjustfoodChance();
+		foodChance = 0;
 
 		properties.add(Property.DEMONIC);
 	}
 
-	public final float adjustfoodChance() {
-		if (Dungeon.hero.subClass == HeroSubClass.CHIEF) return 0.5f;
-		return 4f;
+	@Override
+	public float foodChance() {
+		return 0.5f;
 	}
 	
 	@Override

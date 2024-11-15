@@ -333,7 +333,7 @@ public class PawWithRings extends Artifact{
 
         @Override
         public boolean itemSelectable(Item item) {
-            return item instanceof Ring;
+            return item instanceof Ring && !item.isEquipped(Dungeon.hero);
         }
 
         @Override
@@ -344,7 +344,7 @@ public class PawWithRings extends Artifact{
                 Sample.INSTANCE.play( Assets.Sounds.READ );
                 hero.busy();
                 hero.spend( Actor.TICK );
-                upgrade(2 + item.level());
+                upgrade(1 + item.level());
                 GLog.p( Messages.get(PawWithRings.class, "levelup") );
                 item.detach(hero.belongings.backpack);
             }

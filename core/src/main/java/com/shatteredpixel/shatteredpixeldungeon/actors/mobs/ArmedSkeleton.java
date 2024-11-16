@@ -1,20 +1,43 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ArmedSkeletonSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.WarlockSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class ArmedSkeleton extends Skeleton{
+public class ArmedSkeleton extends Skeleton implements Callback {
 
     {
-        loot = null;
-        lootChance = 0;
+        spriteClass = ArmedSkeletonSprite.class;
+
+        HP = HT = 100;
+        defenseSkill = 25;
+        viewDistance = Light.DISTANCE;
+
+        EXP = 12;
+        maxLvl = 27;
+
+        loot = Generator.Category.WAND;
+        lootChance = 0.1f; //initially, see lootChance()
     }
 
     protected MeleeWeapon weapon = null;
@@ -30,13 +53,14 @@ public class ArmedSkeleton extends Skeleton{
     }
 
     public void createWeapon(){
-        int weapon_tier = Random.chances(new float[]{12, 32, 3, 2, 1});
+        int weapon_tier = Random.chances(new float[]{0, 0, 1, 6, 3});
         weapon = (MeleeWeapon) Generator.randomUsingDefaults( Generator.wepTiers[weapon_tier] );
 //		weapon.identify(false);
         weapon.cursed = true;
         weapon.cursedKnown = true;
+        weapon.upgrade();
 
-        int enchant_type = Random.chances(new float[]{4f, 5f, 1f});
+        int enchant_type = Random.chances(new float[]{1f, 5f, 4f});
         switch (enchant_type){
             case 0: default:
                 weapon.enchant( null );
@@ -67,7 +91,7 @@ public class ArmedSkeleton extends Skeleton{
     @Override
     public int damageRoll() {
         if (weapon == null){
-            return Random.NormalIntRange(1, 8);
+            return Random.NormalIntRange(10, 20);
         }
         else return weapon.damageRoll(this);
     }
@@ -75,9 +99,9 @@ public class ArmedSkeleton extends Skeleton{
     @Override
     public int attackSkill( Char target ) {
         if (weapon == null){
-            return 12;
+            return 40;
         }
-        else return (int)(12 * weapon.accuracyFactor( this, target ));
+        else return (int)(40 * weapon.accuracyFactor( this, target ));
     }
 
     @Override
@@ -91,17 +115,69 @@ public class ArmedSkeleton extends Skeleton{
     @Override
     protected boolean canAttack(Char enemy) {
         if (weapon == null) {
-            return super.canAttack(enemy);
+            return super.canAttack(enemy) || new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
         }
-        else return super.canAttack(enemy) || weapon.canReach(this, enemy.pos);
+        else return super.canAttack(enemy) || weapon.canReach(this, enemy.pos)
+                || new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
+    }
+
+    @Override
+    protected boolean doAttack( Char enemy ) {
+
+        if (Dungeon.level.adjacent( pos, enemy.pos ) || weapon.canReach(this, enemy.pos)
+                || new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos != enemy.pos) {
+
+            return super.doAttack( enemy );
+
+        } else {
+
+            if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
+                sprite.zap( enemy.pos );
+                return false;
+            } else {
+                zap();
+                return true;
+            }
+        }
+    }
+
+    protected void zap() {
+        spend( 1f );
+
+        Invisibility.dispel(this);
+        Char enemy = this.enemy;
+        if (hit( this, enemy, true )) {
+
+            int dmg = Random.NormalIntRange( 10, 30 );
+            dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
+            enemy.damage( dmg, new Warlock.DarkBolt() );
+
+            if (enemy == Dungeon.hero && !enemy.isAlive()) {
+                Badges.validateDeathFromEnemyMagic();
+                Dungeon.fail( this );
+                GLog.n( Messages.get(Warlock.class, "bolt_kill") );
+            }
+        } else {
+            enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+        }
+    }
+
+    public void onZapComplete() {
+        zap();
+        next();
+    }
+
+    @Override
+    public void call() {
+        next();
     }
 
     @Override
     public int drRoll() {
         if (weapon == null) {
-            return super.drRoll();
+            return super.drRoll() + Random.NormalIntRange(0, 10);
         }
-        else return super.drRoll() + Random.NormalIntRange(0, weapon.defenseFactor(this));
+        else return super.drRoll() + Random.NormalIntRange(0, weapon.defenseFactor(this)) + Random.NormalIntRange(0, 10);
     }
 
     @Override
@@ -115,6 +191,18 @@ public class ArmedSkeleton extends Skeleton{
             }
         }
         return damage;
+    }
+
+    @Override
+    public Item createLoot() {
+        Dungeon.LimitedDrops.Skeleton_WAND.count++;
+        return super.createLoot();
+    }
+
+    @Override
+    public float lootChance() {
+        //each drop makes future drops 1/3 as likely
+        return super.lootChance() * (float)Math.pow(1/3f, Dungeon.LimitedDrops.Skeleton_WAND.count);
     }
 
     @Override

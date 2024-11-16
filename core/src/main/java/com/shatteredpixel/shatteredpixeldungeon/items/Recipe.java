@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MushroomSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
@@ -248,7 +249,8 @@ public abstract class Recipe {
 		new BBQ.Recipe(),
 		new GoldenPudding.Recipe(),
 		new Mushroom.MushroomToPotion(),
-		new Gland.GlandToPotion()
+		new Gland.GlandToPotion(),
+		new MushroomSoup.Recipe()
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){

@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -24,20 +25,25 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class ArmedSkeleton extends Skeleton implements Callback {
+public class ArmedSkeleton extends Mob implements Callback {
 
     {
         spriteClass = ArmedSkeletonSprite.class;
 
         HP = HT = 100;
-        defenseSkill = 25;
+        defenseSkill = 30;
         viewDistance = Light.DISTANCE;
 
         EXP = 12;
         maxLvl = 27;
 
         loot = Generator.Category.WAND;
-        lootChance = 0.1f; //initially, see lootChance()
+        lootChance = 1f; //initially, see lootChance()
+        food = new MysteryBone();
+        foodChance = 4f;
+
+        properties.add(Property.UNDEAD);
+        properties.add(Property.INORGANIC);
     }
 
     protected MeleeWeapon weapon = null;
@@ -196,7 +202,9 @@ public class ArmedSkeleton extends Skeleton implements Callback {
     @Override
     public Item createLoot() {
         Dungeon.LimitedDrops.Skeleton_WAND.count++;
-        return super.createLoot();
+        Item loot = super.createLoot();
+        loot.cursed = true;
+        return loot;
     }
 
     @Override

@@ -62,10 +62,7 @@ public class ArmedSkeleton extends Mob implements Callback {
         int weapon_tier = Random.chances(new float[]{0, 0, 1, 6, 3});
         weapon = (MeleeWeapon) Generator.randomUsingDefaults( Generator.wepTiers[weapon_tier] );
 //		weapon.identify(false);
-        weapon.cursed = true;
-        weapon.cursedKnown = true;
         weapon.upgrade();
-
         int enchant_type = Random.chances(new float[]{1f, 5f, 4f});
         switch (enchant_type){
             case 0: default:
@@ -78,6 +75,8 @@ public class ArmedSkeleton extends Mob implements Callback {
                 weapon.enchant( Weapon.Enchantment.random() );
                 break;
         }
+        weapon.cursed = true;
+        weapon.cursedKnown = true;
     }
 
     private static final String WEAPON	= "weapon";
@@ -216,5 +215,12 @@ public class ArmedSkeleton extends Mob implements Callback {
     @Override
     public String description() {
         return Messages.get(this, "desc", weapon.name());
+    }
+
+    @Override
+    public void die( Object cause ) {
+        weapon.identify(false);
+        Dungeon.level.drop( weapon, pos ).sprite.drop();
+        super.die( cause );
     }
 }

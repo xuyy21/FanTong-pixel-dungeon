@@ -23,4 +23,9 @@ public class MysteryBone extends Item{
     public int value() {
         return 3 * quantity;
     }
+
+    @Override
+    public int energyVal() {
+        return quantity;
+    }
 }

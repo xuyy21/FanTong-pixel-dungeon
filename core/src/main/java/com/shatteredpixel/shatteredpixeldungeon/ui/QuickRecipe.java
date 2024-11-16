@@ -51,6 +51,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
@@ -62,6 +63,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.CausticBrew;
@@ -351,9 +353,9 @@ public class QuickRecipe extends Component {
 							new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.ShatteredPot())),
 							new HoneyMeat()));
 				if (Dungeon.hero.heroClass==MAGE || Dungeon.hero.subClass== HeroSubClass.CHIEF)
-					result.add(new QuickRecipe(new GoldenPudding.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new Potion.PlaceHolder(), new Honeypot.ShatteredPot())),
-							new GoldenPudding()));
+					result.add(new QuickRecipe(new Icecream.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new PotionOfFrost(), new Honeypot.ShatteredPot())),
+							new Icecream()));
 				if (Dungeon.hero.heroClass==HUNTRESS || Dungeon.hero.subClass== HeroSubClass.CHIEF)
 					result.add(new QuickRecipe(new Juice.Recipe()));
 				if (Dungeon.hero.heroClass==DUELIST || Dungeon.hero.subClass== HeroSubClass.CHIEF)

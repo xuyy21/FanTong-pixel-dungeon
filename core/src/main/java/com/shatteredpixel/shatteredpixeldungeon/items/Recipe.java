@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Glandcandy;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
@@ -232,7 +233,7 @@ public abstract class Recipe {
 		new StewedMeat.twoMeat(),
 		new GooStylus.Recipe(),
 		new Pasty.Recipe(),
-		new GoldenPudding.Recipe(),
+		new Icecream.Recipe(),
 		new HoneyMeat.Recipe(),
 		new BoneSoup.Recipe(),
 		new Glandcandy.Recipe(),
@@ -245,6 +246,7 @@ public abstract class Recipe {
 		new MeatPie.Recipe(),
 		new Salad.Recipe(),
 		new BBQ.Recipe(),
+		new GoldenPudding.Recipe(),
 		new Mushroom.MushroomToPotion(),
 		new Gland.GlandToPotion()
 	};

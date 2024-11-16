@@ -49,6 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.GooStylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
+import com.shatteredpixel.shatteredpixeldungeon.items.SlimeBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
@@ -78,6 +79,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.RatTail;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTail;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -217,6 +219,7 @@ public enum HeroClass {
 			new PotionOfHealing().quantity(100).collect();
 			new PotionOfExperience().quantity(100).collect();
 			new PotionOfMindVision().quantity(100).collect();
+			new PotionOfFrost().quantity(100).collect();
 		}
 		if (Testing) {
 			new UnstableSpellbook().collect();
@@ -269,6 +272,7 @@ public enum HeroClass {
 			new ElementalCore().quantity(10).collect();
 			new BigEye().quantity(10).collect();
 			new Mushroom().quantity(10).collect();
+			new SlimeBlob().quantity(10).collect();
 			Dungeon.gold += 1000;
 			new Gland().quantity(10).collect();
 			new ROGlandcandy().collect();

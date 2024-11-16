@@ -53,7 +53,7 @@ public class Tempura extends Food {
             inputs =  new Class[]{MysteryMeat.class};
             inQuantity = new int[]{1};
 
-            cost = 4;
+            cost = 2;
 
             output = Tempura.class;
             outQuantity = 1;

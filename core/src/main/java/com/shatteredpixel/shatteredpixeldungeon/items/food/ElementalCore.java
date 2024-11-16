@@ -36,6 +36,6 @@ public class ElementalCore extends Food{
     public void effect(Hero hero) {
         GLog.i( Messages.get(ElementalCore.class, "effect") );
         Buff.affect(curUser, Recharging.class, 15f);
-        Buff.affect(curUser, ArtifactRecharge.class).set( 15f ).ignoreHornOfPlenty = false;
+        Buff.affect(curUser, ArtifactRecharge.class).set( 15f ).ignoreHornOfPlenty = true;
     }
 }

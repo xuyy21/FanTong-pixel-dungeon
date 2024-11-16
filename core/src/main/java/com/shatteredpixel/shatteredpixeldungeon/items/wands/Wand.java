@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HeartEmpower;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FoodEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
@@ -48,7 +48,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.MagicHeart;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -373,7 +372,7 @@ public abstract class Wand extends Item {
 				lvl += 2;
 			}
 
-			if (charger.target.buff(HeartEmpower.class) != null) {
+			if (charger.target.buff(FoodEmpower.class) != null) {
 				lvl += 1;
 			}
 
@@ -476,7 +475,7 @@ public abstract class Wand extends Item {
 			if (empower != null){
 				empower.use();
 			}
-			HeartEmpower empower2 = curUser.buff(HeartEmpower.class);
+			FoodEmpower empower2 = curUser.buff(FoodEmpower.class);
 			if (empower2 != null){
 				empower2.use();
 			}

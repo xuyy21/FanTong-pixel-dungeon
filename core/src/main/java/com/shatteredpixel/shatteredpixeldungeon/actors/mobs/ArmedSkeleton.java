@@ -31,11 +31,11 @@ public class ArmedSkeleton extends Mob implements Callback {
         spriteClass = ArmedSkeletonSprite.class;
 
         HP = HT = 100;
-        defenseSkill = 30;
+        defenseSkill = 35;
         viewDistance = Light.DISTANCE;
 
-        EXP = 12;
-        maxLvl = 27;
+        EXP = 13;
+        maxLvl = 28;
 
         loot = Generator.Category.WAND;
         lootChance = 1f; //initially, see lootChance()
@@ -59,10 +59,10 @@ public class ArmedSkeleton extends Mob implements Callback {
     }
 
     public void createWeapon(){
-        int weapon_tier = Random.chances(new float[]{0, 0, 1, 6, 3});
-        weapon = (MeleeWeapon) Generator.randomUsingDefaults( Generator.wepTiers[weapon_tier] );
+//        int weapon_tier = Random.chances(new float[]{0, 0, 1, 3, 3});
+        weapon = (MeleeWeapon) Generator.randomUsingDefaults(Generator.Category.WEAPON);;
 //		weapon.identify(false);
-        weapon.upgrade();
+        weapon.upgrade(2);
         int enchant_type = Random.chances(new float[]{1f, 5f, 4f});
         switch (enchant_type){
             case 0: default:

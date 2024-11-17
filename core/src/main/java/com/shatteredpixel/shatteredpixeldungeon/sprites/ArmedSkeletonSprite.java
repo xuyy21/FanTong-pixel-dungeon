@@ -12,7 +12,7 @@ public class ArmedSkeletonSprite extends MobSprite{
     public ArmedSkeletonSprite() {
         super();
 
-        texture( Assets.Sprites.SKELETON );
+        texture( Assets.Sprites.ARMEDSKELETON );
 
         TextureFilm frames = new TextureFilm( texture, 12, 15 );
 

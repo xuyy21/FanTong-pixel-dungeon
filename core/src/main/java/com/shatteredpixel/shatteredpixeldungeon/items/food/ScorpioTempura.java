@@ -42,7 +42,7 @@ public class ScorpioTempura extends Food{
             inputs =  new Class[]{ScorpioTail.class};
             inQuantity = new int[]{1};
 
-            cost = 5;
+            cost = 3;
 
             output = ScorpioTempura.class;
             outQuantity = 1;

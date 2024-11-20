@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
 
-public class RecipeBook extends Item {
+public abstract class RecipeBook extends Item {
 
     {
         image = ItemSpriteSheet.ALCH_PAGE;

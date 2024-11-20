@@ -49,6 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROCookit;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGlandcandy;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
@@ -248,11 +249,7 @@ public class ShopRoom extends SpecialRoom {
 			case 6: default:
 				return new ROGoldenPudding();
 			case 11:
-				int r = Random.Int(0,5);
-				HeroClass[] classes = {HeroClass.WARRIOR, HeroClass.MAGE, HeroClass.ROGUE, HeroClass.HUNTRESS, HeroClass.DUELIST};
-				RecipeBook[] recipeBooks = {new ROSmallRation(), new ROIcecream(), new ROHoneyMeat(), new ROJuice(), new ROTempura()};
-				while (Dungeon.hero.heroClass == classes[r] || RecipeBook.hasRecipe(recipeBooks[r].getClass())) r = Random.Int(0,5);
-				return recipeBooks[r];
+				return new ROBlackPudding();
 			case 16:
 				return new ROMushroomSoup();
 			case 20: case 21:

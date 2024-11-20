@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
+import com.shatteredpixel.shatteredpixeldungeon.items.Cookware;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -329,6 +330,8 @@ public class ShopRoom extends SpecialRoom {
 		itemsToSpawn.add(new Berry());
 
 		itemsToSpawn.add(new Honeypot.ShatteredPot());
+
+		itemsToSpawn.add(new Cookware());
 		
 		switch (Random.Int(4)){
 			case 0:

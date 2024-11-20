@@ -1039,6 +1039,7 @@ public class Hero extends Char {
 			}
 
 			AlchemyScene.clearToolkit();
+			AlchemyScene.clearCookware();
 			ShatteredPixelDungeon.switchScene(AlchemyScene.class);
 			return false;
 

@@ -44,6 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.En
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.Cookware;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.GooStylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
@@ -184,6 +185,8 @@ public enum HeroClass {
 
 		new ScrollOfIdentify().identify();
 
+		new Cookware().collect();
+
 		if (Testing) {
 			new ScrollOfUpgrade().identify();
 			new ScrollOfMagicMapping().identify();
@@ -261,6 +264,8 @@ public enum HeroClass {
 			new Starflower.Seed().quantity(100).collect();
 		}
 		if (Testing) {
+			Dungeon.gold += 1000;
+
 			new Food().quantity(100).collect();
 			new Pasty().quantity(100).collect();
 			new MysteryMeat().quantity(100).collect();
@@ -274,19 +279,20 @@ public enum HeroClass {
 			new BigEye().quantity(10).collect();
 			new Mushroom().quantity(10).collect();
 			new SlimeBlob().quantity(10).collect();
-			Dungeon.gold += 1000;
 			new Gland().quantity(10).collect();
-			new ROGlandcandy().collect();
 			new ScorpioTail().quantity(10).collect();
-			new ROScorpioTempura().collect();
-			new ROGoldenPudding().collect();
-			new ROSmallRation().collect();
-			new ROJuice().collect();
-			new ROHoneyMeat().collect();
-			new ROTempura().collect();
-			new ROCookit().collect();
-			new ROMushroomSoup().collect();
 			new MagicHeart().quantity(10).collect();
+//			new Cookware().quantity(10).collect();
+
+//			new ROGlandcandy().collect();
+//			new ROScorpioTempura().collect();
+//			new ROGoldenPudding().collect();
+//			new ROSmallRation().collect();
+//			new ROJuice().collect();
+//			new ROHoneyMeat().collect();
+//			new ROTempura().collect();
+//			new ROCookit().collect();
+//			new ROMushroomSoup().collect();
 		}
 
 			switch (this) {

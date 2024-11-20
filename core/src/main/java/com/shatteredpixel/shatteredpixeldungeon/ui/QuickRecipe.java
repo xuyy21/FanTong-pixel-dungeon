@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
+import com.shatteredpixel.shatteredpixeldungeon.items.Cookware;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.GooStylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
@@ -318,6 +319,9 @@ public class QuickRecipe extends Component {
 				}
 				return result;
 			case 2:
+				result.add(new QuickRecipe(new Cookware.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new Alchemize(), new LiquidMetal().quantity(10))),
+						new Cookware()));
 				result.add(new QuickRecipe( new StewedMeat.oneMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.twoMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.threeMeat() ));

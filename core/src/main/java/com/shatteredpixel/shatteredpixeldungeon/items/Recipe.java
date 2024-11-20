@@ -238,7 +238,8 @@ public abstract class Recipe {
 		new HoneyMeat.Recipe(),
 		new BoneSoup.Recipe(),
 		new Glandcandy.Recipe(),
-		new Cookit.Recipe()
+		new Cookit.Recipe(),
+		new Cookware.Recipe()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

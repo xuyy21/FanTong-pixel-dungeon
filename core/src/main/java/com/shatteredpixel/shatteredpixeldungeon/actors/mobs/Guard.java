@@ -59,7 +59,7 @@ public class Guard extends Mob {
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.2f; //by default, see lootChance()
 		food = new Mushroom();
-		foodChance = 0.2f;
+		foodChance = 0.4f;
 
 		properties.add(Property.UNDEAD);
 		

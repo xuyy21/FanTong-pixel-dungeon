@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class PawWithRings extends Artifact{
 
     {
-        image = ItemSpriteSheet.ARTIFACT_HOURGLASS;
+        image = ItemSpriteSheet.ARTIFACT_PAW;
 
         levelCap = 10;
 

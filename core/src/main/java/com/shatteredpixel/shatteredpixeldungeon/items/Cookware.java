@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Cookware extends Item{
 
     {
-        image = ItemSpriteSheet.ARTIFACT_TOOLKIT;
+        image = ItemSpriteSheet.COOKWARE;
         defaultAction = AC_BREW;
         stackable = true;
     }

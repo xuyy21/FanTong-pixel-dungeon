@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 public class MagicHeart extends Food{
 
     {
-        image = ItemSpriteSheet.MEAT;
+        image = ItemSpriteSheet.HEART;
         energy = Hunger.HUNGRY/2f;
         canFakeEat = true;
     }

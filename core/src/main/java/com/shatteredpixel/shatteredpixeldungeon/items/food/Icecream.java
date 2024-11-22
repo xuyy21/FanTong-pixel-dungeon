@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class Icecream extends Food{
 
     {
-        image = ItemSpriteSheet.GOLDEN_PUDDING;
+        image = ItemSpriteSheet.ICECREAM;
         energy = Hunger.HUNGRY;
         canFakeEat = true;
     }

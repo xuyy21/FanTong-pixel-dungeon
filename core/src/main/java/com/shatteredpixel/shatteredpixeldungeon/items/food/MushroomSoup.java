@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MushroomSoup extends Food{
 
     {
-        image = ItemSpriteSheet.MUSHROOM;
+        image = ItemSpriteSheet.MUSHROOMSOUP;
         energy = Hunger.HUNGRY;
         canFakeEat = false;
     }

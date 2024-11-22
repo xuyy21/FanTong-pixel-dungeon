@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class BlackPudding extends Food{
 
     {
-        image = ItemSpriteSheet.GOLDEN_PUDDING;
+        image = ItemSpriteSheet.BLACK_PUDDING;
         energy = Hunger.STARVING;
         canFakeEat = true;
     }

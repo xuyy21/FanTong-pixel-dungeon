@@ -450,6 +450,7 @@ public class ItemSpriteSheet {
 	public static final int ARTIFACT_ROSE1      = ARTIFACTS+20;
 	public static final int ARTIFACT_ROSE2      = ARTIFACTS+21;
 	public static final int ARTIFACT_ROSE3      = ARTIFACTS+22;
+	public static final int ARTIFACT_PAW		= ARTIFACTS+23;
 	static{
 		assignItemRect(ARTIFACT_CLOAK,      9,  15);
 		assignItemRect(ARTIFACT_ARMBAND,    16, 13);
@@ -474,6 +475,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ARTIFACT_ROSE1,      14, 14);
 		assignItemRect(ARTIFACT_ROSE2,      14, 14);
 		assignItemRect(ARTIFACT_ROSE3,      14, 14);
+		assignItemRect(ARTIFACT_PAW,      	16, 14);
 	}
 
 	private static final int TRINKETS        =                               xy(9, 17);  //24 slots
@@ -665,7 +667,8 @@ public class ItemSpriteSheet {
 	public static final int RETURN_BEACON   = SPELLS+11;
 	public static final int SUMMON_ELE      = SPELLS+12;
 
-	public static final int GOO_STYLUS      	= SPELLS+14;
+	public static final int GOO_STYLUS      = SPELLS+14;
+	public static final int COOKWARE      	= SPELLS+15;
 
 	static{
 		assignItemRect(WILD_ENERGY,     12, 11);
@@ -678,11 +681,12 @@ public class ItemSpriteSheet {
 		assignItemRect(ALCHEMIZE,       10, 15);
 		assignItemRect(RECYCLE,         10, 15);
 
-		assignItemRect(RECLAIM_TRAP,     8, 16);
-		assignItemRect(RETURN_BEACON,    8, 16);
-		assignItemRect(SUMMON_ELE,       8, 16);
+		assignItemRect(RECLAIM_TRAP,    8, 16);
+		assignItemRect(RETURN_BEACON,   8, 16);
+		assignItemRect(SUMMON_ELE,      8, 16);
 
-		assignItemRect(GOO_STYLUS,       9, 10);
+		assignItemRect(GOO_STYLUS,      9, 10);
+		assignItemRect(COOKWARE,       	14, 13);
 	}
 	
 	private static final int FOOD       =                                   xy(1, 28);  //16 slots
@@ -718,28 +722,32 @@ public class ItemSpriteSheet {
 	private static  final int RAW_FOOD		=								xy(1, 33);
 	public static final int RATTAIL			= RAW_FOOD+0;
 	public static final int CRABCLAW		= RAW_FOOD+1;
+	public static final int SLIMEBLOB		= RAW_FOOD+2;
 	public static final int MYSTERYBONE		= RAW_FOOD+3;
 	public static final int MUSHROOM		= RAW_FOOD+4;
 	public static final int BATBODY			= RAW_FOOD+6;
 	public static final int GLAND			= RAW_FOOD+7;
 	public static final int ELEMENTALCORE	= RAW_FOOD+9;
+	public static final int HEART			= RAW_FOOD+10;
 	public static final int BIGEYE			= RAW_FOOD+12;
 	public static final int SCORPIOTAIL		= RAW_FOOD+13;
 	static{
 		assignItemRect(RATTAIL,			15, 16);
 		assignItemRect(CRABCLAW,		16, 16);
+		assignItemRect(SLIMEBLOB,		12, 12);
 		assignItemRect(MYSTERYBONE,		13, 13);
 		assignItemRect(MUSHROOM,		15, 15);
 		assignItemRect(BATBODY,			15, 14);
 		assignItemRect(GLAND,			11, 16);
 		assignItemRect(ELEMENTALCORE,	13, 11);
+		assignItemRect(HEART,			15, 16);
 		assignItemRect(BIGEYE,			12, 12);
 		assignItemRect(SCORPIOTAIL,		15, 16);
 	}
 
 	private static  final int COOKED_FOOD	=								xy(1, 34);
 	public static final int Honey_MEAT		= COOKED_FOOD+1;
-	public static final int GOLDEN_PUDDING	= COOKED_FOOD+2;
+	public static final int ICECREAM		= COOKED_FOOD+2;
 	public static final int JUICE			= COOKED_FOOD+3;
 	public static final int TEMPURA			= COOKED_FOOD+4;
 	public static final int SALAD			= COOKED_FOOD+6;
@@ -749,18 +757,30 @@ public class ItemSpriteSheet {
 	public static final int GLANDCANDY		= COOKED_FOOD+10;
 	public static final int SCORPIOTEMPURA	= COOKED_FOOD+11;
 	public static final int COOKIT			= COOKED_FOOD+12;
+	public static final int GOLDEN_PUDDING	= COOKED_FOOD+13;
+	public static final int BLACK_PUDDING	= COOKED_FOOD+14;
+	public static final int SORBET			= COOKED_FOOD+15;
+	public static final int MUSHROOMSOUP	= COOKED_FOOD+16;
+	public static final int BERRY_CKAE		= COOKED_FOOD+18;
+	public static final int EYE_CKAE		= COOKED_FOOD+19;
 	static{
 		assignItemRect(Honey_MEAT,    	15, 11);
-		assignItemRect(GOLDEN_PUDDING, 	11, 9);
-		assignItemRect(JUICE,          	8, 12);
+		assignItemRect(ICECREAM, 		10, 16);
+		assignItemRect(JUICE,          	12, 15);
 		assignItemRect(TEMPURA,      	16, 16);
-		assignItemRect(SALAD,    		14, 10);
-		assignItemRect(BONESOUP, 		15, 13);
+		assignItemRect(SALAD,    		16, 15);
+		assignItemRect(BONESOUP, 		16, 14);
 		assignItemRect(BBQ,          	14, 14);
 		assignItemRect(TOASTBAT,      	15, 16);
 		assignItemRect(GLANDCANDY,		12, 12);
 		assignItemRect(SCORPIOTEMPURA,	14, 16);
 		assignItemRect(COOKIT,			16, 13);
+		assignItemRect(GOLDEN_PUDDING,	13, 14);
+		assignItemRect(BLACK_PUDDING,	13, 14);
+		assignItemRect(SORBET,			16, 16);
+		assignItemRect(MUSHROOMSOUP,	16, 12);
+		assignItemRect(BERRY_CKAE,		16, 16);
+		assignItemRect(EYE_CKAE,		16, 16);
 	}
 
 	private static final int HOLIDAY_FOOD   =                               xy(1, 29);  //16 slots
@@ -794,7 +814,7 @@ public class ItemSpriteSheet {
 	static {
 		assignItemRect(COLA, 			8,  11);
 		assignItemRect(DOGESMEAT, 		16, 15);
-		assignItemRect(ZAKOSOUP, 		14, 10);
+		assignItemRect(ZAKOSOUP, 		16, 14);
 	}
 
 	private static final int QUEST  =                                       xy(1, 30);  //16 slots

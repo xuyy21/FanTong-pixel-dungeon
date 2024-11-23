@@ -1,23 +1,26 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 import java.util.ArrayList;
 
-public class BoneSoup extends Food{
+public class Sorbet extends Food{
 
     {
-        image = ItemSpriteSheet.BONESOUP;
-        energy = Hunger.HUNGRY/2f;
+        image = ItemSpriteSheet.SORBET;
+        energy = Hunger.STARVING;
         canFakeEat = true;
     }
 
@@ -29,41 +32,41 @@ public class BoneSoup extends Food{
 
     @Override
     public int value() {
-        return 8 * quantity;
+        return 10 * quantity;
     }
 
     @Override
-    public void effect(Hero hero){
-        GLog.i( Messages.get(BoneSoup.class, "effect") );
-        Barkskin.conditionallyAppend( hero, 5 + hero.lvl, 1 );
+    public void effect(Hero hero) {
+        GLog.i( Messages.get(Sorbet.class, "effect") );
+        Buff.prolong( hero, Recharging.class, 15f);
+        Buff.affect(curUser, ArtifactRecharge.class).set( 15f ).ignoreHornOfPlenty = true;
+        Buff.affect(hero, FireImbue.class).set( FireImbue.DURATION*0.3f );
+        Buff.affect(hero, FrostImbue.class, FrostImbue.DURATION*0.3f);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
         @Override
         public boolean testIngredients(ArrayList<Item> ingredients) {
-            boolean meat = false;
-            boolean bone = false;
+            boolean core = false;
+            boolean juice = false;
 
             for (Item ingredient : ingredients){
                 if (ingredient.quantity() > 0) {
-                    if (ingredient instanceof MysteryBone) {
-                        bone = true;
-                    } else if (ingredient instanceof MysteryMeat
-                            || ingredient instanceof StewedMeat
-                            || ingredient instanceof ChargrilledMeat
-                            || ingredient instanceof FrozenCarpaccio) {
-                        meat = true;
+                    if (ingredient instanceof Juice) {
+                        juice = true;
+                    } else if (ingredient instanceof ElementalCore) {
+                        core = true;
                     }
                 }
             }
 
-            return meat && bone && (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=2);
+            return juice && core && (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=3);
         }
 
         @Override
         public int cost(ArrayList<Item> ingredients) {
-            return 3;
+            return 1;
         }
 
         @Override
@@ -79,7 +82,7 @@ public class BoneSoup extends Food{
 
         @Override
         public Item sampleOutput(ArrayList<Item> ingredients) {
-            return new BoneSoup();
+            return new Sorbet();
         }
     }
 }

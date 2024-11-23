@@ -40,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
@@ -239,7 +240,8 @@ public abstract class Recipe {
 		new BoneSoup.Recipe(),
 		new Glandcandy.Recipe(),
 		new Cookit.Recipe(),
-		new Cookware.Recipe()
+		new Cookware.Recipe(),
+		new Sorbet.Recipe()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

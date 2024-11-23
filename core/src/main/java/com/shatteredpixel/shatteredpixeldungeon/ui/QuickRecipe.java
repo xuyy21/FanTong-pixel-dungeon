@@ -47,6 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
@@ -60,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
@@ -375,6 +377,11 @@ public class QuickRecipe extends Component {
 					result.add(new QuickRecipe(new BBQ.Recipe(),
 							new ArrayList<Item>(Arrays.asList(new ChargrilledMeat(), new Salad(), new FrozenCarpaccio())),
 							new BBQ()));
+				}
+				if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=3) {
+					result.add(new QuickRecipe(new Sorbet.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new ElementalCore(), new Juice())),
+							new Sorbet()));
 				}
 				ArrayList<RecipeBook> recipes = Dungeon.hero.belongings.getAllItems(RecipeBook.class);
 				for (RecipeBook recipe: recipes) {

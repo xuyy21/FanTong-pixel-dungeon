@@ -1,6 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -38,7 +38,7 @@ public class BlackPudding extends Food{
     @Override
     public void effect(Hero hero) {
         GLog.i( Messages.get(BlackPudding.class, "effect") );
-        Buff.affect(curUser, ArtifactRecharge.class).set( 30f ).ignoreHornOfPlenty = true;
+        Buff.affect(hero, ArcaneArmor.class).set(10 + hero.lvl, 80);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

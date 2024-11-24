@@ -23,7 +23,6 @@ public class BlackPudding extends Food{
     {
         image = ItemSpriteSheet.BLACK_PUDDING;
         energy = Hunger.STARVING;
-        canFakeEat = true;
     }
 
     @Override

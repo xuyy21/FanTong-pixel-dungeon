@@ -62,7 +62,7 @@ public class ArmedSkeleton extends Mob implements Callback {
 //        int weapon_tier = Random.chances(new float[]{0, 0, 1, 3, 3});
         weapon = (MeleeWeapon) Generator.randomUsingDefaults(Generator.Category.WEAPON);;
 //		weapon.identify(false);
-        weapon.upgrade(2);
+        weapon.upgrade();
         int enchant_type = Random.chances(new float[]{1f, 5f, 4f});
         switch (enchant_type){
             case 0: default:

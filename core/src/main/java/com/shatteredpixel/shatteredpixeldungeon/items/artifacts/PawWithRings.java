@@ -355,7 +355,7 @@ public class PawWithRings extends Artifact{
                 Sample.INSTANCE.play( Assets.Sounds.READ );
                 hero.busy();
                 hero.spend( Actor.TICK );
-                upgrade(1 + item.level());
+                upgrade(2 + item.level());
                 GLog.p( Messages.get(PawWithRings.class, "levelup") );
                 item.detach(hero.belongings.backpack);
             }

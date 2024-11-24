@@ -7,7 +7,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfAquaticRejuvenation;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -38,7 +40,8 @@ public class BlackPudding extends Food{
     @Override
     public void effect(Hero hero) {
         GLog.i( Messages.get(BlackPudding.class, "effect") );
-        Buff.affect(hero, ArcaneArmor.class).set(10 + hero.lvl, 80);
+        Buff.affect(hero, ArcaneArmor.class).set(5 + hero.lvl/2, 80);
+        Buff.affect(hero, ElixirOfAquaticRejuvenation.AquaHealing.class).set(Math.round(hero.HT * 0.75f));
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
@@ -61,7 +64,7 @@ public class BlackPudding extends Food{
                 }
             }
 
-            return honey && potion && blob && RecipeBook.hasRecipe(ROGoldenPudding.class);
+            return honey && potion && blob && RecipeBook.hasRecipe(ROBlackPudding.class);
         }
 
         @Override

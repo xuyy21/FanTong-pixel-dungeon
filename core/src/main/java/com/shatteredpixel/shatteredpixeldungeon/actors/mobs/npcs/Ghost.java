@@ -40,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -376,6 +377,7 @@ public class Ghost extends NPC {
 				}
 
 				potion = (Potion) Generator.random(Generator.Category.POTION);
+				while (potion instanceof PotionOfStrength) potion = (Potion) Generator.random(Generator.Category.POTION);
 				potion_quantity = Random.chances(new float[]{0, 0, 7, 3});
 
 			}

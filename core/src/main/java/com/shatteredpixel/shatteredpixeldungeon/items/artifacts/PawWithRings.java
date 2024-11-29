@@ -90,7 +90,7 @@ public class PawWithRings extends Artifact{
                                 if (index == 0) {
                                     new PawSpell().execute(hero);
                                 } else if (index == 1) {
-                                    new ScrollOfTeleportation().execute(hero);
+                                    new ScrollOfTeleportation().doRead();
                                     charge--;
                                 } else if (index == 2) {
                                     GameScene.selectItem( itemSelector );
@@ -121,7 +121,7 @@ public class PawWithRings extends Artifact{
                                 if (index == 0) {
                                     new PawSpell().execute(hero);
                                 } else if (index == 1) {
-                                    new ScrollOfTeleportation().execute(hero);
+                                    new ScrollOfTeleportation().doRead();
                                     charge--;
                                 } else if (index == 2) {
                                     GameScene.selectItem( itemSelector );
@@ -140,7 +140,7 @@ public class PawWithRings extends Artifact{
                                 if (index == 0) {
                                     new PawSpell().execute(hero);
                                 } else if (index == 1) {
-                                    new ScrollOfTeleportation().execute(hero);
+                                    new ScrollOfTeleportation().doRead();
                                     charge--;
                                 }
                             }
@@ -332,7 +332,7 @@ public class PawWithRings extends Artifact{
                 Dungeon.hero.spendAndNext(Scroll.TIME_TO_READ);
                 // decharge in spell so we can cancle it
                 pawRecharge decharger = Dungeon.hero.buff(pawRecharge.class);
-                if (decharger != null) decharger.decharge(1);
+                if (decharger != null) decharger.decharge(2);
             }
         }
     };

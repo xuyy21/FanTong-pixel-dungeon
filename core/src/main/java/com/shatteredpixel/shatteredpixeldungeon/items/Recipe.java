@@ -63,6 +63,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIc
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -303,6 +305,8 @@ public abstract class Recipe {
 			return item.isIdentified() && !item.cursed && item instanceof MissileWeapon;
 		} else if (item instanceof Wand) {
 			return item.isIdentified() && !item.cursed;
+		} else if (item instanceof RecipeBook || item instanceof RecipeFolder) {
+			return false;
 		} else {
 			//other items can be unidentified, but not cursed
 			return !item.cursed;

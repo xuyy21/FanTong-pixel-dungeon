@@ -98,6 +98,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROMushroomSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSkill;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
@@ -173,6 +174,8 @@ public enum HeroClass {
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
 		new FoodBag().collect();
 		Dungeon.LimitedDrops.FOOD_BAG.drop();
+		new RecipeFolder().collect();
+
 		if (Testing) {
 			new MagicalHolster().collect();
 			Dungeon.LimitedDrops.MAGICAL_HOLSTER.drop();
@@ -295,7 +298,7 @@ public enum HeroClass {
 //			new ROTempura().collect();
 //			new ROCookit().collect();
 //			new ROMushroomSoup().collect();
-//			new ROBlackPudding().collect();
+			new ROBlackPudding().collect();
 			new ROBerryCake().collect();
 		}
 

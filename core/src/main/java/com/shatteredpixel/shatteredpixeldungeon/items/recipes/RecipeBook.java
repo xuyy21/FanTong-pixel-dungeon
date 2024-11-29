@@ -4,6 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -36,10 +37,25 @@ public abstract class RecipeBook extends Item {
             return false;
         }
 
+        RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);
+
+        if (folder.hasRecipe(recipeType)) return true;
+
         RecipeBook recipeBook = Dungeon.hero.belongings.getItem(recipeType);
 
         if (recipeBook == null) return false;
         else return true;
+    }
+
+    @Override
+    public boolean collect( Bag container ) {
+        if (Dungeon.hero != null && Dungeon.hero.belongings != null) {
+            RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);
+            if (folder != null) {
+                if (folder.addRecipe(this)) return true;
+            }
+        }
+        return super.collect(container);
     }
 
     @Override

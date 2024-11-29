@@ -86,6 +86,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfTo
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -388,10 +389,17 @@ public class QuickRecipe extends Component {
 							new ArrayList<Item>(Arrays.asList(new Food(), new BigEye())),
 							new EyeCake()));
 				}
-				ArrayList<RecipeBook> recipes = Dungeon.hero.belongings.getAllItems(RecipeBook.class);
-				for (RecipeBook recipe: recipes) {
-					if (recipe.recipe() != null)
-						result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
+				if (Dungeon.hero != null && Dungeon.hero.belongings != null) {
+					RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);
+					if (folder != null) {
+						for (RecipeBook recipe : folder.getRecipes())
+							result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
+					}
+					ArrayList<RecipeBook> recipes = Dungeon.hero.belongings.getAllItems(RecipeBook.class);
+					for (RecipeBook recipe : recipes) {
+						if (recipe.recipe() != null)
+							result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
+					}
 				}
 				return result;
 			case 3:

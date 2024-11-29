@@ -347,58 +347,60 @@ public class QuickRecipe extends Component {
 							}
 						}));
 				result.add(null);
-				if (Dungeon.hero.heroClass==WARRIOR || Dungeon.hero.subClass== HeroSubClass.CHIEF) {
-					result.add(new QuickRecipe(new SmallRation.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new Food())),
-							new SmallRation().quantity(2)));
-					result.add(new QuickRecipe(new Pasty.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Food())),
-							new Pasty()));
-				}
-				if (Dungeon.hero.heroClass==ROGUE || Dungeon.hero.subClass== HeroSubClass.CHIEF)
-					result.add(new QuickRecipe(new HoneyMeat.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.ShatteredPot())),
-							new HoneyMeat()));
-				if (Dungeon.hero.heroClass==MAGE || Dungeon.hero.subClass== HeroSubClass.CHIEF)
-					result.add(new QuickRecipe(new Icecream.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new PotionOfFrost(), new Honeypot.ShatteredPot())),
-							new Icecream()));
-				if (Dungeon.hero.heroClass==HUNTRESS || Dungeon.hero.subClass== HeroSubClass.CHIEF)
-					result.add(new QuickRecipe(new Juice.Recipe()));
-				if (Dungeon.hero.heroClass==DUELIST || Dungeon.hero.subClass== HeroSubClass.CHIEF)
-					result.add(new QuickRecipe(new Tempura.Recipe()));
-				if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=1) {
-					result.add(new QuickRecipe(new Salad.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new Mushroom(), new Plant.Seed.PlaceHolder(), new Plant.Seed.PlaceHolder())),
-							new Salad()));
-					result.add(new QuickRecipe(new ToastBat.Recipe()));
-				}
-				if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=2) {
-					result.add(new QuickRecipe(new BoneSoup.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new MysteryBone(), new MysteryMeat.PlaceHolder())),
-							new BoneSoup()));
-					result.add(new QuickRecipe(new BBQ.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new ChargrilledMeat(), new Salad(), new FrozenCarpaccio())),
-							new BBQ()));
-				}
-				if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=3) {
-					result.add(new QuickRecipe(new Sorbet.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new ElementalCore(), new Juice())),
-							new Sorbet()));
-					result.add(new QuickRecipe(new EyeCake.Recipe(),
-							new ArrayList<Item>(Arrays.asList(new Food(), new BigEye())),
-							new EyeCake()));
-				}
-				if (Dungeon.hero != null && Dungeon.hero.belongings != null) {
-					RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);
-					if (folder != null) {
-						for (RecipeBook recipe : folder.getRecipes())
-							result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
+				if (Dungeon.hero != null) {
+					if (Dungeon.hero.heroClass == WARRIOR || Dungeon.hero.subClass == HeroSubClass.CHIEF) {
+						result.add(new QuickRecipe(new SmallRation.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new Food())),
+								new SmallRation().quantity(2)));
+						result.add(new QuickRecipe(new Pasty.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Food())),
+								new Pasty()));
 					}
-					ArrayList<RecipeBook> recipes = Dungeon.hero.belongings.getAllItems(RecipeBook.class);
-					for (RecipeBook recipe : recipes) {
-						if (recipe.recipe() != null)
-							result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
+					if (Dungeon.hero.heroClass == ROGUE || Dungeon.hero.subClass == HeroSubClass.CHIEF)
+						result.add(new QuickRecipe(new HoneyMeat.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.ShatteredPot())),
+								new HoneyMeat()));
+					if (Dungeon.hero.heroClass == MAGE || Dungeon.hero.subClass == HeroSubClass.CHIEF)
+						result.add(new QuickRecipe(new Icecream.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new PotionOfFrost(), new Honeypot.ShatteredPot())),
+								new Icecream()));
+					if (Dungeon.hero.heroClass == HUNTRESS || Dungeon.hero.subClass == HeroSubClass.CHIEF)
+						result.add(new QuickRecipe(new Juice.Recipe()));
+					if (Dungeon.hero.heroClass == DUELIST || Dungeon.hero.subClass == HeroSubClass.CHIEF)
+						result.add(new QuickRecipe(new Tempura.Recipe()));
+					if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE) >= 1) {
+						result.add(new QuickRecipe(new Salad.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new Mushroom(), new Plant.Seed.PlaceHolder(), new Plant.Seed.PlaceHolder())),
+								new Salad()));
+						result.add(new QuickRecipe(new ToastBat.Recipe()));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE) >= 2) {
+						result.add(new QuickRecipe(new BoneSoup.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new MysteryBone(), new MysteryMeat.PlaceHolder())),
+								new BoneSoup()));
+						result.add(new QuickRecipe(new BBQ.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new ChargrilledMeat(), new Salad(), new FrozenCarpaccio())),
+								new BBQ()));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE) >= 3) {
+						result.add(new QuickRecipe(new Sorbet.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new ElementalCore(), new Juice())),
+								new Sorbet()));
+						result.add(new QuickRecipe(new EyeCake.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new Food(), new BigEye())),
+								new EyeCake()));
+					}
+					if (Dungeon.hero.belongings != null) {
+						RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);
+						if (folder != null) {
+							for (RecipeBook recipe : folder.getRecipes())
+								result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
+						}
+						ArrayList<RecipeBook> recipes = Dungeon.hero.belongings.getAllItems(RecipeBook.class);
+						for (RecipeBook recipe : recipes) {
+							if (recipe.recipe() != null)
+								result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
+						}
 					}
 				}
 				return result;

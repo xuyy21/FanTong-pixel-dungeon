@@ -297,14 +297,14 @@ public class PawWithRings extends Artifact{
                     callback.call();
                 }
             });
+            // decharge in spell so we can cancle it
+            pawRecharge decharger = curUser.buff(pawRecharge.class);
+            if (decharger != null) decharger.decharge(1);
         }
 
         @Override
         protected void affectTarget(Ballistica bolt, final Hero hero) {
             Sample.INSTANCE.play( Assets.Sounds.ZAP );
-            // decharge in spell so we can cancle it
-            pawRecharge decharger = hero.buff(pawRecharge.class);
-            if (decharger != null) decharger.decharge(1);
         }
     }
 

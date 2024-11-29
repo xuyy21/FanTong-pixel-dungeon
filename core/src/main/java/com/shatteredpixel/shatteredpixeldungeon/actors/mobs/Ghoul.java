@@ -62,7 +62,7 @@ public class Ghoul extends Mob {
 		loot = Gold.class;
 		lootChance = 0.2f;
 		food = new MysteryBone();
-		foodChance = 0.5f;
+		foodChance = 0.3f;
 		
 		properties.add(Property.UNDEAD);
 	}

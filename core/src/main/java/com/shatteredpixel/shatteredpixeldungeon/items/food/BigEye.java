@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
@@ -34,6 +35,7 @@ public class BigEye extends Food{
     @Override
     public void effect(Hero hero) {
         GLog.i( Messages.get(BigEye.class, "effect") );
-        Buff.affect( hero, MindVision.class, 3f );
+        Buff.affect( hero, MindVision.class, 4f );
+        Buff.affect( hero, Blindness.class, 6f );
     }
 }

@@ -5,7 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class SlimeBlob extends Item{
 
     {
-        image = ItemSpriteSheet.BLOB;
+        image = ItemSpriteSheet.SLIMEBLOB;
         stackable = true;
     }
 

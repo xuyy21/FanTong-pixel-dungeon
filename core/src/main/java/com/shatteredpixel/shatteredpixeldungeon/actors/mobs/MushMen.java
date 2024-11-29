@@ -14,8 +14,8 @@ public class MushMen extends Mob{
     {
         spriteClass = MushmenSprite.class;
 
-        HP = HT = 45;
-        defenseSkill = 16;
+        HP = HT = 40;
+        defenseSkill = 20;
 
         EXP = 10;
         maxLvl = 22;
@@ -44,8 +44,8 @@ public class MushMen extends Mob{
         damage = super.attackProc( enemy, damage );
         if (Random.Int(2) == 0) {
             Buff buff = enemy.buff(Poison.class);
-            if (buff == null) Buff.affect(enemy, Poison.class).set(15);
-            else Buff.affect(enemy, Poison.class).extend(10);
+            if (buff == null) Buff.affect(enemy, Poison.class).set(12);
+            else Buff.affect(enemy, Poison.class).extend(6);
         }
         else {
             Buff.prolong(enemy, Vertigo.class, 4);

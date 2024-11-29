@@ -43,10 +43,7 @@ public class BerryCake extends Food{
 
         //charms an adjacent non-boss enemy, prioritizing the one the hero is focusing on
         for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )){
-            if (!Char.hasProp(mob, Char.Property.BOSS)
-                    && !Char.hasProp(mob, Char.Property.MINIBOSS)
-                    && mob.alignment == Char.Alignment.ENEMY
-                    && Dungeon.level.adjacent(hero.pos, mob.pos)){
+            if (mob.alignment == Char.Alignment.ENEMY && Dungeon.level.adjacent(hero.pos, mob.pos)){
                 if (target == null || mob == TargetHealthIndicator.instance.target()){
                     target = mob;
                 }
@@ -54,7 +51,9 @@ public class BerryCake extends Food{
         }
 
         if (target != null){
-            Buff.affect(target, Charm.class, 30f).object = hero.id();
+            if (Char.hasProp(target, Char.Property.BOSS)||Char.hasProp(target, Char.Property.MINIBOSS))
+                Buff.affect(target, Charm.class, 10f).object = hero.id();
+            else Buff.affect(target, Charm.class, 30f).object = hero.id();
             GLog.i( Messages.get(BerryCake.class, "effect1") );
         }
         else {

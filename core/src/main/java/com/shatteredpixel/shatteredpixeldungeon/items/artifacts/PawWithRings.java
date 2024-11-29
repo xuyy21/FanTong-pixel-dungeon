@@ -4,6 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
@@ -99,7 +100,8 @@ public class PawWithRings extends Artifact{
                                     GameScene.flash(0x80FFFFFF);
                                     for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
                                         if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
-                                            Buff.affect(mob, Vertigo.class, 20f);
+                                            Buff.affect(mob, Vertigo.class, 10f);
+                                            Buff.affect(mob, Blindness.class, 10f);
                                         }
                                     }
                                     Dungeon.hero.spendAndNext(1f);

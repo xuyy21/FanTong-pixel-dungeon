@@ -287,6 +287,7 @@ public enum HeroClass {
 			new Gland().quantity(10).collect();
 			new ScorpioTail().quantity(10).collect();
 			new MagicHeart().quantity(10).collect();
+			new SlimeBlob().collect();
 //			new Cookware().quantity(10).collect();
 
 //			new ROGlandcandy().collect();
@@ -298,8 +299,8 @@ public enum HeroClass {
 //			new ROTempura().collect();
 //			new ROCookit().collect();
 //			new ROMushroomSoup().collect();
-			new ROBlackPudding().collect();
-			new ROBerryCake().collect();
+//			new ROBlackPudding().collect();
+//			new ROBerryCake().collect();
 		}
 
 			switch (this) {

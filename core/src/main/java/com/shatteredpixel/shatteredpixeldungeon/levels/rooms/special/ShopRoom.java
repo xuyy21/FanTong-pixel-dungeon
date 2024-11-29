@@ -50,6 +50,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBerryCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROCookit;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGlandcandy;
@@ -248,13 +249,13 @@ public class ShopRoom extends SpecialRoom {
 	protected static RecipeBook generaRecipe2(int depth) {
 		switch (depth)  {
 			case 6: default:
-				return new ROGoldenPudding();
-			case 11:
 				return new ROBlackPudding();
+			case 11:
+				return new ROGoldenPudding();
 			case 16:
 				return new ROMushroomSoup();
 			case 20: case 21:
-				return new ROGoldenPudding();
+				return new ROBerryCake();
 		}
 	}
 	

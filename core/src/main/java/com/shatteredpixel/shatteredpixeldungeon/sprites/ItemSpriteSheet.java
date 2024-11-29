@@ -761,7 +761,7 @@ public class ItemSpriteSheet {
 	public static final int BLACK_PUDDING	= COOKED_FOOD+14;
 	public static final int SORBET			= COOKED_FOOD+15;
 	public static final int MUSHROOMSOUP	= COOKED_FOOD+16;
-	public static final int BERRY_CKAE		= COOKED_FOOD+18;
+	public static final int BERRY_CAKE = COOKED_FOOD+18;
 	public static final int EYE_CKAE		= COOKED_FOOD+19;
 	static{
 		assignItemRect(Honey_MEAT,    	15, 11);
@@ -779,7 +779,7 @@ public class ItemSpriteSheet {
 		assignItemRect(BLACK_PUDDING,	13, 14);
 		assignItemRect(SORBET,			16, 16);
 		assignItemRect(MUSHROOMSOUP,	16, 12);
-		assignItemRect(BERRY_CKAE,		16, 16);
+		assignItemRect(BERRY_CAKE,		16, 16);
 		assignItemRect(EYE_CKAE,		16, 16);
 	}
 

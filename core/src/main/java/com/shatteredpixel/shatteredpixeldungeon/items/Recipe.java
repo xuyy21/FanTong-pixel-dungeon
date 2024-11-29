@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BerryCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
@@ -242,7 +243,8 @@ public abstract class Recipe {
 		new Glandcandy.Recipe(),
 		new Cookit.Recipe(),
 		new Cookware.Recipe(),
-		new Sorbet.Recipe()
+		new Sorbet.Recipe(),
+		new BerryCake.Recipe()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

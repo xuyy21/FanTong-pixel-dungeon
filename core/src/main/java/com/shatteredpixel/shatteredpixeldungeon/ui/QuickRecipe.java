@@ -44,10 +44,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BigEye;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
@@ -382,6 +384,9 @@ public class QuickRecipe extends Component {
 					result.add(new QuickRecipe(new Sorbet.Recipe(),
 							new ArrayList<Item>(Arrays.asList(new ElementalCore(), new Juice())),
 							new Sorbet()));
+					result.add(new QuickRecipe(new EyeCake.Recipe(),
+							new ArrayList<Item>(Arrays.asList(new Food(), new BigEye())),
+							new EyeCake()));
 				}
 				ArrayList<RecipeBook> recipes = Dungeon.hero.belongings.getAllItems(RecipeBook.class);
 				for (RecipeBook recipe: recipes) {

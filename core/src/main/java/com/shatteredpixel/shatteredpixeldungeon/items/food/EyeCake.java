@@ -1,28 +1,24 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBerryCake;
-import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 import java.util.ArrayList;
 
-public class BerryCake extends Food{
+public class EyeCake extends Food{
 
     {
-        image = ItemSpriteSheet.BERRY_CAKE;
-        energy = Hunger.HUNGRY*4f/3f;
+        image = ItemSpriteSheet.EYE_CKAE;
+        energy = Hunger.STARVING;
         canFakeEat = true;
     }
 
@@ -39,48 +35,29 @@ public class BerryCake extends Food{
 
     @Override
     public void effect(Hero hero){
-        Char target = null;
-
-        //charms an adjacent non-boss enemy, prioritizing the one the hero is focusing on
-        for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )){
-            if (!Char.hasProp(mob, Char.Property.BOSS)
-                    && !Char.hasProp(mob, Char.Property.MINIBOSS)
-                    && mob.alignment == Char.Alignment.ENEMY
-                    && Dungeon.level.adjacent(hero.pos, mob.pos)){
-                if (target == null || mob == TargetHealthIndicator.instance.target()){
-                    target = mob;
-                }
-            }
-        }
-
-        if (target != null){
-            Buff.affect(target, Charm.class, 30f).object = hero.id();
-            GLog.i( Messages.get(BerryCake.class, "effect1") );
-        }
-        else {
-            GLog.i(Messages.get(BerryCake.class, "effect2"));
-            Buff.affect(hero, Bless.class, 20f);
-        }
+        GLog.i( Messages.get(EyeCake.class, "effect") );
+        Buff.affect( hero, MindVision.class, 10f );
+        Buff.affect(hero, MagicalSight.class, 10f);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
         @Override
         public boolean testIngredients(ArrayList<Item> ingredients) {
-            boolean berry = false;
+            boolean eye = false;
             boolean food = false;
 
             for (Item ingredient : ingredients){
                 if (ingredient.quantity() > 0) {
                     if (ingredient.getClass() == Food.class) {
                         food = true;
-                    } else if (ingredient instanceof Berry) {
-                        berry = true;
+                    } else if (ingredient instanceof BigEye) {
+                        eye = true;
                     }
                 }
             }
 
-            return berry && food && RecipeBook.hasRecipe(ROBerryCake.class);
+            return eye && food && (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE)>=3);
         }
 
         @Override
@@ -101,7 +78,7 @@ public class BerryCake extends Food{
 
         @Override
         public Item sampleOutput(ArrayList<Item> ingredients) {
-            return new BerryCake();
+            return new EyeCake();
         }
     }
 }

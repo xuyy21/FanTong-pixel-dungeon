@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.recipes;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BerryCake;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class ROBerryCake extends RecipeBook{
 
     @Override
     public ArrayList<Item> input() {
-        return new ArrayList<Item>(Arrays.asList(new Pasty(), new Berry()));
+        return new ArrayList<Item>(Arrays.asList(new Food(), new Berry()));
     }
 
     @Override

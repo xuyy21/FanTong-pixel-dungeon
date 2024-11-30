@@ -39,7 +39,9 @@ public abstract class RecipeBook extends Item {
 
         RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);
 
-        if (folder.hasRecipe(recipeType)) return true;
+        if (folder != null) {
+            if (folder.hasRecipe(recipeType)) return true;
+        }
 
         RecipeBook recipeBook = Dungeon.hero.belongings.getItem(recipeType);
 

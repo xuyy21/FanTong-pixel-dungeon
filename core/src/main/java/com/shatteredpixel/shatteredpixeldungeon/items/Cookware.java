@@ -34,6 +34,7 @@ public class Cookware extends Item{
         super.execute(hero, action);
 
         if (action.equals(AC_BREW)){
+            AlchemyScene.clearToolkit();
             AlchemyScene.assignCookware(this);
             Game.switchScene(AlchemyScene.class);
         }

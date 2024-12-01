@@ -725,6 +725,7 @@ public class ItemSpriteSheet {
 	public static final int SLIMEBLOB		= RAW_FOOD+2;
 	public static final int MYSTERYBONE		= RAW_FOOD+3;
 	public static final int MUSHROOM		= RAW_FOOD+4;
+	public static final int ROOT			= RAW_FOOD+5;
 	public static final int BATBODY			= RAW_FOOD+6;
 	public static final int GLAND			= RAW_FOOD+7;
 	public static final int ELEMENTALCORE	= RAW_FOOD+9;
@@ -737,6 +738,7 @@ public class ItemSpriteSheet {
 		assignItemRect(SLIMEBLOB,		12, 12);
 		assignItemRect(MYSTERYBONE,		13, 13);
 		assignItemRect(MUSHROOM,		15, 15);
+		assignItemRect(ROOT,			16, 14);
 		assignItemRect(BATBODY,			15, 14);
 		assignItemRect(GLAND,			11, 16);
 		assignItemRect(ELEMENTALCORE,	13, 11);
@@ -761,7 +763,8 @@ public class ItemSpriteSheet {
 	public static final int BLACK_PUDDING	= COOKED_FOOD+14;
 	public static final int SORBET			= COOKED_FOOD+15;
 	public static final int MUSHROOMSOUP	= COOKED_FOOD+16;
-	public static final int BERRY_CAKE = COOKED_FOOD+18;
+	public static final int POTION_MANDRAKE	= COOKED_FOOD+17;
+	public static final int BERRY_CAKE 		= COOKED_FOOD+18;
 	public static final int EYE_CKAE		= COOKED_FOOD+19;
 	static{
 		assignItemRect(Honey_MEAT,    	15, 11);
@@ -779,6 +782,7 @@ public class ItemSpriteSheet {
 		assignItemRect(BLACK_PUDDING,	13, 14);
 		assignItemRect(SORBET,			16, 16);
 		assignItemRect(MUSHROOMSOUP,	16, 12);
+		assignItemRect(POTION_MANDRAKE,	16, 16);
 		assignItemRect(BERRY_CAKE,		16, 16);
 		assignItemRect(EYE_CKAE,		16, 16);
 	}

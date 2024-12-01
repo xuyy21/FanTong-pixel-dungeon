@@ -40,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Golem;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mandrake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MushMen;
@@ -83,6 +84,7 @@ public class AscensionChallenge extends Buff {
 		modifiers.put(DM100.class,          4.5f);
 		modifiers.put(Guard.class,          4f);
 		modifiers.put(Necromancer.class,    4f);
+		modifiers.put(Mandrake.class,    	5f);
 
 		modifiers.put(Bat.class,            2.5f);
 		modifiers.put(Brute.class,          2.25f);

@@ -36,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MushroomSoup;
@@ -261,7 +262,8 @@ public abstract class Recipe {
 		new Mushroom.MushroomToPotion(),
 		new Gland.GlandToPotion(),
 		new MushroomSoup.Recipe(),
-		new BlackPudding.Recipe()
+		new BlackPudding.Recipe(),
+		new MandrakeRoot.MandrakeToPotion()
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){

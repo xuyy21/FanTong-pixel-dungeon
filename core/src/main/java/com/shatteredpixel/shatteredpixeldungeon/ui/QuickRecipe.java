@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
@@ -313,6 +314,7 @@ public class QuickRecipe extends Component {
 					}
 				}));
 				result.add(new QuickRecipe( new Gland.GlandToPotion(),  new ArrayList<>(Arrays.asList(new Gland().quantity(3))), new Gland.GlandToPotion().sampleOutput(null)));
+				result.add(new QuickRecipe( new MandrakeRoot.MandrakeToPotion(),  new ArrayList<>(Arrays.asList(new MandrakeRoot().quantity(3))), new MandrakeRoot.MandrakeToPotion().sampleOutput(null)));
 				return result;
 			case 1:
 				Recipe r = new Scroll.ScrollToStone();

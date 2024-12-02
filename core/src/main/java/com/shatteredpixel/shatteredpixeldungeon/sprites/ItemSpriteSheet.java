@@ -817,10 +817,14 @@ public class ItemSpriteSheet {
 	public static final int COLA			= SpecialFood+0;
 	public static final int DOGESMEAT		= SpecialFood+1;
 	public static final int ZAKOSOUP		= SpecialFood+2;
+	public static final int CRYSTAL_HEART	= SpecialFood+3;
+	public static final int XUANMI			= SpecialFood+4;
 	static {
 		assignItemRect(COLA, 			8,  11);
 		assignItemRect(DOGESMEAT, 		16, 15);
 		assignItemRect(ZAKOSOUP, 		16, 14);
+		assignItemRect(CRYSTAL_HEART, 	16, 16);
+		assignItemRect(XUANMI, 			16, 16);
 	}
 
 	private static final int QUEST  =                                       xy(1, 30);  //16 slots

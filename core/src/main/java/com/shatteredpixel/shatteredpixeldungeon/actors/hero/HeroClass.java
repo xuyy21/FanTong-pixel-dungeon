@@ -70,6 +70,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.BatBody;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BigEye;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.CrabClaw;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Crystal_Heart;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
@@ -125,6 +126,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortswor
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpike;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Xuanmi;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.BlandfruitBush;
@@ -290,6 +292,8 @@ public enum HeroClass {
 			new MagicHeart().quantity(10).collect();
 			new SlimeBlob().collect();
 			new MandrakeRoot().quantity(10).collect();
+			new Crystal_Heart().quantity(10).collect();
+			new Xuanmi().quantity(10).collect();
 //			new Cookware().quantity(10).collect();
 
 			new ROGlandcandy().collect();

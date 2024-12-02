@@ -60,6 +60,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Pursued;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
@@ -734,6 +735,10 @@ public class Hero extends Char {
 
 		//can always attack adjacent enemies
 		if (Dungeon.level.adjacent(pos, enemy.pos)) {
+			return true;
+		}
+
+		if (enemy.buff(Pursued.class) != null) {
 			return true;
 		}
 

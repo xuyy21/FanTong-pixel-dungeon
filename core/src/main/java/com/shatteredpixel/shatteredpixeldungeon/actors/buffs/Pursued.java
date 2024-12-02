@@ -4,7 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class Pursued extends FlavourBuff {
 
-    public static final float DURATION	= 10f;
+    public static final float DURATION	= 5f;
 
     {
         type = buffType.NEGATIVE;

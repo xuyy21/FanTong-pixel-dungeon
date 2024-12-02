@@ -77,12 +77,12 @@ public class MandrakeRoot extends Food{
                 i.quantity(i.quantity()-1);
             }
 
-            return new PotionOfPurity().identify();
+            return new PotionOfHealing().identify();
         }
 
         @Override
         public Item sampleOutput(ArrayList<Item> ingredients) {
-            return (Potion) Reflection.newInstance(PotionOfPurity.class);
+            return (Potion) Reflection.newInstance(PotionOfHealing.class);
         }
     }
 }

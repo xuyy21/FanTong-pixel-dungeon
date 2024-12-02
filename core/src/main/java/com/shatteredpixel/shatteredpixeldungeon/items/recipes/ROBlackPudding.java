@@ -18,7 +18,7 @@ public class ROBlackPudding extends RecipeBook{
 
     @Override
     public ArrayList<Item> input() {
-        return new ArrayList<Item>(Arrays.asList(new PotionOfFrost(), new Honeypot.ShatteredPot(), new GooBlob()));
+        return new ArrayList<Item>(Arrays.asList(new PotionOfFrost(), new Honeypot.HalfPot(), new GooBlob()));
     }
 
     @Override

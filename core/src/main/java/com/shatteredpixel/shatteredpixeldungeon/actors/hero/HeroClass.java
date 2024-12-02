@@ -292,17 +292,17 @@ public enum HeroClass {
 			new MandrakeRoot().quantity(10).collect();
 //			new Cookware().quantity(10).collect();
 
-//			new ROGlandcandy().collect();
-//			new ROScorpioTempura().collect();
-//			new ROGoldenPudding().collect();
-//			new ROSmallRation().collect();
-//			new ROJuice().collect();
-//			new ROHoneyMeat().collect();
-//			new ROTempura().collect();
-//			new ROCookit().collect();
-//			new ROMushroomSoup().collect();
-//			new ROBlackPudding().collect();
-//			new ROBerryCake().collect();
+			new ROGlandcandy().collect();
+			new ROScorpioTempura().collect();
+			new ROGoldenPudding().collect();
+			new ROSmallRation().collect();
+			new ROJuice().collect();
+			new ROHoneyMeat().collect();
+			new ROTempura().collect();
+			new ROCookit().collect();
+			new ROMushroomSoup().collect();
+			new ROBlackPudding().collect();
+			new ROBerryCake().collect();
 		}
 
 			switch (this) {

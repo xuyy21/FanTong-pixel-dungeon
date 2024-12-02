@@ -363,11 +363,11 @@ public class QuickRecipe extends Component {
 					}
 					if (Dungeon.hero.heroClass == ROGUE || Dungeon.hero.subClass == HeroSubClass.CHIEF)
 						result.add(new QuickRecipe(new HoneyMeat.Recipe(),
-								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.ShatteredPot())),
+								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.HalfPot())),
 								new HoneyMeat()));
 					if (Dungeon.hero.heroClass == MAGE || Dungeon.hero.subClass == HeroSubClass.CHIEF)
 						result.add(new QuickRecipe(new Icecream.Recipe(),
-								new ArrayList<Item>(Arrays.asList(new PotionOfFrost(), new Honeypot.ShatteredPot())),
+								new ArrayList<Item>(Arrays.asList(new PotionOfFrost(), new Honeypot.HalfPot())),
 								new Icecream()));
 					if (Dungeon.hero.heroClass == HUNTRESS || Dungeon.hero.subClass == HeroSubClass.CHIEF)
 						result.add(new QuickRecipe(new Juice.Recipe()));

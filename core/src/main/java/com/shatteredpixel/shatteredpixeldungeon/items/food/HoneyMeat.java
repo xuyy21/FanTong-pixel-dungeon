@@ -53,7 +53,7 @@ public class HoneyMeat extends Food {
 
             for (Item ingredient : ingredients){
                 if (ingredient.quantity() > 0) {
-                    if (ingredient instanceof Honeypot.ShatteredPot) {
+                    if (ingredient instanceof Honeypot.HalfPot) {
                         honey = true;
                     } else if (ingredient instanceof MysteryMeat
                             || ingredient instanceof StewedMeat

@@ -52,7 +52,7 @@ public class Glandcandy extends Food{
 
             for (Item ingredient : ingredients){
                 if (ingredient.quantity() > 0) {
-                    if (ingredient instanceof Honeypot.ShatteredPot) {
+                    if (ingredient instanceof Honeypot.HalfPot) {
                         honey = true;
                     } else if (ingredient instanceof Gland) {
                         gland = true;

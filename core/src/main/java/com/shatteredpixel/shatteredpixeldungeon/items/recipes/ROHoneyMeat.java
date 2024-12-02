@@ -19,7 +19,7 @@ public class ROHoneyMeat extends RecipeBook{
 
     @Override
     public ArrayList<Item> input() {
-        return new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.ShatteredPot()));
+        return new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.HalfPot()));
     }
 
     @Override

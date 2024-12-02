@@ -18,7 +18,7 @@ public class ROGlandcandy extends RecipeBook{
     @Override
     public ArrayList<Item> input() {
         //return null by default
-        return new ArrayList<>(Arrays.asList(new Gland(), new Honeypot.ShatteredPot()));
+        return new ArrayList<>(Arrays.asList(new Gland(), new Honeypot.HalfPot()));
     }
 
     @Override

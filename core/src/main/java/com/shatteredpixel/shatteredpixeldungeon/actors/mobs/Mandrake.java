@@ -25,6 +25,7 @@ public class Mandrake extends Mob{
 
         state = PASSIVE;
 
+//        PASSIVE = new Mandrake.Passive();
         FLEEING = new Mandrake.Fleeing();
         WANDERING = new Mandrake.Wandering();
         HUNTING = new Mandrake.Hunting();
@@ -111,4 +112,17 @@ public class Mandrake extends Mob{
             return true;
         }
     }
+//    private class Passive extends Mob.Passive {
+//        @Override
+//        public boolean act( boolean enemyInFOV, boolean justAlerted ) {
+//            if (Dungeon.level.distance(Dungeon.hero.pos, pos) <= 1) {
+//                state = FLEEING;
+//                scream();
+//                enemySeen = enemyInFOV;
+//                spend( TICK );
+//                return false;
+//            }
+//            return super.act(enemyInFOV, justAlerted);
+//        }
+//    }
 }

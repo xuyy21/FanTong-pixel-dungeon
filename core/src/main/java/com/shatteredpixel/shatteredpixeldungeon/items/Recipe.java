@@ -222,7 +222,8 @@ public abstract class Recipe {
 		new Juice.Recipe(),
 		new Tempura.Recipe(),
 		new ToastBat.Recipe(),
-		new ScorpioTempura.Recipe()
+		new ScorpioTempura.Recipe(),
+		new Honeypot.HalfPot.Recipe()
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{

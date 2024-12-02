@@ -329,6 +329,9 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new Cookware.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Alchemize(), new LiquidMetal().quantity(10))),
 						new Cookware()));
+				result.add(new QuickRecipe(new Honeypot.HalfPot.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new Honeypot.ShatteredPot())),
+						new Honeypot.HalfPot().quantity(2)));
 				result.add(new QuickRecipe( new StewedMeat.oneMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.twoMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.threeMeat() ));

@@ -152,6 +152,7 @@ public class ItemSpriteSheet {
 	public static final int BOW_FRAGMENT    = MISC_CONSUMABLE +19;
 	public static final int BROKEN_HILT     = MISC_CONSUMABLE +20;
 	public static final int TRINKET_CATA    = MISC_CONSUMABLE +21;
+	public static final int HALFPOT        	= MISC_CONSUMABLE +22;
 
 	static{
 		assignItemRect(ANKH,            10, 16);
@@ -163,6 +164,7 @@ public class ItemSpriteSheet {
 		
 		assignItemRect(HONEYPOT,        14, 12);
 		assignItemRect(SHATTPOT,        14, 12);
+		assignItemRect(HALFPOT,        	10, 12);
 		assignItemRect(IRON_KEY,        8,  14);
 		assignItemRect(GOLDEN_KEY,      8,  14);
 		assignItemRect(CRYSTAL_KEY,     8,  14);

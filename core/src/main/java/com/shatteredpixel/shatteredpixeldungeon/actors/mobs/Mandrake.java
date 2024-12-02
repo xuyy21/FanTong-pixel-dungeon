@@ -29,8 +29,13 @@ public class Mandrake extends Mob{
         WANDERING = new Mandrake.Wandering();
         HUNTING = new Mandrake.Hunting();
 
-        loot = new MandrakeRoot();
-        lootChance = 1f;
+        food = new MandrakeRoot();
+        foodChance = 1f;
+    }
+
+    @Override
+    public float foodChance() {
+        return 1f;
     }
 
     @Override

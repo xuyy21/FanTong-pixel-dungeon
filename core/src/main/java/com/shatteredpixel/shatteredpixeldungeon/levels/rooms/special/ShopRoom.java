@@ -229,34 +229,31 @@ public class ShopRoom extends SpecialRoom {
 
 	}
 
-	protected static RecipeBook generaRecipe(int depth) {
+	protected static ArrayList<RecipeBook> generaRecipe(int depth) {
+		ArrayList<RecipeBook> results = new ArrayList<>();
 		switch (depth)  {
-			case 6: default:
+			case 11: default:
 				int r = Random.Int(0,5);
 				HeroClass[] classes = {HeroClass.WARRIOR, HeroClass.MAGE, HeroClass.ROGUE, HeroClass.HUNTRESS, HeroClass.DUELIST};
 				while (Dungeon.hero.heroClass == classes[r]) r = Random.Int(0,5);
 				RecipeBook[] recipeBooks = {new ROSmallRation(), new ROIcecream(), new ROHoneyMeat(), new ROJuice(), new ROTempura()};
-				return recipeBooks[r];
-			case 11:
-				return new ROGlandcandy();
+				results.add(recipeBooks[r]);
+				results.add(new ROGlandcandy());
+				break;
+			case 6:
+				results.add(new ROGoldenPudding());
+				results.add(new ROBlackPudding());
+				break;
 			case 16:
-				return new ROCookit();
+				results.add(new ROCookit());
+				results.add(new ROMushroomSoup());
+				break;
 			case 20: case 21:
-				return new ROScorpioTempura();
+				results.add(new ROScorpioTempura());
+				results.add(new ROBerryCake());
+				break;
 		}
-	}
-
-	protected static RecipeBook generaRecipe2(int depth) {
-		switch (depth)  {
-			case 6: default:
-				return new ROBlackPudding();
-			case 11:
-				return new ROGoldenPudding();
-			case 16:
-				return new ROMushroomSoup();
-			case 20: case 21:
-				return new ROBerryCake();
-		}
+		return results;
 	}
 	
 	protected static ArrayList<Item> generateItems() {
@@ -392,8 +389,7 @@ public class ShopRoom extends SpecialRoom {
 		rare.cursedKnown = true;
 		itemsToSpawn.add( rare );
 
-		itemsToSpawn.add( generaRecipe(Dungeon.depth) );
-		itemsToSpawn.add( generaRecipe2(Dungeon.depth) );
+        itemsToSpawn.addAll(generaRecipe(Dungeon.depth));
 
 		//use a new generator here to prevent items in shop stock affecting levelgen RNG (e.g. sandbags)
 		//we can use a random long for the seed as it will be the same long every time

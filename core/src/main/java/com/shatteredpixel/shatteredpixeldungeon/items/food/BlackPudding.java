@@ -1,18 +1,22 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfAquaticRejuvenation;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBlackPudding;
-import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -23,6 +27,7 @@ public class BlackPudding extends Food{
     {
         image = ItemSpriteSheet.BLACK_PUDDING;
         energy = Hunger.STARVING;
+        canFakeEat = true;
     }
 
     @Override
@@ -41,6 +46,35 @@ public class BlackPudding extends Food{
         GLog.i( Messages.get(BlackPudding.class, "effect") );
         Buff.affect(hero, ArcaneArmor.class).set(5 + hero.lvl/2, 80);
         Buff.affect(hero, ElixirOfAquaticRejuvenation.AquaHealing.class).set(Math.round(hero.HT * 0.75f));
+    }
+
+    @Override
+    public void execute( Hero hero, String action ) {
+        GameScene.cancel();
+        curUser = hero;
+        curItem = this;
+
+        if (action.equals( AC_IMAGINE )) {
+
+            float foodVal = energy;
+            if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+                foodVal /= 3f;
+            }
+            foodVal *=  (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
+            hero.buff(Hunger.class).affectHunger(-foodVal);
+
+            hero.sprite.operate( hero.pos );
+            hero.busy();
+            SpellSprite.show( hero, SpellSprite.FOOD );
+            eatSFX();
+
+            hero.spend( eatingTime() );
+
+//            effect(hero);
+            GLog.i( Messages.get(BlackPudding.class, "effect") );
+            Buff.affect(hero, ArcaneArmor.class).set(5 + hero.lvl/2, 80);
+//            Buff.affect(hero, ElixirOfAquaticRejuvenation.AquaHealing.class).set(Math.round(hero.HT * 0.75f));
+        } else super.execute( hero, action );
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

@@ -36,7 +36,7 @@ public class Doge extends StfNPC{
         do {
             validPos = true;
             npc.pos = level.pointToCell(room.random((room.width() > 6 && room.height() > 6) ? 2 : 1));
-            if (npc.pos == level.entrance()){
+            if (npc.pos == level.entrance() || npc.pos == level.exit()){
                 validPos = false;
             }
             for (Point door : room.connected.values()){

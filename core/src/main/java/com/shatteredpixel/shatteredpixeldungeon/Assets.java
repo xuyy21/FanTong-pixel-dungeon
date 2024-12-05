@@ -287,6 +287,8 @@ public class Assets {
 		public static final String XUYY		= "sprites/xuyy.png";
 		public static final String ZAKO		= "sprites/zako.png";
 		public static final String DOGE		= "sprites/doge.png";
+		public static final String LING		= "sprites/whiteling.png";
+		public static final String CYL		= "sprites/smallleaf.png";
 		public static final String BAT      = "sprites/bat.png";
 		public static final String ELEMENTAL= "sprites/elemental.png";
 		public static final String MONK     = "sprites/monk.png";

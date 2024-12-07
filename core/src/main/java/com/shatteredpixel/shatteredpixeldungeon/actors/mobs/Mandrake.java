@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -25,12 +26,12 @@ public class Mandrake extends Mob{
         EXP = 1;
         maxLvl = 14;
 
-        state = PASSIVE;
-
         PASSIVE = new Mandrake.Passive();
         FLEEING = new Mandrake.Fleeing();
         WANDERING = new Mandrake.Wandering();
         HUNTING = new Mandrake.Hunting();
+
+        state = PASSIVE;
 
         food = new MandrakeRoot();
         foodChance = 1f;
@@ -114,7 +115,7 @@ public class Mandrake extends Mob{
     private class Passive extends Mob.Passive {
         @Override
         public boolean act( boolean enemyInFOV, boolean justAlerted ) {
-            if (Dungeon.level.distance(Dungeon.hero.pos, pos) <= 1 && enemyInFOV) {
+            if (Dungeon.level.distance(Dungeon.hero.pos, pos) <= (Dungeon.isChallenged(Challenges.CRAZY_PLANT)?2:1) && enemyInFOV) {
                 scream();
                 enemySeen = true;
                 state = FLEEING;
@@ -129,7 +130,15 @@ public class Mandrake extends Mob{
     @Override
     public CharSprite sprite() {
         CharSprite sprite = super.sprite();
-        if (state!=PASSIVE) sprite.run();
+        if (state==FLEEING) sprite.run();
         return sprite;
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ) {
+
+        super.restoreFromBundle( bundle );
+
+        if (state != FLEEING) state = PASSIVE;
     }
 }

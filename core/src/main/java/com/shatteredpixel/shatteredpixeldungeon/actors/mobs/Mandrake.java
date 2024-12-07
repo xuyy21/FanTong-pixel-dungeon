@@ -26,6 +26,8 @@ public class Mandrake extends Mob{
         EXP = 1;
         maxLvl = 14;
 
+        properties.add(Property.PLANT);
+
         PASSIVE = new Mandrake.Passive();
         FLEEING = new Mandrake.Fleeing();
         WANDERING = new Mandrake.Wandering();

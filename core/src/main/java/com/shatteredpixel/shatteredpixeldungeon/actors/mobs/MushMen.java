@@ -21,6 +21,8 @@ public class MushMen extends Mob{
         EXP = 10;
         maxLvl = 22;
 
+        properties.add(Property.PLANT);
+
         food = new Mushroom();
         foodChance = 10f;
     }

@@ -52,14 +52,9 @@ public class MushMen extends Mob{
     @Override
     public int attackProc(Char enemy, int damage) {
         damage = super.attackProc( enemy, damage );
-        if (Random.Int(2) == 0) {
-            Buff buff = enemy.buff(Poison.class);
-            if (buff == null) Buff.affect(enemy, Poison.class).set(8);
-            else Buff.affect(enemy, Poison.class).extend(6);
-        }
-        else {
-            Buff.prolong(enemy, Vertigo.class, 4);
-        }
+        Buff buff = enemy.buff(Poison.class);
+        if (buff == null) Buff.affect(enemy, Poison.class).set(10);
+        else Buff.affect(enemy, Poison.class).extend(6);
 
         return damage;
     }

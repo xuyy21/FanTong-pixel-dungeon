@@ -40,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BadgesGrid;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BadgesList;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Button;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ChallengesPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.CheckBox;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
@@ -64,7 +65,7 @@ import java.util.Locale;
 public class WndRanking extends WndTabbed {
 	
 	private static final int WIDTH			= 115;
-	private static final int HEIGHT			= 144;
+	private static final int HEIGHT			= 160; //160
 	
 	private static WndRanking INSTANCE;
 	
@@ -384,7 +385,7 @@ public class WndRanking extends WndTabbed {
 				if (item != null){
 					QuickSlotButton slot = new QuickSlotButton(item);
 
-					slot.setRect( pos, 120, slotWidth, 23 );
+					slot.setRect( pos, 136, slotWidth, 23 ); // 120
 					PixelScene.align(slot);
 
 					add(slot);
@@ -428,6 +429,11 @@ public class WndRanking extends WndTabbed {
 			super();
 
 			camera = WndRanking.this.camera;
+
+//			Component pane = new ChallengesPane();
+//			add(pane);
+//			pane.setPos(0, 0);
+//			pane.setSize( WIDTH, HEIGHT );
 
 			float pos = 0;
 

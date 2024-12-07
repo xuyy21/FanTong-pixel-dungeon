@@ -98,7 +98,7 @@ public class Treants extends Mob{
                 }
             }
         }
-        chainsUsed = 10;
+        chainsUsed = 8;
         return true;
     }
 

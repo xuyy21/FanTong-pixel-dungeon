@@ -1,12 +1,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MushmenSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SpinnerSprite;
 import com.watabou.utils.Random;
 
 public class MushMen extends Mob{
@@ -37,6 +38,13 @@ public class MushMen extends Mob{
     @Override
     public int drRoll() {
         return super.drRoll() + Random.NormalIntRange(0, 4);
+    }
+
+    @Override
+    public float speed() {
+        float speed = super.speed();
+        if(Dungeon.isChallenged(Challenges.CRAZY_PLANT)) speed *= 2f;
+        return speed;
     }
 
     @Override

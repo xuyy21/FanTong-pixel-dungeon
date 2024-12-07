@@ -8,9 +8,11 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 
 public class Mandrake extends Mob{
 
@@ -25,7 +27,7 @@ public class Mandrake extends Mob{
 
         state = PASSIVE;
 
-//        PASSIVE = new Mandrake.Passive();
+        PASSIVE = new Mandrake.Passive();
         FLEEING = new Mandrake.Fleeing();
         WANDERING = new Mandrake.Wandering();
         HUNTING = new Mandrake.Hunting();
@@ -78,13 +80,10 @@ public class Mandrake extends Mob{
             mob.beckon( pos );
         }
 
-        if (Dungeon.level.heroFOV[pos]) {
-            CellEmitter.center( pos ).start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
-        }
+        CellEmitter.center( pos ).start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
 
         GLog.w( Messages.get(this, "scream") );
         Sample.INSTANCE.play( Assets.Sounds.SCREAM );
-//        Sample.INSTANCE.play( Assets.Sounds.SCREAM );
     }
 
     private class Fleeing extends Mob.Fleeing {
@@ -112,17 +111,25 @@ public class Mandrake extends Mob{
             return true;
         }
     }
-//    private class Passive extends Mob.Passive {
-//        @Override
-//        public boolean act( boolean enemyInFOV, boolean justAlerted ) {
-//            if (Dungeon.level.distance(Dungeon.hero.pos, pos) <= 1) {
-//                state = FLEEING;
-//                scream();
-//                enemySeen = enemyInFOV;
-//                spend( TICK );
-//                return false;
-//            }
-//            return super.act(enemyInFOV, justAlerted);
-//        }
-//    }
+    private class Passive extends Mob.Passive {
+        @Override
+        public boolean act( boolean enemyInFOV, boolean justAlerted ) {
+            if (Dungeon.level.distance(Dungeon.hero.pos, pos) <= 1 && enemyInFOV) {
+                scream();
+                enemySeen = true;
+                state = FLEEING;
+                sprite.run();
+                spend( TICK );
+                return true;
+            }
+            return super.act(enemyInFOV, justAlerted);
+        }
+    }
+
+    @Override
+    public CharSprite sprite() {
+        CharSprite sprite = super.sprite();
+        if (state!=PASSIVE) sprite.run();
+        return sprite;
+    }
 }

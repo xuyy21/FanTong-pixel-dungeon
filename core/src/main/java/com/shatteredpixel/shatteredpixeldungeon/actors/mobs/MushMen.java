@@ -15,7 +15,7 @@ public class MushMen extends Mob{
     {
         spriteClass = MushmenSprite.class;
 
-        HP = HT = 40;
+        HP = HT = 30;
         defenseSkill = 20;
 
         EXP = 10;
@@ -54,7 +54,7 @@ public class MushMen extends Mob{
         damage = super.attackProc( enemy, damage );
         if (Random.Int(2) == 0) {
             Buff buff = enemy.buff(Poison.class);
-            if (buff == null) Buff.affect(enemy, Poison.class).set(12);
+            if (buff == null) Buff.affect(enemy, Poison.class).set(8);
             else Buff.affect(enemy, Poison.class).extend(6);
         }
         else {

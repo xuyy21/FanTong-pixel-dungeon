@@ -159,7 +159,8 @@ public class MobSpawner extends Actor {
 			case 16:
 				//3x ghoul, 1x mushmen, 1x elemental, 1x warlock
 				return new ArrayList<>(Arrays.asList(
-						Ghoul.class, Ghoul.class, MushMen.class,
+						Ghoul.class, Ghoul.class, Ghoul.class,
+						MushMen.class,
 						Elemental.random(),
 						Warlock.class));
 			case 17:
@@ -170,20 +171,22 @@ public class MobSpawner extends Actor {
 						Warlock.class,
 						Monk.class));
 			case 18:
-				//1x ghoul, 1x mushmen, 1x elemental, 1x warlock, 2x monk, 1x golem
+				//1x ghoul, 1x mushmen, 1x elemental, 2x warlock, 2x monk, 1x golem
 				return new ArrayList<>(Arrays.asList(
 						Ghoul.class,
-						Elemental.random(),
-						MushMen.class, Warlock.class,
-						Monk.class, Monk.class,
-						Golem.class));
-			case 19: case 20:
-				//1x elemental, 2x warlock, 2x monk, 2x golem, 1x mushmen
-				return new ArrayList<>(Arrays.asList(
+						MushMen.class,
 						Elemental.random(),
 						Warlock.class, Warlock.class,
 						Monk.class, Monk.class,
-						Golem.class, Golem.class, MushMen.class));
+						Golem.class));
+			case 19: case 20:
+				//1x elemental, 2x warlock, 2x monk, 3x golem, 1x mushmen
+				return new ArrayList<>(Arrays.asList(
+						MushMen.class,
+						Elemental.random(),
+						Warlock.class, Warlock.class,
+						Monk.class, Monk.class,
+						Golem.class, Golem.class, Golem.class));
 
 			// Halls
 			case 21:

@@ -36,7 +36,7 @@ public class Effects {
 		DEATH_RAY,
 		LIGHT_RAY,
 		HEALTH_RAY,
-		TOUGE,
+		TONGUE,
 		VINES
 	}
 	
@@ -61,7 +61,7 @@ public class Effects {
 			case ETHEREAL_CHAIN:
 				icon.frame(icon.texture.uvRect(11, 16, 16, 22));
 				break;
-			case TOUGE:
+			case TONGUE:
 				icon.frame(icon.texture.uvRect(6, 22, 11, 28));
 				break;
 			case VINES:

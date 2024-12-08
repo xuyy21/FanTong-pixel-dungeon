@@ -126,17 +126,19 @@ public class MobSpawner extends Actor {
 
 			// Caves
 			case 11:
-				//3x bat, 1x brute, 1x shaman
+				//3x bat, 1x brute, 1x shaman, 1x treants
 				return new ArrayList<>(Arrays.asList(
 						Bat.class, Bat.class, Bat.class,
 						Brute.class,
+						Treants.class,
 						Shaman.random()));
 			case 12:
-				//2x bat, 2x brute, 1x shaman, 1x spinner
+				//2x bat, 2x brute, 1x shaman, 1x spinner, 1x treants
 				return new ArrayList<>(Arrays.asList(
 						Bat.class, Bat.class,
 						Brute.class, Brute.class,
 						Shaman.random(),
+						Treants.class,
 						Spinner.class));
 			case 13:
 				//1x bat, 2x brute, 2x shaman, 2x spinner, 1x DM-200

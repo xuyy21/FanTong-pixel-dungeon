@@ -730,6 +730,7 @@ public class ItemSpriteSheet {
 	public static final int ROOT			= RAW_FOOD+5;
 	public static final int BATBODY			= RAW_FOOD+6;
 	public static final int GLAND			= RAW_FOOD+7;
+	public static final int NUT				= RAW_FOOD+8;
 	public static final int ELEMENTALCORE	= RAW_FOOD+9;
 	public static final int HEART			= RAW_FOOD+10;
 	public static final int BIGEYE			= RAW_FOOD+12;
@@ -743,6 +744,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ROOT,			16, 14);
 		assignItemRect(BATBODY,			15, 14);
 		assignItemRect(GLAND,			11, 16);
+		assignItemRect(NUT,				12, 15);
 		assignItemRect(ELEMENTALCORE,	13, 11);
 		assignItemRect(HEART,			15, 16);
 		assignItemRect(BIGEYE,			12, 12);

@@ -5,14 +5,15 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Nut;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GuardSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.TreantsSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -23,19 +24,19 @@ public class Treants extends Mob{
     private int chainsUsed = 0;
 
     {
-        spriteClass = GuardSprite.class;
+        spriteClass = TreantsSprite.class;
 
-        HP = HT = 50;
+        HP = HT = 60;
         defenseSkill = 12;
         baseSpeed = 0.5f;
 
         EXP = 8;
         maxLvl = 16;
 
-//        loot = Generator.Category.ARMOR;
-//        lootChance = 0.2f; //by default, see lootChance()
-//        food = new Mushroom();
-//        foodChance = 0.4f;
+        loot = Generator.Category.SEED;
+        lootChance = 0.25f;
+        food = new Nut();
+        foodChance = 5f;
 
         properties.add(Property.PLANT);
         properties.add(Property.LARGE);
@@ -79,7 +80,7 @@ public class Treants extends Mob{
                     Sample.INSTANCE.play(Assets.Sounds.CHAINS);
                     sprite.parent.add(new Chains(sprite.center(),
                             enemy.sprite.destinationCenter(),
-                            Effects.Type.CHAIN,
+                            Effects.Type.VINES,
                             new Callback() {
                                 public void call() {
                                     Actor.add(new Pushing(enemy, enemy.pos, newPosFinal, new Callback() {

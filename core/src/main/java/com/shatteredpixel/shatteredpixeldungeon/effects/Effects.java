@@ -35,7 +35,9 @@ public class Effects {
 		ETHEREAL_CHAIN,
 		DEATH_RAY,
 		LIGHT_RAY,
-		HEALTH_RAY
+		HEALTH_RAY,
+		TOUGE,
+		VINES
 	}
 	
 	public static Image get( Type type ) {
@@ -58,6 +60,12 @@ public class Effects {
 				break;
 			case ETHEREAL_CHAIN:
 				icon.frame(icon.texture.uvRect(11, 16, 16, 22));
+				break;
+			case TOUGE:
+				icon.frame(icon.texture.uvRect(6, 22, 11, 28));
+				break;
+			case VINES:
+				icon.frame(icon.texture.uvRect(11, 22, 16, 28));
 				break;
 			case DEATH_RAY:
 				icon.frame(icon.texture.uvRect(16, 16, 32, 24));

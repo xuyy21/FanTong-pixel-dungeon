@@ -80,7 +80,7 @@ public class Feast extends ArmorAbility {
                 if (hero.hasTalent(Talent.HEAL_FEAST)) Buff.affect(hero, Healing.class).setHeal(Math.round(hero.HT*0.05f* hero.pointsInTalent(Talent.HEAL_FEAST)), 0, 1);
                 GLog.p(Messages.get(this, "success"));
             } else {
-                Buff.affect(ch, Bleeding.class).set(10);
+                Buff.affect(ch, Bleeding.class).set(10+2*hero.pointsInTalent(Talent.CRUEL_FEAST));
                 Buff.affect(ch, Cripple.class, 10f);
                 Buff.affect(ch, Blindness.class, 10f);
                 Buff.affect(ch, Terror.class, 10f);

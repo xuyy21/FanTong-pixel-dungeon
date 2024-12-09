@@ -287,43 +287,61 @@ public class TitleScene extends PixelScene {
 		public void update() {
 			super.update();
 
-			if (!updateShown && Updates.updateAvailable()){
-				updateShown = true;
-				text(Messages.get(TitleScene.class, "update"));
-			}
-
-			if (updateShown){
-				textColor(ColorMath.interpolate( 0xFFFFFF, Window.SHPX_COLOR, 0.5f + (float)Math.sin(Game.timeTotal*5)/2f));
-			}
+//			if (!updateShown && Updates.updateAvailable()){
+//				updateShown = true;
+//				text(Messages.get(TitleScene.class, "update"));
+//			}
+//
+//			if (updateShown){
+//				textColor(ColorMath.interpolate( 0xFFFFFF, Window.SHPX_COLOR, 0.5f + (float)Math.sin(Game.timeTotal*5)/2f));
+//			}
 		}
 
 		@Override
 		protected void onClick() {
-			if (Updates.updateAvailable()){
-				AvailableUpdateData update = Updates.updateData();
-
-				ShatteredPixelDungeon.scene().addToFront( new WndOptions(
-						Icons.get(Icons.CHANGES),
-						update.versionName == null ? Messages.get(this,"title") : Messages.get(this,"versioned_title", update.versionName),
-						update.desc == null ? Messages.get(this,"desc") : update.desc,
-						Messages.get(this,"update"),
-						Messages.get(this,"changes")
-				) {
-					@Override
-					protected void onSelect(int index) {
-						if (index == 0) {
-							Updates.launchUpdate(Updates.updateData());
-						} else if (index == 1){
-							ChangesScene.changesSelected = 0;
-							ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
-						}
+//			if (Updates.updateAvailable()){
+//				AvailableUpdateData update = Updates.updateData();
+//
+//				ShatteredPixelDungeon.scene().addToFront( new WndOptions(
+//						Icons.get(Icons.CHANGES),
+//						update.versionName == null ? Messages.get(this,"title") : Messages.get(this,"versioned_title", update.versionName),
+//						update.desc == null ? Messages.get(this,"desc") : update.desc,
+//						Messages.get(this,"update"),
+//						Messages.get(this,"changes")
+//				) {
+//					@Override
+//					protected void onSelect(int index) {
+//						if (index == 0) {
+//							Updates.launchUpdate(Updates.updateData());
+//						} else if (index == 1){
+//							ChangesScene.changesSelected = 0;
+//							ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
+//						}
+//					}
+//				});
+//
+//			} else {
+//				ChangesScene.changesSelected = 0;
+//				ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
+//			}
+			ShatteredPixelDungeon.scene().addToFront( new WndOptions(
+					Icons.get(Icons.CHANGES),
+					Messages.get(this,"choose_pd"),
+					null,
+					Messages.get(this,"spd"),
+					Messages.get(this,"ftpd")
+			){
+				@Override
+				protected void onSelect(int index) {
+					if (index == 0) {
+						ChangesScene.changesSelected = 0;
+						ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
+					} else if (index == 1){
+						FTChangesScene.changesSelected = 0;
+						ShatteredPixelDungeon.switchNoFade( FTChangesScene.class );
 					}
-				});
-
-			} else {
-				ChangesScene.changesSelected = 0;
-				ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
-			}
+				}
+			});
 		}
 
 	}

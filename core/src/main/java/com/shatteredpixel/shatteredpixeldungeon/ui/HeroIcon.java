@@ -65,6 +65,7 @@ public class HeroIcon extends Image {
 	public static final int ELEMENTAL_STRIKE= 29;
 	public static final int FEINT           = 30;
 	public static final int RATMOGRIFY      = 31;
+	public static final int FEAST			= 40;
 
 	//action indicator visuals
 	public static final int BERSERK         = 32;

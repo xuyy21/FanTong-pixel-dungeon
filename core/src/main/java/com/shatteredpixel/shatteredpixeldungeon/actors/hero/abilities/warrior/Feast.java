@@ -98,7 +98,7 @@ public class Feast extends ArmorAbility {
 
             hero.sprite.operate(target);
             Sample.INSTANCE.play( Assets.Sounds.EAT, 5 );
-            SpellSprite.show( hero, SpellSprite.BERSERK );
+            SpellSprite.show( hero, SpellSprite.FEAST );
 
             armor.charge -= chargeUse(hero);
             armor.updateQuickslot();
@@ -110,7 +110,7 @@ public class Feast extends ArmorAbility {
 
     @Override
     public int icon() {
-        return HeroIcon.ENDURE;
+        return HeroIcon.FEAST;
     }
 
     @Override

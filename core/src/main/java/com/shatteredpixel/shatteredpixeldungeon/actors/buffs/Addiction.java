@@ -54,6 +54,8 @@ public class Addiction extends Buff implements Hero.Doom {
 
     public void reduce(int points) {
         this.point = point-points;
+        level = 0;
+        partialLevel = 0;
         if (point <= 0) detach();
     }
 

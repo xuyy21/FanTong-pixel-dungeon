@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Addiction;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
@@ -81,6 +82,9 @@ public class PotionOfCleansing extends ExoticPotion {
 			}
 			if (b instanceof Hunger){
 				((Hunger) b).satisfy(Hunger.STARVING);
+			}
+			if (b instanceof Addiction){
+				((Addiction) b).reduce(5);
 			}
 		}
 		Buff.affect(ch, Cleanse.class, duration);

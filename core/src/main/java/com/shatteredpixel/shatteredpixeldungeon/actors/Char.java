@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StormCloud;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Addiction;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -830,6 +831,7 @@ public abstract class Char extends Actor {
 			if (src instanceof Bleeding)                                icon = FloatingText.BLEEDING;
 			if (src instanceof ToxicGas)                                icon = FloatingText.TOXIC;
 			if (src instanceof Corrosion)                               icon = FloatingText.CORROSION;
+			if (src instanceof Addiction)                               icon = FloatingText.CORROSION;
 			if (src instanceof Poison)                                  icon = FloatingText.POISON;
 			if (src instanceof Ooze)                                    icon = FloatingText.OOZE;
 			if (src instanceof Viscosity.DeferedDamage)                 icon = FloatingText.DEFERRED;

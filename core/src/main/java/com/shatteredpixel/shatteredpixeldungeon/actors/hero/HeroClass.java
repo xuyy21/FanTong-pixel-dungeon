@@ -59,6 +59,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.PawWithRings;
@@ -258,6 +259,7 @@ public enum HeroClass {
 			new RingOfSkill().identify().collect();
 			new RingOfSkill().identify().upgrade(1).collect();
 			new RingOfSkill().identify().upgrade(2).collect();
+			new ChaliceOfBlood().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

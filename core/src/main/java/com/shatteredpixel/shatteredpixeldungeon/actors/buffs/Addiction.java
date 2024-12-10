@@ -87,7 +87,7 @@ public class Addiction extends Buff implements Hero.Doom {
     public boolean act() {
         if (target.isAlive()) {
 
-            partialLevel += Math.min(150f/(2+point), 0.1f);
+            partialLevel += Math.min((2+point)/150f, 0.1f);
             if (partialLevel >= 1) {
                 level++;
                 if (level==8) GLog.i(Messages.get(this, "want"));

@@ -8,9 +8,12 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.LingSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MushmenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.TreantsSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.XuyySprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 
 public class v0_2_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_2_3_Changes(changeInfos);
         add_v0_2_2_Changes(changeInfos);
         add_v0_2_1_Changes(changeInfos);
         add_v0_2_0_Changes(changeInfos);
@@ -172,5 +176,84 @@ public class v0_2_X_FTChanges {
                 "调整法师的初始食谱，从黄金布丁改为冰淇淋。\n" +
                         "黄金布丁的效果改为提供神器充能。\n" +
                         "冰淇淋的效果为提供法杖充能。"));
+    }
+
+    public static void add_v0_2_3_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.2.3", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(new MandrakeSprite()), "曼德拉草",
+                "添加新怪物：曼德拉草：\n\n" +
+                        "_-_分布于8~9层。\n" +
+                        "_-_没有攻击力，但是会在英雄靠近或受到攻击时尖叫。\n" +
+                        "_-_死亡掉落食材曼德拉草。\n"));
+
+        changes.addButton(new ChangeButton(new Image(new TreantsSprite()), "树人守卫",
+                "添加新怪物：树人守卫：\n\n" +
+                        "_-_分布于11~12层。\n" +
+                        "_-_移速为0.5。\n"));
+
+        changes.addButton(new ChangeButton(new Image(new LingSprite()), "新NPC",
+                "添加新NPC：绫：\n\n" +
+                        "_-_分布于16层。\n" +
+                        "_-_出售水晶之心(?)。\n\n" +
+                        "添加新NPC：小叶" +
+                        "_-_分布于21层。\n" +
+                        "_-_出售寻觅长枪(饭桶地牢特供版)。"));
+
+        changes.addButton(new ChangeButton(new Image(new TreantsSprite()), "植物属性",
+                "添加新怪物属性：植物：\n\n" +
+                        "_-_曼德拉草、树人守卫、真菌怪人、腐莓核心与腐烂触手获得植物属性。\n" +
+                        "_-_植物属性的怪物燃烧时不会自然熄灭。\n"));
+
+        changes.addButton(new ChangeButton(HeroSprite.avatar(HeroClass.WARRIOR, 5), "暴食狂宴",
+                "战士添加第四个护甲技能：暴食狂宴。\n\n" +
+                        "详情见游戏内介绍。"));
+
+        changes.addButton( new ChangeButton(Icons.get(Icons.CHALLENGE_COLOR), "疯狂植物",
+                "添加新挑战：疯狂植物。\n\n" +
+                        "详情见挑战介绍。"));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+        changes.hardlight(CharSprite.WARNING);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ALCH_PAGE), "食谱出售",
+                "调整几种食物的出售楼层。\n" +
+                        "玄灵布丁和黄金布丁在6层出售，其他英雄的初始食谱在11层出售。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.HALFPOT), "半块蜂蜜罐",
+                "添加物品半块蜂蜜罐，用破碎蜂蜜罐制作。\n\n" +
+                        "所有使用破碎蜂蜜罐菜谱改为使用半块蜂蜜罐。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.BBQ), "提供治疗的食物",
+                "美食家天赋望梅止渴不能对提供治疗效果的食物使用，对于有多种效果的食物，将只有非治疗效果生效。\n\n" +
+                        "为此调整了豪华烤肉和玄灵布丁的望梅止渴效果。"));
+
+        changes.addButton( new ChangeButton(Icons.get(Icons.CHALLENGE_COLOR), "药剂成瘾",
+                "恐药癔症改为药剂成瘾。\n\n" +
+                        "详情见挑战介绍。"));
+
+//        changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
+//        changes.hardlight(CharSprite.POSITIVE);
+//        changeInfos.add(changes);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
+        changes.hardlight(CharSprite.NEGATIVE);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(new MushmenSprite()), "真菌怪人",
+                "削弱真菌怪人：\n\n" +
+                        "_-_生命值降低，从40减为30。\n" +
+                        "_-_第一次攻击的毒素从12回合减为10回合。\n" +
+                        "_-_攻击不会再造成眩晕，只会施加毒素。\n"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_PAW), "魔戒怪爪",
+                "魔戒怪爪的自然充能速度降低33%，从200~100回合增加为300~150回合一充能。"));
     }
 }

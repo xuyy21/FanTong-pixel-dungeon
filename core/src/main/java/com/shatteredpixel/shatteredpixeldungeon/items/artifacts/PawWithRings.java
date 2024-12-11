@@ -227,9 +227,9 @@ public class PawWithRings extends Artifact{
                     && !cursed
                     && target.buff(MagicImmune.class) == null
                     && Regeneration.regenOn()) {
-                // 200 turns at level +0, 100 turns at level +10
+                // 300 turns at level +0, 150 turns at level +10
                 // use such method to bigger the bonus of upgrading low-level paw
-                float chargeGain = 0.005f + 0.0005f * level();
+                float chargeGain = (10 + level())/3000f;
                 chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
                 partialCharge += chargeGain;
 

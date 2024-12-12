@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.LingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MushmenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RotLasherSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TreantsSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.XuyySprite;
@@ -188,30 +189,30 @@ public class v0_2_X_FTChanges {
         changeInfos.add(changes);
 
         changes.addButton(new ChangeButton(new Image(new MandrakeSprite()), "曼德拉草",
-                "添加新怪物：曼德拉草：\n\n" +
+                "添加新怪物：曼德拉草\n\n" +
                         "_-_分布于8~9层。\n" +
                         "_-_没有攻击力，但是会在英雄靠近或受到攻击时尖叫。\n" +
                         "_-_死亡掉落食材曼德拉草。\n"));
 
         changes.addButton(new ChangeButton(new Image(new TreantsSprite()), "树人守卫",
-                "添加新怪物：树人守卫：\n\n" +
+                "添加新怪物：树人守卫\n\n" +
                         "_-_分布于11~12层。\n" +
                         "_-_移速为0.5。\n"));
 
         changes.addButton(new ChangeButton(new Image(new LingSprite()), "新NPC",
-                "添加新NPC：绫：\n\n" +
+                "添加新NPC：绫\n\n" +
                         "_-_分布于16层。\n" +
                         "_-_出售水晶之心(?)。\n\n" +
-                        "添加新NPC：小叶" +
+                        "添加新NPC：小叶\n\n" +
                         "_-_分布于21层。\n" +
                         "_-_出售寻觅长枪(饭桶地牢特供版)。"));
 
-        changes.addButton(new ChangeButton(new Image(new TreantsSprite()), "植物属性",
-                "添加新怪物属性：植物：\n\n" +
+        changes.addButton(new ChangeButton(new Image(new RotLasherSprite()), "植物属性",
+                "添加新怪物属性：植物\n\n" +
                         "_-_曼德拉草、树人守卫、真菌怪人、腐莓核心与腐烂触手获得植物属性。\n" +
                         "_-_植物属性的怪物燃烧时不会自然熄灭。\n"));
 
-        changes.addButton(new ChangeButton(HeroSprite.avatar(HeroClass.WARRIOR, 5), "暴食狂宴",
+        changes.addButton(new ChangeButton(HeroSprite.avatar(HeroClass.WARRIOR, 6), "暴食狂宴",
                 "战士添加第四个护甲技能：暴食狂宴。\n\n" +
                         "详情见游戏内介绍。"));
 
@@ -224,7 +225,7 @@ public class v0_2_X_FTChanges {
         changeInfos.add(changes);
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ALCH_PAGE), "食谱出售",
-                "调整几种食物的出售楼层。\n" +
+                "调整几种食谱的出售楼层。\n" +
                         "玄灵布丁和黄金布丁在6层出售，其他英雄的初始食谱在11层出售。"));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.HALFPOT), "半块蜂蜜罐",

@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.TargetedSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Fadeleaf;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -90,7 +91,7 @@ public class PawWithRings extends Artifact{
                                 if (index == 0) {
                                     new PawSpell().execute(hero);
                                 } else if (index == 1) {
-                                    new ScrollOfTeleportation().doRead();
+                                    ScrollOfTeleportation.teleportChar(hero, Fadeleaf.class);
                                     charge--;
                                 } else if (index == 2) {
                                     GameScene.selectItem( itemSelector );
@@ -106,6 +107,7 @@ public class PawWithRings extends Artifact{
                                     }
                                     Dungeon.hero.spendAndNext(1f);
                                 }
+                                updateQuickslot();
                             }
                         }
                 );
@@ -121,11 +123,12 @@ public class PawWithRings extends Artifact{
                                 if (index == 0) {
                                     new PawSpell().execute(hero);
                                 } else if (index == 1) {
-                                    new ScrollOfTeleportation().doRead();
+                                    ScrollOfTeleportation.teleportChar(hero, Fadeleaf.class);
                                     charge--;
                                 } else if (index == 2) {
                                     GameScene.selectItem( itemSelector );
                                 }
+                                updateQuickslot();
                             }
                         }
                 );
@@ -140,9 +143,10 @@ public class PawWithRings extends Artifact{
                                 if (index == 0) {
                                     new PawSpell().execute(hero);
                                 } else if (index == 1) {
-                                    new ScrollOfTeleportation().doRead();
+                                    ScrollOfTeleportation.teleportChar(hero, Fadeleaf.class);
                                     charge--;
                                 }
+                                updateQuickslot();
                             }
                         }
                 );

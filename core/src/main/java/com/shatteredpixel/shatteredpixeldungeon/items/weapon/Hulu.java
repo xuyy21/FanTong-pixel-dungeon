@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -19,9 +20,8 @@ public class Hulu extends Waterskin {
     @Override
     public boolean collect( Bag container ) {
         if (super.collect( container )) {
-            charger = new Charger();
             if (container.owner != null) {
-                charger.attachTo(container.owner);
+                charge(container.owner);
             }
             return true;
         } else {
@@ -29,8 +29,17 @@ public class Hulu extends Waterskin {
         }
     }
 
+    public void charge( Char owner ) {
+        if (charger == null) charger = new Charger();
+        charger.attachTo( owner );
+    }
+
     @Override
-    public void onDetach(){
+    public void onDetach( ) {
+        stopCharging();
+    }
+
+    public void stopCharging() {
         if (charger != null) {
             charger.detach();
             charger = null;

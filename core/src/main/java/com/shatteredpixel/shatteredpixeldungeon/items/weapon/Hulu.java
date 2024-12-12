@@ -8,16 +8,21 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.utils.Bundle;
 
 public class Hulu extends Waterskin {
 
     public Charger charger;
 
+    private float partialcharge = 0f;
+
     @Override
     public boolean collect( Bag container ) {
         if (super.collect( container )) {
-            if (charger==null) charger = new Charger();
-            charger.attachTo(container.owner);
+            charger = new Charger();
+            if (container.owner != null) {
+                charger.attachTo(container.owner);
+            }
             return true;
         } else {
             return false;
@@ -32,8 +37,41 @@ public class Hulu extends Waterskin {
         }
     }
 
+    private static final String PARTIALCHARGE = "PARTIALCHARGE";
+
+    @Override
+    public void storeInBundle( Bundle bundle ){
+        super.storeInBundle( bundle );
+        bundle.put(PARTIALCHARGE, partialcharge);
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ) {
+        super.restoreFromBundle( bundle );
+        partialcharge = bundle.getFloat(PARTIALCHARGE);
+    }
+
     public class Charger extends Buff{
-        private float partialcharge = 0f;
+
+        @Override
+        public boolean act(){
+            partialcharge += 0.004f;
+            if (partialcharge>=1) {
+                volume += (int)partialcharge;
+                partialcharge = partialcharge - (int)partialcharge;
+
+                if (volume >= MAX_VOLUME) {
+                    volume = MAX_VOLUME;
+                    GLog.p( Messages.get(this, "full") );
+                }
+
+                updateQuickslot();
+            }
+
+            spend(TICK);
+
+            return true;
+        }
 
         @Override
         public boolean attachTo( Char target ) {

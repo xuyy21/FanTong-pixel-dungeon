@@ -47,7 +47,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Sh
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Cookware;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.GooStylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -120,7 +119,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutat
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Hulu;
+import com.shatteredpixel.shatteredpixeldungeon.items.Hulu;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
@@ -248,19 +247,13 @@ public enum HeroClass {
 			new Stylus().quantity(10).collect();
 			new TengusMask().collect();
 			new KingsCrown().collect();
-			new WandOfMagicMissile().collect();
-			new GooStylus().quantity(100).collect();
 			new GooBlob().quantity(100).collect();
-			new Dagger().upgrade(30).collect();
-			new ClothArmor().upgrade(30).collect();
 			new Greatsword().upgrade(30).identify().collect();
 			new PlateArmor().upgrade(30).identify().collect();
 			new WandOfTransfusion().upgrade(10).collect();
 			new RingOfSkill().upgrade(30).collect();
 			new PawWithRings().collect();
 			new RingOfSkill().identify().collect();
-			new RingOfSkill().identify().upgrade(1).collect();
-			new RingOfSkill().identify().upgrade(2).collect();
 			new ChaliceOfBlood().collect();
 			new Hulu().collect();
 			new Ankh().collect();

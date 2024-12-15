@@ -41,7 +41,10 @@ public class TargetHealthIndicator extends HealthBar {
 	public void update() {
 		super.update();
 
-		if (target instanceof Thorn && ((Thorn) target).isWandering()) return;
+		if (target instanceof Thorn && ((Thorn) target).isWandering()) {
+			visible = false;
+			return;
+		}
 
 		if (target != null && target.isAlive() && target.isActive() && target.sprite.visible) {
 			CharSprite sprite = target.sprite;

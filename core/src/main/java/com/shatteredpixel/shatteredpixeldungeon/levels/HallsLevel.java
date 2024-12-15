@@ -140,19 +140,19 @@ public class HallsLevel extends RegularLevel {
 		int pos = candidateCells.remove(0);
 		mobs.add(Thorn.spawnAt(pos));
 		thorntospawn--;
-		while(thorntospawn>0 && Random.Int(32)<=thorntospawn*thorntospawn){
+		while(!candidateCells.isEmpty() && thorntospawn>0 && Random.Int(32)<=thorntospawn*thorntospawn){
 			pos = candidateCells.remove(0);
 			mobs.add(Thorn.spawnAt(pos));
 			thorntospawn--;
 		}
 		candidateCells.clear();
 		for (int i = 0; i < length(); i++) {
-			if ((map[i] == Terrain.DOOR || map[i] == Terrain.HIGH_GRASS) && findMob(i) == null) {
+			if ((map[i] == Terrain.DOOR || map[i] == Terrain.HIGH_GRASS) && !roomEntrance.inside(cellToPoint(i)) && findMob(i) == null) {
 				candidateCells.add(i);
 			}
 		}
 		Random.shuffle(candidateCells);
-		while (thorntospawn>0) {
+		while (!candidateCells.isEmpty() && thorntospawn>0) {
 			pos = candidateCells.remove(0);
 			mobs.add(Thorn.spawnAt(pos));
 			thorntospawn--;

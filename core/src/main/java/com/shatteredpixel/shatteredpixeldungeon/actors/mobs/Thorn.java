@@ -18,7 +18,7 @@ public class Thorn extends Mob{
     {
         spriteClass = ThornSprite.class;
 
-        HP = HT = 80;
+        HP = HT = 120;
         defenseSkill = 0;
 
         EXP = 2;

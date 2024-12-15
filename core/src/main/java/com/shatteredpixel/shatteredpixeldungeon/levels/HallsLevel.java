@@ -22,8 +22,10 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thorn;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.HallsPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -121,7 +123,42 @@ public class HallsLevel extends RegularLevel {
 		addItemToSpawn( new Torch() );
 		super.create();
 	}
-	
+
+	@Override
+	protected void createMobs(){
+		super.createMobs();
+
+		int thorntospawn = Random.chances(new float[]{0.2f, 0.7f, 0.1f})+2;
+		if (Dungeon.isChallenged(Challenges.CRAZY_PLANT)) thorntospawn *= 2;
+		ArrayList<Integer> candidateCells = new ArrayList<>();
+		for (int i = 0; i < length(); i++) {
+			if ((map[i] == Terrain.DOOR) && findMob(i) == null) {
+				candidateCells.add(i);
+			}
+		}
+		Random.shuffle(candidateCells);
+		int pos = candidateCells.remove(0);
+		mobs.add(Thorn.spawnAt(pos));
+		thorntospawn--;
+		while(thorntospawn>0 && Random.Int(32)<=thorntospawn*thorntospawn){
+			pos = candidateCells.remove(0);
+			mobs.add(Thorn.spawnAt(pos));
+			thorntospawn--;
+		}
+		candidateCells.clear();
+		for (int i = 0; i < length(); i++) {
+			if ((map[i] == Terrain.DOOR || map[i] == Terrain.HIGH_GRASS) && findMob(i) == null) {
+				candidateCells.add(i);
+			}
+		}
+		Random.shuffle(candidateCells);
+		while (thorntospawn>0) {
+			pos = candidateCells.remove(0);
+			mobs.add(Thorn.spawnAt(pos));
+			thorntospawn--;
+		}
+	}
+
 	@Override
 	public String tilesTex() {
 		return Assets.Environment.TILES_HALLS;

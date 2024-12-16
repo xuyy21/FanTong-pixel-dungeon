@@ -227,13 +227,20 @@ public class v0_2_X_FTChanges {
                 "添加新挑战：疯狂植物。\n\n" +
                         "详情见挑战介绍。"));
 
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ALCH_PAGE), "新食物",
+                "新食材：\n\n" +
+                        "幼虫：苍蝇掉落。\n" +
+                        "\n新食谱：\n\n" +
+                        "风味炸虫："));
+
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(CharSprite.WARNING);
         changeInfos.add(changes);
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ALCH_PAGE), "食谱出售",
                 "调整几种食谱的出售楼层。\n" +
-                        "玄灵布丁和黄金布丁在6层出售，其他英雄的初始食谱在11层出售。"));
+                        "玄灵布丁和黄金布丁在6层出售，其他英雄的初始食谱在11层出售。\n" +
+                        "食谱的售价降低。"));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.HALFPOT), "半块蜂蜜罐",
                 "添加物品半块蜂蜜罐，用破碎蜂蜜罐制作。\n\n" +

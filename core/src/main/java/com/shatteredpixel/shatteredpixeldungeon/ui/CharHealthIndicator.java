@@ -22,7 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thorn;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Chomper;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 
@@ -47,7 +47,7 @@ public class CharHealthIndicator extends HealthBar {
 	public void update() {
 		super.update();
 
-		if (target instanceof Thorn && ((Thorn) target).isWandering()) {
+		if (target instanceof Chomper && ((Chomper) target).isWandering()) {
 			visible = false;
 			return;
 		}
@@ -65,7 +65,7 @@ public class CharHealthIndicator extends HealthBar {
 	}
 	
 	public void target( Char ch ) {
-		if (target instanceof Thorn && ((Thorn) target).isWandering()) return;
+		if (target instanceof Chomper && ((Chomper) target).isWandering()) return;
 
 		if (ch != null && ch.isAlive() && ch.isActive()) {
 			target = ch;

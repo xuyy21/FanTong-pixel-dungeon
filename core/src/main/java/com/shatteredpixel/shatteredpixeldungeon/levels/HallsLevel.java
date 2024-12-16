@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thorn;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Chomper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.HallsPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -128,8 +128,8 @@ public class HallsLevel extends RegularLevel {
 	protected void createMobs(){
 		super.createMobs();
 
-		int thorntospawn = Random.chances(new float[]{0.2f, 0.7f, 0.1f})+2;
-		if (Dungeon.isChallenged(Challenges.CRAZY_PLANT)) thorntospawn *= 2;
+		int chompertospawn = Random.chances(new float[]{0.2f, 0.7f, 0.1f})+2;
+		if (Dungeon.isChallenged(Challenges.CRAZY_PLANT)) chompertospawn *= 2;
 		ArrayList<Integer> candidateCells = new ArrayList<>();
 		for (int i = 0; i < length(); i++) {
 			if ((map[i] == Terrain.DOOR) && findMob(i) == null) {
@@ -138,12 +138,12 @@ public class HallsLevel extends RegularLevel {
 		}
 		Random.shuffle(candidateCells);
 		int pos = candidateCells.remove(0);
-		mobs.add(Thorn.spawnAt(pos));
-		thorntospawn--;
-		while(!candidateCells.isEmpty() && thorntospawn>0 && Random.Int(32)<=thorntospawn*thorntospawn){
+		mobs.add(Chomper.spawnAt(pos));
+		chompertospawn--;
+		while(!candidateCells.isEmpty() && chompertospawn>0 && Random.Int(32)<=chompertospawn*chompertospawn){
 			pos = candidateCells.remove(0);
-			mobs.add(Thorn.spawnAt(pos));
-			thorntospawn--;
+			mobs.add(Chomper.spawnAt(pos));
+			chompertospawn--;
 		}
 		candidateCells.clear();
 		for (int i = 0; i < length(); i++) {
@@ -152,10 +152,10 @@ public class HallsLevel extends RegularLevel {
 			}
 		}
 		Random.shuffle(candidateCells);
-		while (!candidateCells.isEmpty() && thorntospawn>0) {
+		while (!candidateCells.isEmpty() && chompertospawn>0) {
 			pos = candidateCells.remove(0);
-			mobs.add(Thorn.spawnAt(pos));
-			thorntospawn--;
+			mobs.add(Chomper.spawnAt(pos));
+			chompertospawn--;
 		}
 	}
 

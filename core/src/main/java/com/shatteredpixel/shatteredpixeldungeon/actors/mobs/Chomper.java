@@ -8,15 +8,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ThornSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ChomperSprite;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class Thorn extends Mob{
+public class Chomper extends Mob{
 
     {
-        spriteClass = ThornSprite.class;
+        spriteClass = ChomperSprite.class;
 
         HP = HT = 120;
         defenseSkill = 0;
@@ -75,11 +75,11 @@ public class Thorn extends Mob{
         return super.drRoll() + Random.NormalIntRange(0, 8);
     }
 
-    public static Thorn spawnAt( int pos ){
-        Thorn thorn = new Thorn();
-        thorn.pos = pos;
+    public static Chomper spawnAt(int pos ){
+        Chomper chomper = new Chomper();
+        chomper.pos = pos;
 
-        return thorn;
+        return chomper;
     }
 
     @Override

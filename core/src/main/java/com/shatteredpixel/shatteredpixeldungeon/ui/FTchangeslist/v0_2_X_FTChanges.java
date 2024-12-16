@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ArmedSkeletonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ChomperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -195,9 +196,15 @@ public class v0_2_X_FTChanges {
                         "_-_死亡掉落食材曼德拉草。\n"));
 
         changes.addButton(new ChangeButton(new Image(new TreantsSprite()), "树人守卫",
-                "添加新怪物：树人守卫\n\n" +
+                "\n\n\n\n添加新怪物：树人守卫\n\n" +
                         "_-_分布于11~12层。\n" +
                         "_-_移速为0.5。\n"));
+
+        changes.addButton(new ChangeButton(new Image(new ChomperSprite()), "地狱食人花",
+                "添加新怪物：地狱食人花\n\n" +
+                        "_-_分布于21~24层，在进入楼层时全部生成，不会再额外刷新。\n" +
+                        "_-_高血量，攻击可以造成流血。\n" +
+                        "_-_食人花会生成在门上或高草中，并潜伏起来，睁大眼睛看仔细咯。\n"));
 
         changes.addButton(new ChangeButton(new Image(new LingSprite()), "新NPC",
                 "添加新NPC：绫\n\n" +

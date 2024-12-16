@@ -77,6 +77,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Crystal_Heart;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Larva;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MagicHeart;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
@@ -99,6 +100,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGlandcandy;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROHoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROJuice;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROLarva;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROMushroomSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
@@ -296,6 +298,7 @@ public enum HeroClass {
 			new MandrakeRoot().quantity(10).collect();
 			new Crystal_Heart().quantity(10).collect();
 			new Xuanmi().quantity(10).collect();
+			new Larva().quantity(10).collect();
 //			new Cookware().quantity(10).collect();
 
 			new ROGlandcandy().collect();
@@ -309,6 +312,7 @@ public enum HeroClass {
 			new ROMushroomSoup().collect();
 			new ROBlackPudding().collect();
 			new ROBerryCake().collect();
+			new ROLarva().collect();
 		}
 
 			switch (this) {

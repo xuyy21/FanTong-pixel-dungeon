@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Larva;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SwarmSprite;
@@ -54,6 +55,12 @@ public class Swarm extends Mob {
 
 		loot = new PotionOfHealing();
 		lootChance = 0.1667f; //by default, see lootChance()
+		food = new Larva();
+	}
+
+	@Override
+	public float foodChance(){
+		return 0.3f;
 	}
 	
 	private static final float SPLIT_DELAY	= 1f;

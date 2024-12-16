@@ -71,7 +71,7 @@ public abstract class RecipeBook extends Item {
     }
 
     @Override
-    public int value() {return 10 * quantity;}
+    public int value() {return 5 * quantity;}
 
     @Override
     public String name() {

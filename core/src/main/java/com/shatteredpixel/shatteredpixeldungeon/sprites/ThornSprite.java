@@ -8,9 +8,9 @@ public class ThornSprite extends MobSprite{
     public ThornSprite() {
         super();
 
-        texture( Assets.Sprites.ROT_LASH );
+        texture( Assets.Sprites.THORN );
 
-        TextureFilm frames = new TextureFilm( texture, 12, 16 );
+        TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
         idle = new Animation( 0, true );
         idle.frames( frames, 0);

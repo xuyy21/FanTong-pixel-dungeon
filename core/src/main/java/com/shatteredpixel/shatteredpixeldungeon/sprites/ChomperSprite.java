@@ -18,14 +18,14 @@ public class ChomperSprite extends MobSprite{
         run = new Animation( 0, true );
         run.frames( frames, 0);
 
-        attack = new Animation( 24, false );
-        attack.frames( frames, 0, 1, 2, 2, 1 );
+        attack = new Animation( 10, false );
+        attack.frames( frames, 0, 1, 2, 2, 3, 1 );
 
-        die = new Animation( 12, false );
-        die.frames( frames, 3, 4, 5, 6 );
+        die = new Animation( 10, false );
+        die.frames( frames, 4, 5, 6 );
 
         play( idle );
-        alpha(0.4f);
+        alpha(0.2f);
     }
 
     @Override

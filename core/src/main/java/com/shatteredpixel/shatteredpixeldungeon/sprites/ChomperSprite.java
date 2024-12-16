@@ -25,7 +25,7 @@ public class ChomperSprite extends MobSprite{
         die.frames( frames, 4, 5, 6 );
 
         play( idle );
-        alpha(0.2f);
+        alpha(0.3f);
     }
 
     @Override

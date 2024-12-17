@@ -34,7 +34,7 @@ import com.watabou.utils.Callback;
 public class Feast extends ArmorAbility {
 
     {
-        baseChargeUse = 0f;
+        baseChargeUse = 50f;
     }
 
     @Override

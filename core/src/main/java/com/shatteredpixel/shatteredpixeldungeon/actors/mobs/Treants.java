@@ -36,12 +36,16 @@ public class Treants extends Mob{
         loot = Generator.Category.SEED;
         lootChance = 0.25f;
         food = new Nut();
-        foodChance = 5f;
 
         properties.add(Property.PLANT);
         properties.add(Property.LARGE);
 
         HUNTING = new Treants.Hunting();
+    }
+
+    @Override
+    public float foodChance(){
+        return 1f;
     }
 
     @Override

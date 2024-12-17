@@ -254,9 +254,12 @@ public class v0_2_X_FTChanges {
                 "恐药癔症改为药剂成瘾。\n\n" +
                         "详情见挑战介绍。"));
 
-//        changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-//        changes.hardlight(CharSprite.POSITIVE);
-//        changeInfos.add(changes);
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
+        changes.hardlight(CharSprite.POSITIVE);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.JUICE), "风味果汁",
+                "风味果汁可以提供的治疗量提高，现在可以提供8与10%最大生命值中较大者的缓慢治疗。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(CharSprite.NEGATIVE);

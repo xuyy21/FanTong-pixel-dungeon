@@ -56,7 +56,7 @@ public class Juice extends Food {
     @Override
     public void effect(Hero hero) {
         GLog.i( Messages.get(Juice.class, "effect") );
-        Buff.affect(hero, Healing.class).setHeal(8, 0, 1);
+        Buff.affect(hero, Healing.class).setHeal(Math.max(Math.round(hero.HT*0.1f),8), 0, 1);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

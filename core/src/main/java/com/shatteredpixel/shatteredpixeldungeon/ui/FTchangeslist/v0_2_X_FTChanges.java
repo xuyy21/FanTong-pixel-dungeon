@@ -27,10 +27,23 @@ import java.util.ArrayList;
 
 public class v0_2_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_Coming_Soon(changeInfos);
         add_v0_2_3_Changes(changeInfos);
         add_v0_2_2_Changes(changeInfos);
         add_v0_2_1_Changes(changeInfos);
         add_v0_2_0_Changes(changeInfos);
+    }
+
+    public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ){
+
+        ChangeInfo changes = new ChangeInfo("Coming Soon", true, "");
+        changes.hardlight(0xCCCCCC);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(HeroSprite.avatar(HeroClass.MAGE, 6), "魔术师",
+                "下一版本0.3.0将加入法师的新转职：魔术师。\n\n" +
+                        "魔术师将会是一个更多地从使用法杖中受益的职业，饭桶地牢将迎来一个真正的法系法师转职！\n\n" +
+                        "敬请期待！！"));
     }
 
     public static void add_v0_2_0_Changes(ArrayList<ChangeInfo> changeInfos ){
@@ -230,6 +243,8 @@ public class v0_2_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ALCH_PAGE), "新食物",
                 "新食材：\n\n" +
                         "幼虫：苍蝇掉落。\n" +
+                        "曼德拉草：曼德拉草掉落。\n" +
+                        "松果：树人守卫掉落。\n" +
                         "\n新食谱：\n\n" +
                         "风味炸虫："));
 

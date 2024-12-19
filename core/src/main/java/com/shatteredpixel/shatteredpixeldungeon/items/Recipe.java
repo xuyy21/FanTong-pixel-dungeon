@@ -38,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mandrake_liquor;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MushroomSoup;
@@ -252,7 +253,8 @@ public abstract class Recipe {
 		new Sorbet.Recipe(),
 		new BerryCake.Recipe(),
 		new EyeCake.Recipe(),
-		new Cooked_larva.Recipe()
+		new Cooked_larva.Recipe(),
+		new Mandrake_liquor.Recipe()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

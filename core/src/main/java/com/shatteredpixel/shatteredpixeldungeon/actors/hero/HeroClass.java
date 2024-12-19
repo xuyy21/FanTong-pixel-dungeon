@@ -101,6 +101,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROHoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROJuice;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROLarva;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROMandrake_liquor;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROMushroomSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
@@ -313,6 +314,7 @@ public enum HeroClass {
 			new ROBlackPudding().collect();
 			new ROBerryCake().collect();
 			new ROLarva().collect();
+			new ROMandrake_liquor().collect();
 		}
 
 			switch (this) {

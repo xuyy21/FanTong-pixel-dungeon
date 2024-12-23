@@ -743,7 +743,7 @@ public class ItemSpriteSheet {
 		assignItemRect(MYSTERYBONE,		13, 13);
 		assignItemRect(MUSHROOM,		15, 15);
 		assignItemRect(ROOT,			16, 14);
-		assignItemRect(BATBODY,			15, 14);
+		assignItemRect(BATBODY,			9, 14);
 		assignItemRect(GLAND,			11, 16);
 		assignItemRect(NUT,				12, 15);
 		assignItemRect(ELEMENTALCORE,	13, 11);
@@ -773,6 +773,7 @@ public class ItemSpriteSheet {
 	public static final int BERRY_CAKE 		= COOKED_FOOD+18;
 	public static final int EYE_CKAE		= COOKED_FOOD+19;
 	public static final int COOKED_LARVA	= COOKED_FOOD+20;
+	public static final int MANDRAKE_LIQUOR = COOKED_FOOD+21;
 	static{
 		assignItemRect(Honey_MEAT,    	15, 11);
 		assignItemRect(ICECREAM, 		10, 16);
@@ -781,7 +782,7 @@ public class ItemSpriteSheet {
 		assignItemRect(SALAD,    		16, 15);
 		assignItemRect(BONESOUP, 		16, 14);
 		assignItemRect(BBQ,          	14, 14);
-		assignItemRect(TOASTBAT,      	15, 16);
+		assignItemRect(TOASTBAT,      	13, 16);
 		assignItemRect(GLANDCANDY,		12, 12);
 		assignItemRect(SCORPIOTEMPURA,	14, 16);
 		assignItemRect(COOKIT,			16, 13);
@@ -793,6 +794,7 @@ public class ItemSpriteSheet {
 		assignItemRect(BERRY_CAKE,		16, 16);
 		assignItemRect(EYE_CKAE,		16, 16);
 		assignItemRect(COOKED_LARVA,	16, 11);
+		assignItemRect(MANDRAKE_LIQUOR,	13, 16);
 	}
 
 	private static final int HOLIDAY_FOOD   =                               xy(1, 29);  //16 slots

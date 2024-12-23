@@ -58,6 +58,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROHoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROIcecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROJuice;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROLarva;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROMandrake_liquor;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROMushroomSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
@@ -239,10 +241,12 @@ public class ShopRoom extends SpecialRoom {
 				RecipeBook[] recipeBooks = {new ROSmallRation(), new ROIcecream(), new ROHoneyMeat(), new ROJuice(), new ROTempura()};
 				results.add(recipeBooks[r]);
 				results.add(new ROGlandcandy());
+				results.add(new ROMandrake_liquor());
 				break;
 			case 6:
 				results.add(new ROGoldenPudding());
 				results.add(new ROBlackPudding());
+				results.add(new ROLarva());
 				break;
 			case 16:
 				results.add(new ROCookit());

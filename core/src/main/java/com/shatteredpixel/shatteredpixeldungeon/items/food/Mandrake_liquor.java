@@ -17,8 +17,9 @@ import java.util.ArrayList;
 public class Mandrake_liquor extends Food{
 
     {
-        image = ItemSpriteSheet.ROOT;
+        image = ItemSpriteSheet.MANDRAKE_LIQUOR;
         energy = Hunger.HUNGRY*2f/3f;
+        canFakeEat = true;
     }
 
     @Override

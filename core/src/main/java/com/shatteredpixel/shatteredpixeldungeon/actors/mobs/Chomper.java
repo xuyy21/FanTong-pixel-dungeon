@@ -18,7 +18,7 @@ public class Chomper extends Mob{
     {
         spriteClass = ChomperSprite.class;
 
-        HP = HT = 120;
+        HP = HT = 100;
         defenseSkill = 0;
 
         EXP = 2;
@@ -72,7 +72,7 @@ public class Chomper extends Mob{
 
     @Override
     public int drRoll() {
-        return super.drRoll() + Random.NormalIntRange(0, 8);
+        return super.drRoll();
     }
 
     public static Chomper spawnAt(int pos ){

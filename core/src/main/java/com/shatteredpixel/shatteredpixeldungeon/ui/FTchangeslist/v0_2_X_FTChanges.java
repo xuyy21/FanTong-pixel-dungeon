@@ -216,7 +216,7 @@ public class v0_2_X_FTChanges {
         changes.addButton(new ChangeButton(new Image(new ChomperSprite()), "地狱食人花",
                 "添加新怪物：地狱食人花\n\n" +
                         "_-_分布于21~24层，在进入楼层时全部生成，不会再额外刷新。\n" +
-                        "_-_高血量，攻击可以造成流血。\n" +
+                        "_-_高血量无护甲，攻击可以造成流血。\n" +
                         "_-_食人花会生成在门上或高草中，并潜伏起来，睁大眼睛看仔细咯。\n"));
 
         changes.addButton(new ChangeButton(new Image(new LingSprite()), "新NPC",

@@ -69,7 +69,7 @@ public class Hulu extends Waterskin {
 
                 if (volume >= MAX_VOLUME) {
                     volume = MAX_VOLUME;
-                    GLog.p( Messages.get(this, "full") );
+                    GLog.p( Messages.get(Hulu.class, "full") );
                 }
 
                 updateQuickslot();
@@ -100,7 +100,7 @@ public class Hulu extends Waterskin {
 
                 if (volume >= MAX_VOLUME) {
                     volume = MAX_VOLUME;
-                    GLog.p( Messages.get(this, "full") );
+                    GLog.p( Messages.get(Hulu.class, "full") );
                 }
 
                 updateQuickslot();

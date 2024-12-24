@@ -10,7 +10,7 @@ public class MandrakeSprite extends MobSprite{
 
         texture( Assets.Sprites.MANDRAKE );
 
-        TextureFilm frames = new TextureFilm( texture, 11, 16 );
+        TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
         idle = new Animation( 2, true );
         idle.frames( frames, 0, 0, 1, 1 );

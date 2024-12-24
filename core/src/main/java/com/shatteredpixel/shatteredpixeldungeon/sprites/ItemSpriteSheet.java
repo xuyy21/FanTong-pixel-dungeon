@@ -739,7 +739,7 @@ public class ItemSpriteSheet {
 	static{
 		assignItemRect(RATTAIL,			15, 16);
 		assignItemRect(CRABCLAW,		16, 16);
-		assignItemRect(SLIMEBLOB,		12, 12);
+		assignItemRect(SLIMEBLOB,		10, 9);
 		assignItemRect(MYSTERYBONE,		13, 13);
 		assignItemRect(MUSHROOM,		15, 15);
 		assignItemRect(ROOT,			16, 14);

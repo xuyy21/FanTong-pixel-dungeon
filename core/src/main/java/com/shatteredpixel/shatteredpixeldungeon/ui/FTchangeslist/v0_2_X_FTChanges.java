@@ -246,7 +246,8 @@ public class v0_2_X_FTChanges {
                         "曼德拉草：曼德拉草掉落。\n" +
                         "松果：树人守卫掉落。\n" +
                         "\n新食谱：\n\n" +
-                        "风味炸虫："));
+                        "风味炸虫：于6层商店出售食谱。\n" +
+                        "曼德拉药酒：于11层商店出售食谱。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(CharSprite.WARNING);

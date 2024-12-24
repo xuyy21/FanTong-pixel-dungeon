@@ -58,7 +58,7 @@ public class Feast extends ArmorAbility {
             return;
         } else {
             if (Dungeon.level.distance( hero.pos, ch.pos ) > 1) {
-                if (Dungeon.level.distance( hero.pos, ch.pos ) <= 8+hero.pointsInTalent(Talent.LONG_TONGUE)) {
+                if (Dungeon.level.distance( hero.pos, ch.pos ) <= 1+hero.pointsInTalent(Talent.LONG_TONGUE)) {
                     Ballistica chain = new Ballistica(hero.pos, target, Ballistica.PROJECTILE);
 
                     if (ch.properties().contains(Char.Property.IMMOVABLE)) {
@@ -132,7 +132,7 @@ public class Feast extends ArmorAbility {
                                     }
 
                                     hero.sprite.operate(target);
-                                    Sample.INSTANCE.play(Assets.Sounds.EAT, 5);
+                                    Sample.INSTANCE.play(Assets.Sounds.FEAST, 0.5f);
                                     SpellSprite.show(hero, SpellSprite.FEAST);
 
                                     armor.charge -= chargeUse(hero);
@@ -175,7 +175,7 @@ public class Feast extends ArmorAbility {
                 }
 
                 hero.sprite.operate(target);
-                Sample.INSTANCE.play(Assets.Sounds.EAT, 5);
+                Sample.INSTANCE.play(Assets.Sounds.FEAST, 1);
                 SpellSprite.show(hero, SpellSprite.FEAST);
 
                 armor.charge -= chargeUse(hero);

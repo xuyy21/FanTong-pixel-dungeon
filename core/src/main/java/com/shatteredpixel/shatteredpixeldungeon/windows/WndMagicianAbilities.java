@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -79,14 +80,13 @@ public class WndMagicianAbilities extends Window {
 
         @Override
         public boolean itemSelectable(Item item) {
-            return item instanceof Wand && item.isIdentified();
+            return item instanceof Wand || item instanceof MagesStaff;
         }
 
         @Override
         public void onSelect( Item item ){
-            if (item != null && item instanceof Wand){
-                Wand w = (Wand)item;
-                abilityBeingUsed.doAbility(Dungeon.hero, w);
+            if (item != null && (item instanceof Wand || item instanceof MagesStaff)){
+                abilityBeingUsed.doAbility(Dungeon.hero, item);
             }
         }
     };

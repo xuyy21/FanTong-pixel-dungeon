@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FoodEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Magic_mark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
@@ -376,6 +377,10 @@ public abstract class Wand extends Item {
 				lvl += 1;
 			}
 
+			if (charger.target.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class) != null) {
+				lvl += charger.target.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class).getLevel();
+			}
+
 			if (curCharges == 1 && charger.target instanceof Hero && ((Hero)charger.target).hasTalent(Talent.DESPERATE_POWER)){
 				lvl += ((Hero)charger.target).pointsInTalent(Talent.DESPERATE_POWER);
 			}
@@ -479,6 +484,10 @@ public abstract class Wand extends Item {
 			if (empower2 != null){
 				empower2.use();
 			}
+			Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff empower3 = curUser.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class);
+			if (empower3 != null){
+				empower3.use();
+			}
 		}
 
 		//If hero owns wand but it isn't in belongings it must be in the staff
@@ -502,7 +511,16 @@ public abstract class Wand extends Item {
 		Invisibility.dispel();
 		updateQuickslot();
 
-		curUser.spendAndNext( TIME_TO_ZAP );
+		if(Dungeon.hero==curUser && Dungeon.hero.subClass==HeroSubClass.MAGICIAN){
+			Buff.affect(Dungeon.hero, Magic_mark.class).gainmark(1);
+		}
+
+		if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
+			curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).used();
+			curUser.spendAndNext(0);
+		} else {
+			curUser.spendAndNext(TIME_TO_ZAP);
+		}
 	}
 	
 	@Override
@@ -811,6 +829,10 @@ public abstract class Wand extends Item {
 
 			if (Regeneration.regenOn())
 				partialCharge += (1f/turnsToCharge) * RingOfEnergy.wandChargeMultiplier(target);
+
+			if (charger.target==Dungeon.hero && Dungeon.hero.hasTalent(Talent.BASIC_MAGIC)) {
+				partialCharge += (1f/turnsToCharge) * 0.25f * Dungeon.hero.pointsInTalent(Talent.BASIC_MAGIC);
+			}
 
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {

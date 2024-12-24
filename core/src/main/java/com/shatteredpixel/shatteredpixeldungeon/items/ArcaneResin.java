@@ -187,6 +187,10 @@ public class ArcaneResin extends Item {
 				output.quantity(output.quantity() + Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION));
 			}
 
+			if (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=3){
+				output.quantity(output.quantity()+1);
+			}
+
 			return output;
 		}
 	}

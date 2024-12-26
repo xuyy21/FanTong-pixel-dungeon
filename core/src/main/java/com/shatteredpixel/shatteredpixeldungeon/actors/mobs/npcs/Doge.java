@@ -45,8 +45,7 @@ public class Doge extends StfNPC{
                 }
             }
             if (level.traps.get(npc.pos) != null
-                    || !level.passable[npc.pos]
-                    || level.map[npc.pos] == Terrain.EMPTY_SP){
+                    || !level.passable[npc.pos]){
                 validPos = false;
             }
             Char ch = Actor.findChar(npc.pos);

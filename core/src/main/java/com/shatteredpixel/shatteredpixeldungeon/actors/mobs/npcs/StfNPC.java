@@ -80,10 +80,11 @@ public class StfNPC extends NPC{
         Game.runOnRenderThread(new Callback() {
             @Override
             public void call() {
-                String[] options = new String[2];
+                String[] options = new String[3];
                 int maxLen = PixelScene.landscape() ? 30 : 25;
                 options[0] = Messages.get(StfNPC.class, "buy", goods().name(), basic_value * buy_times);
                 options[1] = interact();
+                options[2] = Messages.get(StfNPC.class, "destroy");
                 GameScene.show(new WndOptions(sprite(), Messages.titleCase(name()), description(), options){
                     @Override
                     protected void onSelect(int index) {
@@ -92,6 +93,8 @@ public class StfNPC extends NPC{
                             buy_goods(Dungeon.hero);
                         } else if (index == 1){
                             GameScene.show(new WndTitledMessage(sprite(), Messages.titleCase(name()), interact_text()));
+                        } else if (index == 2){
+                            die(null);
                         }
                     }
 

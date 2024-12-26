@@ -32,6 +32,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
     }
 
     public int mark = 0;
+    public float partialmark = 0;
 
     @Override
     public int icon() {
@@ -65,29 +66,37 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
     }
 
     public static String MARK = "mark";
+    public static String PARTIALMARK = "partialmark";
 
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
         bundle.put(MARK, mark);
+        bundle.put(PARTIALMARK, partialmark);
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
         mark = bundle.getInt(MARK);
+        partialmark = bundle.getFloat(PARTIALMARK);
 
         if (mark >= 1){
             ActionIndicator.setAction(this);
         }
     }
 
-    public void gainmark(int markGain) {
+    public void gainmark(float markGain) {
         if (target == null) return;
 
         if (target instanceof Hero){
             Hero hero = (Hero) target;
-            mark = Math.min(mark+markGain, markCap());
+            partialmark += markGain;
+            if (partialmark>=1){
+                mark += (int)partialmark;
+                mark = Math.min(mark, markCap());
+                partialmark -= (int)partialmark;
+            }
 
             if (mark > 0){
                 ActionIndicator.setAction(this);

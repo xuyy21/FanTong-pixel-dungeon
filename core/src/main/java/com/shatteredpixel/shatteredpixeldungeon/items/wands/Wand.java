@@ -512,7 +512,7 @@ public abstract class Wand extends Item {
 		updateQuickslot();
 
 		if(Dungeon.hero==curUser && Dungeon.hero.subClass==HeroSubClass.MAGICIAN){
-			Buff.affect(Dungeon.hero, Magic_mark.class).gainmark(1);
+			Buff.affect(Dungeon.hero, Magic_mark.class).gainmark(1 + Math.min(1, 0.1f*Dungeon.hero.pointsInTalent(Talent.BASIC_MAGIC)*level()));
 		}
 
 		if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
@@ -829,10 +829,6 @@ public abstract class Wand extends Item {
 
 			if (Regeneration.regenOn())
 				partialCharge += (1f/turnsToCharge) * RingOfEnergy.wandChargeMultiplier(target);
-
-			if (charger.target==Dungeon.hero && Dungeon.hero.hasTalent(Talent.BASIC_MAGIC)) {
-				partialCharge += (1f/turnsToCharge) * 0.25f * Dungeon.hero.pointsInTalent(Talent.BASIC_MAGIC);
-			}
 
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {

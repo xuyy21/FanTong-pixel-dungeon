@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class Mandrake extends Mob{
 
@@ -38,6 +39,8 @@ public class Mandrake extends Mob{
         food = new MandrakeRoot();
         foodChance = 1f;
     }
+
+    private boolean hasscreamed = false;
 
     @Override
     public float foodChance() {
@@ -66,8 +69,11 @@ public class Mandrake extends Mob{
 
         if (state == PASSIVE) {
             state = FLEEING;
+            scream();
         }
-        scream();
+        else {
+            if ((float) dmg /HT > Random.Float(0.5f)) scream();
+        }
 
         super.damage( dmg, src );
     }
@@ -86,7 +92,8 @@ public class Mandrake extends Mob{
         CellEmitter.center( pos ).start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
 
         GLog.w( Messages.get(this, "scream") );
-        Sample.INSTANCE.play( Assets.Sounds.SCREAM );
+        if (!hasscreamed) Sample.INSTANCE.play( Assets.Sounds.SCREAM, 0.5f );
+        hasscreamed = true;
     }
 
     private class Fleeing extends Mob.Fleeing {

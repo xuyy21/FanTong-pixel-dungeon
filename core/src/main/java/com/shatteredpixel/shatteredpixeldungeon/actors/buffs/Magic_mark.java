@@ -23,6 +23,7 @@ import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.GameMath;
 
 public class Magic_mark extends Buff implements ActionIndicator.Action {
 
@@ -233,6 +234,11 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
             }
 
             @Override
+            public boolean usable(Magic_mark buff){
+                return super.usable(buff) && Dungeon.hero.buff(CooldownBuff.class)==null;
+            }
+
+            @Override
             public String desc(){
                 return Messages.get(this, "desc", (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=3)?2:1);
             }
@@ -242,6 +248,15 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                 hero.sprite.operate(hero.pos);
                 Buff.affect(hero, QuickZapBuff.class).set((Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=3)?2:1);
                 Buff.affect(hero, Magic_mark.class).markUsed(markCost());
+                Buff.affect(hero, CooldownBuff.class, 10f);
+            }
+
+            public static class CooldownBuff extends FlavourBuff {
+                public int icon() { return BuffIndicator.TIME; }
+                public void tintIcon(Image icon) {
+                    icon.hardlight(0.35f, 0f, 0.7f);
+                }
+                public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / 10f, 1); }
             }
 
             public static class QuickZapBuff extends Buff {

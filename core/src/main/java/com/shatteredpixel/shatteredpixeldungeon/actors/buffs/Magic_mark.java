@@ -248,7 +248,6 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                 hero.sprite.operate(hero.pos);
                 Buff.affect(hero, QuickZapBuff.class).set((Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=3)?2:1);
                 Buff.affect(hero, Magic_mark.class).markUsed(markCost());
-                Buff.affect(hero, CooldownBuff.class, 10f);
             }
 
             public static class CooldownBuff extends FlavourBuff {
@@ -290,6 +289,12 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                     if (left <= 0){
                         detach();
                     }
+                }
+
+                @Override
+                public void detach(){
+                    super.detach();
+                    Buff.affect(target, CooldownBuff.class, 10f);
                 }
 
                 @Override

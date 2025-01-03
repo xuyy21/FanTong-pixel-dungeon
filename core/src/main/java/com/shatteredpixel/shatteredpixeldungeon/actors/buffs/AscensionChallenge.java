@@ -56,6 +56,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Spinner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Succubus;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Swarm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Treants;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
@@ -91,6 +92,7 @@ public class AscensionChallenge extends Buff {
 		modifiers.put(Shaman.class,         2.25f);
 		modifiers.put(Spinner.class,        2f);
 		modifiers.put(DM200.class,          2f);
+		modifiers.put(Treants.class,        2f);
 
 		modifiers.put(Ghoul.class,          1.67f);
 		modifiers.put(MushMen.class,        1.67f);

@@ -109,8 +109,8 @@ public class Feast extends ArmorAbility {
                                             ch.HP < ch.HT * 0.25f) {
                                         ch.die(this);
 
-                                        Buff.affect(hero, Hunger.class).satisfy(Hunger.HUNGRY / 2f);
-                                        Talent.onFoodEaten(hero, Hunger.HUNGRY / 6f * hero.pointsInTalent(Talent.HEAL_FEAST), new MysteryMeat());
+                                        Buff.affect(hero, Hunger.class).satisfy(Hunger.HUNGRY / 6f * (3+hero.pointsInTalent(Talent.HEAL_FEAST)));
+                                        Talent.onFoodEaten(hero, Hunger.HUNGRY / 6f * (3+hero.pointsInTalent(Talent.HEAL_FEAST)), new MysteryMeat());
                                         if (hero.hasTalent(Talent.HEAL_FEAST))
                                             Buff.affect(hero, Healing.class).setHeal(Math.round(hero.HT * 0.05f * hero.pointsInTalent(Talent.HEAL_FEAST)), 0, 1);
                                         GLog.p(Messages.get(Feast.class, "success"));
@@ -152,8 +152,8 @@ public class Feast extends ArmorAbility {
                         ch.HP < ch.HT * 0.25f) {
                     ch.die(Feast.class);
 
-                    Buff.affect(hero, Hunger.class).satisfy(Hunger.HUNGRY / 2f);
-                    Talent.onFoodEaten(hero, Hunger.HUNGRY / 6f * hero.pointsInTalent(Talent.HEAL_FEAST), new MysteryMeat());
+                    Buff.affect(hero, Hunger.class).satisfy(Hunger.HUNGRY / 6f * (3+hero.pointsInTalent(Talent.HEAL_FEAST)));
+                    Talent.onFoodEaten(hero, Hunger.HUNGRY / 6f * (3+hero.pointsInTalent(Talent.HEAL_FEAST)), new MysteryMeat());
                     if (hero.hasTalent(Talent.HEAL_FEAST))
                         Buff.affect(hero, Healing.class).setHeal(Math.round(hero.HT * 0.05f * hero.pointsInTalent(Talent.HEAL_FEAST)), 0, 1);
                     GLog.p(Messages.get(Feast.class, "success"));

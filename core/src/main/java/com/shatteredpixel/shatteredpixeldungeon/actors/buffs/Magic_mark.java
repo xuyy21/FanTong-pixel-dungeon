@@ -3,10 +3,15 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MagicianImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
@@ -24,6 +29,10 @@ import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Magic_mark extends Buff implements ActionIndicator.Action {
 
@@ -157,7 +166,9 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
             new Quick_Zap(),
             new Wand_Empower(),
             new Cleanse(),
-            new MagicArmor(),
+            new CreateImage(),
+//            new MagicArmor(),
+            new Electrospark(),
             new Wand_Transform()
         };
 
@@ -184,21 +195,25 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
         public static class Wand_Charge extends MagicianAbility{
             @Override
             public int markCost() {
-                return 3;
+                return 2;
             }
 
             public int energyCost(){
-                return (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?1:2;
+                return 2;
             }
 
-            public int markCap(){
-                if (Dungeon.hero != null) return 9+Dungeon.hero.pointsInTalent(Talent.BASIC_MAGIC);
-                else return 9;
+            @Override
+            public boolean usable(Magic_mark buff){
+                return super.usable(buff) && Dungeon.hero.buff(CooldownBuff.class)==null;
+            }
+
+            public int cooldown(){
+                return (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?20:10;
             }
 
             @Override
             public String desc(){
-                return Messages.get(this, "desc", energyCost(), markCap());
+                return Messages.get(this, "desc", energyCost(), cooldown());
             }
 
             @Override
@@ -222,15 +237,24 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                     else if (wand instanceof MagesStaff){
                         ((MagesStaff)wand).gainCharge(1, true);
                     }
+                    Buff.affect(hero, CooldownBuff.class, cooldown());
                     Buff.affect(hero, Magic_mark.class).markUsed(markCost());
                 }
+            }
+
+            public static class CooldownBuff extends FlavourBuff {
+                public int icon() { return BuffIndicator.TIME; }
+                public void tintIcon(Image icon) {
+                    icon.hardlight(0.35f, 0f, 0.7f);
+                }
+                public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / 20f, 1); }
             }
         }
 
         public static class Quick_Zap extends MagicianAbility{
             @Override
             public int markCost() {
-                return 4;
+                return 2;
             }
 
             @Override
@@ -238,15 +262,19 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                 return super.usable(buff) && Dungeon.hero.buff(CooldownBuff.class)==null;
             }
 
+            public static int cooldown(){
+                return (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?20:10;
+            }
+
             @Override
             public String desc(){
-                return Messages.get(this, "desc", (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=3)?2:1);
+                return Messages.get(this, "desc", cooldown());
             }
 
             @Override
             public void doAbility(Hero hero, Item wand ){
                 hero.sprite.operate(hero.pos);
-                Buff.affect(hero, QuickZapBuff.class).set((Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=3)?2:1);
+                Buff.affect(hero, QuickZapBuff.class);
                 Buff.affect(hero, Magic_mark.class).markUsed(markCost());
             }
 
@@ -255,7 +283,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                 public void tintIcon(Image icon) {
                     icon.hardlight(0.35f, 0f, 0.7f);
                 }
-                public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / 10f, 1); }
+                public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / 20f, 1); }
             }
 
             public static class QuickZapBuff extends Buff {
@@ -263,53 +291,53 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                 {
                     type = buffType.POSITIVE;
                 }
-
-                private int left;
-
-                public static String LEFT = "left";
-
-                @Override
-                public void storeInBundle( Bundle bundle ){
-                    super.storeInBundle(bundle);
-                    bundle.put(LEFT, left);
-                }
-
-                @Override
-                public void restoreFromBundle( Bundle bundle ){
-                    super.restoreFromBundle(bundle);
-                    left = bundle.getInt(LEFT);
-                }
-
-                public void set(int times){
-                    left = Math.max(left, times);
-                }
-
-                public void used(){
-                    left--;
-                    if (left <= 0){
-                        detach();
-                    }
-                }
+//
+//                private int left;
+//
+//                public static String LEFT = "left";
+//
+//                @Override
+//                public void storeInBundle( Bundle bundle ){
+//                    super.storeInBundle(bundle);
+//                    bundle.put(LEFT, left);
+//                }
+//
+//                @Override
+//                public void restoreFromBundle( Bundle bundle ){
+//                    super.restoreFromBundle(bundle);
+//                    left = bundle.getInt(LEFT);
+//                }
+//
+//                public void set(int times){
+//                    left = Math.max(left, times);
+//                }
+//
+//                public void used(){
+//                    left--;
+//                    if (left <= 0){
+//                        detach();
+//                    }
+//                }
 
                 @Override
                 public void detach(){
                     super.detach();
-                    Buff.affect(target, CooldownBuff.class, 10f);
+                    Buff.affect(target, CooldownBuff.class, Quick_Zap.cooldown());
                 }
 
                 @Override
                 public String desc(){
-                    return Messages.get(this, "desc", left);
+                    return Messages.get(this, "desc");
                 }
 
                 @Override
                 public int icon() {
-                    return BuffIndicator.MIND_VISION;
+                    return BuffIndicator.WAND;
                 }
 
                 @Override
                 public void tintIcon(Image icon) {
-                    icon.hardlight(0.25f, 1.5f, 1f);
+                    icon.hardlight(0.84f, 0.79f, 0.65f);
                 }
 
             }
@@ -318,18 +346,18 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
         public static class Wand_Empower extends MagicianAbility{
             @Override
             public int markCost() {
-                return 5;
+                return 4;
             }
 
             @Override
             public String desc(){
-                return Messages.get(this, "desc", (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?4:3);
+                return Messages.get(this, "desc", (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=2)?4:3);
             }
 
             @Override
             public void doAbility(Hero hero, Item wand ){
                 hero.sprite.operate(hero.pos);
-                Buff.affect(hero, WandEmpowerBuff.class).set((Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?4:3);
+                Buff.affect(hero, WandEmpowerBuff.class).set((Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=2)?4:3);
                 Buff.affect(hero, Magic_mark.class).markUsed(markCost());
                 updateQuickslot();
             }
@@ -375,14 +403,63 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
 
                 @Override
                 public int icon() {
-                    return BuffIndicator.MIND_VISION;
+                    return BuffIndicator.WAND;
                 }
 
                 @Override
                 public void tintIcon(Image icon) {
-                    icon.hardlight(0.25f, 1.5f, 1f);
+                    icon.hardlight(0.84f, 0.79f, 0.65f);
                 }
 
+            }
+        }
+
+        public static class CreateImage extends MagicianAbility{
+            @Override
+            public int markCost() {
+                return 6;
+            }
+
+            public int goldCost(){
+                if(Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=2) return Dungeon.hero.lvl*5;
+                else return Dungeon.hero.lvl*10;
+            }
+
+            @Override
+            public String desc(){
+                return Messages.get(this, "desc", goldCost());
+            }
+
+            @Override
+            public void doAbility(Hero hero, Item wand ){
+                if(Dungeon.gold < goldCost()){
+                    GLog.w(Messages.get(this, "no_gold"));
+                }
+                else{
+                    hero.sprite.operate(hero.pos);
+
+                    ArrayList<Integer> respawnPoints = new ArrayList<>();
+                    for (int i = 0; i < PathFinder.NEIGHBOURS9.length; i++) {
+                        int p = hero.pos + PathFinder.NEIGHBOURS9[i];
+                        if (Actor.findChar( p ) == null && Dungeon.level.passable[p]) {
+                            respawnPoints.add( p );
+                        }
+                    }
+                    if (respawnPoints.isEmpty()){
+                        GLog.w(Messages.get(this, "no_space"));
+                        return;
+                    }
+                    int index = Random.index( respawnPoints );
+                    MagicianImage mob = new MagicianImage();
+                    mob.set(2);
+                    mob.duplicate( hero );
+//                    Buff.affect(mob, Barrier.class).setShield((int) (0.3f * hero.HT));
+                    GameScene.add( mob );
+                    ScrollOfTeleportation.appear( mob, respawnPoints.get( index ) );
+
+                    Dungeon.gold -= goldCost();
+                    Buff.affect(hero, Magic_mark.class).markUsed(markCost());
+                }
             }
         }
 
@@ -425,7 +502,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
         public static class MagicArmor extends MagicianAbility{
             @Override
             public int markCost() {
-                return 7;
+                return 6;
             }
 
             @Override
@@ -460,6 +537,49 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                 @Override
                 public float iconFadePercent() {
                     return Math.max(0, (15f - visualcooldown()) / 15f);
+                }
+
+            }
+        }
+
+        public static class Electrospark extends MagicianAbility{
+            @Override
+            public int markCost() {
+                return 8;
+            }
+
+            @Override
+            public String desc(){
+                return Messages.get(this, "desc", (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=2)?"5*5":"3*3");
+            }
+
+            @Override
+            public void doAbility(Hero hero, Item wand ){
+                Buff.affect(hero, ElectricityImmune.class, 10f);
+
+                if (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=2) {
+                    for (int i : PathFinder.NEIGHBOURS25) {
+                        if (!Dungeon.level.solid[hero.pos + i]) {
+                            GameScene.add(Blob.seed(hero.pos + i, 10, Electricity.class));
+                        }
+                    }
+                }
+                else {
+                    for (int i : PathFinder.NEIGHBOURS9) {
+                        if (!Dungeon.level.solid[hero.pos + i]) {
+                            GameScene.add(Blob.seed(hero.pos + i, 10, Electricity.class));
+                        }
+                    }
+                }
+
+                Buff.affect(hero, Magic_mark.class).markUsed(markCost());
+            }
+
+            public static class ElectricityImmune extends FlavourBuff {
+
+                {
+                    type = buffType.POSITIVE;
+                    immunities.add(Electricity.class);
                 }
 
             }

@@ -516,7 +516,7 @@ public abstract class Wand extends Item {
 		}
 
 		if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
-			curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).used();
+			curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).detach();
 			curUser.spendAndNext(0);
 		} else {
 			curUser.spendAndNext(TIME_TO_ZAP);
@@ -672,6 +672,10 @@ public abstract class Wand extends Item {
 							return;
 						}
 
+						if(Dungeon.hero==curUser && Dungeon.hero.subClass==HeroSubClass.MAGICIAN){
+							Buff.affect(Dungeon.hero, Magic_mark.class).gainmark(1 + Math.min(1, 0.1f*Dungeon.hero.pointsInTalent(Talent.BASIC_MAGIC)* curWand.level()));
+						}
+
 						float shield = curUser.HT * (0.04f*curWand.curCharges);
 						if (curUser.pointsInTalent(Talent.SHIELD_BATTERY) == 2) shield *= 1.5f;
 						Buff.affect(curUser, Barrier.class).setShield(Math.round(shield));
@@ -681,7 +685,12 @@ public abstract class Wand extends Item {
 						Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						ScrollOfRecharging.charge(curUser);
 						updateQuickslot();
-						curUser.spendAndNext(Actor.TICK);
+						if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
+							curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).detach();
+							curUser.spendAndNext(0);
+						} else {
+							curUser.spendAndNext(TIME_TO_ZAP);
+						}
 						return;
 					}
 					GLog.i( Messages.get(Wand.class, "self_target") );

@@ -246,7 +246,7 @@ public class PawWithRings extends Artifact{
                         GLog.p( Messages.get(PawWithRings.class, "full") );
                     }
                 }
-            } else if (cursed && Random.Int(10) == 0) {
+            } else if (cursed && Random.Int(100) == 0) {
                 Buff.prolong(target, Vertigo.class, 4);
                 GLog.n(Messages.get(PawWithRings.class, "cursed_effect"));
             }

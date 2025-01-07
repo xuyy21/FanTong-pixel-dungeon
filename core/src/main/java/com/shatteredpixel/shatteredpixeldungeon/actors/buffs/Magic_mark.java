@@ -193,9 +193,9 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                 return 2;
             }
 
-            public int energyCost(){
-                return 2;
-            }
+//            public int energyCost(){
+//                return 2;
+//            }
 
             @Override
             public boolean usable(Magic_mark buff){
@@ -208,7 +208,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
 
             @Override
             public String desc(){
-                return Messages.get(this, "desc", energyCost(), cooldown());
+                return Messages.get(this, "desc", cooldown());
             }
 
             @Override
@@ -220,21 +220,20 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
             public void doAbility(Hero hero, Item wand ){
                 if (wand==null) return;
 
-                if (Dungeon.energy < energyCost()) {
-                    GLog.w(Messages.get(this, "no_energy"));
+//                if (Dungeon.energy < energyCost()) {
+//                    GLog.w(Messages.get(this, "no_energy"));
+//                    return
+//                }
+                hero.sprite.operate(hero.pos);
+//                    Dungeon.energy -= energyCost();
+                if (wand instanceof Wand) {
+                    ((Wand)wand).gainCharge(1, true);
                 }
-                else {
-                    hero.sprite.operate(hero.pos);
-                    Dungeon.energy -= energyCost();
-                    if (wand instanceof Wand) {
-                        ((Wand)wand).gainCharge(1, true);
-                    }
-                    else if (wand instanceof MagesStaff){
-                        ((MagesStaff)wand).gainCharge(1, true);
-                    }
-                    Buff.affect(hero, CooldownBuff.class, cooldown());
-                    Buff.affect(hero, Magic_mark.class).markUsed(markCost());
+                else if (wand instanceof MagesStaff){
+                    ((MagesStaff)wand).gainCharge(1, true);
                 }
+                Buff.affect(hero, CooldownBuff.class, cooldown());
+                Buff.affect(hero, Magic_mark.class).markUsed(markCost());
             }
 
             public static class CooldownBuff extends FlavourBuff {
@@ -431,7 +430,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
         public static class CreateImage extends MagicianAbility{
             @Override
             public int markCost() {
-                return 6;
+                return 4;
             }
 
             public int goldCost(){

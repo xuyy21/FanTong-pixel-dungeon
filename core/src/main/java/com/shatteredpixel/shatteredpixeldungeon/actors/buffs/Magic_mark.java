@@ -259,11 +259,15 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
 
             @Override
             public boolean usable(Magic_mark buff){
+                QuickZapBuff b = Dungeon.hero.buff(QuickZapBuff.class);
+                if (b!=null && (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)<1 || b.left()>=2))
+                    return false;
                 return super.usable(buff) && Dungeon.hero.buff(CooldownBuff.class)==null;
             }
 
             public static int cooldown(){
-                return (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?10:20;
+//                return (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?10:20;
+                return 20;
             }
 
             @Override
@@ -274,7 +278,13 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
             @Override
             public void doAbility(Hero hero, Item wand ){
                 hero.sprite.operate(hero.pos);
-                Buff.affect(hero, QuickZapBuff.class);
+                QuickZapBuff buff = hero.buff(QuickZapBuff.class);
+                if (buff!=null && Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1 && buff.left()==1) {
+                    buff.set(2);
+                }
+                else {
+                    Buff.affect(hero, QuickZapBuff.class).set(1);
+                }
                 Buff.affect(hero, Magic_mark.class).markUsed(markCost());
             }
 
@@ -291,33 +301,37 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                 {
                     type = buffType.POSITIVE;
                 }
-//
-//                private int left;
-//
-//                public static String LEFT = "left";
-//
-//                @Override
-//                public void storeInBundle( Bundle bundle ){
-//                    super.storeInBundle(bundle);
-//                    bundle.put(LEFT, left);
-//                }
-//
-//                @Override
-//                public void restoreFromBundle( Bundle bundle ){
-//                    super.restoreFromBundle(bundle);
-//                    left = bundle.getInt(LEFT);
-//                }
-//
-//                public void set(int times){
-//                    left = Math.max(left, times);
-//                }
-//
-//                public void used(){
-//                    left--;
-//                    if (left <= 0){
-//                        detach();
-//                    }
-//                }
+
+                private int left;
+
+                public static String LEFT = "left";
+
+                @Override
+                public void storeInBundle( Bundle bundle ){
+                    super.storeInBundle(bundle);
+                    bundle.put(LEFT, left);
+                }
+
+                @Override
+                public void restoreFromBundle( Bundle bundle ){
+                    super.restoreFromBundle(bundle);
+                    left = bundle.getInt(LEFT);
+                }
+
+                public void set(int times){
+                    left = Math.max(left, times);
+                }
+
+                public int left(){
+                    return left;
+                }
+
+                public void used(){
+                    left--;
+                    if (left <= 0){
+                        detach();
+                    }
+                }
 
                 @Override
                 public void detach(){
@@ -327,7 +341,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
 
                 @Override
                 public String desc(){
-                    return Messages.get(this, "desc");
+                    return Messages.get(this, "desc", left);
                 }
 
                 @Override
@@ -338,6 +352,11 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
                 @Override
                 public void tintIcon(Image icon) {
                     icon.hardlight(0.84f, 0.79f, 0.65f);
+                }
+
+                @Override
+                public String iconTextDisplay(){
+                    return Integer.toString(left);
                 }
 
             }

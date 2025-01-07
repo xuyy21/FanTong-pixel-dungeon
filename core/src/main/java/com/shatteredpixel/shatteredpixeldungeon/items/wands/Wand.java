@@ -516,7 +516,7 @@ public abstract class Wand extends Item {
 		}
 
 		if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
-			curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).detach();
+			curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).used();
 			curUser.spendAndNext(0);
 		} else {
 			curUser.spendAndNext(TIME_TO_ZAP);
@@ -686,7 +686,7 @@ public abstract class Wand extends Item {
 						ScrollOfRecharging.charge(curUser);
 						updateQuickslot();
 						if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
-							curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).detach();
+							curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).used();
 							curUser.spendAndNext(0);
 						} else {
 							curUser.spendAndNext(TIME_TO_ZAP);

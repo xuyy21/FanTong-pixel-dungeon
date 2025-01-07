@@ -778,7 +778,7 @@ public class ItemSpriteSheet {
 		assignItemRect(Honey_MEAT,    	15, 11);
 		assignItemRect(ICECREAM, 		10, 16);
 		assignItemRect(JUICE,          	12, 15);
-		assignItemRect(TEMPURA,      	16, 16);
+		assignItemRect(TEMPURA,      	15, 11);
 		assignItemRect(SALAD,    		16, 15);
 		assignItemRect(BONESOUP, 		16, 14);
 		assignItemRect(BBQ,          	14, 14);
@@ -828,7 +828,7 @@ public class ItemSpriteSheet {
 	public static final int CRYSTAL_HEART	= SpecialFood+3;
 	public static final int XUANMI			= SpecialFood+4;
 	static {
-		assignItemRect(COLA, 			8,  11);
+		assignItemRect(COLA, 			11, 16);
 		assignItemRect(DOGESMEAT, 		16, 15);
 		assignItemRect(ZAKOSOUP, 		16, 14);
 		assignItemRect(CRYSTAL_HEART, 	16, 16);
@@ -864,6 +864,7 @@ public class ItemSpriteSheet {
 	public static final int HOLSTER     = BAGS+5;
 	public static final int VIAL        = BAGS+6;
 	public static final int FOODBAG     = BAGS+7;
+	public static final int HULU		= BAGS+8;
 	static{
 		assignItemRect(WATERSKIN,   16, 14);
 		assignItemRect(BACKPACK,    16, 16);
@@ -872,7 +873,7 @@ public class ItemSpriteSheet {
 		assignItemRect(BANDOLIER,   15, 16);
 		assignItemRect(HOLSTER,     15, 16);
 		assignItemRect(VIAL,        12, 12);
-		assignItemRect(FOODBAG,     14, 15);
+		assignItemRect(FOODBAG,     15, 16);
 	}
 
 	private static final int DOCUMENTS  =                                   xy(1, 32);  //16 slots

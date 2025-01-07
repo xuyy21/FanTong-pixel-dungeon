@@ -38,7 +38,7 @@ public enum HeroSubClass {
 
 	BATTLEMAGE(HeroIcon.BATTLEMAGE),
 	WARLOCK(HeroIcon.WARLOCK),
-	MAGICIAN(HeroIcon.NONE),
+	MAGICIAN(HeroIcon.MAGICIAN),
 	
 	ASSASSIN(HeroIcon.ASSASSIN),
 	FREERUNNER(HeroIcon.FREERUNNER),

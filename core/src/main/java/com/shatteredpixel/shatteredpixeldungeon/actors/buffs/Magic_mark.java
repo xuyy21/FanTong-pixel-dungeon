@@ -46,12 +46,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
 
     @Override
     public int icon() {
-        return BuffIndicator.WAND;
-    }
-
-    @Override
-    public void tintIcon(Image icon){
-        icon.hardlight(0.84f, 0.79f, 0.65f);
+        return BuffIndicator.MAGIC;
     }
 
     @Override
@@ -138,7 +133,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
 
     @Override
     public int actionIcon() {
-        return HeroIcon.MONK_ABILITIES;
+        return HeroIcon.MAGICIAN_ABILITIES;
     }
 
     @Override

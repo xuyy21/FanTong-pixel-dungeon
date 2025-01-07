@@ -208,7 +208,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
             }
 
             public int cooldown(){
-                return (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?20:10;
+                return (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?10:20;
             }
 
             @Override
@@ -263,7 +263,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
             }
 
             public static int cooldown(){
-                return (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?20:10;
+                return (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=1)?10:20;
             }
 
             @Override

@@ -22,6 +22,7 @@ public class Cooked_larva extends Food{
     {
         image = ItemSpriteSheet.COOKED_LARVA;
         energy = Hunger.HUNGRY/3f;
+        canFakeEat = true;
     }
 
     @Override

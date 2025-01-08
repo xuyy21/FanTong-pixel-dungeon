@@ -77,7 +77,7 @@ public abstract class Elemental extends Mob {
 		flying = true;
 
 		food = new ElementalCore();
-		foodChance = 0.15f;
+		foodChance = 0.25f;
 	}
 
 	protected boolean summonedALly;

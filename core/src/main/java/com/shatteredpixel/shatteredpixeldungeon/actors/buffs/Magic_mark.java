@@ -124,6 +124,10 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
             ActionIndicator.refresh();
         }
         BuffIndicator.refreshHero();
+
+        if (Random.Int(3)<Dungeon.hero.pointsInTalent(Talent.MAGICMARK_MEAL)) {
+            Talent.onFoodEaten(Dungeon.hero, 0, null);
+        }
     }
 
     @Override

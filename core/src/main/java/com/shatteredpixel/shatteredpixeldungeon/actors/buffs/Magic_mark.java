@@ -568,19 +568,19 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
 
             @Override
             public void doAbility(Hero hero, Item wand ){
-                Buff.affect(hero, ElectricityImmune.class, 10f);
+                Buff.affect(hero, ElectricityImmune.class, 5f);
 
                 if (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=2) {
                     for (int i : PathFinder.NEIGHBOURS25) {
                         if (!Dungeon.level.solid[hero.pos + i]) {
-                            GameScene.add(Blob.seed(hero.pos + i, 10, Electricity.class));
+                            GameScene.add(Blob.seed(hero.pos + i, 5, Electricity.class));
                         }
                     }
                 }
                 else {
                     for (int i : PathFinder.NEIGHBOURS9) {
                         if (!Dungeon.level.solid[hero.pos + i]) {
-                            GameScene.add(Blob.seed(hero.pos + i, 10, Electricity.class));
+                            GameScene.add(Blob.seed(hero.pos + i, 5, Electricity.class));
                         }
                     }
                 }

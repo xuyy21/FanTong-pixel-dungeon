@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ public class Mace extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		//+(4+1.5*lvl) damage, roughly +55% base dmg, +60% scaling
+		//+(5+1.5*lvl) damage, roughly +55% base dmg, +60% scaling
 		int dmgBoost = augment.damageFactor(5 + Math.round(1.5f*buffedLvl()));
 		Mace.heavyBlowAbility(hero, target, 1, dmgBoost, this);
 	}

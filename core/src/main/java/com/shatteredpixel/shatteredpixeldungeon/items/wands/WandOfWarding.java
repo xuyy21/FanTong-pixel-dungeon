@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
@@ -57,6 +58,7 @@ public class WandOfWarding extends Wand {
 
 	{
 		image = ItemSpriteSheet.WAND_WARDING;
+		usesTargeting = false; //player usually targets wards or spaces, not enemies
 	}
 
 	@Override
@@ -64,6 +66,13 @@ public class WandOfWarding extends Wand {
 		if (cursed)                                 return super.collisionProperties(target);
 		else if (!Dungeon.level.heroFOV[target])    return Ballistica.PROJECTILE;
 		else                                        return Ballistica.STOP_TARGET;
+	}
+
+	@Override
+	public void execute(Hero hero, String action) {
+		//cursed warding does use targeting as it's just doing regular cursed zaps
+		usesTargeting = cursed && cursedKnown;
+		super.execute(hero, action);
 	}
 
 	private boolean wardAvailable = true;
@@ -76,6 +85,10 @@ public class WandOfWarding extends Wand {
 			if (ch instanceof Ward){
 				currentWardEnergy += ((Ward) ch).tier;
 			}
+		}
+
+		if (Stasis.getStasisAlly() instanceof Ward){
+			currentWardEnergy += ((Ward) Stasis.getStasisAlly()).tier;
 		}
 		
 		int maxWardEnergy = 0;
@@ -121,11 +134,7 @@ public class WandOfWarding extends Wand {
 			}
 		}
 
-		if (!Dungeon.level.passable[target]){
-			GLog.w( Messages.get(this, "bad_location"));
-			Dungeon.level.pressCell(target);
-			
-		} else if (ch != null){
+		if (ch != null){
 			if (ch instanceof Ward){
 				if (wardAvailable) {
 					((Ward) ch).upgrade( buffedLvl() );
@@ -138,6 +147,10 @@ public class WandOfWarding extends Wand {
 				Dungeon.level.pressCell(target);
 			}
 			
+		} else if (!Dungeon.level.passable[target]){
+			GLog.w( Messages.get(this, "bad_location"));
+			Dungeon.level.pressCell(target);
+
 		} else {
 			Ward ward = new Ward();
 			ward.pos = target;

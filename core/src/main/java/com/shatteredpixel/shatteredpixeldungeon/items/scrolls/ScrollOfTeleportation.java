@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.Camera;
 import com.watabou.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -71,7 +72,7 @@ public class ScrollOfTeleportation extends Scroll {
 		PathFinder.buildDistanceMap(pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
 		if (PathFinder.distance[ch.pos] == Integer.MAX_VALUE
 				|| (!Dungeon.level.passable[pos] && !Dungeon.level.avoid[pos])
-				|| Actor.findChar(pos) != null){
+				|| (Actor.findChar(pos) != null && Actor.findChar(pos) != ch)){
 			if (ch == Dungeon.hero){
 				GLog.w( Messages.get(ScrollOfTeleportation.class, "cant_reach") );
 			}
@@ -299,14 +300,21 @@ public class ScrollOfTeleportation extends Scroll {
 
 		if (Dungeon.level.heroFOV[pos] || ch == Dungeon.hero ) {
 			ch.sprite.emitter().start(Speck.factory(Speck.LIGHT), 0.2f, 3);
+		} else {
+			if (Camera.main.followTarget() == ch.sprite){
+				//clear the follow in this case as the teleport target is going out of vision
+				Camera.main.panFollow(null, 5f);
+			}
 		}
 	}
 
-	//just plays the VFX for teleporting, without any position changes
+	//just plays the VFX for teleporting, without any position changes, does re-press cells though
 	public static void appearVFX( Char ch ){
 		if (Dungeon.level.heroFOV[ch.pos]){
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 		}
+
+		Dungeon.level.occupyCell(ch);
 
 		if (ch.invisible == 0) {
 			ch.sprite.alpha( 0 );

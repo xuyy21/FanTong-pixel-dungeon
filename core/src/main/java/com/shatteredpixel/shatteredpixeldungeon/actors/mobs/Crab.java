@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ public class Crab extends Mob {
 		EXP = 4;
 		maxLvl = 9;
 		
-		loot = new MysteryMeat();
+		loot = MysteryMeat.class;
 		lootChance = 0.167f;
 	}
 	

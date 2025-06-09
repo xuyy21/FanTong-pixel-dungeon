@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PiranhaSprite;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -135,7 +136,7 @@ public class Piranha extends Mob {
 			return false;
 		}
 		
-		int step = Dungeon.findStep( this, target, Dungeon.level.water, fieldOfView, true );
+		int step = Dungeon.findStep( this, target, BArray.and(Dungeon.level.water, Dungeon.level.passable, null), fieldOfView, true );
 		if (step != -1) {
 			move( step );
 			return true;
@@ -146,7 +147,7 @@ public class Piranha extends Mob {
 	
 	@Override
 	protected boolean getFurther( int target ) {
-		int step = Dungeon.flee( this, target, Dungeon.level.water, fieldOfView, true );
+		int step = Dungeon.flee( this, target, BArray.and(Dungeon.level.water, Dungeon.level.passable, null), fieldOfView, true );
 		if (step != -1) {
 			move( step );
 			return true;

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -113,6 +113,11 @@ public class ToxicGasRoom extends SpecialRoom {
 	public boolean canPlaceCharacter(Point p, Level l) {
 		Blob gas = l.blobs.get(ToxicGas.class);
 		return gas == null || gas.volume == 0 || gas.cur[l.pointToCell(p)] == 0;
+	}
+
+	@Override
+	public boolean canPlaceTrap(Point p) {
+		return false; //room is already filled with trap-hazards, no need to add more
 	}
 
 	public static class ToxicGasSeed extends Blob {

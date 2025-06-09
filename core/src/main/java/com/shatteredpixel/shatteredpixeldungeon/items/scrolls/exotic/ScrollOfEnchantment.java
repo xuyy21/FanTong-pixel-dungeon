@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -172,6 +172,8 @@ public class ScrollOfEnchantment extends ExoticScroll {
 			enchantments[0] = ench1;
 			enchantments[1] = ench2;
 			enchantments[2] = ench3;
+
+			WndGlyphSelect.arm = null;
 		}
 
 		@Override
@@ -232,6 +234,8 @@ public class ScrollOfEnchantment extends ExoticScroll {
 			glyphs[0] = glyph1;
 			glyphs[1] = glyph2;
 			glyphs[2] = glyph3;
+
+			WndEnchantSelect.wep = null;
 		}
 
 		@Override

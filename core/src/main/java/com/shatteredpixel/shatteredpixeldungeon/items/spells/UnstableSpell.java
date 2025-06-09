@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -100,11 +100,11 @@ public class UnstableSpell extends Spell {
 
 		//reroll the scroll until it is relevant for the situation (whether there are visible enemies)
 		if (hero.visibleEnemies() == 0){
-			while (combatScrolls.contains(s.getClass())){
+			while (!nonCombatScrolls.contains(s.getClass())){
 				s = Reflection.newInstance(Random.chances(scrollChances));
 			}
 		} else {
-			while (nonCombatScrolls.contains(s.getClass())){
+			while (!combatScrolls.contains(s.getClass())){
 				s = Reflection.newInstance(Random.chances(scrollChances));
 			}
 		}
@@ -115,7 +115,7 @@ public class UnstableSpell extends Spell {
 
 		Catalog.countUse(getClass());
 		if (Random.Float() < talentChance){
-			Talent.onScrollUsed(curUser, curUser.pos, talentFactor);
+			Talent.onScrollUsed(curUser, curUser.pos, talentFactor, getClass());
 		}
 	}
 

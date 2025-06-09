@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,12 +35,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+//for pre-v2.5.3 saves, add a conversion in v3.0 and remove entirely later
 public class StoneOfDisarming extends Runestone {
 	
 	private static final int DIST = 8;
 	
 	{
-		image = ItemSpriteSheet.STONE_DISARM;
+		image = ItemSpriteSheet.STONE_DETECT;
 	}
 
 	@Override

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,10 +72,17 @@ public class AndroidMissingNativesHandler extends Activity {
 		message += "\nVersion: " + versionName + " (" + versionCode + ")";
 		message += "\nDevice: " + Build.MODEL;
 		message += "\nInstaller: " + installer;
-		while (error.getCause() != null){
-			error = error.getCause();
+
+		if (error != null){
+			Throwable next = error.getCause();
+			while (next != null){
+				error = next;
+				next = error.getCause();
+			}
+			message += "\nError: " + error.getMessage();
+		} else {
+			message += "\nError: ???";
 		}
-		message += "\nError: " + error.getMessage();
 		text.setText(message);
 		text.setTextSize(16);
 		text.setTextColor(0xFFFFFFFF);

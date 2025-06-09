@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.WallOfLight;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
@@ -535,6 +536,9 @@ public class DM300 extends Mob {
 		supercharged = false;
 		((DM300Sprite)sprite).updateChargeState(false);
 
+		//adjust turns since last ability to prevent DM immediately using an ability when charge ends
+		turnsSinceLastAbility = Math.max(turnsSinceLastAbility, MIN_COOLDOWN-3);
+
 		if (pylonsActivated < totalPylonsToActivate()){
 			yell(Messages.get(this, "charge_lost"));
 		} else {
@@ -623,6 +627,9 @@ public class DM300 extends Mob {
 						}
 						Level.set(pos+i, Terrain.EMPTY_DECO);
 						GameScene.updateMap(pos+i);
+					}
+					if (Dungeon.level.blobs.get(WallOfLight.LightWall.class) != null){
+						Dungeon.level.blobs.get(WallOfLight.LightWall.class).clear(pos+i);
 					}
 				}
 				Dungeon.level.cleanWalls();

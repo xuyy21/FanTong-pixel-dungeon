@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@ public class PointerEvent {
 	public enum Type {
 		DOWN,
 		UP,
+		CANCEL,
 		HOVER
 	}
 
@@ -79,6 +80,11 @@ public class PointerEvent {
 	
 	public PointerEvent up() {
 		if (type == Type.DOWN) type = Type.UP;
+		return this;
+	}
+
+	public PointerEvent cancel() {
+		if (type == Type.DOWN) type = Type.CANCEL;
 		return this;
 	}
 
@@ -162,9 +168,12 @@ public class PointerEvent {
 					pointerSignal.dispatch( null );
 				} else if (p.type == Type.DOWN) {
 					pointerSignal.dispatch( existing );
-				} else {
+				} else if (p.type == Type.UP){
 					activePointers.remove(existing.id);
 					pointerSignal.dispatch(existing.up());
+				} else if (p.type == Type.CANCEL){
+					activePointers.remove(existing.id);
+					pointerSignal.dispatch(existing.cancel());
 				}
 			} else {
 				if (p.type == Type.DOWN) {
@@ -185,12 +194,4 @@ public class PointerEvent {
 		}
 	}
 
-	public static synchronized void clearPointerEvents(){
-		pointerEvents.clear();
-		for (PointerEvent p : activePointers.values()){
-			p.current = p.start = new PointF(-1, -1);
-			pointerSignal.dispatch(p.up());
-		}
-		activePointers.clear();
-	}
 }

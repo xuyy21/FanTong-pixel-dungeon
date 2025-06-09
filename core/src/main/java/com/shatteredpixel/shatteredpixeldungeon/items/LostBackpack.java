@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,9 +26,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -57,6 +59,8 @@ public class LostBackpack extends Item {
 					((EquipableItem) i).activate(hero);
 				} else if ( i instanceof CloakOfShadows && hero.hasTalent(Talent.LIGHT_CLOAK)){
 					((CloakOfShadows) i).activate(hero);
+				} else if ( i instanceof HolyTome && hero.hasTalent(Talent.LIGHT_READING)){
+					((HolyTome) i).activate(hero);
 				} else if (i instanceof Wand){
 					if (holster != null && holster.contains(i)){
 						((Wand) i).charge(hero, MagicalHolster.HOLSTER_SCALE_FACTOR);
@@ -76,6 +80,8 @@ public class LostBackpack extends Item {
 		hero.spendAndNext(TIME_TO_PICK_UP);
 		GameScene.pickUp( this, pos );
 		((HeroSprite)hero.sprite).updateArmor();
+
+		Notes.remove(Notes.Landmark.LOST_PACK);
 		return true;
 	}
 }

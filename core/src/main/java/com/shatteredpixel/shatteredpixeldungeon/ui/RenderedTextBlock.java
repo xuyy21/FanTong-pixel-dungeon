@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -116,8 +116,10 @@ public class RenderedTextBlock extends Component {
 		words = new ArrayList<>();
 		boolean highlighting = false;
 		for (String str : tokens){
-			
-			if (str.equals("_") && highlightingEnabled){
+
+			//if highlighting is enabled, '_' or '**' is used to toggle highlighting on or off
+			// the actual symbols are not rendered
+			if ((str.equals("_") || str.equals("**")) && highlightingEnabled){
 				highlighting = !highlighting;
 			} else if (str.equals("\n")){
 				words.add(NEWLINE);

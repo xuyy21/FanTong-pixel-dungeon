@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -503,10 +503,12 @@ public class YogDzewa extends Mob {
 
 	@Override
 	public void aggro(Char ch) {
-		for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
-			if (mob != ch && Dungeon.level.distance(pos, mob.pos) <= 4 &&
-					(mob instanceof Larva || mob instanceof YogRipper || mob instanceof YogEye || mob instanceof YogScorpio)) {
-				mob.aggro(ch);
+		if (ch != null && ch.alignment != alignment || !(ch instanceof Larva || ch instanceof YogRipper || ch instanceof YogEye || ch instanceof YogScorpio)) {
+			for (Mob mob : (Iterable<Mob>) Dungeon.level.mobs.clone()) {
+				if (mob != ch && Dungeon.level.distance(pos, mob.pos) <= 4 && mob.alignment == alignment &&
+						(mob instanceof Larva || mob instanceof YogRipper || mob instanceof YogEye || mob instanceof YogScorpio)) {
+					mob.aggro(ch);
+				}
 			}
 		}
 	}
@@ -533,6 +535,8 @@ public class YogDzewa extends Mob {
 			Statistics.qualifiedForBossChallengeBadge = false;
 		}
 		Statistics.bossScores[4] += 5000 + 1250*Statistics.spawnersAlive;
+
+		Badges.validateTakingTheMick(cause);
 
 		Dungeon.level.unseal();
 		super.die( cause );

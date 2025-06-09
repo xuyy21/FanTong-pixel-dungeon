@@ -7,10 +7,7 @@ buildscript {
         }
     }
     dependencies {
-        //gradle version packaged with AGP 8.5 causes crashes on Android 4.4-
-        //this won't be needed once the bundled version is 8.7.2+
-        classpath 'com.android.tools:r8:8.7.4-dev'
-        classpath 'com.android.tools.build:gradle:8.5.1'
+        classpath 'com.android.tools.build:gradle:8.9.1'
     }
 }
 
@@ -20,14 +17,16 @@ allprojects {
         appName = 'Shattered Pixel Dungeon'
         appPackageName = 'com.shatteredpixel.shatteredpixeldungeon'
 
-        appVersionCode = 797
-        appVersionName = '2.5.2'
+        appVersionCode = 846
+        appVersionName = '3.1.0'
 
         appJavaCompatibility = JavaVersion.VERSION_1_8
 
-        appAndroidCompileSDK = 33 //compile SDK is still 33 atm as we're sticking with AGP 8.0.2
-        appAndroidMinSDK = 14
-        appAndroidTargetSDK = 34
+        appAndroidCompileSDK = 35   //Android 15
+        appAndroidMinSDK = 14       //Android 4.0
+        //significant layout management changes required for API 35+ as edge-to-edge is forced on
+        //will do this at the same time as dropping support for Android 4.4- (later in 2025)
+        appAndroidTargetSDK = 34    //Android 14
 
         gdxVersion = '1.12.1'
         gdxControllersVersion = '2.2.4-SNAPSHOT'

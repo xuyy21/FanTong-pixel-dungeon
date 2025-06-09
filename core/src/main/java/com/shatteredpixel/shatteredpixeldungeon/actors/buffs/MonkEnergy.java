@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -193,7 +193,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 		energy = Math.min(energy+energyGain, energyCap());
 
-		if (energy > 0 && cooldown == 0){
+		if (energy >= 1 && cooldown == 0){
 			ActionIndicator.setAction(this);
 		}
 		BuffIndicator.refreshHero();
@@ -651,7 +651,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 					@Override
 					protected boolean act() {
 						Buff.affect(hero, Recharging.class, 8f);
-						Buff.affect(hero, ArtifactRecharge.class).prolong(8f).ignoreHornOfPlenty = false;
+						Buff.affect(hero, ArtifactRecharge.class).extend(8f).ignoreHornOfPlenty = false;
 						Actor.remove(this);
 						return true;
 					}

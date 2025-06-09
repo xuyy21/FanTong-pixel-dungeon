@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -114,11 +114,8 @@ public class InventoryPane extends Component {
 	@Override
 	protected void createChildren() {
 
-		bg = Chrome.get(Chrome.Type.TOAST_TR);
+		bg = Chrome.get(Chrome.Type.TOAST_TR_HEAVY);
 		add(bg);
-
-		bg2 = Chrome.get(Chrome.Type.TOAST_TR);
-		add(bg2);
 
 		blocker = new PointerArea(0, 0, PixelScene.uiCamera.width, PixelScene.uiCamera.height){
 			@Override
@@ -211,10 +208,9 @@ public class InventoryPane extends Component {
 		width = WIDTH;
 		height = HEIGHT;
 
-		bg.x = bg2.x = x;
-		bg.y = bg2.y = y;
+		bg.x = x;
+		bg.y = y;
 		bg.size(width, height);
-		bg2.size(width, height);
 
 		float left = x+4;
 		for (InventorySlot i : equipped){
@@ -264,7 +260,6 @@ public class InventoryPane extends Component {
 	
 	public void alpha( float value ){
 		bg.alpha( value );
-		bg2.alpha( value );
 		
 		for (InventorySlot slot : equipped){
 			slot.alpha( value );

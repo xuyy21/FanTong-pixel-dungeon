@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -201,7 +201,7 @@ public class WandOfFireblast extends DamageWand {
 	@Override
 	protected int chargesPerCast() {
 		if (cursed ||
-				(charger != null && charger.target == null && charger.target.buff(WildMagic.WildMagicTracker.class) != null)){
+				(charger != null && charger.target != null && charger.target.buff(WildMagic.WildMagicTracker.class) != null)){
 			return 1;
 		}
 		//consumes 30% of current charges, rounded up, with a min of 1 and a max of 3.

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -307,6 +307,13 @@ public class ItemSlot extends Button {
 	public void enable( boolean value ) {
 		
 		active = value;
+		//reset properties if was pressed
+		if (!active && pressedButton == this){
+			hotArea.reset();
+			pressedButton = null;
+			clickReady = false;
+			onPointerUp();
+		}
 		
 		float alpha = value ? ENABLED : DISABLED;
 		sprite.alpha( alpha );
@@ -324,6 +331,18 @@ public class ItemSlot extends Button {
 			remove(extra);
 		}
 
+	}
+
+	public void textVisible( boolean visible ){
+		if (visible){
+			add(status);
+			add(extra);
+			add(level);
+		} else {
+			remove(status);
+			remove(extra);
+			remove(level);
+		}
 	}
 
 	public void setMargins( int left, int top, int right, int bottom){

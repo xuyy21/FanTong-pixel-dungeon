@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -125,12 +125,15 @@ public class HeavyBoomerang extends MissileWeapon {
 									new Callback() {
 										@Override
 										public void call() {
+											detach();
 											if (returnTarget == target){
-												if (target instanceof Hero && boomerang.doPickUp((Hero) target)) {
-													//grabbing the boomerang takes no time
-													((Hero) target).spend(-TIME_TO_PICK_UP);
-												} else {
-													Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+												if (!boomerang.spawnedForEffect) {
+													if (target instanceof Hero && boomerang.doPickUp((Hero) target)) {
+														//grabbing the boomerang takes no time
+														((Hero) target).spend(-TIME_TO_PICK_UP);
+													} else {
+														Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+													}
 												}
 												
 											} else if (returnTarget != null){
@@ -138,11 +141,11 @@ public class HeavyBoomerang extends MissileWeapon {
 												if (((Hero)target).shoot( returnTarget, boomerang )) {
 													boomerang.decrementDurability();
 												}
-												if (boomerang.durability > 0) {
+												if (!boomerang.spawnedForEffect && boomerang.durability > 0) {
 													Dungeon.level.drop(boomerang, returnPos).sprite.drop();
 												}
 												
-											} else {
+											} else if (!boomerang.spawnedForEffect) {
 												Dungeon.level.drop(boomerang, returnPos).sprite.drop();
 											}
 											CircleBack.this.next();
@@ -151,7 +154,6 @@ public class HeavyBoomerang extends MissileWeapon {
 					visual.alpha(0f);
 					float duration = Dungeon.level.trueDistance(thrownPos, returnPos) / 20f;
 					target.sprite.parent.add(new AlphaTweener(visual, 1f, duration));
-					detach();
 					return false;
 				}
 			}

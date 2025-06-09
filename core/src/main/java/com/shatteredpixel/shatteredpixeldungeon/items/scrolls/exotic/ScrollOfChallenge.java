@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -141,6 +141,10 @@ public class ScrollOfChallenge extends ExoticScroll {
 
 			left = (int) DURATION;
 
+		}
+
+		public void extend( float duration ) {
+			left += duration;
 		}
 
 		@Override

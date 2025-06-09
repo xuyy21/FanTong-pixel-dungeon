@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,9 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
@@ -57,7 +55,7 @@ public class Necromancer extends Mob {
 		EXP = 7;
 		maxLvl = 14;
 		
-		loot = new PotionOfHealing();
+		loot = PotionOfHealing.class;
 		lootChance = 0.2f; //see lootChance()
 		
 		properties.add(Property.UNDEAD);
@@ -196,14 +194,6 @@ public class Necromancer extends Mob {
 	public void summonMinion(){
 		if (Actor.findChar(summoningPos) != null) {
 
-			//cancel if character cannot be moved
-			if (Char.hasProp(Actor.findChar(summoningPos), Property.IMMOVABLE)){
-				summoning = false;
-				((NecromancerSprite)sprite).finishSummoning();
-				spend(TICK);
-				return;
-			}
-
 			int pushPos = pos;
 			for (int c : PathFinder.NEIGHBOURS8) {
 				if (Actor.findChar(summoningPos + c) == null
@@ -212,6 +202,11 @@ public class Necromancer extends Mob {
 						&& Dungeon.level.trueDistance(pos, summoningPos + c) > Dungeon.level.trueDistance(pos, pushPos)) {
 					pushPos = summoningPos + c;
 				}
+			}
+
+			//no push if char is immovable
+			if (Char.hasProp(Actor.findChar(summoningPos), Property.IMMOVABLE)){
+				pushPos = pos;
 			}
 
 			//push enemy, or wait a turn if there is no valid pushing position
@@ -247,11 +242,10 @@ public class Necromancer extends Mob {
 		Dungeon.level.occupyCell( mySkeleton );
 		((NecromancerSprite)sprite).finishSummoning();
 
-		for (Buff b : buffs(AllyBuff.class)){
-			Buff.affect(mySkeleton, b.getClass());
-		}
-		for (Buff b : buffs(ChampionEnemy.class)){
-			Buff.affect( mySkeleton, b.getClass());
+		for (Buff b : buffs()){
+			if (b.revivePersists) {
+				Buff.affect(mySkeleton, b.getClass());
+			}
 		}
 	}
 
@@ -292,8 +286,10 @@ public class Necromancer extends Mob {
 				
 				summoningPos = -1;
 
-				//we can summon around blocking terrain, but not through it
-				PathFinder.buildDistanceMap(pos, BArray.not(Dungeon.level.solid, null), Dungeon.level.distance(pos, enemy.pos)+3);
+				//we can summon around blocking terrain, but not through it, except unlocked doors
+				boolean[] passable = BArray.not(Dungeon.level.solid, null);
+				BArray.or(Dungeon.level.passable, passable, passable);
+				PathFinder.buildDistanceMap(pos, passable, Dungeon.level.distance(pos, enemy.pos)+3);
 
 				for (int c : PathFinder.NEIGHBOURS8){
 					if (Actor.findChar(enemy.pos+c) == null

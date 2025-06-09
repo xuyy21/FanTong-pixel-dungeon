@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrapMechanism;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -73,7 +74,9 @@ public class BurnedRoom extends PatchRoom {
 		}
 		
 		setupPatch(level);
-		
+
+		float revealedChance = TrapMechanism.revealHiddenTrapChance();
+		float revealInc = 0;
 		for (int i=top + 1; i < bottom; i++) {
 			for (int j=left + 1; j < right; j++) {
 				if (!patch[xyToPatchCoords(j, i)])
@@ -92,8 +95,15 @@ public class BurnedRoom extends PatchRoom {
 						level.setTrap(new BurningTrap().reveal(), cell);
 						break;
 					case 3:
-						t = Terrain.SECRET_TRAP;
-						level.setTrap(new BurningTrap().hide(), cell);
+						revealInc += revealedChance;
+						if (revealInc >= 1){
+							t = Terrain.TRAP;
+							level.setTrap(new BurningTrap().reveal(), cell);
+							revealInc--;
+						} else {
+							t = Terrain.SECRET_TRAP;
+							level.setTrap(new BurningTrap().hide(), cell);
+						}
 						break;
 					case 4:
 						t = Terrain.INACTIVE_TRAP;

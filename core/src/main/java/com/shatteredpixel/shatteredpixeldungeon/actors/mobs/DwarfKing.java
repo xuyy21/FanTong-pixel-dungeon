@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LifeLink;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
@@ -467,7 +468,7 @@ public class DwarfKing extends Mob {
 		} else if (phase == 3 && !(src instanceof Viscosity.DeferedDamage)){
 			if (dmg >= 0) {
 				Viscosity.DeferedDamage deferred = Buff.affect( this, Viscosity.DeferedDamage.class );
-				deferred.prolong( dmg );
+				deferred.extend( dmg );
 
 				sprite.showStatus( CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg) );
 			}
@@ -528,7 +529,7 @@ public class DwarfKing extends Mob {
 					});
 				}
 			});
-		} else if (phase == 3 && preHP > 20 && HP < 20){
+		} else if (phase == 3 && preHP > 20 && HP < 20 && isAlive()){
 			yell( Messages.get(this, "losing") );
 		}
 	}
@@ -553,7 +554,7 @@ public class DwarfKing extends Mob {
 			h.destroy();
 		}
 
-		if (Dungeon.level.solid[pos]){
+		if (pos == CityBossLevel.throne){
 			Dungeon.level.drop(new KingsCrown(), pos + Dungeon.level.width()).sprite.drop(pos);
 		} else {
 			Dungeon.level.drop(new KingsCrown(), pos).sprite.drop();
@@ -576,6 +577,11 @@ public class DwarfKing extends Mob {
 		LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
 		if (beacon != null) {
 			beacon.upgrade();
+		}
+
+		//cleanses degrade that may have been applied by a DK warlock, mainly for convenience
+		if (Dungeon.hero.buff(Degrade.class) != null){
+			Dungeon.hero.buff(Degrade.class).detach();
 		}
 
 		yell( Messages.get(this, "defeated") );
@@ -757,6 +763,10 @@ public class DwarfKing extends Mob {
 	}
 
 	public static class KingDamager extends Buff {
+
+		{
+			revivePersists = true;
+		}
 
 		@Override
 		public boolean act() {

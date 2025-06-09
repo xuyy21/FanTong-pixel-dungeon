@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,15 +88,10 @@ public class EbonyMimic extends Mimic {
 	@Override
 	public int damageRoll() {
 		if (alignment == Alignment.NEUTRAL){
-			return Math.round(super.damageRoll()*1.75f); //BIG damage on surprise
+			return Math.round(super.damageRoll()*2f); //BIG damage on surprise
 		} else {
 			return super.damageRoll();
 		}
-	}
-
-	@Override
-	public void setLevel(int level) {
-		super.setLevel(Math.round(level*1.25f));
 	}
 
 	@Override

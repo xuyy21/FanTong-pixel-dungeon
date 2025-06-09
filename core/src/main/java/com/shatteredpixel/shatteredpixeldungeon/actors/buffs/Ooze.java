@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -82,6 +82,10 @@ public class Ooze extends Buff {
 		acted = false;
 	}
 
+	public void extend( float duration ) {
+		left += duration;
+	}
+
 	@Override
 	public boolean act() {
 		//washing away happens before debuff effects if debuff has gotten to act
@@ -89,15 +93,13 @@ public class Ooze extends Buff {
 			detach();
 		} else if (target.isAlive()) {
 
+			acted = true;
 			if (Dungeon.scalingDepth() > 5) {
 				target.damage(1 + Dungeon.scalingDepth() / 5, this);
-				acted = true;
 			} else if (Dungeon.scalingDepth() == 5){
 				target.damage(1, this); //1 dmg per turn vs Goo
-				acted = true;
 			} else if (Random.Int(2) == 0) {
 				target.damage(1, this); //0.5 dmg per turn in sewers
-				acted = true;
 			}
 
 			if (!target.isAlive() && target == Dungeon.hero) {

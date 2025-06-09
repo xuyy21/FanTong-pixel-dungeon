@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,6 +77,9 @@ public class MineEntrance extends CaveRoom {
 				if (level.map[entrance+i] != Terrain.WALL){
 					valid = true;
 				}
+			}
+			if (height() == 7 && width() == 7){
+				valid = true;
 			}
 		} while (level.findMob(entrance) != null || !valid);
 		Painter.set( level, entrance, Terrain.ENTRANCE );

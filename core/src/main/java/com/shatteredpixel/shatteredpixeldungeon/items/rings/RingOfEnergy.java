@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ public class RingOfEnergy extends Ring {
 
 	{
 		icon = ItemSpriteSheet.Icons.RING_ENERGY;
+		buffClass = Energy.class;
 	}
 
 	public String statsInfo() {
@@ -61,7 +62,13 @@ public class RingOfEnergy extends Ring {
 	}
 	
 	public static float wandChargeMultiplier( Char target ){
-		return (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
+		float bonus = (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
+
+		if (target instanceof Hero && ((Hero) target).heroClass != HeroClass.CLERIC && ((Hero) target).hasTalent(Talent.LIGHT_READING)){
+			bonus *= 1f + (0.2f * ((Hero) target).pointsInTalent(Talent.LIGHT_READING)/3f);
+		}
+
+		return bonus;
 	}
 
 	public static float artifactChargeMultiplier( Char target ){

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,6 @@ import com.watabou.glwrap.Blending;
 import com.watabou.glwrap.Vertexbuffer;
 import com.watabou.input.ControllerHandler;
 import com.watabou.input.InputHandler;
-import com.watabou.input.PointerEvent;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -94,12 +93,25 @@ public class Game implements ApplicationListener {
 	
 	@Override
 	public void create() {
+		dispHeight = Gdx.graphics.getDisplayMode().height;
+		dispWidth = Gdx.graphics.getDisplayMode().width;
+
 		density = Gdx.graphics.getDensity();
 		if (density == Float.POSITIVE_INFINITY){
 			density = 100f / 160f; //assume 100PPI if density can't be found
+		} else if (DeviceCompat.isDesktop()) {
+			float reportedWidth = dispWidth / Gdx.graphics.getPpiX();
+			float reportedHeight = dispHeight / Gdx.graphics.getPpiY();
+
+			//this exists because Steam deck reports its display size as 4"x6.3" for some reason
+			// as if in portrait, instead of 6.3"x4". This results in incorrect PPI measurements.
+			// So we check that the orientation of the resolution and the display dimensions match.
+			// If they don't, re-calculate density assuming reported dimensions are flipped.
+			if (dispWidth > dispHeight != reportedWidth > reportedHeight){
+				float realPpiX = dispWidth / reportedHeight;
+				density = realPpiX / 160f;
+			}
 		}
-		dispHeight = Gdx.graphics.getDisplayMode().height;
-		dispWidth = Gdx.graphics.getDisplayMode().width;
 
 		inputHandler = new InputHandler( Gdx.input );
 		if (ControllerHandler.controllersSupported()){
@@ -146,10 +158,7 @@ public class Game implements ApplicationListener {
 		}
 	}
 
-	///justResumed is used for two purposes:
-	//firstly, to clear pointer events when the game is resumed,
-	// this helps with input errors caused by system gestures on iOS/Android
-	//secondly, as a bit of a hack to improve start time metrics on Android,
+	//justResumed is a bit of a hack to improve start time metrics on Android,
 	// as texture refreshing leads to slow warm starts. TODO would be nice to fix this properly
 	private boolean justResumed = true;
 
@@ -162,7 +171,6 @@ public class Game implements ApplicationListener {
 		}
 
 		if (justResumed){
-			PointerEvent.clearPointerEvents();
 			justResumed = false;
 			if (DeviceCompat.isAndroid()) return;
 		}
@@ -180,8 +188,6 @@ public class Game implements ApplicationListener {
 	
 	@Override
 	public void pause() {
-		PointerEvent.clearPointerEvents();
-		
 		if (scene != null) {
 			scene.onPause();
 		}

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.ShadowBox;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LostBackpack;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
@@ -577,8 +578,11 @@ public class InterlevelScene extends PixelScene {
 
 		if (mode == Mode.FALL) {
 			loadingText.setPos(
-					(Camera.main.width - loadingText.width() - 4) + Random.NormalFloat(-2, 2),
-					(Camera.main.height - loadingText.height() - 6) + Random.NormalFloat(-2, 2)
+					//the randomization is effectively -2 to +2
+					// we don't use the generator stack as levelgen may be occurring
+					// and we don't want to accidentally use a seeded generator
+					(Camera.main.width - loadingText.width() - 4) + 4*(Random.Float(false)-0.5f),
+					(Camera.main.height - loadingText.height() - 6) + 4*(Random.Float(false)-0.5f)
 			);
 			align(loadingText);
 		}
@@ -760,6 +764,8 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.hero.resurrect();
 			level.drop(new LostBackpack(), invPos);
 		}
+
+		Notes.add(Notes.Landmark.LOST_PACK);
 
 		Dungeon.switchLevel( level, Dungeon.hero.pos );
 	}

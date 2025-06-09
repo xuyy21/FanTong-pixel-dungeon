@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -114,7 +114,13 @@ public class EtherealChains extends Artifact {
 		}
 	}
 
-	private CellSelector.Listener caster = new CellSelector.Listener(){
+	@Override
+	public void resetForTrinity(int visibleLevel) {
+		super.resetForTrinity(visibleLevel);
+		charge = 5+(level()*2); //sets charge to soft cap
+	}
+
+	public CellSelector.Listener caster = new CellSelector.Listener(){
 
 		@Override
 		public void onSelect(Integer target) {
@@ -198,6 +204,8 @@ public class EtherealChains extends Artifact {
 						Dungeon.observe();
 						GameScene.updateFog();
 						hero.spendAndNext(1f);
+
+						artifactProc(enemy, visiblyUpgraded(), chargeUse);
 					}
 				}));
 				hero.next();

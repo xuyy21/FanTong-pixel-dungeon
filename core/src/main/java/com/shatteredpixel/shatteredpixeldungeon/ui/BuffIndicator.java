@@ -123,8 +123,6 @@ public class BuffIndicator extends Component {
 	public static final int DAZE        = 70;
 	public static final int DISGUISE    = 71;
 	public static final int WAND        = 72;
-	public static final int MAGIC       = 73;
-    // TODO
 	public static final int HOLY_WEAPON = 73;
 	public static final int HOLY_ARMOR  = 74;
 	public static final int SPELL_FOOD  = 75;
@@ -137,6 +135,8 @@ public class BuffIndicator extends Component {
 	public static final int TRINITY_FORM= 82;
 	public static final int MANY_POWER  = 83;
 	public static final int SEAL_SHIELD = 84;
+
+	public static final int MAGIC       = 85;
 
 	public static final int SIZE_SMALL  = 7;
 	public static final int SIZE_LARGE  = 16;

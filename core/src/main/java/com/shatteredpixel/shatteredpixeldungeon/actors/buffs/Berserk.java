@@ -205,6 +205,11 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 		setShield(shieldAmount);
 		target.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shieldAmount), FloatingText.SHIELDING );
 
+		if (((Hero)target).hasTalent(Talent.ENRAGED_CATALYST)) {
+			Buff.affect(target, Recharging.class, 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 5);
+			Buff.affect(target, ArtifactRecharge.class).set( 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 5).ignoreHornOfPlenty = false;
+		}
+
 		BuffIndicator.refreshHero();
 	}
 
@@ -224,14 +229,6 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 			baseShield += 2*((Hero) target).belongings.armor().buffedLvl();
 		}
 		return Math.round(baseShield * shieldMultiplier);
-	}
-
-		if (((Hero)target).hasTalent(Talent.ENRAGED_CATALYST)) {
-			Buff.affect(target, Recharging.class, 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 5);
-			Buff.affect(target, ArtifactRecharge.class).set( 5f * ((Hero)target).pointsInTalent(Talent.ENRAGED_CATALYST) + 5).ignoreHornOfPlenty = false;
-		}
-
-		BuffIndicator.refreshHero();
 	}
 
     //not accounting for talents

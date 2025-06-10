@@ -151,11 +151,9 @@ public class ItemSpriteSheet {
 	public static final int CLOAK_SCRAP     = MISC_CONSUMABLE +18;
 	public static final int BOW_FRAGMENT    = MISC_CONSUMABLE +19;
 	public static final int BROKEN_HILT     = MISC_CONSUMABLE +20;
-	public static final int TRINKET_CATA    = MISC_CONSUMABLE +21;
-	public static final int HALFPOT        	= MISC_CONSUMABLE +22;
-    //TODO
 	public static final int TORN_PAGE       = MISC_CONSUMABLE +21;
 	public static final int TRINKET_CATA    = MISC_CONSUMABLE +22;
+	public static final int HALFPOT        	= MISC_CONSUMABLE +23;
 
 	static{
 		assignItemRect(ANKH,            10, 16);
@@ -460,8 +458,7 @@ public class ItemSpriteSheet {
 	public static final int ARTIFACT_ROSE2      = ARTIFACTS+21;
 	public static final int ARTIFACT_ROSE3      = ARTIFACTS+22;
 	public static final int ARTIFACT_PAW		= ARTIFACTS+23;
-    //TODO
-    public static final int ARTIFACT_TOME       = ARTIFACTS+23;
+    public static final int ARTIFACT_TOME       = ARTIFACTS+24;
 	static{
 		assignItemRect(ARTIFACT_CLOAK,      9,  15);
 		assignItemRect(ARTIFACT_ARMBAND,    16, 13);
@@ -490,7 +487,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ARTIFACT_TOME,       14, 16);
 	}
 
-	private static final int TRINKETS        =                               xy(9, 17);  //24 slots
+	private static final int TRINKETS        =                               xy(1, 18);  //24 slots
 	public static final int RAT_SKULL       = TRINKETS+0;
 	public static final int PARCHMENT_SCRAP = TRINKETS+1;
 	public static final int PETRIFIED_SEED  = TRINKETS+2;

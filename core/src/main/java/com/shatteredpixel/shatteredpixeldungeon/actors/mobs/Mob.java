@@ -899,20 +899,24 @@ public abstract class Mob extends Char {
 					Buff.affect(Dungeon.hero, GreaterHaste.class).set(2 + 2*Dungeon.hero.pointsInTalent(Talent.LETHAL_HASTE));
 				}
 				if (Dungeon.hero.hasTalent(Talent.BLOODY_WILLPOWER)){
-					if (Dungeon.hero.heroClass == HeroClass.WARRIOR) {
-						BrokenSeal.WarriorShield shield = Dungeon.hero.buff(BrokenSeal.WarriorShield.class);
-						if (shield != null) {
-							// 50/75% of total shield
-							int shieldToGive = Math.round(shield.maxShield() * 0.25f * (1 + Dungeon.hero.pointsInTalent(Talent.BLOODY_WILLPOWER)));
-							Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-							shield.supercharge(shieldToGive);
-						}
-					} else {
-						// 5/7.5% of max HP
-						int shieldToGive = Math.round(Dungeon.hero.HT * (0.025f * (1+Dungeon.hero.pointsInTalent(Talent.BLOODY_WILLPOWER))));
-						Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-						Buff.affect(Dungeon.hero, Barrier.class).setShield(shieldToGive);
-					}
+//					if (Dungeon.hero.heroClass == HeroClass.WARRIOR) {
+//						BrokenSeal.WarriorShield shield = Dungeon.hero.buff(BrokenSeal.WarriorShield.class);
+//						if (shield != null) {
+//							// 50/75% of total shield
+//							int shieldToGive = Math.round(shield.maxShield() * 0.25f * (1 + Dungeon.hero.pointsInTalent(Talent.BLOODY_WILLPOWER)));
+//							Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+//							shield.supercharge(shieldToGive);
+//						}
+//					} else {
+//						// 5/7.5% of max HP
+//						int shieldToGive = Math.round(Dungeon.hero.HT * (0.025f * (1+Dungeon.hero.pointsInTalent(Talent.BLOODY_WILLPOWER))));
+//						Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+//						Buff.affect(Dungeon.hero, Barrier.class).setShield(shieldToGive);
+//					}
+					// 5/7.5% of max HP
+					int shieldToGive = Math.round(Dungeon.hero.HT * (0.025f * (1+Dungeon.hero.pointsInTalent(Talent.BLOODY_WILLPOWER))));
+					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+					Buff.affect(Dungeon.hero, Barrier.class).setShield(shieldToGive);
 				}
 			}
 

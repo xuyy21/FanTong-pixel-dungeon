@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class ShockBomb extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.SHOCK_BOMB;
+		image = ItemSpriteSheet.SMOKE_BOMB;
 	}
 	
 	@Override

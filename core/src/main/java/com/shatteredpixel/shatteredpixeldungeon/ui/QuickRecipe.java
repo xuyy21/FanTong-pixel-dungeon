@@ -21,21 +21,55 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.DUELIST;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.HUNTRESS;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.MAGE;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.ROGUE;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
+import com.shatteredpixel.shatteredpixeldungeon.items.Cookware;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.GooStylus;
+import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
+import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BigEye;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.CausticBrew;
@@ -51,6 +85,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIc
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -278,6 +315,8 @@ public class QuickRecipe extends Component {
 						return "";
 					}
 				}));
+				result.add(new QuickRecipe( new Gland.GlandToPotion(),  new ArrayList<>(Arrays.asList(new Gland().quantity(3))), new Gland.GlandToPotion().sampleOutput(null)));
+				result.add(new QuickRecipe( new MandrakeRoot.MandrakeToPotion(),  new ArrayList<>(Arrays.asList(new MandrakeRoot().quantity(3))), new MandrakeRoot.MandrakeToPotion().sampleOutput(null)));
 				return result;
 			case 1:
 				Recipe r = new Scroll.ScrollToStone();
@@ -289,14 +328,18 @@ public class QuickRecipe extends Component {
 				}
 				return result;
 			case 2:
+				result.add(new QuickRecipe(new Cookware.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new Alchemize(), new LiquidMetal().quantity(10))),
+						new Cookware()));
+				result.add(new QuickRecipe(new Honeypot.HalfPot.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new Honeypot.ShatteredPot())),
+						new Honeypot.HalfPot().quantity(2)));
 				result.add(new QuickRecipe( new StewedMeat.oneMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.twoMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.threeMeat() ));
-				result.add(null);
 				result.add(new QuickRecipe( new MeatPie.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Pasty(), new Food(), new MysteryMeat.PlaceHolder())),
 						new MeatPie()));
-				result.add(null);
 				result.add(new QuickRecipe( new Blandfruit.CookFruit(),
 						new ArrayList<>(Arrays.asList(new Blandfruit(), new Plant.Seed.PlaceHolder())),
 						new Blandfruit(){
@@ -310,6 +353,63 @@ public class QuickRecipe extends Component {
 								return "";
 							}
 						}));
+				result.add(null);
+				if (Dungeon.hero != null) {
+					if (Dungeon.hero.heroClass == WARRIOR || Dungeon.hero.subClass == HeroSubClass.CHIEF) {
+						result.add(new QuickRecipe(new SmallRation.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new Food())),
+								new SmallRation().quantity(2)));
+						result.add(new QuickRecipe(new Pasty.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Food())),
+								new Pasty()));
+					}
+					if (Dungeon.hero.heroClass == ROGUE || Dungeon.hero.subClass == HeroSubClass.CHIEF)
+						result.add(new QuickRecipe(new HoneyMeat.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Honeypot.HalfPot())),
+								new HoneyMeat()));
+					if (Dungeon.hero.heroClass == MAGE || Dungeon.hero.subClass == HeroSubClass.CHIEF)
+						result.add(new QuickRecipe(new Icecream.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new PotionOfFrost(), new Honeypot.HalfPot())),
+								new Icecream()));
+					if (Dungeon.hero.heroClass == HUNTRESS || Dungeon.hero.subClass == HeroSubClass.CHIEF)
+						result.add(new QuickRecipe(new Juice.Recipe()));
+					if (Dungeon.hero.heroClass == DUELIST || Dungeon.hero.subClass == HeroSubClass.CHIEF)
+						result.add(new QuickRecipe(new Tempura.Recipe()));
+					if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE) >= 1) {
+						result.add(new QuickRecipe(new Salad.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new Mushroom(), new Plant.Seed.PlaceHolder(), new Plant.Seed.PlaceHolder())),
+								new Salad()));
+						result.add(new QuickRecipe(new ToastBat.Recipe()));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE) >= 2) {
+						result.add(new QuickRecipe(new BoneSoup.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new MysteryBone(), new MysteryMeat.PlaceHolder())),
+								new BoneSoup()));
+						result.add(new QuickRecipe(new BBQ.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new ChargrilledMeat(), new Salad(), new FrozenCarpaccio())),
+								new BBQ()));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.MORE_RECIPE) >= 3) {
+						result.add(new QuickRecipe(new Sorbet.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new ElementalCore(), new Juice())),
+								new Sorbet()));
+						result.add(new QuickRecipe(new EyeCake.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new Food(), new BigEye())),
+								new EyeCake()));
+					}
+					if (Dungeon.hero.belongings != null) {
+						RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);
+						if (folder != null) {
+							for (RecipeBook recipe : folder.getRecipes())
+								result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
+						}
+						ArrayList<RecipeBook> recipes = Dungeon.hero.belongings.getAllItems(RecipeBook.class);
+						for (RecipeBook recipe : recipes) {
+							if (recipe.recipe() != null)
+								result.add(new QuickRecipe(recipe.recipe(), recipe.input(), recipe.output()));
+						}
+					}
+				}
 				return result;
 			case 3:
 				r = new ExoticPotion.PotionToExotic();
@@ -359,6 +459,7 @@ public class QuickRecipe extends Component {
 				return result;
 			case 7:
 				result.add(new QuickRecipe(new UnstableBrew.Recipe(), new ArrayList<>(Arrays.asList(new Potion.PlaceHolder(), new  Plant.Seed.PlaceHolder())), new UnstableBrew()));
+				result.add(new QuickRecipe(new Mushroom.MushroomToPotion(), new ArrayList<>(Arrays.asList(new Mushroom().quantity(3))), new UnstableBrew()));
 				result.add(new QuickRecipe(new CausticBrew.Recipe()));
 				result.add(new QuickRecipe(new BlizzardBrew.Recipe()));
 				result.add(new QuickRecipe(new ShockingBrew.Recipe()));
@@ -391,6 +492,9 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new ReclaimTrap.Recipe()));
 				result.add(new QuickRecipe(new SummonElemental.Recipe()));
 				result.add(new QuickRecipe(new BeaconOfReturning.Recipe()));
+				result.add(new QuickRecipe( new GooStylus.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new Stylus(), new GooBlob())),
+						new GooStylus().quantity(2)));
 				return result;
 		}
 	}

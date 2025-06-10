@@ -93,4 +93,9 @@ public class Torch extends Item {
 		return 8 * quantity;
 	}
 
+	@Override
+	public int energyVal() {
+		return 2 * quantity;
+	}
+
 }

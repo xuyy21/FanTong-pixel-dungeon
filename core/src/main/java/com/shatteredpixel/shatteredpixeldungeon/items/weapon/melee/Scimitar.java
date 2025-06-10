@@ -50,7 +50,7 @@ public class Scimitar extends MeleeWeapon {
 	protected void duelistAbility(Hero hero, Integer target) {
 		beforeAbilityUsed(hero, null);
 		//1 turn less as using the ability is instant
-		Buff.prolong(hero, SwordDance.class, 3+buffedLvl());
+		Buff.prolong(hero, SwordDance.class, 3+abilityLvl());
 		hero.sprite.operate(hero.pos);
 		hero.next();
 		afterAbilityUsed(hero);
@@ -59,7 +59,7 @@ public class Scimitar extends MeleeWeapon {
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", 4+buffedLvl());
+			return Messages.get(this, "ability_desc", 4+abilityLvl());
 		} else {
 			return Messages.get(this, "typical_ability_desc", 4);
 		}

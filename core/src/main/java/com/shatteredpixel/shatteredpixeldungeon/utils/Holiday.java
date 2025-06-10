@@ -80,11 +80,11 @@ public enum Holiday {
 			return EASTER;
 		}
 
-		//Pride
-		if (cal.get(Calendar.MONTH) == Calendar.JUNE
-				&& cal.get(Calendar.DAY_OF_MONTH) >= 24){
-			return PRIDE;
-		}
+//		//Pride
+//		if (cal.get(Calendar.MONTH) == Calendar.JUNE
+//				&& cal.get(Calendar.DAY_OF_MONTH) >= 24){
+//			return PRIDE;
+//		}
 
 		//Shattered's Birthday
 		if (cal.get(Calendar.MONTH) == Calendar.AUGUST

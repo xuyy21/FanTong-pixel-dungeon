@@ -155,50 +155,102 @@ public class UnstableSpellbook extends Artifact {
 		curItem = scroll;
 		curUser = hero;
 
-		//if there are charges left and the scroll has been given to the book
-		if (charge > 0 && !scrolls.contains(scroll.getClass())) {
-			final Scroll fScroll = scroll;
+				//if there are charges left and the scroll has been given to the book
+				if (!scrolls.contains(scroll.getClass())) {
+					final Scroll fScroll = scroll;
 
 			final ExploitHandler handler = Buff.affect(hero, ExploitHandler.class);
 			handler.scroll = scroll;
 
-			GameScene.show(new WndOptions(new ItemSprite(this),
-					Messages.get(this, "prompt"),
-					Messages.get(this, "read_empowered"),
-					scroll.trueName(),
-					Messages.get(ExoticScroll.regToExo.get(scroll.getClass()), "name")){
-				@Override
-				protected void onSelect(int index) {
-					handler.detach();
-					if (index == 1){
-						Scroll scroll = Reflection.newInstance(ExoticScroll.regToExo.get(fScroll.getClass()));
-						curItem = scroll;
-						charge--;
-						scroll.anonymize();
-						checkForArtifactProc(curUser, scroll);
-						scroll.doRead();
-						Talent.onArtifactUsed(Dungeon.hero);
+					if (charge > 0) {
+						GameScene.show(new WndOptions(new ItemSprite(this),
+								Messages.get(this, "prompt"),
+								Messages.get(this, "read_empowered"),
+								scroll.trueName(),
+								Messages.get(ExoticScroll.regToExo.get(scroll.getClass()), "name"),
+								Messages.get(this, "reroll")) {
+							@Override
+							protected void onSelect(int index) {
+								handler.detach();
+								if (index == 1) {
+									Scroll scroll = Reflection.newInstance(ExoticScroll.regToExo.get(fScroll.getClass()));
+									curItem = scroll;
+									charge--;
+									scroll.anonymize();
+									scroll.doRead();
+									Talent.onArtifactUsed(Dungeon.hero);
+								} else if (index == 0) {
+									fScroll.doRead();
+									Talent.onArtifactUsed(Dungeon.hero);
+								} else {
+									Scroll scroll;
+									do {
+										scroll = (Scroll) Generator.randomUsingDefaults(Generator.Category.SCROLL);
+									} while (scroll == null
+											//reduce the frequency of these scrolls by half
+											||((scroll instanceof ScrollOfIdentify ||
+											scroll instanceof ScrollOfRemoveCurse ||
+											scroll instanceof ScrollOfMagicMapping) && Random.Int(2) == 0)
+											//cannot roll transmutation
+											|| (scroll instanceof ScrollOfTransmutation)
+											|| (scroll.isSimilar(fScroll)));
+									curItem = scroll;
+									scroll.anonymize();
+									scroll.doRead();
+									Talent.onArtifactUsed(Dungeon.hero);
+								}
+								updateQuickslot();
+							}
+
+							@Override
+							public void onBackPressed() {
+								//do nothing
+							}
+						});
 					} else {
-						checkForArtifactProc(curUser, fScroll);
-						fScroll.doRead();
-						Talent.onArtifactUsed(Dungeon.hero);
+						GameScene.show(new WndOptions(new ItemSprite(this),
+								Messages.get(this, "prompt"),
+								Messages.get(this, "read_empowered"),
+								scroll.trueName(),
+								Messages.get(this, "reroll")) {
+							@Override
+							protected void onSelect(int index) {
+								handler.detach();
+								if (index == 1) {
+									Scroll scroll;
+									do {
+										scroll = (Scroll) Generator.randomUsingDefaults(Generator.Category.SCROLL);
+									} while (scroll == null
+											//reduce the frequency of these scrolls by half
+											||((scroll instanceof ScrollOfIdentify ||
+											scroll instanceof ScrollOfRemoveCurse ||
+											scroll instanceof ScrollOfMagicMapping) && Random.Int(2) == 0)
+											//cannot roll transmutation
+											|| (scroll instanceof ScrollOfTransmutation)
+											|| (scroll.isSimilar(fScroll)));
+									curItem = scroll;
+									scroll.anonymize();
+									scroll.doRead();
+									Talent.onArtifactUsed(Dungeon.hero);
+								} else {
+									fScroll.doRead();
+									Talent.onArtifactUsed(Dungeon.hero);
+								}
+								updateQuickslot();
+							}
+
+							@Override
+							public void onBackPressed() {
+								//do nothing
+							}
+						});
 					}
-					updateQuickslot();
+				} else {
+					scroll.doRead();
+					Talent.onArtifactUsed(Dungeon.hero);
 				}
-
-				@Override
-				public void onBackPressed() {
-					//do nothing
-				}
-			});
-		} else {
-			checkForArtifactProc(curUser, scroll);
-			scroll.doRead();
-			Talent.onArtifactUsed(Dungeon.hero);
-		}
-
-		updateQuickslot();
-	}
+				updateQuickslot();
+			}
 
 	private void checkForArtifactProc(Hero user, Scroll scroll){
 		//if the base scroll (exotics all match) is an AOE effect, then also trigger illuminate

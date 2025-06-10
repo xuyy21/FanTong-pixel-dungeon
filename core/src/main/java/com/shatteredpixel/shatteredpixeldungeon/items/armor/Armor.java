@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Magic_mark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -441,6 +442,13 @@ public class Armor extends EquipableItem {
 		// instead of being part of true level
 		if (curseInfusionBonus) level += 1 + level/6;
 		return level;
+	}
+
+	@Override
+	public int buffedLvl() {
+		if (curUser!=null && curUser.buff(Magic_mark.MagicianAbility.MagicArmor.MagicArmorBuff.class)!=null)
+			return super.buffedLvl() + 3;
+		else return super.buffedLvl();
 	}
 	
 	@Override

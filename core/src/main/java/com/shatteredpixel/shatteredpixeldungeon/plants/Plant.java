@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -130,6 +131,7 @@ public abstract class Plant implements Bundlable {
 	public static class Seed extends Item {
 
 		public static final String AC_PLANT	= "PLANT";
+		public static final String AC_PLANTATSELF	= "PLANTATSELF";
 		
 		private static final float TIME_TO_PLANT = 1f;
 		
@@ -144,6 +146,7 @@ public abstract class Plant implements Bundlable {
 		public ArrayList<String> actions( Hero hero ) {
 			ArrayList<String> actions = super.actions( hero );
 			actions.add( AC_PLANT );
+			actions.add( AC_PLANTATSELF );
 			return actions;
 		}
 		
@@ -184,6 +187,23 @@ public abstract class Plant implements Bundlable {
 
 				hero.sprite.operate( hero.pos );
 				
+			}
+
+			if (action.equals( AC_PLANTATSELF )) {
+
+				hero.busy();
+				Plant plant = Reflection.newInstance(plantClass);
+				plant.pos = hero.pos;
+				plant.activate(hero);
+				Sample.INSTANCE.play(Assets.Sounds.PLANT);
+				Sample.INSTANCE.playDelayed(Assets.Sounds.TRAMPLE, 0.25f, 1, Random.Float( 0.96f, 1.05f ) );
+				hero.spend( TIME_TO_PLANT );
+				hero.buff(Hunger.class).affectHunger((Dungeon.isChallenged(Challenges.NO_HERBALISM) ? -Hunger.STARVING/3 : -Hunger.STARVING/5));
+
+				detach( hero.belongings.backpack );
+
+				hero.sprite.operate( hero.pos );
+
 			}
 		}
 		

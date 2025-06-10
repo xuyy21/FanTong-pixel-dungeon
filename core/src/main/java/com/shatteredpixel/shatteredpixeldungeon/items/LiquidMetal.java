@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Xuanmi;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -125,7 +126,7 @@ public class LiquidMetal extends Item {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return item instanceof MissileWeapon && !(item instanceof Dart);
+			return item instanceof MissileWeapon && !(item instanceof Dart) && !(item instanceof Xuanmi);
 		}
 
 		@Override

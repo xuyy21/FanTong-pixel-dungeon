@@ -90,6 +90,11 @@ public class ArcaneResin extends Item {
 		return 30*quantity();
 	}
 
+	@Override
+	public int energyVal() {
+		return 5*quantity();
+	}
+
 	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 
 		@Override
@@ -181,6 +186,10 @@ public class ArcaneResin extends Item {
 			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.hasTalent(Talent.WAND_PRESERVATION)){
 				output.quantity(output.quantity() + Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION));
 			}
+
+//			if (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=3){
+//				output.quantity(output.quantity()+1);
+//			}
 
 			return output;
 		}

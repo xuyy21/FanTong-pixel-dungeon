@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
+import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -57,6 +58,9 @@ public class RipperDemon extends Mob {
 		HUNTING = new Hunting();
 
 		baseSpeed = 1f;
+
+		food = new MysteryBone();
+		foodChance = 0.1f;
 
 		properties.add(Property.DEMONIC);
 		properties.add(Property.UNDEAD);

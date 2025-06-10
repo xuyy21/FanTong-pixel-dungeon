@@ -199,7 +199,7 @@ public abstract class TippedDart extends Dart {
 
 		//grants 3+lvl extra uses with charged shot
 		if (bow != null && Dungeon.hero != null && Dungeon.hero.buff(Crossbow.ChargedShot.class) != null){
-			usages += 3 + bow.buffedLvl();
+			usages += 3 + bow.abilityLvl();
 		}
 
 		//at 100 uses, items just last forever.

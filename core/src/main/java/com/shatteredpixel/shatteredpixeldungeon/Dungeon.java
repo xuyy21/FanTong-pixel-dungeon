@@ -129,12 +129,14 @@ public class Dungeon {
 		SHAMAN_WAND,
 		DM200_EQUIP,
 		GOLEM_EQUIP,
+		Skeleton_WAND,
 
 		//containers
 		VELVET_POUCH,
 		SCROLL_HOLDER,
 		POTION_BANDOLIER,
 		MAGICAL_HOLSTER,
+		FOOD_BAG,
 
 		//lore documents
 		LORE_SEWERS,
@@ -282,7 +284,7 @@ public class Dungeon {
 		
 		Badges.reset();
 		
-		GamesInProgress.selectedClass.initHero( hero );
+		GamesInProgress.selectedClass.initHero( hero, SPDSettings.testing() );
 	}
 
 	public static boolean isChallenged( int mask ) {

@@ -29,17 +29,24 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GoldenMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Skeleton;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BloodParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
@@ -142,6 +149,68 @@ public class WandOfTransfusion extends DamageWand {
 			}
 			
 		}
+		else {
+			Heap heap =  Dungeon.level.heaps.get(cell);
+			if (heap != null && (heap.type != Heap.Type.HEAP && heap.type != Heap.Type.FOR_SALE)) {
+				switch (Dungeon.level.heaps.get(cell).type) {
+					case CHEST:
+						if (curCharges < 8) {
+							GLog.w(Messages.get(this, "no_charge_for_create"), 8);
+							return;
+						}
+						else {
+							curCharges -= 7;
+							int selfDmg = Math.round(curUser.HT*4f/(5f+buffedLvl()));
+							damageHero(selfDmg);
+						}
+						Dungeon.level.heaps.get(cell).open(Dungeon.hero);
+						Mimic mimic = Mimic.spawnAt(cell, Mimic.class, false);
+						mimic.stopHiding();
+						mimic.alignment = Char.Alignment.ENEMY;
+						Sample.INSTANCE.play(Assets.Sounds.MIMIC, 1, 0.85f);
+						CellEmitter.get(mimic.pos).burst(Speck.factory(Speck.STAR), 10);
+						mimic.items.clear();
+						GameScene.add(mimic);
+						Buff.affect(mimic, ScrollOfSirensSong.Enthralled.class);
+						Dungeon.level.occupyCell(mimic);
+						return;
+					case SKELETON:
+						if (curCharges < 5) {
+							GLog.w(Messages.get(this, "no_charge_for_create"), 5);
+							return;
+						}
+						else {
+							curCharges -= 4;
+							int selfDmg = Math.round(curUser.HT*4f/(5f+buffedLvl()));
+							damageHero(selfDmg);
+						}
+						Dungeon.level.heaps.get(cell).open(Dungeon.hero);
+						Skeleton mob = new Skeleton();
+						mob.alignment = Char.Alignment.ENEMY;
+						mob.pos = cell;
+						CellEmitter.get(mob.pos).burst(Speck.factory(Speck.STAR), 10);
+						GameScene.add(mob);
+						Buff.affect(mob, ScrollOfSirensSong.Enthralled.class);
+						Dungeon.level.occupyCell(mob);
+						return;
+				}
+			}
+			switch (Dungeon.level.map[cell]) {
+//				case Terrain.STATUE:
+//					Level.set(cell, Terrain.EMPTY);
+//					GameScene.updateMap(cell);
+//					return;
+//				case Terrain.STATUE_SP:
+//					Level.set(cell, Terrain.EMPTY_SP);
+//					GameScene.updateMap(cell);
+//					return;
+				case Terrain.GRASS:
+					Level.set(cell, Terrain.HIGH_GRASS);
+					damageHero(Math.max((int)(curUser.HT*0.01f), 1));
+					GameScene.updateMap(cell);
+					return;
+			}
+		}
 		
 	}
 
@@ -190,10 +259,14 @@ public class WandOfTransfusion extends DamageWand {
 	@Override
 	public String statsDesc() {
 		int selfDMG = Dungeon.hero != null ? Math.round(Dungeon.hero.HT*0.05f): 1;
-		if (levelKnown)
-			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3*buffedLvl(), 5+buffedLvl(), min(), max());
-		else
-			return Messages.get(this, "stats_desc", selfDMG, selfDMG, 5, min(0), max(0));
+		if (levelKnown) {
+			int selfDMG2 = Dungeon.hero != null ? Math.round(Dungeon.hero.HT * 4f / (5f + buffedLvl())) : 10;
+			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3 * buffedLvl(), 5 + buffedLvl(), min(), max(), selfDMG2);
+		}
+		else {
+			int selfDMG2 = Dungeon.hero != null ? Math.round(Dungeon.hero.HT * 4f / (5f + 3)) : 10;
+			return Messages.get(this, "stats_desc", selfDMG, selfDMG, 5, min(0), max(0), selfDMG2);
+		}
 	}
 
 	@Override

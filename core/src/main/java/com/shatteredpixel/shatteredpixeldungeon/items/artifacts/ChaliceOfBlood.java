@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Addiction;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
@@ -98,6 +99,9 @@ public class ChaliceOfBlood extends Artifact {
 	}
 
 	private void prick(Hero hero){
+		Addiction addiction = hero.buff(Addiction.class);
+		if (addiction != null) addiction.reduce(3);
+
 		int damage = 5 + 3*(level()*level());
 
 		Earthroot.Armor armor = hero.buff(Earthroot.Armor.class);

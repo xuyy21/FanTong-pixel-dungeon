@@ -23,9 +23,33 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BerryCake;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Cooked_larva;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Cookit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Glandcandy;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mandrake_liquor;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MushroomSoup;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -42,6 +66,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIc
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -193,7 +219,13 @@ public abstract class Recipe {
 		new SummonElemental.Recipe(),
 		new StewedMeat.oneMeat(),
 		new TrinketCatalyst.Recipe(),
-		new Trinket.UpgradeTrinket()
+		new Trinket.UpgradeTrinket(),
+		new SmallRation.Recipe(),
+		new Juice.Recipe(),
+		new Tempura.Recipe(),
+		new ToastBat.Recipe(),
+		new ScorpioTempura.Recipe(),
+		new Honeypot.HalfPot.Recipe()
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{
@@ -209,13 +241,34 @@ public abstract class Recipe {
 		new CurseInfusion.Recipe(),
 		new ReclaimTrap.Recipe(),
 		new WildEnergy.Recipe(),
-		new StewedMeat.twoMeat()
+		new StewedMeat.twoMeat(),
+		new GooStylus.Recipe(),
+		new Pasty.Recipe(),
+		new Icecream.Recipe(),
+		new HoneyMeat.Recipe(),
+		new BoneSoup.Recipe(),
+		new Glandcandy.Recipe(),
+		new Cookit.Recipe(),
+		new Cookware.Recipe(),
+		new Sorbet.Recipe(),
+		new BerryCake.Recipe(),
+		new EyeCake.Recipe(),
+		new Cooked_larva.Recipe(),
+		new Mandrake_liquor.Recipe()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new StewedMeat.threeMeat(),
-		new MeatPie.Recipe()
+		new MeatPie.Recipe(),
+		new Salad.Recipe(),
+		new BBQ.Recipe(),
+		new GoldenPudding.Recipe(),
+		new Mushroom.MushroomToPotion(),
+		new Gland.GlandToPotion(),
+		new MushroomSoup.Recipe(),
+		new BlackPudding.Recipe(),
+		new MandrakeRoot.MandrakeToPotion()
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){
@@ -259,6 +312,8 @@ public abstract class Recipe {
 			return item.isIdentified() && !item.cursed && item instanceof MissileWeapon;
 		} else if (item instanceof Wand) {
 			return item.isIdentified() && !item.cursed;
+		} else if (item instanceof RecipeBook || item instanceof RecipeFolder) {
+			return false;
 		} else {
 			//other items can be unidentified, but not cursed
 			return !item.cursed;

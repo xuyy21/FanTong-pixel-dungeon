@@ -64,13 +64,13 @@ public class Greatshield extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		RoundShield.guardAbility(hero, 3+buffedLvl(), this);
+		RoundShield.guardAbility(hero, 3+abilityLvl(), this);
 	}
 
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", 3+buffedLvl());
+			return Messages.get(this, "ability_desc", 3+abilityLvl());
 		} else {
 			return Messages.get(this, "typical_ability_desc", 3);
 		}

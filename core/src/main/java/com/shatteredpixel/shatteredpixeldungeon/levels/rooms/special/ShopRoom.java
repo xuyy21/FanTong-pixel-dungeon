@@ -24,9 +24,12 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
+import com.shatteredpixel.shatteredpixeldungeon.items.Cookware;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
@@ -44,8 +47,24 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBerryCake;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBlackPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROCookit;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGlandcandy;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROHoneyMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROIcecream;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROJuice;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROLarva;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROMandrake_liquor;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROMushroomSoup;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROScorpioTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
@@ -217,6 +236,35 @@ public class ShopRoom extends SpecialRoom {
 		}
 
 	}
+
+	protected static ArrayList<RecipeBook> generaRecipe(int depth) {
+		ArrayList<RecipeBook> results = new ArrayList<>();
+		switch (depth)  {
+			case 11: default:
+				int r = Random.Int(0,5);
+				HeroClass[] classes = {HeroClass.WARRIOR, HeroClass.MAGE, HeroClass.ROGUE, HeroClass.HUNTRESS, HeroClass.DUELIST};
+				while (Dungeon.hero.heroClass == classes[r]) r = Random.Int(0,5);
+				RecipeBook[] recipeBooks = {new ROSmallRation(), new ROIcecream(), new ROHoneyMeat(), new ROJuice(), new ROTempura()};
+				results.add(recipeBooks[r]);
+				results.add(new ROGlandcandy());
+				results.add(new ROMandrake_liquor());
+				break;
+			case 6:
+				results.add(new ROGoldenPudding());
+				results.add(new ROBlackPudding());
+				results.add(new ROLarva());
+				break;
+			case 16:
+				results.add(new ROCookit());
+				results.add(new ROMushroomSoup());
+				break;
+			case 20: case 21:
+				results.add(new ROScorpioTempura());
+				results.add(new ROBerryCake());
+				break;
+		}
+		return results;
+	}
 	
 	protected static ArrayList<Item> generateItems() {
 
@@ -282,6 +330,16 @@ public class ShopRoom extends SpecialRoom {
 
 		itemsToSpawn.add( new SmallRation() );
 		itemsToSpawn.add( new SmallRation() );
+
+		itemsToSpawn.add(new EnergyCrystal(5));
+		itemsToSpawn.add(new EnergyCrystal(5));
+
+		itemsToSpawn.add(new Berry());
+		itemsToSpawn.add(new Berry());
+
+		itemsToSpawn.add(new Honeypot.ShatteredPot());
+
+		itemsToSpawn.add(new Cookware());
 		
 		switch (Random.Int(4)){
 			case 0:
@@ -340,6 +398,8 @@ public class ShopRoom extends SpecialRoom {
 		rare.cursed = false;
 		rare.cursedKnown = true;
 		itemsToSpawn.add( rare );
+
+        itemsToSpawn.addAll(generaRecipe(Dungeon.depth));
 
 		//use a new generator here to prevent items in shop stock affecting levelgen RNG (e.g. sandbags)
 		//we can use a random long for the seed as it will be the same long every time

@@ -36,6 +36,13 @@ public class CausticSlime extends Slime {
 		spriteClass = CausticSlimeSprite.class;
 		
 		properties.add(Property.ACIDIC);
+
+		food = null;
+	}
+
+	@Override
+	public float foodChance() {
+		return foodChance;
 	}
 	
 	@Override

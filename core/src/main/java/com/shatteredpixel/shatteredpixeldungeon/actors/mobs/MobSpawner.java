@@ -108,33 +108,37 @@ public class MobSpawner extends Actor {
 						DM100.class,
 						Guard.class));
 			case 8:
-				//2x skeleton, 1x thief, 2x DM-100, 2x guard, 1x necromancer
+				//2x skeleton, 1x thief, 2x DM-100, 2x guard, 1x necromancer, 1xmandrake
 				return new ArrayList<>(Arrays.asList(Skeleton.class, Skeleton.class,
 						Thief.class,
 						DM100.class, DM100.class,
 						Guard.class, Guard.class,
-						Necromancer.class));
+						Necromancer.class,
+						Mandrake.class));
 			case 9: case 10:
-				//1x skeleton, 1x thief, 2x DM-100, 2x guard, 2x necromancer
+				//1x skeleton, 1x thief, 2x DM-100, 2x guard, 2x necromancer, , 1xmandrake
 				return new ArrayList<>(Arrays.asList(Skeleton.class,
 						Thief.class,
 						DM100.class, DM100.class,
 						Guard.class, Guard.class,
-						Necromancer.class, Necromancer.class));
+						Necromancer.class, Necromancer.class,
+						Mandrake.class));
 
 			// Caves
 			case 11:
-				//3x bat, 1x brute, 1x shaman
+				//3x bat, 1x brute, 1x shaman, 1x treants
 				return new ArrayList<>(Arrays.asList(
 						Bat.class, Bat.class, Bat.class,
 						Brute.class,
+						Treants.class,
 						Shaman.random()));
 			case 12:
-				//2x bat, 2x brute, 1x shaman, 1x spinner
+				//2x bat, 2x brute, 1x shaman, 1x spinner, 1x treants
 				return new ArrayList<>(Arrays.asList(
 						Bat.class, Bat.class,
 						Brute.class, Brute.class,
 						Shaman.random(),
+						Treants.class,
 						Spinner.class));
 			case 13:
 				//1x bat, 2x brute, 2x shaman, 2x spinner, 1x DM-200
@@ -155,29 +159,32 @@ public class MobSpawner extends Actor {
 
 			// City
 			case 16:
-				//3x ghoul, 1x elemental, 1x warlock
+				//3x ghoul, 1x mushmen, 1x elemental, 1x warlock
 				return new ArrayList<>(Arrays.asList(
 						Ghoul.class, Ghoul.class, Ghoul.class,
+						MushMen.class,
 						Elemental.random(),
 						Warlock.class));
 			case 17:
-				//1x ghoul, 2x elemental, 1x warlock, 1x monk
+				//1x ghoul, 1x mushmen, 2x elemental, 1x warlock, 1x monk
 				return new ArrayList<>(Arrays.asList(
-						Ghoul.class,
+						Ghoul.class, MushMen.class,
 						Elemental.random(), Elemental.random(),
 						Warlock.class,
 						Monk.class));
 			case 18:
-				//1x ghoul, 1x elemental, 2x warlock, 2x monk, 1x golem
+				//1x ghoul, 1x mushmen, 1x elemental, 2x warlock, 2x monk, 1x golem
 				return new ArrayList<>(Arrays.asList(
 						Ghoul.class,
+						MushMen.class,
 						Elemental.random(),
 						Warlock.class, Warlock.class,
 						Monk.class, Monk.class,
 						Golem.class));
 			case 19: case 20:
-				//1x elemental, 2x warlock, 2x monk, 3x golem
+				//1x elemental, 2x warlock, 2x monk, 3x golem, 1x mushmen
 				return new ArrayList<>(Arrays.asList(
+						MushMen.class,
 						Elemental.random(),
 						Warlock.class, Warlock.class,
 						Monk.class, Monk.class,
@@ -195,17 +202,17 @@ public class MobSpawner extends Actor {
 						Succubus.class,
 						Eye.class));
 			case 23:
-				//1x succubus, 2x evil eye, 1x scorpio
+				//1x succubus, 2x evil eye, 1x scorpio, 1x armedskeleton
 				return new ArrayList<>(Arrays.asList(
 						Succubus.class,
 						Eye.class, Eye.class,
-						Scorpio.class));
+						Scorpio.class, ArmedSkeleton.class));
 			case 24: case 25: case 26:
-				//1x succubus, 2x evil eye, 3x scorpio
+				//1x succubus, 2x evil eye, 2x scorpio, 1x armedskeleton
 				return new ArrayList<>(Arrays.asList(
 						Succubus.class,
 						Eye.class, Eye.class,
-						Scorpio.class, Scorpio.class, Scorpio.class));
+						Scorpio.class, Scorpio.class, ArmedSkeleton.class));
 		}
 
 	}

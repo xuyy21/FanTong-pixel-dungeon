@@ -21,12 +21,15 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
+import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.FTChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.Scene;
 import com.watabou.noosa.ui.Component;
 
 //not actually a button, but functions as one.
@@ -53,7 +56,12 @@ public class ChangeButton extends Component {
 	}
 	
 	protected void onClick() {
-		ChangesScene.showChangeInfo(new Image(icon), title, messages);
+		Scene s = ShatteredPixelDungeon.scene();
+		if (s instanceof ChangesScene){
+			ChangesScene.showChangeInfo(new Image(icon), title, messages);
+		} else if (s instanceof FTChangesScene) {
+			FTChangesScene.showChangeInfo(new Image(icon), title, messages);
+		}
 	}
 	
 	@Override

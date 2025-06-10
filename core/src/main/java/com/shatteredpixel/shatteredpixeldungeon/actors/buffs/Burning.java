@@ -91,6 +91,10 @@ public class Burning extends Buff implements Hero.Doom {
 	@Override
 	public boolean act() {
 
+		if (target.properties().contains(Char.Property.PLANT)) {
+			left = DURATION;
+		}
+
 		if (acted && Dungeon.level.water[target.pos] && !target.flying){
 			detach();
 		} else if (target.isAlive() && !target.isImmune(getClass())) {

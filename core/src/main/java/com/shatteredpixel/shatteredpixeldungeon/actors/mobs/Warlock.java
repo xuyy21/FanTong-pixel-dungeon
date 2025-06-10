@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MagicHeart;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -57,6 +58,8 @@ public class Warlock extends Mob implements Callback {
 		
 		loot = Generator.Category.POTION;
 		lootChance = 0.5f;
+		food = new MagicHeart();
+		foodChance = 0.5f;
 
 		properties.add(Property.UNDEAD);
 	}

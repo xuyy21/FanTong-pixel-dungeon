@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BatBody;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -46,6 +47,8 @@ public class Bat extends Mob {
 		
 		loot = PotionOfHealing.class;
 		lootChance = 0.1667f; //by default, see lootChance()
+		food = new BatBody();
+		foodChance = 0.5f;
 	}
 	
 	@Override

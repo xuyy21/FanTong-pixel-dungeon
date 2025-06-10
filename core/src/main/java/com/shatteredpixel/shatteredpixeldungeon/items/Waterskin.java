@@ -38,7 +38,7 @@ import java.util.ArrayList;
 
 public class Waterskin extends Item {
 
-	private static final int MAX_VOLUME	= 20;
+	protected static final int MAX_VOLUME	= 20;
 
 	private static final String AC_DRINK	= "DRINK";
 
@@ -54,7 +54,7 @@ public class Waterskin extends Item {
 		unique = true;
 	}
 
-	private int volume = 0;
+	protected int volume = 0;
 
 	private static final String VOLUME	= "volume";
 
@@ -101,14 +101,14 @@ public class Waterskin extends Item {
 				//add extra drops if we can gain shielding
 				int curShield = 0;
 				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
-				int maxShield = Math.round(hero.HT *0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW));
-				if (hero.hasTalent(Talent.SHIELDING_DEW)){
-					float missingShieldPercent = 1f - (curShield / (float)maxShield);
-					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
-					if (missingShieldPercent > 0){
-						dropsNeeded += missingShieldPercent / 0.05f;
-					}
-				}
+//				int maxShield = Math.round(hero.HT *0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+//				if (hero.hasTalent(Talent.SHIELDING_DEW)){
+//					float missingShieldPercent = 1f - (curShield / (float)maxShield);
+//					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
+//					if (missingShieldPercent > 0){
+//						dropsNeeded += missingShieldPercent / 0.05f;
+//					}
+//				}
 
 				//trimming off 0.01 drops helps with floating point errors
 				int dropsToConsume = (int)Math.ceil(dropsNeeded - 0.01f);

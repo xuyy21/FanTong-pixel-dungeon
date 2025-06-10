@@ -36,7 +36,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GoldenMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Doge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ling;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.SmallLeaf;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Xuyy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Zako;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -217,6 +222,13 @@ public abstract class RegularLevel extends Level {
 	
 	@Override
 	protected void createMobs() {
+		//place NPC
+		Xuyy.spawn(this, roomExit, 1);
+		Doge.spawn(this, roomEntrance, 6);
+		Zako.spawn(this, roomEntrance, 11);
+		Ling.spawn(this, roomEntrance, 16);
+		SmallLeaf.spawn(this, roomEntrance, 21);
+
 		//on floor 1, 8 pre-set mobs are created so the player can get level 2.
 		int mobsToSpawn = Dungeon.depth == 1 ? 8 : mobLimit();
 

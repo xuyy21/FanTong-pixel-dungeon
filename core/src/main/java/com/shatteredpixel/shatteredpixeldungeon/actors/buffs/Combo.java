@@ -410,9 +410,9 @@ public class Combo extends Buff implements ActionIndicator.Action {
 							ch.sprite.bloodBurstA(target.sprite.center(), aoeHit);
 							ch.sprite.flash();
 
-							if (!ch.isAlive() && hero.hasTalent(Talent.LETHAL_DEFENSE)) {
-								Buff.affect(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.pointsInTalent(Talent.LETHAL_DEFENSE)/3f);
-							}
+//							if (!ch.isAlive() && hero.hasTalent(Talent.LETHAL_DEFENSE)) {
+//								Buff.affect(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.pointsInTalent(Talent.LETHAL_DEFENSE)/3f);
+//							}
 						}
 					}
 					break;
@@ -462,11 +462,11 @@ public class Combo extends Buff implements ActionIndicator.Action {
 				break;
 		}
 
-		if (!enemy.isAlive() || (!wasAlly && enemy.alignment == target.alignment)) {
-			if (hero.hasTalent(Talent.LETHAL_DEFENSE)){
-				Buff.affect(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.pointsInTalent(Talent.LETHAL_DEFENSE)/3f);
-			}
-		}
+//		if (!enemy.isAlive() || (!wasAlly && enemy.alignment == target.alignment)) {
+//			if (hero.hasTalent(Talent.LETHAL_DEFENSE)){
+//				Buff.affect(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.pointsInTalent(Talent.LETHAL_DEFENSE)/3f);
+//			}
+//		}
 
 	}
 

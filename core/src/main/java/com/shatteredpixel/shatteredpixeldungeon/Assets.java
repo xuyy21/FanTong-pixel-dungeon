@@ -220,6 +220,8 @@ public class Assets {
 		public static final String SCAN     = "sounds/scan.mp3";
 		public static final String SHEEP    = "sounds/sheep.mp3";
 		public static final String MINE    = "sounds/mine.mp3";
+		public static final String SCREAM   = "sounds/scream.mp3";
+		public static final String FEAST   	= "sounds/feast.mp3";
 
 		public static final String[] all = new String[]{
 				CLICK, BADGE, GOLD,
@@ -232,7 +234,7 @@ public class Assets {
 				DESCEND, EAT, READ, LULLABY, DRINK, SHATTER, ZAP, LIGHTNING, LEVELUP, DEATH,
 				CHALLENGE, CURSED, TRAP, EVOKE, TOMB, ALERT, MELD, BOSS, BLAST, PLANT, RAY, BEACON,
 				TELEPORT, CHARMS, MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,
-				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP, MINE
+				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP, MINE, SCREAM, FEAST
 		};
 	}
 
@@ -279,14 +281,21 @@ public class Assets {
 		public static final String GOO      = "sprites/goo.png";
 		public static final String SWARM    = "sprites/swarm.png";
 		public static final String SKELETON = "sprites/skeleton.png";
+		public static final String ARMEDSKELETON = "sprites/armedskeleton.png";
 		public static final String SHAMAN   = "sprites/shaman.png";
 		public static final String THIEF    = "sprites/thief.png";
 		public static final String TENGU    = "sprites/tengu.png";
 		public static final String SHEEP    = "sprites/sheep.png";
 		public static final String KEEPER   = "sprites/shopkeeper.png";
+		public static final String XUYY		= "sprites/xuyy.png";
+		public static final String ZAKO		= "sprites/zako.png";
+		public static final String DOGE		= "sprites/doge.png";
+		public static final String LING		= "sprites/whiteling.png";
+		public static final String CYL		= "sprites/smallleaf.png";
 		public static final String BAT      = "sprites/bat.png";
 		public static final String ELEMENTAL= "sprites/elemental.png";
 		public static final String MONK     = "sprites/monk.png";
+		public static final String MUSHMEN  = "sprites/mushmen.png";
 		public static final String WARLOCK  = "sprites/warlock.png";
 		public static final String GOLEM    = "sprites/golem.png";
 		public static final String STATUE   = "sprites/statue.png";
@@ -329,5 +338,8 @@ public class Assets {
 		public static final String FUNGAL_SPINNER   = "sprites/fungal_spinner.png";
 		public static final String FUNGAL_SENTRY    = "sprites/fungal_sentry.png";
 		public static final String FUNGAL_CORE      = "sprites/fungal_core.png";
+		public static final String MANDRAKE	= "sprites/mandrake.png";
+		public static final String TREANTS  = "sprites/treants.png";
+		public static final String CHOMPER 	= "sprites/chomper.png";
 	}
 }

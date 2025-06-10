@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
@@ -32,19 +33,22 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
 public class SacrificeRoom extends SpecialRoom {
 
 	@Override
-	public int minWidth() { return 7; }
-	public int minHeight() { return 7; }
+	public int minWidth() { return 9; }
+	public int minHeight() { return 9; }
 
 	@Override
 	public void paint(Level level) {
 		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1, Terrain.CHASM );
+		Painter.fill( level, this, 1, Terrain.EMPTY );
 
 		Point c = center();
 		Door door = entrance();
@@ -62,21 +66,24 @@ public class SacrificeRoom extends SpecialRoom {
 			}
 		}
 
+		Painter.fill( level, c.x - 2, c.y - 2, 5, 5, Terrain.EMBERS );
+
 		//we add four statues to give some cover from ranged enemies
 		Point statue = new Point(c);
-		statue.x -= 2;
+		statue.x -= 3; statue.y -= 3;
 		if (statue.x > left) Painter.set( level, statue, Terrain.STATUE );
-		statue.x += 2; statue.y -= 2;
+		statue.x += 6;
 		if (statue.y > top) Painter.set( level, statue, Terrain.STATUE );
-		statue.y += 2; statue.x += 2;
+		statue.y += 6;
 		if (statue.x < right) Painter.set( level, statue, Terrain.STATUE );
-		statue.x -= 2; statue.y += 2;
+		statue.x -= 6;
 		if (statue.y < bottom) Painter.set( level, statue, Terrain.STATUE );
 
-		Painter.fill( level, c.x - 1, c.y - 1, 3, 3, Terrain.EMBERS );
 		Painter.set( level, c, Terrain.PEDESTAL );
 
 		Blob.seed( level.pointToCell(c), 6 + Dungeon.depth * 4, SacrificialFire.class, level ).setPrize(prize(level));
+		GLog.h(Messages.get(SacrificialFire.class, "notice"));
+		Sample.INSTANCE.play(Assets.Sounds.BURNING );
 
 		door.set( Door.Type.EMPTY );
 	}

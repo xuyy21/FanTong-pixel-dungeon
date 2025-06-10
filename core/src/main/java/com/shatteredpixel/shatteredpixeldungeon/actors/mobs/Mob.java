@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
@@ -63,6 +64,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
@@ -883,6 +885,8 @@ public abstract class Mob extends Char {
 
 			rollToDropLoot();
 
+			rollToDropFood();
+
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
 				if (Dungeon.hero.hasTalent(Talent.LETHAL_MOMENTUM)
 						&& Random.Float() < 0.34f + 0.33f* Dungeon.hero.pointsInTalent(Talent.LETHAL_MOMENTUM)){
@@ -893,6 +897,22 @@ public abstract class Mob extends Char {
 						&& Dungeon.hero.buff(Talent.LethalHasteCooldown.class) == null){
 					Buff.affect(Dungeon.hero, Talent.LethalHasteCooldown.class, 100f);
 					Buff.affect(Dungeon.hero, GreaterHaste.class).set(2 + 2*Dungeon.hero.pointsInTalent(Talent.LETHAL_HASTE));
+				}
+				if (Dungeon.hero.hasTalent(Talent.BLOODY_WILLPOWER)){
+					if (Dungeon.hero.heroClass == HeroClass.WARRIOR) {
+						BrokenSeal.WarriorShield shield = Dungeon.hero.buff(BrokenSeal.WarriorShield.class);
+						if (shield != null) {
+							// 50/75% of total shield
+							int shieldToGive = Math.round(shield.maxShield() * 0.25f * (1 + Dungeon.hero.pointsInTalent(Talent.BLOODY_WILLPOWER)));
+							Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+							shield.supercharge(shieldToGive);
+						}
+					} else {
+						// 5/7.5% of max HP
+						int shieldToGive = Math.round(Dungeon.hero.HT * (0.025f * (1+Dungeon.hero.pointsInTalent(Talent.BLOODY_WILLPOWER))));
+						Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+						Buff.affect(Dungeon.hero, Barrier.class).setShield(shieldToGive);
+					}
 				}
 			}
 
@@ -940,6 +960,14 @@ public abstract class Mob extends Char {
 
 		return lootChance * dropBonus;
 	}
+
+	public float foodChance(){
+		float foodChance = this.foodChance;
+
+		foodChance *= (Dungeon.hero.subClass == HeroSubClass.CHIEF)? 1 : 0.05f;
+
+		return foodChance;
+	}
 	
 	public void rollToDropLoot(){
 		if (Dungeon.hero.lvl > maxLvl + 2) return;
@@ -979,9 +1007,22 @@ public abstract class Mob extends Char {
 		}
 
 	}
+
+	public void rollToDropFood(){
+		if (Dungeon.hero.lvl > maxLvl) return;
+
+		if (Random.Float() < foodChance()) {
+			Item food = createFood();
+			if (food != null) {
+				Dungeon.level.drop(food, pos).sprite.drop();
+			}
+		}
+	}
 	
 	protected Object loot = null;
 	protected float lootChance = 0;
+	protected Object food = null;
+	protected float foodChance = 0;
 	
 	@SuppressWarnings("unchecked")
 	public Item createLoot() {
@@ -1010,6 +1051,10 @@ public abstract class Mob extends Char {
 
 		}
 		return item;
+	}
+
+	public Item createFood() {
+		return (Item) food;
 	}
 
 	//how many mobs this one should count as when determining spawning totals

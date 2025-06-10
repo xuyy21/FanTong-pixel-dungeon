@@ -141,17 +141,17 @@ public class NewsScene extends PixelScene {
 			top += 20;
 		}
 
-		StyledButton btnSite = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(this, "read_more")){
-			@Override
-			protected void onClick() {
-				super.onClick();
-				ShatteredPixelDungeon.platform.openURI("https://ShatteredPixel.com");
-			}
-		};
-		btnSite.icon(Icons.get(Icons.NEWS));
-		btnSite.textColor(Window.TITLE_COLOR);
-		btnSite.setRect(left, top, fullWidth, BTN_HEIGHT);
-		add(btnSite);
+//		StyledButton btnSite = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(this, "read_more")){
+//			@Override
+//			protected void onClick() {
+//				super.onClick();
+//				ShatteredPixelDungeon.platform.openURI("https://ShatteredPixel.com");
+//			}
+//		};
+//		btnSite.icon(Icons.get(Icons.NEWS));
+//		btnSite.textColor(Window.TITLE_COLOR);
+//		btnSite.setRect(left, top, fullWidth, BTN_HEIGHT);
+//		add(btnSite);
 
 	}
 
@@ -206,16 +206,16 @@ public class NewsScene extends PixelScene {
 				} else {
 					message += "\n\n" + Messages.get(this, "news_disabled");
 
-					button = new RedButton(Messages.get(this, "enable_news")) {
-						@Override
-						protected void onClick() {
-							super.onClick();
-							SPDSettings.news(true);
-							News.checkForNews();
-							ShatteredPixelDungeon.seamlessResetScene();
-						}
-					};
-					add(button);
+//					button = new RedButton(Messages.get(this, "enable_news")) {
+//						@Override
+//						protected void onClick() {
+//							super.onClick();
+//							SPDSettings.news(true);
+//							News.checkForNews();
+//							ShatteredPixelDungeon.seamlessResetScene();
+//						}
+//					};
+//					add(button);
 				}
 			}
 

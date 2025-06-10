@@ -30,9 +30,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FoodEmpower;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Magic_mark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
@@ -401,6 +404,14 @@ public abstract class Wand extends Item {
 				lvl += 2;
 			}
 
+			if (charger.target.buff(FoodEmpower.class) != null) {
+				lvl += 1;
+			}
+
+			if (charger.target.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class) != null) {
+				lvl += charger.target.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class).getLevel();
+			}
+
 			if (curCharges == 1 && charger.target instanceof Hero && ((Hero)charger.target).hasTalent(Talent.DESPERATE_POWER)){
 				lvl += ((Hero)charger.target).pointsInTalent(Talent.DESPERATE_POWER);
 			}
@@ -500,6 +511,14 @@ public abstract class Wand extends Item {
 			if (empower != null){
 				empower.use();
 			}
+			FoodEmpower empower2 = curUser.buff(FoodEmpower.class);
+			if (empower2 != null){
+				empower2.use();
+			}
+			Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff empower3 = curUser.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class);
+			if (empower3 != null){
+				empower3.use();
+			}
 		}
 
 		//If hero owns wand but it isn't in belongings it must be in the staff
@@ -514,6 +533,10 @@ public abstract class Wand extends Item {
 				&& charger != null && charger.target == Dungeon.hero){
 
 			Buff.prolong(Dungeon.hero, Talent.LingeringMagicTracker.class, 5f);
+		}
+
+		if (Dungeon.hero.hasTalent(Talent.HOLD_FAST) && (Dungeon.hero.pointsInTalent(Talent.HOLD_FAST) >= 3)){
+			Buff.affect(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
 		}
 
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
@@ -539,7 +562,16 @@ public abstract class Wand extends Item {
 		Invisibility.dispel();
 		updateQuickslot();
 
-		curUser.spendAndNext( TIME_TO_ZAP );
+		if(Dungeon.hero==curUser && Dungeon.hero.subClass==HeroSubClass.MAGICIAN){
+			Buff.affect(Dungeon.hero, Magic_mark.class).gainmark(1 + Math.min(1, 0.1f*Dungeon.hero.pointsInTalent(Talent.BASIC_MAGIC)*level()));
+		}
+
+		if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
+			curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).used();
+			curUser.spendAndNext(0);
+		} else {
+			curUser.spendAndNext(TIME_TO_ZAP);
+		}
 	}
 	
 	@Override
@@ -691,6 +723,10 @@ public abstract class Wand extends Item {
 							return;
 						}
 
+						if(Dungeon.hero==curUser && Dungeon.hero.subClass==HeroSubClass.MAGICIAN){
+							Buff.affect(Dungeon.hero, Magic_mark.class).gainmark(1 + Math.min(1, 0.1f*Dungeon.hero.pointsInTalent(Talent.BASIC_MAGIC)* curWand.level()));
+						}
+
 						float shield = curUser.HT * (0.04f*curWand.curCharges);
 						if (curUser.pointsInTalent(Talent.SHIELD_BATTERY) == 2) shield *= 1.5f;
 						Buff.affect(curUser, Barrier.class).setShield(Math.round(shield));
@@ -700,7 +736,12 @@ public abstract class Wand extends Item {
 						Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						ScrollOfRecharging.charge(curUser);
 						updateQuickslot();
-						curUser.spendAndNext(Actor.TICK);
+						if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
+							curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).used();
+							curUser.spendAndNext(0);
+						} else {
+							curUser.spendAndNext(TIME_TO_ZAP);
+						}
 						return;
 					}
 					GLog.i( Messages.get(Wand.class, "self_target") );

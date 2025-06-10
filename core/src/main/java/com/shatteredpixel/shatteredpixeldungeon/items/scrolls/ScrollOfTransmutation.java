@@ -67,7 +67,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 	}
 
 	@Override
-	protected boolean usableOnItem(Item item) {
+	public boolean usableOnItem(Item item) {
 		//all melee weapons, except pickaxe when in a mining level
 		if (item instanceof MeleeWeapon){
 			return !(item instanceof Pickaxe && Dungeon.level instanceof MiningLevel);
@@ -96,7 +96,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 	}
 	
 	@Override
-	protected void onItemSelected(Item item) {
+	public void onItemSelected(Item item) {
 		
 		Item result = changeItem(item);
 		

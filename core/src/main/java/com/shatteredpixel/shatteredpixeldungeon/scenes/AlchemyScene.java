@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Cookware;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
@@ -715,6 +716,12 @@ public class AlchemyScene extends PixelScene {
 
 		}
 
+		if (cookware != null){
+			if (cookware.brew()) {
+				onBackPressed();
+			}
+		}
+
 		boolean foundItems = true;
 		for (Item i : lastIngredients){
 			Item found = Dungeon.hero.belongings.getSimilar(i);
@@ -1199,6 +1206,16 @@ public class AlchemyScene extends PixelScene {
 
 	public static void clearToolkit(){
 		AlchemyScene.toolkit = null;
+	}
+
+	private static Cookware cookware;
+
+	public static void assignCookware( Cookware cookware ){
+		AlchemyScene.cookware = cookware;
+	}
+
+	public static void clearCookware(){
+		AlchemyScene.cookware = null;
 	}
 
 }

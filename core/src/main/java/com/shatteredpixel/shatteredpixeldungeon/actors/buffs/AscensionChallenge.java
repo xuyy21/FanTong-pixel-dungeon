@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmedSkeleton;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Brute;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Crab;
@@ -39,8 +40,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Golem;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mandrake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MushMen;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Necromancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RipperDemon;
@@ -53,6 +56,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Spinner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Succubus;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Swarm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Treants;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
@@ -81,14 +85,17 @@ public class AscensionChallenge extends Buff {
 		modifiers.put(DM100.class,          4.5f);
 		modifiers.put(Guard.class,          4f);
 		modifiers.put(Necromancer.class,    4f);
+		modifiers.put(Mandrake.class,    	5f);
 
 		modifiers.put(Bat.class,            2.5f);
 		modifiers.put(Brute.class,          2.25f);
 		modifiers.put(Shaman.class,         2.25f);
 		modifiers.put(Spinner.class,        2f);
 		modifiers.put(DM200.class,          2f);
+		modifiers.put(Treants.class,        2f);
 
 		modifiers.put(Ghoul.class,          1.67f);
+		modifiers.put(MushMen.class,        1.67f);
 		modifiers.put(Elemental.class,      1.67f);
 		modifiers.put(Warlock.class,        1.5f);
 		modifiers.put(Monk.class,           1.5f);
@@ -98,6 +105,7 @@ public class AscensionChallenge extends Buff {
 		modifiers.put(Succubus.class,       1.2f);
 		modifiers.put(Eye.class,            1.1f);
 		modifiers.put(Scorpio.class,        1.1f);
+		modifiers.put(ArmedSkeleton.class,  1.1f);
 	}
 
 	public static float statModifier(Char ch){

@@ -131,4 +131,9 @@ public class Ankh extends Item {
 	public int value() {
 		return 50 * quantity;
 	}
+
+	@Override
+	public int energyVal() {
+		return blessed ? (40 * quantity) : (20 * quantity);
+	}
 }

@@ -21,14 +21,21 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bee;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -252,6 +259,78 @@ public class Honeypot extends Item {
 		@Override
 		public int value() {
 			return 5 * quantity;
+		}
+
+		@Override
+		public int energyVal() {
+			return 2 * quantity;
+		}
+	}
+
+	public static class HalfPot extends Item {
+
+		{
+			image = ItemSpriteSheet.HALFPOT;
+			stackable = true;
+		}
+
+		@Override
+		public boolean isUpgradable() {
+			return false;
+		}
+
+		@Override
+		public boolean isIdentified() {
+			return true;
+		}
+
+		@Override
+		public int value() {
+			return 2 * quantity;
+		}
+
+		@Override
+		public int energyVal() {
+			return quantity;
+		}
+
+		public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
+
+			@Override
+			public boolean testIngredients(ArrayList<Item> ingredients) {
+				boolean pot = false;
+
+				for (Item ingredient : ingredients){
+					if (ingredient.quantity() > 0) {
+						if (ingredient instanceof Honeypot.ShatteredPot) {
+							pot = true;
+						}
+					}
+				}
+
+				return pot;
+			}
+
+			@Override
+			public int cost(ArrayList<Item> ingredients) {
+				return 0;
+			}
+
+			@Override
+			public Item brew(ArrayList<Item> ingredients) {
+				if (!testIngredients(ingredients)) return null;
+
+				for (Item ingredient : ingredients){
+					ingredient.quantity(ingredient.quantity() - 1);
+				}
+
+				return sampleOutput(null);
+			}
+
+			@Override
+			public Item sampleOutput(ArrayList<Item> ingredients) {
+				return new HalfPot().quantity(2);
+			}
 		}
 	}
 }

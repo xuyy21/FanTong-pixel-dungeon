@@ -237,6 +237,7 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_CHALLENGES	= "challenges";
 	public static final String KEY_CUSTOM_SEED	= "custom_seed";
 	public static final String KEY_LAST_DAILY	= "last_daily";
+	public static final String KEY_TESTING = "testing";
 	public static final String KEY_INTRO		= "intro";
 
 	public static final String KEY_SUPPORT_NAGGED= "support_nagged";
@@ -282,6 +283,14 @@ public class SPDSettings extends GameSettings {
 		return getLong( KEY_LAST_DAILY, 0);
 	}
 
+	public static void testing( boolean value ){
+		put( KEY_TESTING, value );
+	}
+
+	public static boolean testing() {
+		return getBoolean( KEY_TESTING, false);
+	}
+
 	public static void supportNagged( boolean value ) {
 		put( KEY_SUPPORT_NAGGED, value );
 	}
@@ -295,7 +304,8 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean victoryNagged() {
-		return getBoolean(KEY_VICTORY_NAGGED, false);
+		return true;
+//		return getBoolean(KEY_VICTORY_NAGGED, false);
 	}
 
 	//Input
@@ -333,7 +343,8 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean news(){
-		return getBoolean(KEY_NEWS, true);
+//		return getBoolean(KEY_NEWS, true);
+		return false;
 	}
 
 	public static void updates(boolean value){

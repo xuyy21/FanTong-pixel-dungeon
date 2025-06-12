@@ -46,7 +46,7 @@ public class Magic_mark extends Buff implements ActionIndicator.Action {
 
     @Override
     public int icon() {
-        return BuffIndicator.MAGIC;
+        return BuffIndicator.MAGIC_MARK;
     }
 
     @Override

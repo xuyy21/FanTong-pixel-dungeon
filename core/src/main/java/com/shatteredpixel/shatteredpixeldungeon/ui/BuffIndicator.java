@@ -136,7 +136,8 @@ public class BuffIndicator extends Component {
 	public static final int MANY_POWER  = 83;
 	public static final int SEAL_SHIELD = 84;
 
-	public static final int MAGIC       = 85;
+	public static final int MAGIC_MARK 	= 85;
+	public static final int RABBIT_MAGIC = 86;
 
 	public static final int SIZE_SMALL  = 7;
 	public static final int SIZE_LARGE  = 16;

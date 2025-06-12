@@ -12,7 +12,7 @@ public class RabbitMagic extends FlavourBuff{
 
     @Override
     public int icon() {
-        return BuffIndicator.BLESS;
+        return BuffIndicator.RABBIT_MAGIC;
     }
 
     @Override

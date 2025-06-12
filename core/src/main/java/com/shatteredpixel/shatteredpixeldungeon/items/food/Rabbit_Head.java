@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 public class Rabbit_Head extends Food{
 
     {
-        image = ItemSpriteSheet.Honey_MEAT;
+        image = ItemSpriteSheet.RABBIT_HEAD;
         energy = Hunger.HUNGRY/2f;
         canFakeEat = true;
     }

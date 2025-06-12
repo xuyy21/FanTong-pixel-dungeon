@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ChewGum extends Food{
 
     {
-        image = ItemSpriteSheet.BERRY_CAKE;
+        image = ItemSpriteSheet.CHEWGUM;
         energy = 0;
         canFakeEat = false;
     }

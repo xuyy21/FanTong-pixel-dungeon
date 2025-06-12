@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Magic_Coin extends Food {
 
     {
-        image = ItemSpriteSheet.PASTY;
+        image = ItemSpriteSheet.MAGIC_COIN;
         energy = Hunger.STARVING;
         canFakeEat = true;
     }

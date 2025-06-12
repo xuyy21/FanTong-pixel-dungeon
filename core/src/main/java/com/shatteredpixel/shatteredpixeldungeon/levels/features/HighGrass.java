@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -37,18 +38,39 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.GarlandOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.PetrifiedSeed;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Mageroyal;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
 
 public class HighGrass {
 	
 	//prevents items dropped from grass, from trampling that same grass.
 	//yes this is a bit ugly, oh well.
 	private static boolean freezeTrample = false;
+
+	private static Class[] usefulPlants = new Class[]{
+			Earthroot.class, Mageroyal.class, Starflower.class, Sungrass.class,  Swiftthistle.class
+	};
+
+	private static Class[] harmfulPlants = new Class[]{
+			Blindweed.class, Firebloom.class, Icecap.class, Sorrowmoss.class,  Stormvine.class
+	};
 
 	public static void trample( Level level, int pos ) {
 		
@@ -120,6 +142,38 @@ public class HighGrass {
 						dropped.countUp(1);
 						level.drop(new Berry(), pos).sprite.drop();
 					}
+				}
+
+				if (ch instanceof Hero && ((Hero) ch).belongings != null && Dungeon.hero.belongings.getItem(GarlandOfNature.class) != null) {
+					float r = Random.Float();
+
+					if (r<GarlandOfNature.positive_probability()){
+						Plant plant = (Plant) Reflection.newInstance(Random.element(usefulPlants));
+						plant.pos = ch.pos;
+						if (((Hero) ch).subClass == HeroSubClass.WARDEN){
+							((Hero) ch).subClass = HeroSubClass.NONE;
+							plant.activate( ch );
+							((Hero) ch).subClass = HeroSubClass.WARDEN;
+						} else {
+							plant.activate( ch );
+						}
+					}
+
+					if (r>GarlandOfNature.negtive_probability()){
+						Plant plant = (Plant) Reflection.newInstance(Random.element(harmfulPlants));
+						plant.pos = ch.pos;
+						if (((Hero) ch).subClass == HeroSubClass.WARDEN){
+							((Hero) ch).subClass = HeroSubClass.NONE;
+							plant.activate( ch );
+							((Hero) ch).subClass = HeroSubClass.WARDEN;
+						} else {
+							plant.activate( ch );
+						}
+						Buff.detach(ch, GarlandOfNature.Abuse.class);
+					}
+
+					GarlandOfNature.Abuse abuse = Buff.affect(ch, GarlandOfNature.Abuse.class);
+					Buff.prolong(ch, GarlandOfNature.Abuse.class, 5f+abuse.visualcooldown());
 				}
 			}
 

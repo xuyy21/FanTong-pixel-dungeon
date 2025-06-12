@@ -7,7 +7,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Magic_mark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -50,6 +52,7 @@ public class Magic_Coin extends Food {
         public boolean testIngredients(ArrayList<Item> ingredients) {
             boolean pasty = false;
             boolean seed = false;
+            boolean metal = false;
 
             for (Item ingredient : ingredients){
                 if (ingredient.quantity() > 0) {
@@ -57,11 +60,13 @@ public class Magic_Coin extends Food {
                         seed = true;
                     } else if (ingredient instanceof Pasty) {
                         pasty = true;
+                    } else if (ingredient instanceof LiquidMetal && ingredient.quantity()>=10) {
+                        metal = true;
                     }
                 }
             }
 
-            return pasty && seed && Dungeon.hero.pointsInTalent(Talent.MAGICMARK_MEAL)>=3;
+            return pasty && seed && metal && Dungeon.hero.pointsInTalent(Talent.MAGICMARK_MEAL)>=3;
         }
 
         @Override
@@ -74,7 +79,11 @@ public class Magic_Coin extends Food {
             if (!testIngredients(ingredients)) return null;
 
             for (Item ingredient : ingredients){
-                ingredient.quantity(ingredient.quantity() - 1);
+                if (ingredient instanceof Honeypot.HalfPot){
+                    ingredient.quantity(ingredient.quantity() - 1);
+                } else if (ingredient instanceof LiquidMetal){
+                    ingredient.quantity(ingredient.quantity() - 10);
+                }
             }
 
             return sampleOutput(null);

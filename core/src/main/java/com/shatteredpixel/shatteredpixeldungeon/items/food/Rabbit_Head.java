@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -52,7 +53,7 @@ public class Rabbit_Head extends Food{
 
             for (Item ingredient : ingredients){
                 if (ingredient.quantity() > 0) {
-                    if (ingredient instanceof Firebloom.Seed) {
+                    if (ingredient instanceof Plant.Seed) {
                         seed = true;
                     } else if (ingredient instanceof MysteryMeat
                             || ingredient instanceof StewedMeat
@@ -68,7 +69,7 @@ public class Rabbit_Head extends Food{
 
         @Override
         public int cost(ArrayList<Item> ingredients) {
-            return 6;
+            return 2;
         }
 
         @Override

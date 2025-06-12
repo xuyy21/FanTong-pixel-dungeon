@@ -260,7 +260,6 @@ public abstract class Recipe {
 		new Mandrake_liquor.Recipe(),
 		new ChewGum.Recipe(),
 		new Rabbit_Head.Recipe(),
-		new Magic_Coin.Recipe(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
@@ -274,7 +273,8 @@ public abstract class Recipe {
 		new Gland.GlandToPotion(),
 		new MushroomSoup.Recipe(),
 		new BlackPudding.Recipe(),
-		new MandrakeRoot.MandrakeToPotion()
+		new MandrakeRoot.MandrakeToPotion(),
+		new Magic_Coin.Recipe(),
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){

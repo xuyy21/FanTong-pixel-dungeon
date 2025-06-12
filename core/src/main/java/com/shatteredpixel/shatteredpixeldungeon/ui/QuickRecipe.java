@@ -408,12 +408,12 @@ public class QuickRecipe extends Component {
 					}
 					if (Dungeon.hero.pointsInTalent(Talent.MAGICMARK_MEAL)>=2) {
 						result.add(new QuickRecipe(new Rabbit_Head.Recipe(),
-								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Firebloom.Seed())),
+								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Plant.Seed.PlaceHolder())),
 								new Rabbit_Head()));
 					}
 					if (Dungeon.hero.pointsInTalent(Talent.MAGICMARK_MEAL)>=3) {
 						result.add(new QuickRecipe(new Magic_Coin.Recipe(),
-								new ArrayList<Item>(Arrays.asList(new Pasty(), new Plant.Seed.PlaceHolder())),
+								new ArrayList<Item>(Arrays.asList(new Pasty(), new Plant.Seed.PlaceHolder(), new LiquidMetal().quantity(10))),
 								new Magic_Coin()));
 					}
 					if (Dungeon.hero.belongings != null) {

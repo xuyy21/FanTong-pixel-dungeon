@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -132,6 +133,41 @@ public abstract class Trinket extends Item {
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
 			return ingredients.get(0).duplicate().upgrade();
+		}
+	}
+
+	public static class TransTrinket extends Recipe {
+
+		@Override
+		public boolean testIngredients(ArrayList<Item> ingredients) {
+			return ingredients.size() == 1 && ingredients.get(0) instanceof Trinket;
+		}
+
+		@Override
+		public int cost(ArrayList<Item> ingredients) {
+			return ingredients.get(0).buffedLvl()*5+5;
+		}
+
+		@Override
+		public Item brew(ArrayList<Item> ingredients) {
+			Item ingredient = ingredients.get(0);
+			Item result = Generator.random(Generator.Category.TRINKET);
+			if (result.getClass()==ingredient.getClass()) {
+				result = Generator.random(Generator.Category.TRINKET);
+			}
+
+			result.upgrade(ingredient.buffedLvl());
+			result.identify();
+			ingredient.quantity(0);
+
+			Catalog.countUse(result.getClass());
+
+			return result;
+		}
+
+		@Override
+		public Item sampleOutput(ArrayList<Item> ingredients) {
+			return new Trinket.PlaceHolder();
 		}
 	}
 }

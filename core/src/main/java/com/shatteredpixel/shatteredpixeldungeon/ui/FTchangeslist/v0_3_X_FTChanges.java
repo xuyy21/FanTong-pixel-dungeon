@@ -36,6 +36,9 @@ public class v0_3_X_FTChanges {
                         "魔术师可以在使用老魔杖或者法杖施法时获得咒印，咒印可以用于施展独特魔术！\n\n" +
                         "现在共有7种不同的魔术，欢迎提出意见！"));
 
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.TRINKET_HOLDER), "重练饰品",
+                "现在可以在炼金锅中将饰品变成另一种饰品。\n\n每次重练需要消耗5+5*饰品等级的炼金能量。"));
+
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(CharSprite.WARNING);
         changeInfos.add(changes);

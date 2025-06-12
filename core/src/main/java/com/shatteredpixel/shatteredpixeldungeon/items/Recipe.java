@@ -223,6 +223,7 @@ public abstract class Recipe {
 		new StewedMeat.oneMeat(),
 		new TrinketCatalyst.Recipe(),
 		new Trinket.UpgradeTrinket(),
+		new Trinket.TransTrinket(),
 		new SmallRation.Recipe(),
 		new Juice.Recipe(),
 		new Tempura.Recipe(),

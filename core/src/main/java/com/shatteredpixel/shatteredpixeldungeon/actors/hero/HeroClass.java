@@ -271,7 +271,7 @@ public enum HeroClass {
 			new Hulu().collect();
 			new Ankh().collect();
 			new TrinketCatalyst().collect();
-			new GarlandOfNature().collect();
+//			new GarlandOfNature().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

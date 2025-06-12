@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
+import com.badlogic.gdx.utils.Null;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -36,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Magic_mark;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RabbitMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
@@ -56,6 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
@@ -71,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
@@ -801,6 +805,7 @@ public abstract class Wand extends Item {
 									@Override
 									public void call() {
 										curWand.wandUsed();
+										RabbitMagicBlink(curWand, target);
 									}
 								});
 					} else {
@@ -816,17 +821,18 @@ public abstract class Wand extends Item {
 												public void call() {
 													WondrousResin.forcePositive = false;
 													curWand.wandUsed();
+													RabbitMagicBlink(curWand, target);
 												}
 											});
 								} else {
 									curWand.wandUsed();
+									RabbitMagicBlink(curWand, target);
 								}
 							}
 						});
 
 					}
 					curWand.cursedKnown = true;
-					
 				}
 				
 			}
@@ -835,6 +841,33 @@ public abstract class Wand extends Item {
 		@Override
 		public String prompt() {
 			return Messages.get(Wand.class, "prompt");
+		}
+
+		public void RabbitMagicBlink(Wand curWand, int cell) {
+			if (curUser.buff(RabbitMagic.class)!=null) {
+				if (curUser.belongings.getItem(MagesStaff.class)!=null
+						&& ((MagesStaff)curUser.belongings.getItem(MagesStaff.class)).isWandinStaff(curWand)){
+					int cell2blink = cell;
+					if (Dungeon.level.adjacent(curUser.pos, cell)) return;
+					if (!Dungeon.level.passable[cell2blink] || Actor.findChar(cell2blink) != null) {
+						ArrayList<Integer> cells = new ArrayList<>();
+						for (int i : PathFinder.NEIGHBOURS9) {
+							int p = cell2blink + i;
+							if (Dungeon.level.passable[p] && Actor.findChar(p) == null) {
+								cells.add(p);
+							}
+						}
+						Random.shuffle(cells);
+						if (cells.isEmpty()) {
+							GLog.w( Messages.get(RabbitMagic.class, "no_space"));
+							return;
+						} else {
+							cell2blink = cells.get(0);
+						}
+					}
+					ScrollOfTeleportation.teleportToLocation(curUser, cell2blink);
+				}
+			}
 		}
 	};
 	

@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.BerryCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ChewGum;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cooked_larva;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cookit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
@@ -37,12 +38,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Magic_Coin;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mandrake_liquor;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MushroomSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Rabbit_Head;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
@@ -254,7 +257,10 @@ public abstract class Recipe {
 		new BerryCake.Recipe(),
 		new EyeCake.Recipe(),
 		new Cooked_larva.Recipe(),
-		new Mandrake_liquor.Recipe()
+		new Mandrake_liquor.Recipe(),
+		new ChewGum.Recipe(),
+		new Rabbit_Head.Recipe(),
+		new Magic_Coin.Recipe(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

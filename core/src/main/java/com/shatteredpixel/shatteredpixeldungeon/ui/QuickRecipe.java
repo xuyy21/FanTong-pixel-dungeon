@@ -48,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.BigEye;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ChewGum;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
@@ -57,11 +58,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Magic_Coin;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Rabbit_Head;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
@@ -105,6 +108,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -396,6 +400,21 @@ public class QuickRecipe extends Component {
 						result.add(new QuickRecipe(new EyeCake.Recipe(),
 								new ArrayList<Item>(Arrays.asList(new Food(), new BigEye())),
 								new EyeCake()));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.MAGICMARK_MEAL)>=1) {
+						result.add(new QuickRecipe(new ChewGum.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new Honeypot.HalfPot(), new LiquidMetal().quantity(4))),
+								new ChewGum().quantity(4)));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.MAGICMARK_MEAL)>=2) {
+						result.add(new QuickRecipe(new Rabbit_Head.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Firebloom.Seed())),
+								new Rabbit_Head()));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.MAGICMARK_MEAL)>=3) {
+						result.add(new QuickRecipe(new Magic_Coin.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new Pasty(), new Plant.Seed.PlaceHolder())),
+								new Magic_Coin()));
 					}
 					if (Dungeon.hero.belongings != null) {
 						RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);

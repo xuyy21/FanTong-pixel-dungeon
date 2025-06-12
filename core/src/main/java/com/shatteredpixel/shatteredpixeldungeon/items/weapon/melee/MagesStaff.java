@@ -299,6 +299,8 @@ public class MagesStaff extends MeleeWeapon {
 		return wand != null ? wand.getClass() : null;
 	}
 
+	public boolean isWandinStaff(Wand wand1) {return wand == wand1;}
+
 	@Override
 	public Item upgrade(boolean enchant) {
 		super.upgrade( enchant );

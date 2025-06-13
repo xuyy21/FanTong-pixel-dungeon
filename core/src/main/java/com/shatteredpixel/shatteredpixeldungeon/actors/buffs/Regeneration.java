@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Sprouted_Potato;
 import com.watabou.utils.Bundle;
 
 public class Regeneration extends Buff {
@@ -88,6 +89,9 @@ public class Regeneration extends Buff {
 				partialRegen += 1f / delay;
 
 				if (partialRegen >= 1) {
+					if (target.buff(Sprouted_Potato.Potato_Poison.class)!=null){
+						target.buff(Sprouted_Potato.Potato_Poison.class).reduce(1*Sprouted_Potato.regenerationMultiplier());
+					}
 					target.HP += 1;
 					partialRegen--;
 					if (target.HP == regencap()) {

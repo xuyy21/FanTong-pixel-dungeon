@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class Piezoelectric_Element extends Trinket{
 
     {
-        image = ItemSpriteSheet.FERRET_TUFT;
+        image = ItemSpriteSheet.PIZOELECT;
     }
 
     @Override

@@ -13,7 +13,7 @@ import com.watabou.utils.Bundle;
 public class Sprouted_Potato extends Trinket{
 
     {
-        image = ItemSpriteSheet.FERRET_TUFT;
+        image = ItemSpriteSheet.SPROUTEDPOTATO;
     }
 
     @Override

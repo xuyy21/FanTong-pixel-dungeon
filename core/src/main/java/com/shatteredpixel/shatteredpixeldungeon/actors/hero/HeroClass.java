@@ -275,7 +275,7 @@ public enum HeroClass {
 			new TrinketCatalyst().collect();
 //			new GarlandOfNature().collect();
 //			new Piezoelectric_Element().collect();
-			new Sprouted_Potato().collect();
+//			new Sprouted_Potato().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

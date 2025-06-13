@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class Digestion_pill extends Food{
 
     {
-        image = ItemSpriteSheet.JUICE;
+        image = ItemSpriteSheet.DIGESTION_PILL;
         energy = Hunger.HUNGRY/6f;
     }
 

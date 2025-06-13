@@ -523,6 +523,16 @@ public class ItemSpriteSheet {
 		assignItemRect(FERRET_TUFT,     16, 15);
 	}
 
+	private static final int MORE_TRINKETS  =                               xy(1, 38);
+	public static final int GARLAND       	= MORE_TRINKETS+0;
+	public static final int PIZOELECT 		= MORE_TRINKETS+1;
+	public static final int SPROUTEDPOTATO  = MORE_TRINKETS+2;
+	static{
+		assignItemRect(GARLAND,       	16, 14);
+		assignItemRect(PIZOELECT, 		15, 16);
+		assignItemRect(SPROUTEDPOTATO,  16, 16);
+	}
+
 	private static final int SCROLLS        =                               xy(1, 19);  //16 slots
 	public static final int SCROLL_KAUNAN   = SCROLLS+0;
 	public static final int SCROLL_SOWILO   = SCROLLS+1;
@@ -697,7 +707,7 @@ public class ItemSpriteSheet {
 		assignItemRect(SUMMON_ELE,      8, 16);
 
 		assignItemRect(GOO_STYLUS,      9, 10);
-		assignItemRect(COOKWARE,       	14, 13);
+		assignItemRect(COOKWARE,       	16, 15);
 	}
 	
 	private static final int FOOD       =                                   xy(1, 28);  //16 slots
@@ -786,6 +796,7 @@ public class ItemSpriteSheet {
 	public static final int CHEWGUM 		= COOKED_FOOD+22;
 	public static final int RABBIT_HEAD		= COOKED_FOOD+23;
 	public static final int MAGIC_COIN 		= COOKED_FOOD+24;
+	public static final int DIGESTION_PILL 	= COOKED_FOOD+25;
 	static{
 		assignItemRect(Honey_MEAT,    	15, 11);
 		assignItemRect(ICECREAM, 		10, 16);
@@ -810,6 +821,7 @@ public class ItemSpriteSheet {
 		assignItemRect(CHEWGUM,			15, 16);
 		assignItemRect(RABBIT_HEAD,		16, 14);
 		assignItemRect(MAGIC_COIN,		16, 16);
+		assignItemRect(DIGESTION_PILL,	16, 15);
 	}
 
 	private static final int HOLIDAY_FOOD   =                               xy(1, 29);  //16 slots
@@ -889,6 +901,7 @@ public class ItemSpriteSheet {
 		assignItemRect(HOLSTER,     15, 16);
 		assignItemRect(VIAL,        12, 12);
 		assignItemRect(FOODBAG,     15, 16);
+		assignItemRect(HULU,     	15, 15);
 	}
 
 	private static final int DOCUMENTS  =                                   xy(1, 32);  //16 slots

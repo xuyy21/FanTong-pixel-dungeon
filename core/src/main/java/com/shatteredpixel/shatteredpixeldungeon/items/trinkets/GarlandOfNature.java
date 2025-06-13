@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 public class GarlandOfNature extends Trinket{
 
     {
-        image = ItemSpriteSheet.FERRET_TUFT;
+        image = ItemSpriteSheet.GARLAND;
     }
 
     @Override

@@ -2,6 +2,9 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Digestion_pill;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.GarlandOfNature;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Piezoelectric_Element;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 
 public class v0_3_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_3_1_Changes(changeInfos);
         add_v0_3_0_Changes(changeInfos);
     }
 
@@ -74,6 +78,16 @@ public class v0_3_X_FTChanges {
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DIGESTION_PILL), "山楂消食片",
+                "现在可以在炼金锅用浆果制作山楂消食片。\n\n山楂消食片可以加速饱腹度消耗的同时加速自然恢复。"));
 
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.GARLAND), "自然头环",
+                "新饰品：自然头环\n\n这个头环由不会干枯的花枝编织而成。当你踩踏高草时花环的自然魔力有概率给予你随机的正面植物效果，但是如果你频繁高草，反而可能给予随机的负面植物效果。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.PIZOELECT), "压电元件",
+                "新饰品：压电元件\n\n这个不稳定的电路元件似乎仍然可以工作。当你收到伤害时，元件会产生电力，虽然会令你对痛觉更加敏感，但是也有可能为你的法杖与神器充能。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SPROUTEDPOTATO), "发芽土豆",
+                "新饰品：发芽土豆\n\n这个土豆已经发芽了，但是某人认为它依旧可以吃。在你极度饥饿的时候，这个土豆可以用来充饥，但是微量的毒素有损于你的健康。好消息是这种毒素可以被你代谢掉——如果你好好吃饭的话。"));
     }
 }

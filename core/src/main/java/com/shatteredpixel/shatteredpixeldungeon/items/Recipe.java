@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChewGum;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cooked_larva;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cookit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Digestion_pill;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Glandcandy;
@@ -229,7 +230,8 @@ public abstract class Recipe {
 		new Tempura.Recipe(),
 		new ToastBat.Recipe(),
 		new ScorpioTempura.Recipe(),
-		new Honeypot.HalfPot.Recipe()
+		new Honeypot.HalfPot.Recipe(),
+		new Digestion_pill.Recipe()
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{

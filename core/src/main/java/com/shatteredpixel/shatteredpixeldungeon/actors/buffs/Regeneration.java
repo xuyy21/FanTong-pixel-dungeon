@@ -81,6 +81,10 @@ public class Regeneration extends Buff {
 					delay /= SaltCube.healthRegenMultiplier();
 				}
 
+				if (target.buff(Helping_Digestion.class) != null){
+					delay /= 3f;
+				}
+
 				partialRegen += 1f / delay;
 
 				if (partialRegen >= 1) {

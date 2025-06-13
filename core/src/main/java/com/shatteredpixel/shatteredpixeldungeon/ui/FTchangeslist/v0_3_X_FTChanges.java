@@ -64,4 +64,16 @@ public class v0_3_X_FTChanges {
                 "曼德拉草现在只在第一次尖叫时播放音效，之后只有特效没有音效。如果您之前被曼德拉草折磨过耳膜，我再次表示歉意。\n\n" +
                         "曼德拉草现在在受到较低伤害时可以不会尖叫，这样就不用担心腐化的曼德拉草一直在叫。"));
     }
+
+    public static void add_v0_3_1_Changes(ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.3.1", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+
+    }
 }

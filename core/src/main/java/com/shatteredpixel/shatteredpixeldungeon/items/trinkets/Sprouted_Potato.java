@@ -103,6 +103,14 @@ public class Sprouted_Potato extends Trinket{
             if (target instanceof Hero) {
                 ((Hero) target).updateHT(false);
             }
+
+            if (target.HT <= 0) {
+                detach();
+
+                target.HP = 0;
+
+                target.die(this);
+            }
         }
 
         public void reduce(float point) {
@@ -120,6 +128,14 @@ public class Sprouted_Potato extends Trinket{
             if (level <= 0) {
                 detach();
             }
+        }
+
+        @Override
+        public void detach() {
+            level = 0;
+            ((Hero) target).updateHT(false);
+
+            super.detach();
         }
 
         @Override

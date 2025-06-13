@@ -131,6 +131,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Piezoelectric_Element;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -1616,6 +1617,14 @@ public class Hero extends Char {
 
 		//we ceil this one to avoid letting the player easily take 0 dmg from tenacity early
 		dmg = (int)Math.ceil(dmg * RingOfTenacity.damageMultiplier( this ));
+
+		if (belongings != null && belongings.getItem(Piezoelectric_Element.class) != null) {
+			dmg = (int)Math.ceil(dmg * Piezoelectric_Element.damageMultiplier());
+			if (Random.Float()<Piezoelectric_Element.chargeposibility()) {
+				Buff.prolong(this, Recharging.class, 3f);
+				Buff.affect(this, ArtifactRecharge.class).set(3f).ignoreHornOfPlenty = src instanceof Hunger;
+			}
+		}
 
 		int preHP = HP + shielding();
 		if (src instanceof Hunger) preHP -= shielding();

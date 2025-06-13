@@ -127,6 +127,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.GarlandOfNature;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Piezoelectric_Element;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
@@ -272,6 +273,7 @@ public enum HeroClass {
 			new Ankh().collect();
 			new TrinketCatalyst().collect();
 //			new GarlandOfNature().collect();
+//			new Piezoelectric_Element().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

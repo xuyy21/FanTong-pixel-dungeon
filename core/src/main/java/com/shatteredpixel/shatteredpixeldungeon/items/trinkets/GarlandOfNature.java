@@ -40,14 +40,14 @@ public class GarlandOfNature extends Trinket{
         if (level <= -1){
             return 0;
         } else {
-            return 0.02f*(level+1);
+            return 0.04f*(level+1);
         }
     }
 
     public static float negtive_probability(){
         Buff abuse = Dungeon.hero.buff(GarlandOfNature.Abuse.class);
         if (abuse == null) return 1f;
-        return 1f - (abuse.visualcooldown() - GarlandOfNature.limitation())/100f;
+        return (abuse.visualcooldown() - GarlandOfNature.limitation())/100f;
     }
 
     public static int limitation(){
@@ -55,17 +55,10 @@ public class GarlandOfNature extends Trinket{
     }
 
     public static int limitation(int level ){
-        switch (level){
-            default:
-                return 0;
-            case 0:
-                return 50;
-            case 1:
-                return 40;
-            case 2:
-                return 30;
-            case 3:
-                return 20;
+        if (level <= -1){
+            return 10;
+        } else {
+            return 50 - 10*level;
         }
     }
 
@@ -78,12 +71,8 @@ public class GarlandOfNature extends Trinket{
 
         @Override
         public int icon() {
-            return BuffIndicator.BLESS;
+            return BuffIndicator.GRASS;
         }
 
-        @Override
-        public float iconFadePercent() {
-            return Math.max(0, (DURATION - visualcooldown()) / DURATION);
-        }
     }
 }

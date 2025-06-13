@@ -159,7 +159,7 @@ public class HighGrass {
 						}
 					}
 
-					if (r>GarlandOfNature.negtive_probability()){
+					if (r>(1f - GarlandOfNature.negtive_probability())){
 						Plant plant = (Plant) Reflection.newInstance(Random.element(harmfulPlants));
 						plant.pos = ch.pos;
 						if (((Hero) ch).subClass == HeroSubClass.WARDEN){

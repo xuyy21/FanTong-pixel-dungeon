@@ -46,7 +46,7 @@ public class GarlandOfNature extends Trinket{
 
     public static float negtive_probability(){
         Buff abuse = Dungeon.hero.buff(GarlandOfNature.Abuse.class);
-        if (abuse == null) return 1f;
+        if (abuse == null) return 0f;
         return (abuse.visualcooldown() - GarlandOfNature.limitation())/100f;
     }
 

@@ -133,6 +133,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.Hulu;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWind;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
@@ -276,6 +277,7 @@ public enum HeroClass {
 //			new GarlandOfNature().collect();
 //			new Piezoelectric_Element().collect();
 //			new Sprouted_Potato().collect();
+			new WandOfWind().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

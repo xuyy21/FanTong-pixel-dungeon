@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
@@ -73,6 +74,7 @@ public class MagicMissile extends Emitter {
 	public static final int ELMO            = 14;
 	public static final int POISON          = 15;
 	public static final int LIGHT_MISSILE   = 16;
+	public static final int WIND			= 17;
 
 	public static final int MAGIC_MISS_CONE = 100;
 	public static final int FROST_CONE      = 101;
@@ -87,6 +89,7 @@ public class MagicMissile extends Emitter {
 	public static final int PURPLE_CONE     = 111;
 	public static final int SPARK_CONE      = 112;
 	public static final int BLOOD_CONE      = 113;
+	public static final int WIND_CONE		= 114;
 
 	//use SPECK + the constant of the Speck you want. e.g. MagicMissile.SPECK + Speck.TOXIC
 	public static final int SPECK           = 1000;
@@ -202,6 +205,10 @@ public class MagicMissile extends Emitter {
 				size( 4 );
 				pour( WhiteParticle.YELLOW, 0.01f );
 				break;
+			case WIND:
+				size( 3 );
+				pour(WindParticle.FACTORY, 0.005f );
+				break;
 
 			case MAGIC_MISS_CONE:
 				size( 10 );
@@ -254,6 +261,10 @@ public class MagicMissile extends Emitter {
 			case BLOOD_CONE:
 				size( 10 );
 				pour( BloodParticle.FACTORY, 0.03f );
+				break;
+			case WIND_CONE:
+				size( 3 );
+				pour(WindParticle.FACTORY, 0.002f );
 				break;
 		}
 

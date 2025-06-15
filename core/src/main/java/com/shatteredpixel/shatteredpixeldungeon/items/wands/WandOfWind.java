@@ -46,7 +46,7 @@ public class WandOfWind extends DamageWand{
 
         Sample.INSTANCE.play( Assets.Sounds.GAS, 1, Random.Float(0.5f, 0.67f) );
 
-        RevealedArea a = Buff.affect(curUser, RevealedArea.class, 10);
+        RevealedArea a = Buff.append(curUser, RevealedArea.class, 10);
         a.depth = Dungeon.depth;
         a.branch = Dungeon.branch;
         a.pos = bolt.collisionPos;

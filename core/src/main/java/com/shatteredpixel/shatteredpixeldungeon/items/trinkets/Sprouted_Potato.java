@@ -52,11 +52,12 @@ public class Sprouted_Potato extends Trinket{
     }
 
     public static float regenerationMultiplier(int level) {
-        if (level <= -1){
-            return 1;
-        } else {
-            return 0.1f + 0.1f*level;
-        }
+//        if (level <= -1){
+//            return 1;
+//        } else {
+//            return 0.1f + 0.1f*level;
+//        }
+        return 0.5f;
     }
 
     public static class Potato_Poison extends Buff implements Hero.Doom {

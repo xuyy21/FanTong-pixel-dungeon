@@ -173,7 +173,7 @@ public class HighGrass {
 					}
 
 					GarlandOfNature.Abuse abuse = Buff.affect(ch, GarlandOfNature.Abuse.class);
-					Buff.prolong(ch, GarlandOfNature.Abuse.class, 5f+abuse.visualcooldown());
+					Buff.affect(ch, GarlandOfNature.Abuse.class, 5f);
 				}
 			}
 

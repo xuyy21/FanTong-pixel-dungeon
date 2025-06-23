@@ -153,6 +153,11 @@ public abstract class PlantMonster extends Mob{
         }
 
         @Override
+        public int attackSkill( Char target ) {
+            return 0;
+        }
+
+        @Override
         protected boolean canAttack( Char enemy ){
             if (Dungeon.level.adjacent( pos, enemy.pos )){
                 return true;

@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.PlantMonsterSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 
 public class v0_3_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_3_2_Changes(changeInfos);
         add_v0_3_1_Changes(changeInfos);
         add_v0_3_0_Changes(changeInfos);
     }
@@ -89,5 +91,21 @@ public class v0_3_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SPROUTEDPOTATO), "发芽土豆",
                 "新饰品：发芽土豆\n\n这个土豆已经发芽了，但是某人认为它依旧可以吃。在你极度饥饿的时候，这个土豆可以用来充饥，但是微量的毒素有损于你的健康。好消息是这种毒素可以被你代谢掉——如果你好好吃饭的话。"));
+    }
+
+    public static void add_v0_3_2_Changes(ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.3.2", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Firebloom()), "特殊植物怪",
+                "现在疯狂植物挑战会添加额外的特殊植物怪，令其更具有挑战性。\n\n特殊植物怪包括：烈焰蝠，断肠蟹，冰冠蛛，风暴鲲，致盲蛇"));
+
+//        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DIGESTION_PILL), "山楂消食片",
+//                "现在可以在炼金锅用浆果制作山楂消食片。\n\n山楂消食片可以加速饱腹度消耗的同时加速自然恢复。"));
     }
 }

@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.EbonyMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GoldenMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.PlantMonster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Doge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
@@ -89,6 +90,7 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -261,6 +263,35 @@ public abstract class RegularLevel extends Level {
 		}
 
 		PathFinder.buildDistanceMap(entrance(), entranceWalkable, 8);
+
+		if (Dungeon.isChallenged(Challenges.CRAZY_PLANT)) {
+			PlantMonster mob = Reflection.newInstance(PlantMonster.random());
+
+			Room roomToSpawn;
+
+			if (!stdRoomIter.hasNext()) {
+				stdRoomIter = stdRooms.iterator();
+			}
+			roomToSpawn = stdRoomIter.next();
+
+			int tries = 30;
+			do {
+				mob.pos = pointToCell(roomToSpawn.random());
+				tries--;
+			} while (tries >= 0 && (findMob(mob.pos) != null
+					|| entranceFOV[mob.pos] || PathFinder.distance[mob.pos] != Integer.MAX_VALUE
+					|| !passable[mob.pos]
+					|| solid[mob.pos]
+					|| !roomToSpawn.canPlaceCharacter(cellToPoint(mob.pos), this)
+					|| mob.pos == exit()
+					|| traps.get(mob.pos) != null || plants.get(mob.pos) != null
+					|| (!openSpace[mob.pos] && mob.properties().contains(Char.Property.LARGE))));
+
+			if (tries >= 0) {
+				mobsToSpawn--;
+				mobs.add(mob);
+			}
+		}
 
 		Mob mob = null;
 		while (mobsToSpawn > 0) {

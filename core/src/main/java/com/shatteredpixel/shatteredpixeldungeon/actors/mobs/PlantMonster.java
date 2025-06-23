@@ -76,7 +76,7 @@ public abstract class PlantMonster extends Mob{
         public Firebloom() {
             super();
 
-            HP = HT = 3 + Dungeon.depth * 2;
+            HP = HT = 4 + Dungeon.depth * 2;
             defenseSkill = 4 + Dungeon.depth;
         }
 
@@ -112,20 +112,20 @@ public abstract class PlantMonster extends Mob{
         public Sorrowmoss() {
             super();
 
-            HP = HT = 5 + Dungeon.depth * 3;
+            HP = HT = 10 + Dungeon.depth * 3;
             defenseSkill = 1 + Dungeon.depth;
         }
 
         @Override
         public int attackProc(Char enemy, int damage) {
-            GameScene.add(Blob.seed(pos, 10, ToxicGas.class));
+            GameScene.add(Blob.seed(pos, 20, ToxicGas.class));
 
             return super.attackProc( enemy, damage );
         }
 
         @Override
         public int defenseProc( Char enemy, int damage ) {
-            GameScene.add(Blob.seed(pos, 20, ToxicGas.class));
+            GameScene.add(Blob.seed(pos, 30, ToxicGas.class));
 
             return super.defenseProc( enemy, damage );
         }
@@ -143,7 +143,7 @@ public abstract class PlantMonster extends Mob{
         public Icecap() {
             super();
 
-            HP = HT = 2 + Dungeon.depth * 2;
+            HP = HT = 4 + Dungeon.depth * 2;
             defenseSkill = 1 + Dungeon.depth;
         }
 
@@ -177,7 +177,7 @@ public abstract class PlantMonster extends Mob{
                 die(null);
             } else {
                 Buff.prolong(this, canbomb.class, attackDelay());
-                GLog.w(Messages.get(this, "readytobomb"));
+                GLog.w(Messages.get(this, "ready"));
                 ((PlantMonsterSprite.Icecap)sprite).readytobomb();
             }
 
@@ -229,7 +229,7 @@ public abstract class PlantMonster extends Mob{
         public Stormvine() {
             super();
 
-            HP = HT = 3 + Dungeon.depth * 3;
+            HP = HT = 6 + Dungeon.depth * 3;
             defenseSkill = 1 + Dungeon.depth;
         }
 
@@ -263,7 +263,7 @@ public abstract class PlantMonster extends Mob{
         public Blindweed() {
             super();
 
-            HP = HT = 3 + Dungeon.depth * 2;
+            HP = HT = 4 + Dungeon.depth * 2;
             defenseSkill = 10 + Dungeon.depth * 3;
         }
 

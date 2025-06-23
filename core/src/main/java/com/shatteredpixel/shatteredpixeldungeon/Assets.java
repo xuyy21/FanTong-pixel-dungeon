@@ -341,5 +341,7 @@ public class Assets {
 		public static final String MANDRAKE	= "sprites/mandrake.png";
 		public static final String TREANTS  = "sprites/treants.png";
 		public static final String CHOMPER 	= "sprites/chomper.png";
+
+		public static final String PLANTMONSTER 	= "sprites/plantmonster.png";
 	}
 }

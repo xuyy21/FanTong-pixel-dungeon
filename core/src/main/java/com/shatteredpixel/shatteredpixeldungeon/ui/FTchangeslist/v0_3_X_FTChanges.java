@@ -107,5 +107,12 @@ public class v0_3_X_FTChanges {
 
 //        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DIGESTION_PILL), "山楂消食片",
 //                "现在可以在炼金锅用浆果制作山楂消食片。\n\n山楂消食片可以加速饱腹度消耗的同时加速自然恢复。"));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
+        changes.hardlight(CharSprite.POSITIVE);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SPROUTEDPOTATO), "发芽土豆",
+                "发芽土豆在恢复HP上限时的比例提高为固定50%。"));
     }
 }

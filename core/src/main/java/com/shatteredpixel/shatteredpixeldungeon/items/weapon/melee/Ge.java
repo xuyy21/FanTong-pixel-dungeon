@@ -18,7 +18,7 @@ import com.watabou.utils.Callback;
 public class Ge extends MeleeWeapon{
 
     {
-        image = ItemSpriteSheet.SPEAR;
+        image = ItemSpriteSheet.GE;
         hitSound = Assets.Sounds.HIT_STAB;
         hitSoundPitch = 0.9f;
 

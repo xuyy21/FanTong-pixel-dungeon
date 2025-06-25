@@ -105,8 +105,14 @@ public class v0_3_X_FTChanges {
         changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Firebloom()), "特殊植物怪",
                 "现在疯狂植物挑战会添加额外的特殊植物怪，令其更具有挑战性。\n\n特殊植物怪包括：烈焰蝠，断肠蟹，冰冠蛛，风暴鲲，致盲蛇"));
 
-//        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DIGESTION_PILL), "山楂消食片",
-//                "现在可以在炼金锅用浆果制作山楂消食片。\n\n山楂消食片可以加速饱腹度消耗的同时加速自然恢复。"));
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_WIND), "风语法杖",
+                "一根新法杖！\n\n风语法杖可以用于范围伤害敌人和获取指定位置的视野。\n\n但是它的战法效果和元素风暴效果还有待优化。（不过放心，已经做了一个初版效果）"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.GE), "战戈",
+                "一种新的2距慢速武器，填补了2距武器在4阶武器的空白。\n\n同时我还给它设计了一个全新的武技！"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXTINCTIONER), "种群灭绝者",
+                "一种新武器，它的武技不具备攻击力而是拥有特殊功能。\n\n我希望这件奇特的武器可以带来独特的体验和启发更多灵感（快来投稿！！）。\n\n当然，它的数值可能还会调整一下。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
         changes.hardlight(CharSprite.POSITIVE);

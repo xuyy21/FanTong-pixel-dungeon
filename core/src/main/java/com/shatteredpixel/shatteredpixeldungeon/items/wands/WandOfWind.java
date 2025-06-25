@@ -21,7 +21,7 @@ import com.watabou.utils.Random;
 public class WandOfWind extends DamageWand{
 
     {
-        image = ItemSpriteSheet.WAND_MAGIC_MISSILE;
+        image = ItemSpriteSheet.WAND_WIND;
 
         collisionProperties = Ballistica.STOP_TARGET | Ballistica.STOP_SOLID;
     }
@@ -67,7 +67,7 @@ public class WandOfWind extends DamageWand{
 
     @Override
     public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
-        Buff.affect(curUser, Haste.class, 2f);
+        Buff.affect(curUser, Haste.class, 2f * Wand.procChanceMultiplier(attacker));
     }
 
 

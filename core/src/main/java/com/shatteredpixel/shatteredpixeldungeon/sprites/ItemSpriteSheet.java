@@ -254,6 +254,7 @@ public class ItemSpriteSheet {
 	public static final int ROUND_SHIELD    = WEP_TIER3+3;
 	public static final int SAI             = WEP_TIER3+4;
 	public static final int WHIP            = WEP_TIER3+5;
+	public static final int EXTINCTIONER	= WEP_TIER3+6;
 	static{
 		assignItemRect(SWORD,           14, 14);
 		assignItemRect(MACE,            15, 15);
@@ -261,6 +262,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ROUND_SHIELD,    16, 16);
 		assignItemRect(SAI,             16, 16);
 		assignItemRect(WHIP,            14, 14);
+		assignItemRect(EXTINCTIONER,	16, 16);
 	}
 
 	private static final int WEP_TIER4      =                               xy(9, 8);   //8 slots
@@ -271,6 +273,7 @@ public class ItemSpriteSheet {
 	public static final int ASSASSINS_BLADE = WEP_TIER4+4;
 	public static final int CROSSBOW        = WEP_TIER4+5;
 	public static final int KATANA          = WEP_TIER4+6;
+	public static final int GE          	= WEP_TIER4+7;
 	static{
 		assignItemRect(LONGSWORD,       15, 15);
 		assignItemRect(BATTLE_AXE,      16, 16);
@@ -279,6 +282,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ASSASSINS_BLADE, 14, 15);
 		assignItemRect(CROSSBOW,        15, 15);
 		assignItemRect(KATANA,          15, 16);
+		assignItemRect(GE,	          	16, 16);
 	}
 
 	private static final int WEP_TIER5      =                               xy(1, 9);   //8 slots
@@ -409,9 +413,11 @@ public class ItemSpriteSheet {
 	public static final int WAND_WARDING        = WANDS+10;
 	public static final int WAND_REGROWTH       = WANDS+11;
 	public static final int WAND_TRANSFUSION    = WANDS+12;
+	public static final int WAND_WIND    		= WANDS+13;
 	static {
 		for (int i = WANDS; i < WANDS+16; i++)
 			assignItemRect(i, 14, 14);
+		assignItemRect(WAND_WIND,    	15, 16);
 	}
 
 	private static final int RINGS          =                               xy(1, 15);  //16 slots
@@ -759,7 +765,7 @@ public class ItemSpriteSheet {
 		assignItemRect(RATTAIL,			15, 16);
 		assignItemRect(CRABCLAW,		16, 16);
 		assignItemRect(SLIMEBLOB,		10, 9);
-		assignItemRect(MYSTERYBONE,		13, 13);
+		assignItemRect(MYSTERYBONE,		16, 16);
 		assignItemRect(MUSHROOM,		15, 15);
 		assignItemRect(ROOT,			16, 14);
 		assignItemRect(BATBODY,			9, 14);

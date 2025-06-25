@@ -12,13 +12,12 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Reflection;
 
 public class Extinctioner extends MeleeWeapon{
 
     {
-        image = ItemSpriteSheet.SWORD;
+        image = ItemSpriteSheet.EXTINCTIONER;
         hitSound = Assets.Sounds.HIT_SLASH;
         hitSoundPitch = 1.2f;
 

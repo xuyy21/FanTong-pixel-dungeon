@@ -268,8 +268,13 @@ public abstract class PlantMonster extends Mob{
         public Blindweed() {
             super();
 
-            HP = HT = 4 + Dungeon.depth * 2;
-            defenseSkill = 10 + Dungeon.depth * 3;
+            HP = HT = 4 + Math.round(Dungeon.depth * 1.5f);
+            defenseSkill = 10 + Dungeon.depth * 2;
+        }
+
+        @Override
+        public int damageRoll() {
+            return Random.NormalIntRange( 1, 1+Math.round(Dungeon.depth * 0.5f) );
         }
 
         @Override

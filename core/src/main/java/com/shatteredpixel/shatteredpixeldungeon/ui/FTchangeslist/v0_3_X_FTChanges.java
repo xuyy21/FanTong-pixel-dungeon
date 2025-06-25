@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Piezoelectric_Ele
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ChomperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -129,5 +130,12 @@ public class v0_3_X_FTChanges {
 
         changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Firebloom()), "特殊植物怪",
                 "在上一个版本，植物怪会占用一个生成数量，现在已经修复这个bug。"));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
+        changes.hardlight(CharSprite.NEGATIVE);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Blindweed()), "致盲蛇",
+                "削弱致盲蛇，HP成长从2每层减为1.5每层，闪避成长从3每层减为2每层，伤害从1~1+楼层减为1~1+楼层/2。"));
     }
 }

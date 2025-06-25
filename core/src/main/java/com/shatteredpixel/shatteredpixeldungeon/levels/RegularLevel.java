@@ -288,7 +288,7 @@ public abstract class RegularLevel extends Level {
 					|| (!openSpace[mob.pos] && mob.properties().contains(Char.Property.LARGE))));
 
 			if (tries >= 0) {
-				mobsToSpawn--;
+//				mobsToSpawn--;
 				mobs.add(mob);
 			}
 		}

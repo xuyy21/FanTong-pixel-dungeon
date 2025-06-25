@@ -121,4 +121,13 @@ public class v0_3_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SPROUTEDPOTATO), "发芽土豆",
                 "发芽土豆在恢复HP上限时的比例提高为固定50%。"));
     }
+
+    public static void add_v0_3_3_Changes(ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.3.2", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Firebloom()), "特殊植物怪",
+                "在上一个版本，植物怪会占用一个生成数量，现在已经修复这个bug。"));
+    }
 }

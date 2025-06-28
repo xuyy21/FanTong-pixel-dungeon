@@ -240,7 +240,7 @@ public abstract class PlantMonster extends Mob{
 
         @Override
         public int attackProc(Char enemy, int damage) {
-            enemy.damage(Random.NormalIntRange(5 + Dungeon.scalingDepth() / 4, 10 + Dungeon.scalingDepth() / 4), new Electricity());
+            enemy.damage(Random.NormalIntRange(2 + Dungeon.scalingDepth() / 5, 4 + Dungeon.scalingDepth() / 5), new Electricity());
 
             return super.attackProc( enemy, damage );
         }

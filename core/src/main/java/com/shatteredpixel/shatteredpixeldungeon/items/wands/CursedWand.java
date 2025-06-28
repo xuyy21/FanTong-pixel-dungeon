@@ -55,6 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GoldenMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.PlantMonster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -574,8 +575,13 @@ public class CursedWand {
 				}
 				//does not harm allies if positive only
 				if (ch.alignment != Char.Alignment.ALLY || !positiveOnly){
-					//shocking dart damage and a little stun
-					ch.damage(Random.NormalIntRange(5 + Dungeon.scalingDepth() / 4, 10 + Dungeon.scalingDepth() / 4), new Electricity());
+					if (user.getClass()== PlantMonster.Stormvine.class) {
+						// reduce the damage from stormfish
+						ch.damage(Random.NormalIntRange(2 + Dungeon.scalingDepth() / 5, 4 + Dungeon.scalingDepth() / 5), new Electricity());
+					} else {
+						//shocking dart damage and a little stun
+						ch.damage(Random.NormalIntRange(5 + Dungeon.scalingDepth() / 4, 10 + Dungeon.scalingDepth() / 4), new Electricity());
+					}
 					if (ch.isAlive()) {
 						Buff.affect(ch, Paralysis.class, Paralysis.DURATION / 2f);
 					} else if (ch == Dungeon.hero){

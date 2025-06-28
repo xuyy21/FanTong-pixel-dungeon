@@ -124,7 +124,7 @@ public class v0_3_X_FTChanges {
     }
 
     public static void add_v0_3_3_Changes(ArrayList<ChangeInfo> changeInfos ) {
-        ChangeInfo changes = new ChangeInfo("v0.3.2", true, "");
+        ChangeInfo changes = new ChangeInfo("v0.3.3", true, "");
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
@@ -137,5 +137,8 @@ public class v0_3_X_FTChanges {
 
         changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Blindweed()), "致盲蛇",
                 "削弱致盲蛇，HP成长从2每层减为1.5每层，闪避成长从3每层减为2每层，伤害从1~1+楼层减为1~1+楼层/2。"));
+
+        changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Stormvine()), "风暴鲲",
+                "削弱风暴鲲，电击伤害从5+楼层/4~10+楼层/4减为2+楼层/5~4+楼层/5。"));
     }
 }

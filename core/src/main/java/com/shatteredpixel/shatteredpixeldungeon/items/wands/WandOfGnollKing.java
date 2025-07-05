@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class WandOfGnollKing extends DamageWand{
 
     {
-        image = ItemSpriteSheet.WAND_WARDING;
+        image = ItemSpriteSheet.WAND_GNOLLKING;
         usesTargeting = false; //player usually targets wards or spaces, not enemies
     }
 
@@ -45,13 +45,11 @@ public class WandOfGnollKing extends DamageWand{
     private MirrorGnoll firingone;
 
     public int min(int lvl){
-        return 0;
-//        return 2+lvl;
+        return 2+lvl;
     }
 
     public int max(int lvl){
-        return 0;
-//        return 5+2*lvl;
+        return 5+2*lvl;
     }
 
     public float gnollNumLimit() {
@@ -65,9 +63,9 @@ public class WandOfGnollKing extends DamageWand{
     @Override
     public String statsDesc() {
         if (levelKnown)
-            return Messages.get(this, "stats_desc", min(0), max(0), Messages.decimalFormat("#.##", 1));
-        else
             return Messages.get(this, "stats_desc", min(level()), max(level()), Messages.decimalFormat("#.##", gnollNumLimit(level())));
+        else
+            return Messages.get(this, "stats_desc", min(0), max(0), Messages.decimalFormat("#.##", 1));
     }
 
     @Override
@@ -77,13 +75,18 @@ public class WandOfGnollKing extends DamageWand{
 
     @Override
     public String upgradeStat2(int level) {
+        return 2*level() + "-" + (5 + 4*level());
+    }
+
+    @Override
+    public String upgradeStat3(int level) {
         return Messages.decimalFormat("#.##", gnollNumLimit(level()));
     }
 
     @Override
     public int collisionProperties(int target) {
         if (cursed)                                 return super.collisionProperties(target);
-        else if (!Dungeon.level.heroFOV[target])    return Ballistica.PROJECTILE;
+        else if (Char.findChar(target)!=null || !Dungeon.level.heroFOV[target])     return Ballistica.PROJECTILE;
         else                                        return Ballistica.STOP_TARGET;
     }
 
@@ -290,8 +293,7 @@ public class WandOfGnollKing extends DamageWand{
 
         @Override
         public int damageRoll() {
-//            return Random.NormalIntRange(2 * level, 5 + 4 * level);
-            return 2;
+            return Random.NormalIntRange(2 * level, 5 + 4 * level);
         }
 
         @Override
@@ -359,7 +361,7 @@ public class WandOfGnollKing extends DamageWand{
         public MirrorGnollSprite() {
             super();
 
-            texture( Assets.Sprites.GNOLL_GUARD );
+            texture( Assets.Sprites.MIRROR_GNOLL );
 
             TextureFilm frames = new TextureFilm( texture, 12, 16 );
 

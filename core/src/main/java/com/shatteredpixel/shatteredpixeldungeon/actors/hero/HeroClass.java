@@ -279,7 +279,7 @@ public enum HeroClass {
 //			new Piezoelectric_Element().collect();
 //			new Sprouted_Potato().collect();
 			new WandOfWind().collect();
-//			new WandOfGnollKing().collect();
+			new WandOfGnollKing().collect();
 			new Ge().collect();
 			new Extinctioner().collect();
 		}

@@ -144,6 +144,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Rapier;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sling;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpike;
@@ -271,7 +272,6 @@ public enum HeroClass {
 			new WandOfTransfusion().upgrade(10).collect();
 			new RingOfSkill().upgrade(30).collect();
 			new PawWithRings().collect();
-			new RingOfSkill().identify().collect();
 			new Hulu().collect();
 			new Ankh().collect();
 			new TrinketCatalyst().collect();
@@ -282,6 +282,7 @@ public enum HeroClass {
 			new WandOfGnollKing().collect();
 			new Ge().collect();
 			new Extinctioner().collect();
+			new Sling().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sling;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Xuanmi;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
@@ -173,7 +174,7 @@ public class LiquidMetal extends Item {
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
 			for (Item i : ingredients){
-				if (!(i instanceof MissileWeapon)){
+				if (!(i instanceof MissileWeapon) || i instanceof Sling.SlingsStone){
 					return false;
 				}
 			}

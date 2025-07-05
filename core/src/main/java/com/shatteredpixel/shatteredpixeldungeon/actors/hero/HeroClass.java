@@ -130,6 +130,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.GarlandOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Piezoelectric_Element;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Sprouted_Potato;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfGnollKing;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.Hulu;
@@ -261,7 +262,6 @@ public enum HeroClass {
 			toolkit.identify();
 			toolkit.level(10);
 			toolkit.collect();
-			new HornOfPlenty().collect();
 			new Stylus().quantity(10).collect();
 			new TengusMask().collect();
 			new KingsCrown().collect();
@@ -272,7 +272,6 @@ public enum HeroClass {
 			new RingOfSkill().upgrade(30).collect();
 			new PawWithRings().collect();
 			new RingOfSkill().identify().collect();
-			new ChaliceOfBlood().collect();
 			new Hulu().collect();
 			new Ankh().collect();
 			new TrinketCatalyst().collect();
@@ -280,6 +279,7 @@ public enum HeroClass {
 //			new Piezoelectric_Element().collect();
 //			new Sprouted_Potato().collect();
 			new WandOfWind().collect();
+//			new WandOfGnollKing().collect();
 			new Ge().collect();
 			new Extinctioner().collect();
 		}

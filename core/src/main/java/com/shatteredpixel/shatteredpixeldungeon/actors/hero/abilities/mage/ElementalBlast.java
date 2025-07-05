@@ -61,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfGnollKing;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
@@ -86,6 +87,7 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ElementalBlast extends ArmorAbility {
@@ -106,6 +108,7 @@ public class ElementalBlast extends ArmorAbility {
 		effectTypes.put(WandOfCorruption.class,     MagicMissile.SHADOW_CONE);
 		effectTypes.put(WandOfRegrowth.class,       MagicMissile.FOLIAGE_CONE);
 		effectTypes.put(WandOfWind.class,   		MagicMissile.WIND_CONE);
+		effectTypes.put(WandOfGnollKing.class,		MagicMissile.GNOLLKING_CONE);
 	}
 
 	private static final HashMap<Class<?extends Wand>, Float> damageFactors = new HashMap<>();
@@ -124,6 +127,7 @@ public class ElementalBlast extends ArmorAbility {
 		damageFactors.put(WandOfCorruption.class,       0f);
 		damageFactors.put(WandOfRegrowth.class,         0f);
 		damageFactors.put(WandOfWind.class,				1.2f);
+		damageFactors.put(WandOfGnollKing.class,		0.5f);
 	}
 
 	{
@@ -418,6 +422,42 @@ public class ElementalBlast extends ArmorAbility {
 								Buff.prolong(hero, Light.class, effectMulti * 50f);
 							}
 
+						//*** Wand of Gnoll King ***
+						} else if (finalWandCls == WandOfGnollKing.class) {
+							MagesStaff staff = hero.belongings.getItem(MagesStaff.class);
+							if (staff != null) {
+								int gnoll2spawn = 1;
+								float chance2spawn = effectMulti - 1f;
+								chance2spawn -= Random.NormalFloat(0, 1);
+								while (chance2spawn > 0) {
+									gnoll2spawn++;
+									chance2spawn -= Random.NormalFloat(0, 1);
+								}
+
+								ArrayList<Integer> respawnPoints = new ArrayList<>();
+								for (int i = 0; i < PathFinder.NEIGHBOURS9.length; i++) {
+									int p = hero.pos + PathFinder.NEIGHBOURS9[i];
+									if (Actor.findChar(p) == null && Dungeon.level.passable[p]) {
+										respawnPoints.add(p);
+									}
+								}
+
+								while (gnoll2spawn > 0 && !respawnPoints.isEmpty()) {
+									int index = Random.index(respawnPoints);
+
+									WandOfGnollKing.MirrorGnoll gnoll = new WandOfGnollKing.MirrorGnoll();
+									gnoll.setLevel(staff.buffedLvl());
+									Buff.affect(gnoll, WandOfGnollKing.MirrorGnoll.MirrorInvis.class, Short.MAX_VALUE);
+									gnoll.pos = respawnPoints.get(index);
+									GameScene.add(gnoll, 1f);
+									Dungeon.level.occupyCell(gnoll);
+									gnoll.sprite.emitter().burst(MagicMissile.GnollKingParticle.UP, staff.buffedLvl() / 2 + 1);
+									Dungeon.level.pressCell(respawnPoints.get(index));
+
+									respawnPoints.remove(index);
+									gnoll2spawn--;
+								}
+							}
 						}
 
 						charsHit = Math.min(4 + hero.pointsInTalent(Talent.REACTIVE_BARRIER), charsHit);

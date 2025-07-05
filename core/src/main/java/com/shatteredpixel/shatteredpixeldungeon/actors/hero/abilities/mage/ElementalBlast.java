@@ -442,6 +442,23 @@ public class ElementalBlast extends ArmorAbility {
 									}
 								}
 
+								int currentGnollNum = 0;
+								for (Char ch : Actor.chars()) {
+									if (ch instanceof WandOfGnollKing.MirrorGnoll)
+										currentGnollNum++;
+								}
+
+								float maxGnollNum = 0;
+								for (Buff buff : hero.buffs()){
+									if (buff instanceof Wand.Charger){
+										if (((Wand.Charger) buff).wand() instanceof WandOfGnollKing){
+											maxGnollNum += ((WandOfGnollKing)((Wand.Charger) buff).wand()).gnollNumLimit();
+										}
+									}
+								}
+
+								gnoll2spawn = Math.min(gnoll2spawn, (int)maxGnollNum-currentGnollNum);
+
 								while (gnoll2spawn > 0 && !respawnPoints.isEmpty()) {
 									int index = Random.index(respawnPoints);
 

@@ -225,6 +225,25 @@ public class WandOfGnollKing extends DamageWand{
             }
         }
 
+        int currentGnollNum = 0;
+        for (Char ch : Actor.chars()) {
+            if (ch instanceof MirrorGnoll)
+                currentGnollNum++;
+        }
+
+        float maxGnollNum = 0;
+        for (Buff buff : attacker.buffs()){
+            if (buff instanceof Wand.Charger){
+                if (((Charger) buff).wand() instanceof WandOfGnollKing){
+                    maxGnollNum += ((WandOfGnollKing)((Charger) buff).wand()).gnollNumLimit();
+                }
+            }
+        }
+
+        gnollAvailable = (currentGnollNum < (int)maxGnollNum);
+
+        gnoll2spawn = Math.min(gnoll2spawn, (int)maxGnollNum-currentGnollNum);
+
         while (gnoll2spawn > 0 && !respawnPoints.isEmpty()) {
             int index = Random.index( respawnPoints );
 

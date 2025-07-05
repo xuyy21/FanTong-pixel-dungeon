@@ -354,6 +354,7 @@ public class WandOfGnollKing extends DamageWand{
 
     public static class MirrorGnollSprite extends MobSprite {
         private int cellToAttack;
+        private Callback spearCallback;
 
         public MirrorGnollSprite() {
             super();
@@ -382,8 +383,9 @@ public class WandOfGnollKing extends DamageWand{
         @Override
         public void zap( int cell, Callback callback ) {
             cellToAttack = cell;
+            spearCallback = callback;
 
-            super.zap(cell, callback);
+            super.zap(cell, null);
         }
 
         @Override
@@ -392,12 +394,7 @@ public class WandOfGnollKing extends DamageWand{
                 idle();
 
                 ((MissileSprite)parent.recycle( MissileSprite.class )).
-                        reset( this, cellToAttack, new GnollSpear(), new Callback() {
-                            @Override
-                            public void call() {
-                                ch.onAttackComplete();
-                            }
-                        } );
+                        reset( this, cellToAttack, new GnollSpear(), spearCallback );
             } else {
                 super.onComplete( anim );
             }

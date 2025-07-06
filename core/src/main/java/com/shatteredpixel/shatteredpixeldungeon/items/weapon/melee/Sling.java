@@ -13,7 +13,7 @@ import com.watabou.noosa.audio.Sample;
 public class Sling extends MeleeWeapon{
 
     {
-        image = ItemSpriteSheet.SHORTSWORD;
+        image = ItemSpriteSheet.SLING;
         hitSound = Assets.Sounds.HIT;
         hitSoundPitch = 1.1f;
 

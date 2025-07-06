@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class RunicGauntle extends MeleeWeapon{
 
     {
-        image = ItemSpriteSheet.GAUNTLETS;
+        image = ItemSpriteSheet.RUNICGAUNTLE;
         hitSound = Assets.Sounds.HIT_CRUSH;
         hitSoundPitch = 0.8f;
 

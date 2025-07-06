@@ -156,8 +156,15 @@ public class v0_3_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_GNOLLKING), "王权法杖",
                 "一根新法杖！\n\n王权法杖的伤害很低，但是可以召唤豺狼幻影为你战斗，同时在你用王权法杖攻击目标时瞬间投矛集火。\n\n这是一把以召唤和物理伤害为主的法杖。"));
 
-//        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_GNOLLKING), "王权法杖",
-//                ""));
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.RUNICGAUNTLE), "符文拳套",
+                "新的二阶武器。\n\n我结合符文之刃的武技和高攻速附魔打法设计了这款武器，同时它还会给自己添加附魔，让你上手就能用。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SLING), "投石索",
+                "新的二阶武器。\n\n十字弩由于其特殊的机制，一直受到地牢人的好评。因此我设计了这款武器，虽然没有药镖和击退武技的加持，但是无限石子想必也能给你带来惊喜啊！\n\n当然，生成的石子是不能卖钱也不能做液金的。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.POTATOGUN), "土豆发射器",
+                "新的三阶武器。\n\n土豆兄弟联动武器（？），虽然我没玩过土豆兄弟，总之是群友投稿。\n\n这次我将类似于焰浪法杖和再生法杖的多充能消耗机制引入了武技系统，土豆发射器可以在消耗更多充能的时候扩大武技杀伤范围和附加额外效果。"));
+
 
     }
 }

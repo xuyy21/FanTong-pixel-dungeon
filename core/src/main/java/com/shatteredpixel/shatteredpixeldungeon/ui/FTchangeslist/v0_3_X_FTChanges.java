@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class v0_3_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_3_4_Changes(changeInfos);
         add_v0_3_3_Changes(changeInfos);
         add_v0_3_2_Changes(changeInfos);
         add_v0_3_1_Changes(changeInfos);
@@ -141,5 +142,22 @@ public class v0_3_X_FTChanges {
 
         changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Stormvine()), "风暴鲲",
                 "削弱风暴鲲，电击伤害从5+楼层/4~10+楼层/4减为2+楼层/5~4+楼层/5。"));
+    }
+
+    public static void add_v0_3_4_Changes( ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.3.4", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_GNOLLKING), "王权法杖",
+                "一根新法杖！\n\n王权法杖的伤害很低，但是可以召唤豺狼幻影为你战斗，同时在你用王权法杖攻击目标时瞬间投矛集火。\n\n这是一把以召唤和物理伤害为主的法杖。"));
+
+//        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_GNOLLKING), "王权法杖",
+//                ""));
+
     }
 }

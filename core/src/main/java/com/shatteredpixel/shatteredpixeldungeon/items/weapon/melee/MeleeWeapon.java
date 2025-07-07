@@ -500,13 +500,17 @@ public class MeleeWeapon extends Weapon {
 		}
 
 		public void gainCharge( float charge ){
-			if (charges < chargeCap()) {
+			gainCharge(charge, false);
+		}
+
+		public void gainCharge( float charge, boolean excess ) {
+			if (charges < chargeCap() || excess) {
 				partialCharge += charge;
 				while (partialCharge >= 1f) {
 					charges++;
 					partialCharge--;
 				}
-				if (charges >= chargeCap()){
+				if (charges >= chargeCap() && !excess){
 					partialCharge = 0;
 					charges = chargeCap();
 				}

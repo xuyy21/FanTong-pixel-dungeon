@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.PotatoGun;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -94,6 +95,8 @@ public class Food extends Item {
 			eatSFX();
 
 			hero.spend( eatingTime() );
+
+			PotatoGun.foodCharge(hero, energy);
 
 //			Talent.onFoodEaten(hero, energy * (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f, this);
 			Talent.onFoodEaten(hero, energy, this);

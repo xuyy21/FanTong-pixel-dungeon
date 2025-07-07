@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
+import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 public class WandOfWind extends DamageWand{
@@ -52,6 +53,16 @@ public class WandOfWind extends DamageWand{
         a.depth = Dungeon.depth;
         a.branch = Dungeon.branch;
         a.pos = bolt.collisionPos;
+    }
+
+    @Override
+    public void staffFx(MagesStaff.StaffParticle particle) {
+        particle.color( 0xFFFFFF );
+        particle.am = 0.3f;
+        particle.setLifespan(2f);
+        particle.speed.polar(Random.Float(PointF.PI2), 0.3f);
+        particle.setSize( 1f, 2f);
+        particle.radiateXY(2.5f);
     }
 
     @Override

@@ -128,6 +128,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.Hulu;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWind;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Destiny;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.TriElement;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
@@ -282,7 +283,7 @@ public enum HeroClass {
 			new RunicGauntle().collect();
 			new PotatoGun().collect();
 			Gloves wep = new Gloves();
-			wep.enchant(new TriElement());
+			wep.enchant(new Destiny());
 			wep.identify();
 			wep.collect();
 		}

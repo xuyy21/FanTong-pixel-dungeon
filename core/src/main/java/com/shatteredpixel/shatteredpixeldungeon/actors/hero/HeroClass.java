@@ -58,7 +58,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.SlimeBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.Magic_Steps;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -288,6 +290,10 @@ public enum HeroClass {
 			new Sling().collect();
 			new RunicGauntle().collect();
 			new PotatoGun().collect();
+			Armor armor = new ClothArmor();
+			armor.identify();
+			armor.inscribe(new Magic_Steps());
+			armor.collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

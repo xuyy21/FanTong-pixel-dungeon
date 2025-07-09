@@ -93,6 +93,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.CrystalSpire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Elemental;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGeomancer;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Necromancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Tengu;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
@@ -129,6 +130,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Destiny;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.FortuneBloom;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
@@ -578,7 +580,8 @@ public abstract class Char extends Actor {
 					}
 
 					if (this instanceof WandOfLivingEarth.EarthGuardian
-							|| this instanceof MirrorImage || this instanceof PrismaticImage){
+							|| this instanceof MirrorImage || this instanceof PrismaticImage
+							|| this instanceof RockGuarding.RockGuardian){
 						Badges.validateDeathFromFriendlyMagic();
 					}
 					Dungeon.fail( this );
@@ -986,6 +989,25 @@ public abstract class Char extends Actor {
 					Buff.affect((Char) src, Kinetic.ConservedDamage.class).setBonus(dmgToAdd);
 				}
 				((Char) src).buff(Kinetic.KineticTracker.class).detach();
+			}
+			if (buff(RockGuarding.RockGuardingTracker.class) != null){
+				int armorToAdd = -HP;
+				armorToAdd = Math.round(armorToAdd * Weapon.Enchantment.genericProcChanceMultiplier((Char) src));
+				if (src instanceof Hero && armorToAdd > 0 ){
+					RockGuarding.RockGuardian guardian = null;
+					for (Mob m : Dungeon.level.mobs){
+						if (m instanceof RockGuarding.RockGuardian){
+							guardian = (RockGuarding.RockGuardian) m;
+							break;
+						}
+					}
+
+					if (guardian == null) {
+						Buff.affect((Char) src, RockGuarding.RockGuardingArmor.class).addArmor(buff(RockGuarding.RockGuardingTracker.class).wep, armorToAdd);
+					} else {
+						guardian.setInfo((Hero) src, buff(RockGuarding.RockGuardingTracker.class).wep, armorToAdd);
+					}
+				}
 			}
 		}
 		

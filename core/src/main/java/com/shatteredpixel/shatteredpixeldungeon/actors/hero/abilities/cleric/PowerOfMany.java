@@ -46,6 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -85,6 +86,11 @@ public class PowerOfMany extends ArmorAbility {
 			allyExists = true;
 		}
 
+		if (Dungeon.hero.buff(RockGuarding.RockGuardingArmor.class) != null
+				&& Dungeon.hero.buff(RockGuarding.RockGuardingArmor.class).isEmpowered()){
+			allyExists = true;
+		}
+
 		if (Stasis.getStasisAlly() != null){
 			allyExists = true;
 		}
@@ -116,6 +122,11 @@ public class PowerOfMany extends ArmorAbility {
 
 		if (hero.buff(WandOfLivingEarth.RockArmor.class) != null
 				&& hero.buff(WandOfLivingEarth.RockArmor.class).isEmpowered()){
+			allyExists = true;
+		}
+
+		if (hero.buff(RockGuarding.RockGuardingArmor.class) != null
+				&& hero.buff(RockGuarding.RockGuardingArmor.class).isEmpowered()){
 			allyExists = true;
 		}
 

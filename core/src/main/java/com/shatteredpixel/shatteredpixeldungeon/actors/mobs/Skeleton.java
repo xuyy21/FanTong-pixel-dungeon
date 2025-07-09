@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
@@ -84,6 +85,13 @@ public class Skeleton extends Mob {
 				if (rockArmor != null) {
 					int preDmg = damage;
 					damage = rockArmor.absorb(damage);
+					damage *= Math.round(damage/(float)preDmg); //apply the % reduction twice
+				}
+
+				RockGuarding.RockGuardingArmor rockGuardingArmor = ch.buff(RockGuarding.RockGuardingArmor.class);
+				if (rockArmor != null) {
+					int preDmg = damage;
+					damage = rockGuardingArmor.absorb(damage);
 					damage *= Math.round(damage/(float)preDmg); //apply the % reduction twice
 				}
 

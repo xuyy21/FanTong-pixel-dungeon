@@ -69,6 +69,11 @@ public class GoldenKing extends Armor.Glyph {
             icon.hardlight(1f, 0.7f, 0f);
         }
 
+        @Override
+        public float iconFadePercent() {
+            return Math.min(1, power);
+        }
+
         public void damage(int dmg) {
             power += dmg * 2f / target.HT;
             if (power>=1f) {

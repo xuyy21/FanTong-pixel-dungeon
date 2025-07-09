@@ -104,6 +104,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.Magic_Rolling;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Bulk;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
@@ -917,6 +918,12 @@ public abstract class Char extends Actor {
 		}
 
 		dmg = Math.round(damage);
+
+		if (this instanceof Hero && Magic_Rolling.Rolling_Damage.hasGlyph(this) && RingOfElements.RESISTS.contains(srcClass)) {
+			Magic_Rolling.Rolling_Damage buff = Buff.affect(this, Magic_Rolling.Rolling_Damage.class);
+			buff.setLevel();
+			dmg = buff.absorb(dmg);
+		}
 
 		//we ceil these specifically to favor the player vs. champ dmg reduction
 		// most important vs. giant champions in the earlygame

@@ -61,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.GoldenKing;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.Magic_Rolling;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -283,7 +284,7 @@ public enum HeroClass {
 			Armor armor = new ClothArmor();
 			armor.upgrade(10);
 			armor.identify();
-			armor.inscribe(new GoldenKing());
+			armor.inscribe(new Magic_Rolling());
 			armor.collect();
 		}
 		if (Testing) {

@@ -128,6 +128,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Destiny;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.FortuneBloom;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
@@ -970,6 +971,9 @@ public abstract class Char extends Actor {
 			if (((Char) src).buff(Destiny.DestinyTracker.class) != null){
 				Buff.affect(((Char) src), Destiny.DestinyPoints.class).add();
 				if (isImmune(Grim.class)) Buff.affect(((Char) src), Destiny.DestinyPoints.class).add();
+			}
+			if (buff(FortuneBloom.FortuneBloomTracker.class)!=null){
+				buff(FortuneBloom.FortuneBloomTracker.class).bloom(pos);
 			}
 		}
 

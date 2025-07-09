@@ -109,6 +109,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfArcana;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSkill;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
@@ -129,6 +130,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.Hulu;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWind;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Destiny;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.FortuneBloom;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.TriElement;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
@@ -255,7 +257,7 @@ public enum HeroClass {
 			new PotionOfFrost().quantity(100).collect();
 		}
 		if (Testing) {
-			new UnstableSpellbook().collect();
+//			new UnstableSpellbook().collect();
 			AlchemistsToolkit toolkit = new AlchemistsToolkit();
 			toolkit.identify();
 			toolkit.level(10);
@@ -268,8 +270,9 @@ public enum HeroClass {
 			new PlateArmor().upgrade(30).identify().collect();
 			new WandOfTransfusion().upgrade(10).collect();
 			new RingOfSkill().upgrade(30).collect();
+			new RingOfArcana().upgrade(30).collect();
 			new PawWithRings().collect();
-			new Hulu().collect();
+//			new Hulu().collect();
 			new Ankh().collect();
 			new TrinketCatalyst().collect();
 //			new GarlandOfNature().collect();
@@ -277,13 +280,12 @@ public enum HeroClass {
 //			new Sprouted_Potato().collect();
 			new WandOfWind().collect();
 			new WandOfGnollKing().collect();
-			new Ge().collect();
 			new Extinctioner().collect();
 			new Sling().collect();
 			new RunicGauntle().collect();
 			new PotatoGun().collect();
 			Gloves wep = new Gloves();
-			wep.enchant(new Destiny());
+			wep.enchant(new FortuneBloom());
 			wep.identify();
 			wep.collect();
 		}

@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sling;
@@ -129,6 +130,8 @@ public class ThrowingStone extends MissileWeapon {
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage) {
+		Buff.affect(attacker, ThrowingTracker.class);
+
 		if (sling != null && !processingChargedShot){
 			damage = sling.proc(attacker, defender, damage);
 		}

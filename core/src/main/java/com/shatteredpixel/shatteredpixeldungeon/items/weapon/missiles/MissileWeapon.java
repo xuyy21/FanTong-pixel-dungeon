@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.Char.INFINITE_ACCURACY;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.Char.INFINITE_EVASION;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -36,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.YinYang;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Projecting;
@@ -200,6 +204,10 @@ abstract public class MissileWeapon extends Weapon {
 
 	@Override
 	public float accuracyFactor(Char owner, Char target) {
+		if (hasEnchant(YinYang.class, owner)) {
+			return INFINITE_ACCURACY;
+		}
+
 		float accFactor = super.accuracyFactor(owner, target);
 		if (owner instanceof Hero && owner.buff(Momentum.class) != null && owner.buff(Momentum.class).freerunning()){
 			accFactor *= 1f + 0.2f*((Hero) owner).pointsInTalent(Talent.PROJECTILE_MOMENTUM);
@@ -543,6 +551,19 @@ abstract public class MissileWeapon extends Weapon {
 		@Override
 		public String info() {
 			return "";
+		}
+	}
+
+	public static class ThrowingTracker extends Buff {
+		//To distinct crossbow, sling and so on is attacking as meleeweapon or shooting
+		{
+			actPriority = Actor.VFX_PRIO;
+		}
+
+		@Override
+		public boolean act() {
+			detach();
+			return true;
 		}
 	}
 }

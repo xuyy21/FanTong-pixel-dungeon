@@ -132,6 +132,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWind;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Destiny;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.FortuneBloom;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.YinYang;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.TriElement;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
@@ -287,10 +288,6 @@ public enum HeroClass {
 			new Sling().collect();
 			new RunicGauntle().collect();
 			new PotatoGun().collect();
-			MeleeWeapon wep = new Shortsword();
-			wep.enchant(new RockGuarding());
-			wep.identify();
-			wep.collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

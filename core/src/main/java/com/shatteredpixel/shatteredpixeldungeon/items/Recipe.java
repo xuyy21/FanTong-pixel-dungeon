@@ -77,6 +77,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScrol
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.BeaconOfReturning;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.EX_Enchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.PhaseShift;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
@@ -278,6 +279,7 @@ public abstract class Recipe {
 		new BlackPudding.Recipe(),
 		new MandrakeRoot.MandrakeToPotion(),
 		new Magic_Coin.Recipe(),
+		new EX_Enchantment.Recipe(),
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){

@@ -95,6 +95,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScrol
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.BeaconOfReturning;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.EX_Enchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.PhaseShift;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
@@ -513,6 +514,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe( new GooStylus.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Stylus(), new GooBlob())),
 						new GooStylus().quantity(2)));
+				result.add(new QuickRecipe(new EX_Enchantment.Recipe()));
 				return result;
 		}
 	}

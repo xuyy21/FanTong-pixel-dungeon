@@ -92,7 +92,7 @@ public class LivingVines extends Armor.Glyph {
         }
 
         public int armorCap() {
-            return 30 + 5 * level;
+            return 30 + 6 * level;
         }
 
         public void setLevel() {
@@ -130,7 +130,7 @@ public class LivingVines extends Armor.Glyph {
 
         public void gain() {
             setLevel();
-            float armor2gain = (3 + level/2f) * genericProcChanceMultiplier(target) ;
+            float armor2gain = (5 + level) * genericProcChanceMultiplier(target) ;
             armor += (int) armor2gain;
             if (armor>armorCap()) armor=armorCap();
         }

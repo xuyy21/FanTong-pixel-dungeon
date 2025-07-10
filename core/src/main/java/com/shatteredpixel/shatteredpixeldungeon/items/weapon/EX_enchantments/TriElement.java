@@ -20,18 +20,18 @@ public class TriElement extends Weapon.Enchantment{
 
         float procChance = procChanceMultiplier(attacker);
 
-        int dmg = Random.NormalIntRange(2+level, 5+3*level);
+        int dmg = Random.NormalIntRange(2+level, 4+2*level);
         dmg = Math.round(dmg * weapon.DLY * procChance);
 
         if (defender instanceof Elemental.FireElemental) {
             defender.damage( Random.NormalIntRange( defender.HT/2, defender.HT * 3/5 ), new Chill() );
         } else if (defender instanceof Elemental.FrostElemental) {
             defender.damage( Random.NormalIntRange( defender.HT/2, defender.HT * 3/5 ), new Burning() );
-        } else if (defender.resist(Burning.class)>=1f) {
+        } else if (defender.resist(Burning.class)>=1f && !defender.isImmune(Burning.class)) {
             defender.damage(dmg, new Burning());
-        } else if (defender.resist(Chill.class)>=1f) {
+        } else if (defender.resist(Chill.class)>=1f && !defender.isImmune(Chill.class)) {
             defender.damage(dmg, new Chill());
-        } else if (defender.resist(Electricity.class)>=1f) {
+        } else if (defender.resist(Electricity.class)>=1f && !defender.isImmune(Electricity.class)) {
             defender.damage(dmg, new Electricity());
         } else if (!defender.isImmune(Burning.class)) {
             defender.damage(dmg, new Burning());

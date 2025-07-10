@@ -64,6 +64,8 @@ public class WaterMoon extends Armor.Glyph {
 
         if (target.buff(MagicImmune.class) != null) return 1f;
 
+        if (!Dungeon.level.water[target.pos]) return 1f;
+
         Armor armor = ((Hero)target).belongings.armor;
         if (armor!=null && armor.hasGlyph(WaterMoon.class, target)) {
             if (target.buff(HolyWard.HolyArmBuff.class) != null && ((Hero) target).subClass != HeroSubClass.PALADIN)

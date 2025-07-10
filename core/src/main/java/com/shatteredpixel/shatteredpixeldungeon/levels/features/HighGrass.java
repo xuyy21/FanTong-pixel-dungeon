@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.LivingVines;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
@@ -174,6 +175,10 @@ public class HighGrass {
 
 					GarlandOfNature.Abuse abuse = Buff.affect(ch, GarlandOfNature.Abuse.class);
 					Buff.affect(ch, GarlandOfNature.Abuse.class, 5f);
+				}
+
+				if (LivingVines.hasGlyph( ch )) {
+					Buff.affect(ch, LivingVines.VinesArmor.class).gain();
 				}
 			}
 

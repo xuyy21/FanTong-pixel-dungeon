@@ -61,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.GoldenKing;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.LivingVines;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.Magic_Rolling;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.WaterMoon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
@@ -282,11 +283,6 @@ public enum HeroClass {
 			new Sling().collect();
 			new RunicGauntle().collect();
 			new PotatoGun().collect();
-			Armor armor = new ClothArmor();
-			armor.upgrade(10);
-			armor.identify();
-			armor.inscribe(new WaterMoon());
-			armor.collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

@@ -170,4 +170,18 @@ public class v0_3_X_FTChanges {
                         "\n\n_！！！注意 ！！！_\nEX附魔的元素打击效果未完成，决斗家请勿使用元素打击护甲技能！\nEX附魔与EX刻印请勿给悲伤幽灵使用，可能存在BUG！" +
                         "\n\nEX附魔与EX刻印对照列表：\n烈焰/寒冰/电击附魔→三相力量附魔\n紊乱/死神/血饮附魔→死生恒常附魔\n繁茂/幸运/腐化附魔→花开富贵附魔\n恒动/招架附魔→磐石守卫附魔\n弹性/索敌附魔→阴据阳留附魔\n晦暗/迅捷刻印→神行无影刻印\n磐岩/电势/反斥刻印→不动明王刻印\n粘稠/狱火/敌法刻印→秘法流转刻印\n魅惑/涌流刻印→镜花水月刻印\n缠绕/迷彩/荆棘刻印→灵蔓缠身刻印"));
     }
+
+    public static void add_v0_3_5_Changes( ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.3.5", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+        changes.hardlight(CharSprite.WARNING);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.FOLDER), "炼金目录",
+                "炼金目录添加了贵重品属性，现在不会被炸掉或者偷走。"));
+    }
+
 }

@@ -14,6 +14,7 @@ public class RecipeFolder extends Item {
     {
         image = ItemSpriteSheet.FOLDER;
         stackable = true;
+        unique = true;
     }
 
     private ArrayList<RecipeBook> recipes = new ArrayList<>();

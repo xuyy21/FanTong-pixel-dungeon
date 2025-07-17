@@ -76,6 +76,7 @@ public class FortuneBloom extends Weapon.Enchantment{
                         Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos);
                         break;
                 }
+                procChance -= Random.Float();
             }
 
         }

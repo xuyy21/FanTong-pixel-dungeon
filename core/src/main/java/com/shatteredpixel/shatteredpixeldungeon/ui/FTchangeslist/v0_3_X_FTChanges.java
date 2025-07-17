@@ -182,6 +182,13 @@ public class v0_3_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.FOLDER), "炼金目录",
                 "炼金目录添加了贵重品属性，现在不会被炸掉或者偷走。"));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
+        changes.hardlight(CharSprite.POSITIVE);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EX_ENCHANTMENT), "EX附魔加强调整",
+                "花开富贵附魔：修改了触发逻辑，触发概率更高，而且无需奥术戒指加成就有可能多次触发。"));
     }
 
 }

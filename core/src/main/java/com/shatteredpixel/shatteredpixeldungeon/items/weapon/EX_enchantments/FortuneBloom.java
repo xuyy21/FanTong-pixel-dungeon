@@ -23,7 +23,7 @@ public class FortuneBloom extends Weapon.Enchantment{
 
         if (!defender.isImmune(FortuneBloom.class)) {
             FortuneBloomTracker tracker = Buff.affect(defender, FortuneBloomTracker.class);
-            tracker.procChance = (level+4f) / (level+20f) * procChanceMultiplier(attacker);
+            tracker.procChance = (level+5f) / 20f * procChanceMultiplier(attacker);
             tracker.owner = attacker;
         }
 
@@ -54,50 +54,30 @@ public class FortuneBloom extends Weapon.Enchantment{
             if (pos==null || owner==null || procChance<=0)
                 return;
 
-            if (procChance>1f) {
-                new Flare(6, 20).color(0xFF5500, true).show(target.sprite, 5f);
+            boolean mobSpawned = false;
 
-                procChance -= 1f;
-                PlantMonster mob = Reflection.newInstance(PlantMonster.random());
-                mob.pos = pos;
-                GameScene.add(mob);
-                Buff.affect(mob, ScrollOfSirensSong.Enthralled.class);
-                Dungeon.level.occupyCell(mob);
-
-                procChance -= Random.Float();
-                while (procChance > 0) {
-                    switch (Random.Int(8)) {
-                        default: case 0:case 1:case 2:case 3:case 4:
-                            Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED), pos);
-                            break;
-                        case 5:case 6:case 7:
-                            Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos);
-                            break;
-                    }
-
-                    procChance -= Random.Float();
-                }
-            } else {
-                if (Random.Float()<procChance) {
-                    new Flare(6, 20).color(0xFF5500, true).show(target.sprite, 3f);
-
-                    switch (Random.Int(10)) {
-                        default: case 0: case 1: case 2: case 3: case 4:
-                            Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED), pos);
-                            break;
-                        case 5: case 6: case 7:
-                            Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos);
-                            break;
-                        case 8: case 9:
+            procChance -= Random.Float();
+            while (procChance > 0) {
+                new Flare(6, 20).color(0xFF5500, true).show(target.sprite, 2f);
+                switch (Random.Int(5)) {
+                    default: case 0:case 1:case 2:
+                        if (!mobSpawned && Random.Int(2)==0) {
                             PlantMonster mob = Reflection.newInstance(PlantMonster.random());
                             mob.pos = pos;
                             GameScene.add(mob);
                             Buff.affect(mob, ScrollOfSirensSong.Enthralled.class);
                             Dungeon.level.occupyCell(mob);
-                            break;
-                    }
+                            mobSpawned = true;
+                        } else {
+                            Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED), pos);
+                        }
+                        break;
+                    case 3:case 4:
+                        Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos);
+                        break;
                 }
             }
+
         }
     }
 }

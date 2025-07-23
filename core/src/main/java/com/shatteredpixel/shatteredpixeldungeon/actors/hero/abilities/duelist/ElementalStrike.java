@@ -38,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -57,6 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Destiny;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.TriElement;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Annoying;
@@ -129,6 +131,7 @@ public class ElementalStrike extends ArmorAbility {
 		effectTypes.put(Friendly.class,     MagicMissile.SHADOW_CONE);
 
 		effectTypes.put(TriElement.class,	MagicMissile.RAINBOW_CONE);
+		effectTypes.put(Destiny.class,     	MagicMissile.SHADOW_CONE);
 
 		effectTypes.put(null,               MagicMissile.MAGIC_MISS_CONE);
 	}
@@ -561,6 +564,14 @@ public class ElementalStrike extends ArmorAbility {
 					if (ch != primaryTarget) {
 						ench.proc((Weapon) w, hero, ch, 0);
 					}
+				}
+			}
+
+		//*** Destiny ***
+		} else if (ench instanceof Destiny){
+			for (Char ch : affected) {
+				if (Random.Float()<0.33f * powerMulti){
+					Buff.affect(ch, Doom.class);
 				}
 			}
 		}

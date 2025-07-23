@@ -562,6 +562,7 @@ public class ElementalStrike extends ArmorAbility {
 			if (w instanceof Weapon){
 				for (Char ch : affected) {
 					if (ch != primaryTarget) {
+						Buff.affect(hero, DirectedPowerTracker.class, 0f).enchBoost = powerMulti;
 						ench.proc((Weapon) w, hero, ch, 0);
 					}
 				}

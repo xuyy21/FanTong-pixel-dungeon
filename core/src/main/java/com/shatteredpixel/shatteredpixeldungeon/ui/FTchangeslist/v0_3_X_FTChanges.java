@@ -178,7 +178,8 @@ public class v0_3_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EX_ENCHANTMENT), "EX附魔结晶补完",
                 "完成了EX附魔的元素打击效果。\n\n" +
-                        "除开使用磐石守卫附魔时无法召唤守卫，悲伤幽灵现在可以使用EX附魔了。"));
+                        "除开使用磐石守卫附魔时无法召唤守卫，悲伤幽灵现在可以使用EX附魔了。\n\n" +
+                        "悲伤幽灵现在可以使用EX刻印了，但是由于她不能踩草所以灵蔓缠身实际上无效。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(CharSprite.WARNING);

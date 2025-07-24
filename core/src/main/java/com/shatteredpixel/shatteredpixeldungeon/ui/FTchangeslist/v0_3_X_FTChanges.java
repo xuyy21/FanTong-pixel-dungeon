@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class v0_3_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_3_5_Changes(changeInfos);
         add_v0_3_4_Changes(changeInfos);
         add_v0_3_3_Changes(changeInfos);
         add_v0_3_2_Changes(changeInfos);

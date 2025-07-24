@@ -177,7 +177,8 @@ public class v0_3_X_FTChanges {
         changeInfos.add(changes);
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EX_ENCHANTMENT), "EX附魔结晶补完",
-                "完成了EX附魔的元素打击效果。"));
+                "完成了EX附魔的元素打击效果。\n\n" +
+                        "除开使用磐石守卫附魔时无法召唤守卫，悲伤幽灵现在可以使用EX附魔了。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(CharSprite.WARNING);
@@ -191,7 +192,8 @@ public class v0_3_X_FTChanges {
         changeInfos.add(changes);
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EX_ENCHANTMENT), "EX附魔加强调整",
-                "花开富贵附魔：修改了触发逻辑，触发概率更高，而且无需奥术戒指加成就有可能多次触发。"));
+                "花开富贵附魔：修改了触发逻辑，触发概率更高，而且无需奥术戒指加成就有可能多次触发。\n\n" +
+                        "磐石守卫附魔：磐石护甲的获取量提高50%。"));
     }
 
 }

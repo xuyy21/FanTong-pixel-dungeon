@@ -999,7 +999,7 @@ public abstract class Char extends Actor {
 			}
 			if (buff(RockGuarding.RockGuardingTracker.class) != null){
 				int armorToAdd = -HP;
-				armorToAdd = Math.round(armorToAdd * Weapon.Enchantment.genericProcChanceMultiplier((Char) src));
+				armorToAdd = Math.round(armorToAdd * Weapon.Enchantment.genericProcChanceMultiplier((Char) src) * 1.5f);
 				if (src instanceof Hero && armorToAdd > 0 ){
 					RockGuarding.RockGuardian guardian = null;
 					for (Mob m : Dungeon.level.mobs){

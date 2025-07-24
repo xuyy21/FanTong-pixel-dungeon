@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -42,7 +43,7 @@ public class WaterMoon extends Armor.Glyph {
             if (!respawnPoints.isEmpty()) {
                 int index = Random.index( respawnPoints );
                 WaterMirror mirror = new WaterMirror();
-                mirror.duplicate( (Hero) defender);
+                mirror.duplicate( Dungeon.hero );
                 mirror.setLevel(Math.max(0, armor.buffedLvl()));
                 GameScene.add( mirror );
                 ScrollOfTeleportation.appear( mirror, respawnPoints.get( index ) );
@@ -60,23 +61,28 @@ public class WaterMoon extends Armor.Glyph {
     }
 
     public static float evasionMultiplier(Char target) {
-        if (target==null || !(target instanceof Hero)) return 1f;
+        if (target==null) return 1f;
 
         if (target.buff(MagicImmune.class) != null) return 1f;
 
         if (!Dungeon.level.water[target.pos]) return 1f;
 
-        Armor armor = ((Hero)target).belongings.armor;
+        Armor armor = null;
+        if (target instanceof Hero) armor = ((Hero)target).belongings.armor;
+        if (target instanceof DriedRose.GhostHero) armor = ((DriedRose.GhostHero)target).ghostArmor();
+
         if (armor!=null && armor.hasGlyph(WaterMoon.class, target)) {
-            if (target.buff(HolyWard.HolyArmBuff.class) != null && ((Hero) target).subClass != HeroSubClass.PALADIN)
+            if (target instanceof Hero && target.buff(HolyWard.HolyArmBuff.class) != null && ((Hero) target).subClass != HeroSubClass.PALADIN)
                 return 1f;
-            return 1.5f + 0.04f * armor.buffedLvl() * genericProcChanceMultiplier(target);
+            return (1.5f + 0.04f * armor.buffedLvl()) * genericProcChanceMultiplier(target);
         }
 
         if (target.buff(BodyForm.BodyFormBuff.class) != null
                 && target.buff(BodyForm.BodyFormBuff.class).glyph() != null
-                && target.buff(BodyForm.BodyFormBuff.class).glyph().getClass().equals(WaterMoon.class))
-            return 1.5f * genericProcChanceMultiplier(target);
+                && target.buff(BodyForm.BodyFormBuff.class).glyph().getClass().equals(WaterMoon.class)) {
+            int level = armor==null ? 0 : armor.buffedLvl();
+            return (1.5f + 0.04f * level) * genericProcChanceMultiplier(target);
+        }
 
         return 1f;
     }

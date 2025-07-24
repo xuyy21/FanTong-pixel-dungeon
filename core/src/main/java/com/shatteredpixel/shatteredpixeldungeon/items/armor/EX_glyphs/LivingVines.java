@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -32,9 +33,12 @@ public class LivingVines extends Armor.Glyph {
     }
 
     public static boolean hasGlyph(Char target) {
-        if (target==null || !(target instanceof Hero)) return false;
+        if (target==null || !(target instanceof Hero || target instanceof DriedRose.GhostHero)) return false;
 
-        Armor armor = ((Hero)target).belongings.armor;
+        Armor armor = null;
+        if (target instanceof Hero) armor = ((Hero)target).belongings.armor;
+        if (target instanceof DriedRose.GhostHero) armor = ((DriedRose.GhostHero)target).ghostArmor();
+
         if (armor!=null && armor.hasGlyph(LivingVines.class, target)) return true;
 
         if (target.buff(BodyForm.BodyFormBuff.class) != null
@@ -96,18 +100,21 @@ public class LivingVines extends Armor.Glyph {
         }
 
         public void setLevel() {
-            if (target==null || !(target instanceof Hero)) return;
+            if (target==null) return;
 
-            Armor armor = ((Hero)target).belongings.armor;
+            Armor armor = null;
+            if (target instanceof Hero) armor = ((Hero)target).belongings.armor;
+            if (target instanceof DriedRose.GhostHero) armor = ((DriedRose.GhostHero)target).ghostArmor();
+
             if (armor!=null && armor.hasGlyph(LivingVines.class, target)) {
-                level = ((Hero) target).belongings.armor.buffedLvl();
+                level = armor.buffedLvl();
                 return;
             }
 
             if (target.buff(BodyForm.BodyFormBuff.class) != null
                     && target.buff(BodyForm.BodyFormBuff.class).glyph() != null
                     && target.buff(BodyForm.BodyFormBuff.class).glyph().getClass().equals(LivingVines.class))
-                level = 0;
+                level = armor==null ? 0 : armor.buffedLvl();
         }
 
         public int absorb(int damage, Char attacker) {

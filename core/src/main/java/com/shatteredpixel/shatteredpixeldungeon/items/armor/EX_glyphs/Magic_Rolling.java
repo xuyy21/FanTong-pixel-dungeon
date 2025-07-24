@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -17,7 +18,7 @@ public class Magic_Rolling extends Armor.Glyph {
 
     @Override
     public int proc(Armor armor, Char attacker, Char defender, int damage) {
-        return 0;
+        return damage;
     }
 
     @Override
@@ -101,7 +102,10 @@ public class Magic_Rolling extends Armor.Glyph {
         public static boolean hasGlyph(Char target) {
             if (target==null) return false;
 
-            Armor armor = ((Hero)target).belongings.armor;
+            Armor armor = null;
+            if (target instanceof Hero) armor = ((Hero)target).belongings.armor;
+            if (target instanceof DriedRose.GhostHero) armor = ((DriedRose.GhostHero)target).ghostArmor();
+
             if (armor!=null && armor.hasGlyph(Magic_Rolling.class, target)) return true;
 
             if (target.buff(BodyForm.BodyFormBuff.class) != null
@@ -115,16 +119,19 @@ public class Magic_Rolling extends Armor.Glyph {
         public void setLevel() {
             if (target==null) return;
 
-            Armor armor = ((Hero)target).belongings.armor;
+            Armor armor = null;
+            if (target instanceof Hero) armor = ((Hero)target).belongings.armor;
+            if (target instanceof DriedRose.GhostHero) armor = ((DriedRose.GhostHero)target).ghostArmor();
+
             if (armor!=null && armor.hasGlyph(Magic_Rolling.class, target)) {
-                level = ((Hero) target).belongings.armor.buffedLvl();
+                level = armor.buffedLvl();
                 return;
             }
 
             if (target.buff(BodyForm.BodyFormBuff.class) != null
                     && target.buff(BodyForm.BodyFormBuff.class).glyph() != null
                     && target.buff(BodyForm.BodyFormBuff.class).glyph().getClass().equals(Magic_Rolling.class))
-                level = 0;
+                level = armor==null ? 0 : armor.buffedLvl();
         }
 
         public int absorb(int damage) {

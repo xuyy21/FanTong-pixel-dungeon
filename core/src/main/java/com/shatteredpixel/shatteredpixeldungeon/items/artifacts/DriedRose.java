@@ -547,6 +547,13 @@ public class DriedRose extends Artifact {
 		}
 		
 		private DriedRose rose = null;
+		public Weapon ghostWeapon(){
+			return rose.weapon;
+		}
+
+		public Armor ghostArmor(){
+			return rose.armor;
+		}
 		
 		public GhostHero(){
 			super();

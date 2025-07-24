@@ -43,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
@@ -60,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportat
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Destiny;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.FortuneBloom;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.TriElement;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Annoying;
@@ -141,6 +143,7 @@ public class ElementalStrike extends ArmorAbility {
 		effectTypes.put(TriElement.class,	MagicMissile.RAINBOW_CONE);
 		effectTypes.put(Destiny.class,     	MagicMissile.SHADOW_CONE);
 		effectTypes.put(FortuneBloom.class, MagicMissile.FOLIAGE_CONE);
+		effectTypes.put(RockGuarding.class, MagicMissile.EARTH_CONE);
 
 		effectTypes.put(null,               MagicMissile.MAGIC_MISS_CONE);
 	}
@@ -595,6 +598,12 @@ public class ElementalStrike extends ArmorAbility {
 				Plant plant = (Plant) Reflection.newInstance(Random.element(harmfulPlants));
 				plant.pos = ch.pos;
 				plant.activate( ch );
+			}
+
+		//*** RockGuarding ***
+		} else if (ench instanceof RockGuarding) {
+			for (Char ch : affected) {
+				Buff.affect(ch, Vulnerable.class, 4f * powerMulti);
 			}
 		}
 

@@ -182,16 +182,19 @@ public class v0_3_X_FTChanges {
                         "除开使用磐石守卫附魔时无法召唤守卫，悲伤幽灵现在可以使用EX附魔了。\n\n" +
                         "悲伤幽灵现在可以使用EX刻印了，但是由于她不能踩草所以灵蔓缠身实际上无效。"));
 
-        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
-        changes.hardlight(CharSprite.WARNING);
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.FOLDER), "炼金目录",
-                "炼金目录添加了贵重品属性，现在不会被炸掉或者偷走。"));
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.PIRANHAPOT), "食人鱼缸",
+                "打碎后可以释放出一只短暂狂乱的食人鱼。\n\n有概率在商店出售。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
         changes.hardlight(CharSprite.POSITIVE);
         changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.FOLDER), "炼金目录",
+                "炼金目录添加了贵重品属性，现在不会被炸掉或者偷走。"));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EX_ENCHANTMENT), "EX附魔加强调整",
                 "花开富贵附魔：修改了触发逻辑，触发概率更高，而且无需奥术戒指加成就有可能多次触发。\n\n" +

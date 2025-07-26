@@ -50,6 +50,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.PiranhaPot;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBerryCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROCookit;
@@ -341,16 +342,21 @@ public class ShopRoom extends SpecialRoom {
 
 		itemsToSpawn.add(new Cookware());
 		
-		switch (Random.Int(4)){
+		switch (Random.Int(7)){
 			case 0:
+			case 1:
 				itemsToSpawn.add( new Bomb() );
 				break;
-			case 1:
 			case 2:
+			case 3:
+			case 4:
 				itemsToSpawn.add( new Bomb.DoubleBomb() );
 				break;
-			case 3:
+			case 5:
 				itemsToSpawn.add( new Honeypot() );
+				break;
+			case 6:
+				itemsToSpawn.add( new PiranhaPot() );
 				break;
 		}
 

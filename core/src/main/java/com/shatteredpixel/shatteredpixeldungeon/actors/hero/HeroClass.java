@@ -98,6 +98,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlam
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.PiranhaPot;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBerryCake;
@@ -285,6 +286,7 @@ public enum HeroClass {
 			new RunicGauntle().collect();
 			new PotatoGun().collect();
 			new MetalShard().quantity(10).collect();
+			new PiranhaPot().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

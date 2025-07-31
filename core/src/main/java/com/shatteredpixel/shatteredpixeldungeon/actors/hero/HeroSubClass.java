@@ -42,6 +42,7 @@ public enum HeroSubClass {
 	
 	ASSASSIN(HeroIcon.ASSASSIN),
 	FREERUNNER(HeroIcon.FREERUNNER),
+	NIGHTWING(HeroIcon.NONE),
 	
 	SNIPER(HeroIcon.SNIPER),
 	WARDEN(HeroIcon.WARDEN),

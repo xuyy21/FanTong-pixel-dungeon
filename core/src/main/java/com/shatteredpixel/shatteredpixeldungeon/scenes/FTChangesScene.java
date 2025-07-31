@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist.v0_3_X_FTChanges;
+import com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist.v0_4_X_FTChanges;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
@@ -117,12 +118,15 @@ public class FTChangesScene extends PixelScene {
 
         switch (changesSelected){
             case 0: default:
-                v0_3_X_FTChanges.addAllChanges(changeInfos);
+                v0_4_X_FTChanges.addAllChanges(changeInfos);
                 break;
             case 1:
-                v0_2_X_FTChanges.addAllChanges(changeInfos);
+                v0_3_X_FTChanges.addAllChanges(changeInfos);
                 break;
             case 2:
+                v0_2_X_FTChanges.addAllChanges(changeInfos);
+                break;
+            case 3:
                 v0_1_X_FTChanges.addAllChanges(changeInfos);
                 break;
         }

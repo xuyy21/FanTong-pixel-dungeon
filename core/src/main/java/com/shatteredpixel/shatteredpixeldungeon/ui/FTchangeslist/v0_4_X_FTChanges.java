@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
-        add_v0_3_0_Changes(changeInfos);
+        add_v0_4_0_Changes(changeInfos);
     }
 
-    public static void add_v0_3_0_Changes(ArrayList<ChangeInfo> changeInfos ){
+    public static void add_v0_4_0_Changes(ArrayList<ChangeInfo> changeInfos ){
 
         ChangeInfo changes = new ChangeInfo("v0.4.0", true, "");
         changes.hardlight(Window.TITLE_COLOR);

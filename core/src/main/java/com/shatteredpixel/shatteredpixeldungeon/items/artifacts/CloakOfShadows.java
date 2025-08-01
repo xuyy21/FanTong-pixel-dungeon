@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
@@ -581,6 +582,9 @@ public class CloakOfShadows extends Artifact {
 			if (shared_rings_lvl()>0) {
 				if (getBuffedBonus(Dungeon.hero, RingOfForce.Force.class) > 0){
 					multiplier += 0.4f * shared_rings_lvl();
+				}
+				if (getBuffedBonus(Dungeon.hero, RingOfWealth.Wealth.class) > 0){
+					multiplier += Math.min(Dungeon.gold / 100f, shared_rings_lvl()*0.4f);
 				}
 			}
 

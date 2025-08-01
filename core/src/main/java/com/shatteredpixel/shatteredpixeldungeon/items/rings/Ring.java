@@ -204,6 +204,9 @@ public class Ring extends KindofMisc {
 		
 		if (isKnown()) {
 			desc += "\n\n" + statsInfo();
+
+			if (Dungeon.hero!=null && Dungeon.hero.hasTalent(Talent.SHARED_RINGS))
+				desc += "\n\n" + Messages.get(this, "shared_effect");
 		}
 		
 		return desc;

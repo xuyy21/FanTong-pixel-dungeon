@@ -67,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstab
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -107,6 +108,7 @@ public class CloakOfShadows extends Artifact {
 
 	public static final String AC_STEALTH 	= "STEALTH";
 	public static final String AC_BAT		= "BAT";
+	public static final String AC_TRAP		= "TRAP";
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -120,6 +122,8 @@ public class CloakOfShadows extends Artifact {
 		if (hero!=null && hero.subClass==HeroSubClass.NIGHTWING
 				&& (isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)))
 			actions.add(AC_BAT);
+		if (shared_trap_lvl()>0 && (isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)))
+			actions.add(AC_TRAP);
 		return actions;
 	}
 
@@ -205,6 +209,13 @@ public class CloakOfShadows extends Artifact {
 					Talent.onArtifactUsed(Dungeon.hero);
 					hero.sprite.operate(hero.pos);
 				}
+			}
+		}
+		if (action.equals(AC_TRAP)) {
+			if (charge<2) {
+				GLog.w(Messages.get(this, "no_charge"));
+			} else {
+				GameScene.selectCell(selectTrap);
 			}
 		}
 	}
@@ -293,6 +304,17 @@ public class CloakOfShadows extends Artifact {
 		charge = Math.min(charge+amount, chargeCap);
 		updateQuickslot();
 	}
+
+	@Override
+	public String desc() {
+		String desc = super.desc();
+
+		if (storedTrap!=null) {
+			desc += "\n\n" + Messages.get(this, "trap", Messages.get(storedTrap, "name"));
+		}
+
+		return desc;
+	}
 	
 	@Override
 	public Item upgrade() {
@@ -303,14 +325,17 @@ public class CloakOfShadows extends Artifact {
 	private static final String STEALTHED = "stealthed";
 	private static final String BUFF = "buff";
 	private final String IS_NIGHTWING = "is_nightwing";
+	private static final String STORED_TRAP = "stored_trap";
 
 	private static boolean is_nightwing = false;
+	private Class<?extends Trap> storedTrap = null;
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
 		if (activeBuff != null) bundle.put(BUFF, activeBuff);
 		bundle.put(IS_NIGHTWING, is_nightwing);
+		if (storedTrap != null) bundle.put(STORED_TRAP, storedTrap);
 	}
 
 	@Override
@@ -322,6 +347,7 @@ public class CloakOfShadows extends Artifact {
 			activeBuff = new cloakStealth();
 			activeBuff.restoreFromBundle(bundle.getBundle(BUFF));
 		}
+		if (bundle.contains(STORED_TRAP)) storedTrap = bundle.getClass(STORED_TRAP);
 	}
 
 	@Override
@@ -368,6 +394,34 @@ public class CloakOfShadows extends Artifact {
 		}
 
 	}
+
+	public CellSelector.Listener selectTrap = new CellSelector.Listener() {
+		@Override
+		public void onSelect(Integer cell) {
+			if (cell == null) return;
+
+			Trap t = Dungeon.level.traps.get(cell);
+			if (t != null && t.active && t.visible) {
+				t.disarm(); //even disarms traps that normally wouldn't be
+				storedTrap = t.getClass();
+
+				charge -= 2;
+				updateQuickslot();
+
+				Dungeon.hero.spend( 1f );
+				Dungeon.hero.busy();
+				Talent.onArtifactUsed(Dungeon.hero);
+				Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+			} else {
+				GLog.w(Messages.get(CloakOfShadows.class, "no_trap"));
+			}
+		}
+
+		@Override
+		public String prompt() {
+			return  Messages.get(CloakOfShadows.class, "select_trap");
+		}
+	};
 
 	public class cloakStealth extends ArtifactBuff{
 		
@@ -508,6 +562,18 @@ public class CloakOfShadows extends Artifact {
 			is_nightwing = false;
 		}
 		chargeCap = is_nightwing ? Math.min(level()*2+6, 20) : Math.min(level()+3, 10);
+	}
+
+	public static int shared_rings_lvl() {
+		if (Dungeon.hero!=null && Dungeon.hero.hasTalent(Talent.SHARED_RINGS))
+			return Dungeon.hero.pointsInTalent(Talent.SHARED_RINGS);
+		return 0;
+	}
+
+	public static int shared_trap_lvl() {
+		if (Dungeon.hero!=null && Dungeon.hero.hasTalent(Talent.SHARED_TRAP))
+			return Dungeon.hero.pointsInTalent(Talent.SHARED_TRAP);
+		return 0;
 	}
 
 	public static class Shadow_Bat extends DirectableAlly {
@@ -773,12 +839,6 @@ public class CloakOfShadows extends Artifact {
 
 			if (Dungeon.hero.buff(Bat_Controller.class)!=null) Buff.detach(Dungeon.hero, Bat_Controller.class);
 			super.die(cause);
-		}
-
-		public static int shared_rings_lvl() {
-			if (Dungeon.hero!=null && Dungeon.hero.hasTalent(Talent.SHARED_RINGS))
-				return Dungeon.hero.pointsInTalent(Talent.SHARED_RINGS);
-			return 0;
 		}
 	}
 

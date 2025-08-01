@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
@@ -46,6 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfArcana;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
@@ -526,7 +528,11 @@ public class CloakOfShadows extends Artifact {
 
 		@Override
 		public int defenseSkill(Char target) {
-			return 8 + Dungeon.scalingDepth() * 2;
+			float multiplier = 1f;
+			if (shared_rings_lvl()>0 && buff(evasionBuff.class)!=null)
+				multiplier += 0.4f * shared_rings_lvl();
+
+			return Math.round((8 + Dungeon.scalingDepth() * 2) * multiplier);
 		}
 
 		@Override
@@ -575,9 +581,18 @@ public class CloakOfShadows extends Artifact {
 						sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(reg), FloatingText.HEALING);
 					}
 				}
+				if (getBuffedBonus(Dungeon.hero, RingOfEvasion.Evasion.class)>0) {
+					Buff.prolong(this, evasionBuff.class, 1.01f);
+				}
 			}
 
 			return damage;
+		}
+
+		public static class evasionBuff extends FlavourBuff {
+			{
+				type = buffType.POSITIVE;
+			}
 		}
 
 		@Override

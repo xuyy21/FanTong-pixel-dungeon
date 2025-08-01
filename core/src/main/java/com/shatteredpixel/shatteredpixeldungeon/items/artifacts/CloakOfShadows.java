@@ -42,9 +42,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfArcana;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -556,6 +560,12 @@ public class CloakOfShadows extends Artifact {
 			if (shared_rings_lvl()>0) {
 				if (getBuffedBonus(Dungeon.hero, RingOfElements.Resistance.class)>0) {
 					enemy.damage(Math.round(damage * 0.25f * shared_rings_lvl()), new WandOfMagicMissile());
+				}
+				if (getBuffedBonus(Dungeon.hero, RingOfArcana.Arcana.class)>0) {
+					Weapon wep = new Sword();
+					wep.upgrade(shared_rings_lvl()-1);
+					wep.enchant(new Unstable());
+					wep.enchantment.proc(wep, this, enemy, damage);
 				}
 			}
 

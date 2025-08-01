@@ -49,6 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
@@ -525,6 +526,15 @@ public class CloakOfShadows extends Artifact {
 				multiplier += 0.4f * shared_rings_lvl();
 
 			return Math.round((9 + Dungeon.scalingDepth()) * multiplier);
+		}
+
+		@Override
+		public float attackDelay() {
+			float multiplier = 1f;
+			if (shared_rings_lvl()>0 && getBuffedBonus(Dungeon.hero, RingOfFuror.Furor.class) > 0)
+				multiplier += 0.5f * shared_rings_lvl();
+
+			return Math.round(super.attackDelay() / multiplier);
 		}
 
 		@Override

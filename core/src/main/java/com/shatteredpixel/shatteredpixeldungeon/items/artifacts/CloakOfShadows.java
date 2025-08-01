@@ -22,6 +22,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
 
+import static com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring.getBuffedBonus;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -39,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -507,7 +510,11 @@ public class CloakOfShadows extends Artifact {
 
 		@Override
 		public int attackSkill(Char target) {
-			return 9 + Dungeon.scalingDepth();
+			float multiplier = 1f;
+			if (shared_rings_lvl()>0 && getBuffedBonus(Dungeon.hero, RingOfAccuracy.Accuracy.class)>0)
+				multiplier += 0.4f * shared_rings_lvl();
+
+			return Math.round((9 + Dungeon.scalingDepth()) * multiplier);
 		}
 
 		@Override
@@ -590,6 +597,11 @@ public class CloakOfShadows extends Artifact {
 			super.die(cause);
 		}
 
+		public static int shared_rings_lvl() {
+			if (Dungeon.hero!=null && Dungeon.hero.hasTalent(Talent.SHARED_RINGS))
+				return Dungeon.hero.pointsInTalent(Talent.SHARED_RINGS);
+			return 0;
+		}
 	}
 
 	public static class Bat_Controller extends Buff implements ActionIndicator.Action {

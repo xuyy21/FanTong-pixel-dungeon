@@ -41,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -55,6 +56,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
@@ -548,11 +550,29 @@ public class CloakOfShadows extends Artifact {
 
 		@Override
 		public int defenseSkill(Char target) {
+			if (buff(Monk.Focus.class) != null && paralysed == 0 && state != SLEEPING){
+				return INFINITE_EVASION;
+			}
+
 			float multiplier = 1f;
 			if (shared_rings_lvl()>0 && buff(evasionBuff.class)!=null)
 				multiplier += 0.4f * shared_rings_lvl();
 
 			return Math.round((8 + Dungeon.scalingDepth() * 2) * multiplier);
+		}
+
+		@Override
+		public String defenseVerb() {
+			Monk.Focus f = buff(Monk.Focus.class);
+			if (f == null) {
+				return super.defenseVerb();
+			} else {
+				f.detach();
+				if (sprite != null && sprite.visible) {
+					Sample.INSTANCE.play(Assets.Sounds.HIT_PARRY, 1, Random.Float(0.96f, 1.05f));
+				}
+				return Messages.get(this, "parried");
+			}
 		}
 
 		@Override
@@ -633,12 +653,23 @@ public class CloakOfShadows extends Artifact {
 						Buff.prolong(enemy, Blindness.class, 4f);
 					}
 				}
+				if (getBuffedBonus(Dungeon.hero, RingOfTenacity.Tenacity.class)>0) {
+					if (Random.Int(4)<shared_rings_lvl()){
+						Buff.affect(enemy, Focus.class);
+					}
+				}
 			}
 
 			return damage;
 		}
 
 		public static class evasionBuff extends FlavourBuff {
+			{
+				type = buffType.POSITIVE;
+			}
+		}
+
+		public static class Focus extends Buff {
 			{
 				type = buffType.POSITIVE;
 			}

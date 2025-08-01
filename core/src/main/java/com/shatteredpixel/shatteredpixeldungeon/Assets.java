@@ -293,6 +293,7 @@ public class Assets {
 		public static final String LING		= "sprites/whiteling.png";
 		public static final String CYL		= "sprites/smallleaf.png";
 		public static final String BAT      = "sprites/bat.png";
+		public static final String SHADOWBAT= "sprites/shadow_bat.png";
 		public static final String ELEMENTAL= "sprites/elemental.png";
 		public static final String MONK     = "sprites/monk.png";
 		public static final String MUSHMEN  = "sprites/mushmen.png";

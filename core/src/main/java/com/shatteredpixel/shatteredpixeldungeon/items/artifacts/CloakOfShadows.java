@@ -24,26 +24,39 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -57,7 +70,7 @@ public class CloakOfShadows extends Artifact {
 
 		charge = Math.min(level()+3, 10);
 		partialCharge = 0;
-		chargeCap = Math.min(level()+3, 10);
+		chargeCap = is_nightwing ? Math.min(level()*2+6, 20) : Math.min(level()+3, 10);
 
 		defaultAction = AC_STEALTH;
 
@@ -65,7 +78,8 @@ public class CloakOfShadows extends Artifact {
 		bones = false;
 	}
 
-	public static final String AC_STEALTH = "STEALTH";
+	public static final String AC_STEALTH 	= "STEALTH";
+	public static final String AC_BAT		= "BAT";
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -76,6 +90,9 @@ public class CloakOfShadows extends Artifact {
 				&& (charge > 0 || activeBuff != null)) {
 			actions.add(AC_STEALTH);
 		}
+		if (hero!=null && hero.subClass==HeroSubClass.NIGHTWING
+				&& (isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)))
+			actions.add(AC_BAT);
 		return actions;
 	}
 
@@ -110,6 +127,58 @@ public class CloakOfShadows extends Artifact {
 				hero.sprite.operate( hero.pos );
 			}
 
+		}
+
+		if (action.equals(AC_BAT)) {
+			Shadow_Bat bat = null;
+			for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+				if (mob instanceof Shadow_Bat) {
+					bat = (Shadow_Bat) mob;
+					break;
+				}
+			}
+
+			if (bat==null) {
+				if (charge<5) {
+					GLog.w(Messages.get(this, "no_charge"));
+				} else {
+					ArrayList<Integer> respawnPoints = new ArrayList<>();
+					for (int i: PathFinder.NEIGHBOURS8) {
+						if (Actor.findChar(hero.pos+i)==null && Dungeon.level.passable[hero.pos+i])
+							respawnPoints.add(hero.pos+i);
+					}
+					if (!respawnPoints.isEmpty()){
+						int index = Random.index( respawnPoints );
+						bat = new Shadow_Bat();
+						bat.updateHTandHeal(hero, true, false);
+						bat.pos = respawnPoints.get(index);
+						bat.attachControler(hero);
+						GameScene.add(bat);
+						charge -= 5;
+						updateQuickslot();
+
+						hero.spend( 1f );
+						hero.busy();
+						Talent.onArtifactUsed(Dungeon.hero);
+						hero.sprite.operate(hero.pos);
+					} else {
+						GLog.w(Messages.get(this, "no_space"));
+					}
+				}
+			} else {
+				if (charge<4) {
+					GLog.w(Messages.get(this, "no_charge"));
+				} else {
+					bat.updateHTandHeal(hero, false, true);
+					charge -= 4;
+					updateQuickslot();
+
+					hero.spend( 1f );
+					hero.busy();
+					Talent.onArtifactUsed(Dungeon.hero);
+					hero.sprite.operate(hero.pos);
+				}
+			}
 		}
 	}
 
@@ -200,21 +269,27 @@ public class CloakOfShadows extends Artifact {
 	
 	@Override
 	public Item upgrade() {
-		chargeCap = Math.min(chargeCap + 1, 10);
+		chargeCap = is_nightwing ? Math.min(chargeCap+2, 20) : Math.min(chargeCap+1, 10);
 		return super.upgrade();
 	}
 
 	private static final String STEALTHED = "stealthed";
 	private static final String BUFF = "buff";
+	private final String IS_NIGHTWING = "is_nightwing";
+
+	private static boolean is_nightwing = false;
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
 		if (activeBuff != null) bundle.put(BUFF, activeBuff);
+		bundle.put(IS_NIGHTWING, is_nightwing);
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
+		is_nightwing = bundle.getBoolean(IS_NIGHTWING);
+		chargeCap = is_nightwing ? 6 : 3; //init chargeCap for nightwing when level is 0
 		super.restoreFromBundle(bundle);
 		if (bundle.contains(BUFF)){
 			activeBuff = new cloakStealth();
@@ -396,6 +471,237 @@ public class CloakOfShadows extends Artifact {
 			super.restoreFromBundle(bundle);
 			
 			turnsToCost = bundle.getInt( TURNSTOCOST );
+		}
+	}
+
+	public void updateChargeCap() {
+		if (Dungeon.hero!=null&&Dungeon.hero.subClass==HeroSubClass.NIGHTWING) {
+			is_nightwing = true;
+		} else {
+			is_nightwing = false;
+		}
+		chargeCap = is_nightwing ? Math.min(level()*2+6, 20) : Math.min(level()+3, 10);
+	}
+
+	public static class Shadow_Bat extends DirectableAlly {
+		{
+			spriteClass = BatSprite.class;
+
+			flying = true;
+			baseSpeed = 2f;
+
+			state = HUNTING;
+		}
+
+		public void updateHTandHeal(Hero hero, boolean isNew, boolean heal) {
+			if (hero != null) {
+				HT = Math.round(2.5f * hero.lvl);
+			}
+			if (isNew) HP = HT;
+			if (heal && hero!=null) Buff.affect(this, Healing.class).setHeal(3*hero.lvl, 0, 1);
+		}
+
+		public void updateHT(Hero hero) {
+			updateHTandHeal(hero, false, false);
+		}
+
+		@Override
+		public int attackSkill(Char target) {
+			return 9 + Dungeon.scalingDepth();
+		}
+
+		@Override
+		public int defenseSkill(Char target) {
+			return 8 + Dungeon.scalingDepth() * 2;
+		}
+
+		@Override
+		public int damageRoll() {
+			return Random.NormalIntRange(1+Dungeon.scalingDepth()/5, 5+Dungeon.scalingDepth());
+		}
+
+		public boolean canDirect() {
+			return isAlive() && this != Stasis.getStasisAlly();
+		}
+
+		@Override
+		public void defendPos(int cell) {
+			GLog.i(Messages.get(this, "direct_defend"));
+			super.defendPos(cell);
+		}
+
+		@Override
+		public void followHero() {
+			GLog.i(Messages.get(this, "direct_follow"));
+			super.followHero();
+		}
+
+		@Override
+		public void targetChar(Char ch) {
+			GLog.i(Messages.get(this, "direct_attack"));
+			super.targetChar(ch);
+		}
+
+		@Override
+		public int attackProc(Char enemy, int damage) {
+			//TODO
+			return damage;
+		}
+
+		@Override
+		public int defenseProc(Char enemy, int damage) {
+			//TODO
+			return damage;
+		}
+
+		@Override
+		public float speed() {
+			float speed = super.speed();
+
+			//TODO
+			return speed;
+		}
+
+		@Override
+		public int drRoll() {
+			int dr = super.drRoll();
+			//TODO
+			return dr;
+		}
+
+		public void attachControler(Hero hero) {
+			if (hero!=null && hero.subClass==HeroSubClass.NIGHTWING) {
+				Buff.affect(hero, Bat_Controller.class);
+			}
+		}
+
+		@Override
+		protected boolean act() {
+			attachControler(Dungeon.hero);
+
+			return super.act();
+		}
+
+		@Override
+		public void die(Object cause) {
+			//TODO
+
+			if (Dungeon.hero.buff(Bat_Controller.class)!=null) Buff.detach(Dungeon.hero, Bat_Controller.class);
+			super.die(cause);
+		}
+
+	}
+
+	public static class Bat_Controller extends Buff implements ActionIndicator.Action {
+		{
+			revivePersists = true;
+		}
+
+		private Shadow_Bat bat;
+
+		@Override
+		public boolean act() {
+			if (bat==null) {
+				if (!findBat()) detach();
+			}
+
+			ActionIndicator.setAction(this);
+			BuffIndicator.refreshHero();
+			spend(TICK);
+			return true;
+		}
+
+		@Override
+		public String actionName() {
+			return Messages.get(this, "action");
+		}
+
+		@Override
+		public int actionIcon() {
+			return HeroIcon.NIGHTWING;
+		}
+
+		@Override
+		public int indicatorColor() {
+			return 0xA08840;
+		}
+
+		@Override
+		public void doAction() {
+			if (bat==null){
+				findBat();
+			}
+
+			if (bat!=null && bat.canDirect()) {
+				GameScene.selectCell(batDirector);
+			} else {
+				detach();
+			}
+		}
+
+		@Override
+		public void detach() {
+			ActionIndicator.clearAction();
+
+			super.detach();
+		}
+
+		public CellSelector.Listener batDirector = new CellSelector.Listener() {
+			@Override
+			public void onSelect(Integer cell) {
+				if (cell == null) return;
+
+				if (bat!=null){
+					bat.directTocell(cell);
+				}
+
+			}
+
+			@Override
+			public String prompt() {
+				return  Messages.get(Bat_Controller.class, "direct_prompt");
+			}
+		};
+
+		public boolean findBat() {
+			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+				if (mob instanceof Shadow_Bat) {
+					bat = (Shadow_Bat) mob;
+					return true;
+				}
+			}
+			return false;
+		}
+
+		@Override
+		public void restoreFromBundle(Bundle bundle) {
+			super.restoreFromBundle(bundle);
+
+			ActionIndicator.setAction(this);
+		}
+	}
+
+	public static class BatSprite extends MobSprite {
+		public BatSprite() {
+			super();
+
+			texture( Assets.Sprites.SHADOWBAT );
+
+			TextureFilm frames = new TextureFilm( texture, 15, 15 );
+
+			idle = new Animation( 8, true );
+			idle.frames( frames, 0, 1 );
+
+			run = new Animation( 12, true );
+			run.frames( frames, 0, 1 );
+
+			attack = new Animation( 12, false );
+			attack.frames( frames, 2, 3, 0, 1 );
+
+			die = new Animation( 12, false );
+			die.frames( frames, 4, 5, 6 );
+
+			play( idle );
 		}
 	}
 }

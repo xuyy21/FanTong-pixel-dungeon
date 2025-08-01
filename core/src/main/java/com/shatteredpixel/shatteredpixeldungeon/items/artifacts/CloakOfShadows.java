@@ -186,6 +186,7 @@ public class CloakOfShadows extends Artifact {
 						bat.attachControler(hero);
 						GameScene.add(bat);
 						charge -= 5;
+						gainExp(5);
 						updateQuickslot();
 
 						hero.spend( 1f );
@@ -202,6 +203,7 @@ public class CloakOfShadows extends Artifact {
 				} else {
 					bat.updateHTandHeal(hero, false, true);
 					charge -= 4;
+					gainExp(4);
 					updateQuickslot();
 
 					hero.spend( 1f );
@@ -395,6 +397,29 @@ public class CloakOfShadows extends Artifact {
 
 	}
 
+	public void gainExp(int charges) {
+		if (charges<=0) return;
+		//target hero level is 1 + 2*cloak level
+		int lvlDiffFromTarget = Dungeon.hero.lvl - (1+level()*2);
+		//plus an extra one for each level after 6
+		if (level() >= 7){
+			lvlDiffFromTarget -= level()-6;
+		}
+		if (lvlDiffFromTarget >= 0){
+			exp += Math.round(10f * Math.pow(1.1f, lvlDiffFromTarget)) * charges;
+		} else {
+			exp += Math.round(10f * Math.pow(0.75f, -lvlDiffFromTarget)) * charges;
+		}
+
+		if (exp >= (level() + 1) * 50 && level() < levelCap) {
+			upgrade();
+			Catalog.countUse(CloakOfShadows.class);
+			exp -= level() * 50;
+			GLog.p(Messages.get(cloakStealth.class, "levelup"));
+
+		}
+	}
+
 	public CellSelector.Listener selectTrap = new CellSelector.Listener() {
 		@Override
 		public void onSelect(Integer cell) {
@@ -406,6 +431,7 @@ public class CloakOfShadows extends Artifact {
 				storedTrap = t.getClass();
 
 				charge -= 2;
+				gainExp(2);
 				updateQuickslot();
 
 				Dungeon.hero.spend( 1f );

@@ -56,6 +56,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSkill;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
@@ -662,6 +663,20 @@ public class CloakOfShadows extends Artifact {
 						Buff.affect(enemy, Focus.class);
 					}
 				}
+				if (getBuffedBonus(Dungeon.hero, RingOfSkill.Skill.class)>0) {
+					if (buff(Combo.class)==null) {
+						Buff.affect(this, Combo.class).combo(enemy);
+					} else {
+						if (buff(Combo.class).getEnemyID() == enemy.id()) {
+							damage = Math.round(damage * (1f+0.04f*shared_rings_lvl())*buff(Combo.class).getCount());
+
+							buff(Combo.class).combo(enemy);
+						} else {
+							buff(Combo.class).detach();
+							Buff.affect(this, Combo.class).combo(enemy);
+						}
+					}
+				}
 			}
 
 			return damage;
@@ -676,6 +691,45 @@ public class CloakOfShadows extends Artifact {
 		public static class Focus extends Buff {
 			{
 				type = buffType.POSITIVE;
+			}
+		}
+
+		public static class Combo extends Buff {
+			{
+				type = buffType.POSITIVE;
+			}
+
+			private int count = 0;
+			private int enemyID;
+
+			private static final String COUNT = "count";
+			private static final String ENEMY = "enemy";
+
+			public void combo(Char enemy) {
+				enemyID = enemy.id();
+				count ++;
+			}
+
+			public int getCount() {
+				return count;
+			}
+
+			public int getEnemyID() {
+				return enemyID;
+			}
+
+			@Override
+			public void storeInBundle(Bundle bundle) {
+				super.storeInBundle(bundle);
+				bundle.put(COUNT, count);
+				bundle.put(ENEMY, enemyID);
+			}
+
+			@Override
+			public void restoreFromBundle(Bundle bundle) {
+				super.restoreFromBundle(bundle);
+				count = bundle.getInt(COUNT);
+				enemyID = bundle.getInt(ENEMY);
 			}
 		}
 

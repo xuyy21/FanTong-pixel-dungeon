@@ -39,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
+import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
@@ -566,6 +567,13 @@ public class CloakOfShadows extends Artifact {
 					wep.upgrade(shared_rings_lvl()-1);
 					wep.enchant(new Unstable());
 					wep.enchantment.proc(wep, this, enemy, damage);
+				}
+				if (getBuffedBonus(Dungeon.hero, RingOfEnergy.Energy.class)>0) {
+					int reg = Math.min(HT-HP, Math.round(0.03f*shared_rings_lvl()*HT));
+					if (reg > 0) {
+						HP += reg;
+						sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(reg), FloatingText.HEALING);
+					}
 				}
 			}
 

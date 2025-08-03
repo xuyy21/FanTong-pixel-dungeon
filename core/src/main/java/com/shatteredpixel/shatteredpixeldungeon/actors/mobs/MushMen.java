@@ -19,7 +19,7 @@ public class MushMen extends Mob{
         defenseSkill = 20;
 
         EXP = 10;
-        maxLvl = 22;
+        maxLvl = 20;
 
         properties.add(Property.PLANT);
 

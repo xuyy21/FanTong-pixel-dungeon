@@ -28,14 +28,22 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -59,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSkill;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
@@ -67,7 +76,40 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstab
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BlazingTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BurningTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ChillingTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ConfusionTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.CorrosionTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.CursingTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DisarmingTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DisintegrationTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DistortionTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ExplosiveTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.FlashingTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.FlockTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.FrostTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GatewayTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GeyserTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GnollRockfallTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GrimTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GrippingTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GuardianTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.OozeTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PitfallTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PoisonDartTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.RockfallTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ShockingTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.StormTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.SummoningTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TeleportationTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TenguDartTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ToxicTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WarpingTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WeakeningTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -82,6 +124,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -331,6 +374,10 @@ public class CloakOfShadows extends Artifact {
 
 	private static boolean is_nightwing = false;
 	private Class<?extends Trap> storedTrap = null;
+
+	public Class<?extends Trap> getStoredTrap() {
+		return storedTrap;
+	}
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -827,22 +874,108 @@ public class CloakOfShadows extends Artifact {
 
 		@Override
 		public int defenseProc(Char enemy, int damage) {
-			//TODO
+			if (shared_trap_lvl()>0 && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null) {
+				Class<?extends Trap> trap = Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap();
+                if (trap == AlarmTrap.class || trap == DistortionTrap.class || trap == GuardianTrap.class || trap == SummoningTrap.class) {
+					if (Random.Float() < 0.15f*shared_trap_lvl())
+						Buff.prolong(enemy, Amok.class, 4f);
+                } else if (trap == BlazingTrap.class || trap == BurningTrap.class) {
+					if (Random.Float() < 0.3f*shared_trap_lvl())
+						Buff.affect(enemy, Burning.class).reignite(enemy, 8f);
+				} else if (trap == ChillingTrap.class || trap == FrostTrap.class) {
+					if (Random.Float() < 0.15f*shared_trap_lvl())
+						Buff.prolong(enemy, Frost.class, Frost.DURATION);
+				} else if (trap == ConfusionTrap.class) {
+					if (Random.Float() < 0.3f*shared_trap_lvl())
+						Buff.prolong(enemy, Vertigo.class, 10f);
+				} else if (trap == CorrosionTrap.class || trap == OozeTrap.class || trap == ToxicTrap.class) {
+					if (Random.Float() < 0.15f*shared_trap_lvl())
+						Buff.affect(enemy, Ooze.class).set(6f);
+				} else if (trap == CursingTrap.class || trap == DisarmingTrap.class || trap == WeakeningTrap.class) {
+					if (Random.Float() < 0.3f*shared_trap_lvl())
+						Buff.prolong(enemy, Weakness.class, 10f);
+				} else if (trap == DisintegrationTrap.class || trap == GrimTrap.class) {
+					if (Random.Float() < 0.3f*shared_trap_lvl())
+						Buff.prolong(enemy, Vulnerable.class, 4f);
+				} else if (trap == ExplosiveTrap.class || trap == FlashingTrap.class || trap == GrippingTrap.class || trap == PoisonDartTrap.class || trap == TenguDartTrap.class || trap == WornDartTrap.class) {
+					enemy.damage(Math.round(damage*0.1f*shared_trap_lvl()), this);
+				} else if (trap == GatewayTrap.class || trap == TeleportationTrap.class || trap == WarpingTrap.class) {
+					if (!enemy.properties().contains(Char.Property.IMMOVABLE) && Random.Float() < 0.15f*shared_trap_lvl()) {
+						ArrayList<Integer> visiblePositions = new ArrayList<>();
+						ArrayList<Integer> nonVisiblePositions = new ArrayList<>();
+
+						PathFinder.buildDistanceMap(pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
+
+						for (int pos = 0; pos < Dungeon.level.length(); pos++){
+							if (Dungeon.level.passable[pos]
+									&& PathFinder.distance[pos] >= 8
+									&& PathFinder.distance[pos] <= 10
+									&& (!Char.hasProp(enemy, Char.Property.LARGE) || Dungeon.level.openSpace[pos])
+									&& Actor.findChar(pos) == null){
+
+								if (Dungeon.level.heroFOV[pos]){
+									visiblePositions.add(pos);
+								} else {
+									nonVisiblePositions.add(pos);
+								}
+
+							}
+						}
+
+						int chosenPos = -1;
+
+						if (!visiblePositions.isEmpty()) {
+							for (int pos : visiblePositions) {
+								if (chosenPos == -1 || Dungeon.level.trueDistance(enemy.pos, chosenPos)
+										> Dungeon.level.trueDistance(enemy.pos, pos)){
+									chosenPos = pos;
+								}
+							}
+						} else {
+							for (int pos : nonVisiblePositions) {
+								if (chosenPos == -1 || Dungeon.level.trueDistance(enemy.pos, chosenPos)
+										> Dungeon.level.trueDistance(enemy.pos, pos)){
+									chosenPos = pos;
+								}
+							}
+						}
+
+						if (chosenPos != -1){
+							ScrollOfTeleportation.appear( enemy, chosenPos );
+							Dungeon.level.occupyCell(enemy );
+							if (enemy == Dungeon.hero){
+								Dungeon.observe();
+								GameScene.updateFog();
+							} else if (!Dungeon.level.heroFOV[chosenPos]){
+								Buff.append(Dungeon.hero, TalismanOfForesight.CharAwareness.class, 5f).charID = enemy.id();
+							}
+						}
+					}
+				} else if (trap == ShockingTrap.class || trap == StormTrap.class) {
+					if (Random.Float() < 0.15f*shared_trap_lvl())
+						Buff.prolong(enemy, Paralysis.class, 4f);
+				}
+			}
 			return damage;
 		}
 
 		@Override
 		public float speed() {
 			float speed = super.speed();
-
-			//TODO
+			if (shared_trap_lvl()>0 && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null && Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap()== GeyserTrap.class)
+				speed *= shared_trap_lvl() * 0.5f + 1;
 			return speed;
 		}
 
 		@Override
 		public int drRoll() {
 			int dr = super.drRoll();
-			//TODO
+			if (shared_trap_lvl()>0 && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null
+					&& Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap()== FlockTrap.class
+					&& Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap()== GnollRockfallTrap.class
+					&& Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap()== PitfallTrap.class
+					&& Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap()== RockfallTrap.class)
+				dr += Random.NormalIntRange(0, 5 + 5 * shared_trap_lvl());
 			return dr;
 		}
 

@@ -355,7 +355,8 @@ public class CloakOfShadows extends Artifact {
 		String desc = super.desc();
 
 		if (storedTrap!=null) {
-			desc += "\n\n" + Messages.get(this, "trap", Messages.get(storedTrap, "name"));
+			desc += "\n\n" + Messages.get(this, "trap", Messages.get(storedTrap, "name"))
+				+ Messages.get(this, Messages.get(storedTrap, "name"));
 		}
 
 		return desc;

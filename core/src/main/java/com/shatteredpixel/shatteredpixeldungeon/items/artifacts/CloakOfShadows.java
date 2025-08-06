@@ -28,6 +28,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SmokeScreen;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -152,6 +154,7 @@ public class CloakOfShadows extends Artifact {
 	public static final String AC_STEALTH 	= "STEALTH";
 	public static final String AC_BAT		= "BAT";
 	public static final String AC_TRAP		= "TRAP";
+	public static final String AC_SMOKE		= "SMOKE";
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -167,6 +170,8 @@ public class CloakOfShadows extends Artifact {
 			actions.add(AC_BAT);
 		if (shared_trap_lvl()>0 && (isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)))
 			actions.add(AC_TRAP);
+		if (hero.pointsInTalent(Talent.CLOAK_POWERS)>=1  && (isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)))
+			actions.add(AC_SMOKE);
 		return actions;
 	}
 
@@ -256,11 +261,37 @@ public class CloakOfShadows extends Artifact {
 				}
 			}
 		}
+
 		if (action.equals(AC_TRAP)) {
 			if (charge<2) {
 				GLog.w(Messages.get(this, "no_charge"));
 			} else {
 				GameScene.selectCell(selectTrap);
+			}
+		}
+
+		if (action.equals(AC_SMOKE)) {
+			if (charge<3) {
+				GLog.w(Messages.get(this, "no_charge"));
+			} else {
+				Sample.INSTANCE.play( Assets.Sounds.GAS );
+				int centerVolume = 90;
+				for (int i : PathFinder.NEIGHBOURS8){
+					if (!Dungeon.level.solid[hero.pos+i]){
+						GameScene.add( Blob.seed( hero.pos+i, 90, SmokeScreen.class ) );
+					} else {
+						centerVolume += 90;
+					}
+				}
+				GameScene.add( Blob.seed( hero.pos, centerVolume, SmokeScreen.class ) );
+				charge -= 3;
+				gainExp(3);
+				updateQuickslot();
+
+				hero.spend( 1f );
+				hero.busy();
+				Talent.onArtifactUsed(Dungeon.hero);
+				hero.sprite.operate(hero.pos);
 			}
 		}
 	}

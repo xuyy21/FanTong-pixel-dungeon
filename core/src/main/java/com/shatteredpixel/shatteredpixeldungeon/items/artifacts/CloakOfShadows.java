@@ -155,23 +155,26 @@ public class CloakOfShadows extends Artifact {
 	public static final String AC_BAT		= "BAT";
 	public static final String AC_TRAP		= "TRAP";
 	public static final String AC_SMOKE		= "SMOKE";
+	public static final String AC_WARP		= "WARP";
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK))
-				&& !cursed
+		if (isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)){
+			if (!cursed
 				&& hero.buff(MagicImmune.class) == null
 				&& (charge > 0 || activeBuff != null)) {
 			actions.add(AC_STEALTH);
-		}
-		if (hero!=null && hero.subClass==HeroSubClass.NIGHTWING
-				&& (isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)))
+			}
+		if (hero != null && hero.subClass == HeroSubClass.NIGHTWING)
 			actions.add(AC_BAT);
-		if (shared_trap_lvl()>0 && (isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)))
+		if (shared_trap_lvl() > 0)
 			actions.add(AC_TRAP);
-		if (hero.pointsInTalent(Talent.CLOAK_POWERS)>=1  && (isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)))
+		if (hero.pointsInTalent(Talent.CLOAK_POWERS) >= 1)
 			actions.add(AC_SMOKE);
+		if (hero.pointsInTalent(Talent.CLOAK_POWERS) >= 2)
+			actions.add(AC_WARP);
+		}
 		return actions;
 	}
 
@@ -292,6 +295,40 @@ public class CloakOfShadows extends Artifact {
 				hero.busy();
 				Talent.onArtifactUsed(Dungeon.hero);
 				hero.sprite.operate(hero.pos);
+			}
+		}
+
+		if (action.equals(AC_WARP)) {
+			if (charge<3) {
+				GLog.w(Messages.get(this, "no_charge"));
+			} else {
+				Shadow_Bat bat = null;
+				for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+					if (mob instanceof Shadow_Bat) {
+						bat = (Shadow_Bat) mob;
+						break;
+					}
+				}
+
+				if (bat==null) {
+					GLog.w(Messages.get(this, "no_bat"));
+				} else {
+					int oldPos = hero.pos;
+					int newPos = bat.pos;
+					hero.pos = newPos;
+					bat.pos = oldPos;
+					ScrollOfTeleportation.appear(hero, newPos);
+					ScrollOfTeleportation.appear(bat, oldPos);
+					Dungeon.observe();
+					GameScene.updateFog();
+
+					charge -= 3;
+					gainExp(3);
+					updateQuickslot();
+
+					Talent.onArtifactUsed(Dungeon.hero);
+					hero.spendAndNext( 1f );
+				}
 			}
 		}
 	}

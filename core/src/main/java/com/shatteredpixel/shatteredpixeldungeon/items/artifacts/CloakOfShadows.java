@@ -38,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
@@ -156,6 +157,7 @@ public class CloakOfShadows extends Artifact {
 	public static final String AC_TRAP		= "TRAP";
 	public static final String AC_SMOKE		= "SMOKE";
 	public static final String AC_WARP		= "WARP";
+	public static final String AC_PROTECT	= "PROTECT";
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -174,6 +176,8 @@ public class CloakOfShadows extends Artifact {
 			actions.add(AC_SMOKE);
 		if (hero.pointsInTalent(Talent.CLOAK_POWERS) >= 2)
 			actions.add(AC_WARP);
+		if (hero.pointsInTalent(Talent.CLOAK_POWERS) >= 3)
+			actions.add(AC_PROTECT);
 		}
 		return actions;
 	}
@@ -329,6 +333,32 @@ public class CloakOfShadows extends Artifact {
 					Talent.onArtifactUsed(Dungeon.hero);
 					hero.spendAndNext( 1f );
 				}
+			}
+		}
+
+		if (action.equals(AC_PROTECT)) {
+			if (charge<5) {
+				GLog.w(Messages.get(this, "no_charge"));
+			} else {
+				Shadow_Bat bat = null;
+				for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+					if (mob instanceof Shadow_Bat) {
+						bat = (Shadow_Bat) mob;
+						break;
+					}
+				}
+
+				Buff.affect(hero, Invulnerability.class, 3.01f);
+				if (bat!=null) Buff.affect(bat, Invulnerability.class, 3.01f);
+
+				charge -= 5;
+				gainExp(5);
+				updateQuickslot();
+
+				hero.spend( 1f );
+				hero.busy();
+				Talent.onArtifactUsed(Dungeon.hero);
+				hero.sprite.operate(hero.pos);
 			}
 		}
 	}

@@ -963,7 +963,8 @@ public class CloakOfShadows extends Artifact {
 		@Override
 		public float speed() {
 			float speed = super.speed();
-			if (shared_trap_lvl()>0 && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null && Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap()== GeyserTrap.class)
+			if (shared_trap_lvl()>0 && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null && Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap()== GeyserTrap.class
+				&& Dungeon.level.water[pos])
 				speed *= shared_trap_lvl() * 0.5f + 1;
 			return speed;
 		}

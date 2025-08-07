@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.AllySoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BatCookie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BerryCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
@@ -283,7 +284,8 @@ public abstract class Recipe {
 		new MandrakeRoot.MandrakeToPotion(),
 		new Magic_Coin.Recipe(),
 		new EX_Enchantment.Recipe(),
-		new AllySoup.Recipe()
+		new AllySoup.Recipe(),
+		new BatCookie.Recipe()
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){

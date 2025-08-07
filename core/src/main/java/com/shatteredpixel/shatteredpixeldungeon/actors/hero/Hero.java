@@ -109,6 +109,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArm
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BatCookie;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
@@ -1527,6 +1528,14 @@ public class Hero extends Char {
 			}
 			break;
 		default:
+		}
+
+		if (buff(BatCookie.Bat_Bite.class)!=null && enemy instanceof Mob && ((Mob) enemy).surprisedBy(this)){
+			int reg = Math.min( Math.round(0.1f * damage), HT - HP );
+			if (reg > 0) {
+				HP += reg;
+				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(reg), FloatingText.HEALING);
+			}
 		}
 		
 		return damage;

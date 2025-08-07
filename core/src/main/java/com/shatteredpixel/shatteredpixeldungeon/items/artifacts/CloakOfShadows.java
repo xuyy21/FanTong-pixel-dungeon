@@ -78,6 +78,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BlazingTrap;
@@ -131,6 +132,7 @@ import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 
@@ -476,6 +478,18 @@ public class CloakOfShadows extends Artifact {
 
 	public Class<?extends Trap> getStoredTrap() {
 		return storedTrap;
+	}
+
+	public void releaseTrap(int cell) {
+		if (storedTrap==null) return;
+
+		Trap t = Reflection.newInstance(storedTrap);
+		t.pos = cell;
+		t.reclaimed = true;
+		Bestiary.countEncounter(t.getClass());
+		t.activate();
+
+		storedTrap = null;
 	}
 
 	@Override
@@ -1094,7 +1108,9 @@ public class CloakOfShadows extends Artifact {
 
 		@Override
 		public void die(Object cause) {
-			//TODO
+			if (Dungeon.hero!=null && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null){
+				Dungeon.hero.belongings.getItem(CloakOfShadows.class).releaseTrap(pos);
+			}
 
 			if (Dungeon.hero.buff(Bat_Controller.class)!=null) Buff.detach(Dungeon.hero, Bat_Controller.class);
 			super.die(cause);

@@ -68,6 +68,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SupplyRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
@@ -415,6 +416,9 @@ public class QuickRecipe extends Component {
 						result.add(new QuickRecipe(new Magic_Coin.Recipe(),
 								new ArrayList<Item>(Arrays.asList(new Pasty(), new Plant.Seed.PlaceHolder(), new LiquidMetal().quantity(10))),
 								new Magic_Coin()));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.CLOAK_POWERS)>=1) {
+						result.add(new QuickRecipe(new SupplyRation.Recipe()));
 					}
 					if (Dungeon.hero.belongings != null) {
 						RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);

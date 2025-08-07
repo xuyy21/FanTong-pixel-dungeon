@@ -26,10 +26,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class SupplyRation extends Food {
 
@@ -73,4 +80,25 @@ public class SupplyRation extends Food {
 		return 10 * quantity;
 	}
 
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+		{
+			inputs =  new Class[]{SmallRation.class};
+			inQuantity = new int[]{1};
+
+			cost = 6;
+
+			output = SupplyRation.class;
+			outQuantity = 1;
+		}
+
+		@Override
+		public boolean testIngredients(ArrayList<Item> ingredients) {
+			return Dungeon.hero!=null && Dungeon.hero.pointsInTalent(Talent.CLOAK_POWERS)>=1 && super.testIngredients(ingredients);
+		}
+
+		@Override
+		public Item brew(ArrayList<Item> ingredients) {
+			return super.brew(ingredients);
+		}
+	}
 }

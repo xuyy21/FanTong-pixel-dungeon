@@ -33,13 +33,10 @@ public class v0_4_X_FTChanges {
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
-//        changes.addButton(new ChangeButton(HeroSprite.avatar(HeroClass.MAGE, 6), "魔术师",
-//                "法师的新转职：魔术师。\n\n" +
-//                        "魔术师可以在使用老魔杖或者法杖施法时获得咒印，咒印可以用于施展独特魔术！\n\n" +
-//                        "现在共有7种不同的魔术，欢迎提出意见！"));
-//
-//        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.TRINKET_HOLDER), "重练饰品",
-//                "现在可以在炼金锅中将饰品变成另一种饰品。\n\n每次重练需要消耗5+5*饰品等级的炼金能量。"));
+        changes.addButton(new ChangeButton(HeroSprite.avatar(HeroClass.ROGUE, 6), "夜翼",
+                "盗贼的新转职：夜翼。\n\n" +
+                        "夜翼可以通过暗影斗篷使用更多能力，他可以召唤蝙蝠、吸收陷阱、释放迷雾、交换位置以及使用斗篷庇护！\n\n" +
+                        "由于戒指联动和陷阱联动的效果较多，我没有逐一测试，有BUG或者平衡性问题请向我反馈。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(CharSprite.WARNING);
@@ -50,21 +47,6 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new Image(new MushmenSprite()), "真菌怪人",
                 "有玩家反应真菌怪人的等级太高导致容易在16，17层刷到较高等级，所以将真菌怪人的经验等级从22级下调为20级。"));
-
-        changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-        changes.hardlight(CharSprite.POSITIVE);
-        changeInfos.add(changes);
-
-//        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ELEMENTALCORE), "元素核心",
-//                "元素们掉落元素核心的概率略有提高。"));
-
-        changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-        changes.hardlight(CharSprite.NEGATIVE);
-        changeInfos.add(changes);
-
-//        changes.addButton(new ChangeButton(new Image(new MandrakeSprite()), "曼德拉草",
-//                "曼德拉草现在只在第一次尖叫时播放音效，之后只有特效没有音效。如果您之前被曼德拉草折磨过耳膜，我再次表示歉意。\n\n" +
-//                        "曼德拉草现在在受到较低伤害时可以不会尖叫，这样就不用担心腐化的曼德拉草一直在叫。"));
     }
 
 }

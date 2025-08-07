@@ -42,7 +42,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.AllySoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BigEye;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
@@ -419,6 +421,11 @@ public class QuickRecipe extends Component {
 					}
 					if (Dungeon.hero.pointsInTalent(Talent.CLOAK_POWERS)>=1) {
 						result.add(new QuickRecipe(new SupplyRation.Recipe()));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.CLOAK_POWERS)>=2) {
+						result.add(new QuickRecipe(new AllySoup.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolder(), new Berry(), new Honeypot.HalfPot())),
+								new AllySoup()));
 					}
 					if (Dungeon.hero.belongings != null) {
 						RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);

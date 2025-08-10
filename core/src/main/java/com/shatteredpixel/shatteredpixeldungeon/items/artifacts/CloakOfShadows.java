@@ -799,7 +799,7 @@ public class CloakOfShadows extends Artifact {
 			if (shared_rings_lvl()>0 && getBuffedBonus(Dungeon.hero, RingOfFuror.Furor.class) > 0)
 				multiplier += 0.5f * shared_rings_lvl();
 
-			return Math.round(super.attackDelay() / multiplier);
+			return super.attackDelay() / multiplier;
 		}
 
 		@Override

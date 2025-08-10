@@ -817,7 +817,7 @@ public class CloakOfShadows extends Artifact {
 
 		@Override
 		public String defenseVerb() {
-			Monk.Focus f = buff(Monk.Focus.class);
+			Focus f = buff(Focus.class);
 			if (f == null) {
 				return super.defenseVerb();
 			} else {

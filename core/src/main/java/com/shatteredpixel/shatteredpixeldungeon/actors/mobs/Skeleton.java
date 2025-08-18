@@ -82,17 +82,17 @@ public class Skeleton extends Mob {
 				//this does not consume extra uses of rock armor and earthroot armor
 
 				WandOfLivingEarth.RockArmor rockArmor = ch.buff(WandOfLivingEarth.RockArmor.class);
-				if (rockArmor != null) {
+				if (damage > 0 && rockArmor != null) {
 					int preDmg = damage;
 					damage = rockArmor.absorb(damage);
-					damage *= Math.round(damage/(float)preDmg); //apply the % reduction twice
+					damage = Math.round(damage * damage / (float)preDmg); //apply the % reduction twice
 				}
 
 				RockGuarding.RockGuardingArmor rockGuardingArmor = ch.buff(RockGuarding.RockGuardingArmor.class);
-				if (rockArmor != null) {
+				if (damage > 0 && rockArmor != null) {
 					int preDmg = damage;
 					damage = rockGuardingArmor.absorb(damage);
-					damage *= Math.round(damage/(float)preDmg); //apply the % reduction twice
+					damage = Math.round(damage * damage / (float)preDmg); //apply the % reduction twice
 				}
 
 				Earthroot.Armor armor = ch.buff( Earthroot.Armor.class );

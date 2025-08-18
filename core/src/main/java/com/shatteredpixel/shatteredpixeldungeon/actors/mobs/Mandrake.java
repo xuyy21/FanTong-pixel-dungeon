@@ -5,14 +5,18 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -33,6 +37,7 @@ public class Mandrake extends Mob{
         FLEEING = new Mandrake.Fleeing();
         WANDERING = new Mandrake.Wandering();
         HUNTING = new Mandrake.Hunting();
+        SLEEPING = new Mandrake.Sleeping();
 
         state = PASSIVE;
 
@@ -55,8 +60,7 @@ public class Mandrake extends Mob{
     @Override
     public boolean add(Buff buff) {
         if (super.add(buff)) {
-            if (buff.type == Buff.buffType.NEGATIVE) {
-                if(state == PASSIVE)state = FLEEING;
+            if (buff.type == Buff.buffType.NEGATIVE && !restroing) {
                 scream();
             }
             return true;
@@ -67,7 +71,7 @@ public class Mandrake extends Mob{
     @Override
     public void damage( int dmg, Object src ) {
 
-        if (state == PASSIVE) {
+        if (state == PASSIVE || state == SLEEPING) {
             state = FLEEING;
             scream();
         }
@@ -84,6 +88,11 @@ public class Mandrake extends Mob{
     }
 
     public void scream() {
+        if (!canScream()) return;
+
+        Buff.affect(this, Alarmed.class);
+        state = FLEEING;
+        sprite.run();
 
         for (Mob mob : Dungeon.level.mobs) {
             mob.beckon( pos );
@@ -96,13 +105,23 @@ public class Mandrake extends Mob{
         hasscreamed = true;
     }
 
+    public void comfort(){
+        if(buff(Alarmed.class)!=null) buff(Alarmed.class).detach();
+    }
+
+    public boolean canScream() {
+        return !restroing && buff(MagicalSleep.class)==null;
+    }
+
     private class Fleeing extends Mob.Fleeing {
         @Override
         protected void escaped() {
             if (!Dungeon.level.heroFOV[pos]
                     && Dungeon.level.distance(Dungeon.hero.pos, pos) >= 6) {
                 state = PASSIVE;
+                comfort();
                 sprite.idle();
+                spend(TICK);
             } else state = FLEEING;
         }
     }
@@ -124,7 +143,7 @@ public class Mandrake extends Mob{
     private class Passive extends Mob.Passive {
         @Override
         public boolean act( boolean enemyInFOV, boolean justAlerted ) {
-            if (Dungeon.level.distance(Dungeon.hero.pos, pos) <= (Dungeon.isChallenged(Challenges.CRAZY_PLANT)?2:1) && enemyInFOV) {
+            if (canScream() && Dungeon.level.distance(Dungeon.hero.pos, pos) <= ((Dungeon.isChallenged(Challenges.CRAZY_PLANT)&&!(Dungeon.hero.pointsInTalent(Talent.SILENT_STEPS)>=2))?2:1) && enemyInFOV) {
                 scream();
                 enemySeen = true;
                 state = FLEEING;
@@ -132,6 +151,15 @@ public class Mandrake extends Mob{
                 spend( TICK );
                 return true;
             }
+            comfort();
+            return super.act(enemyInFOV, justAlerted);
+        }
+    }
+    private class Sleeping extends Mob.Sleeping {
+        @Override
+        public boolean act( boolean enemyInFOV, boolean justAlerted ) {
+            comfort();
+
             return super.act(enemyInFOV, justAlerted);
         }
     }
@@ -143,11 +171,24 @@ public class Mandrake extends Mob{
         return sprite;
     }
 
+    private boolean restroing = false;//prevent screaming while restoring
+
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
+    public void restoreFromBundle( Bundle bundle ){
+        for (Bundlable b : bundle.getCollection( BUFFS )) {
+            if (b instanceof Alarmed) {
+                ((Buff)b).attachTo( this );
+                this.state = FLEEING;
+                break;
+            }
+        }
+        restroing = true;
 
         super.restoreFromBundle( bundle );
 
-        if (state != FLEEING) state = PASSIVE;
+        restroing = false;
+    }
+
+    public static class Alarmed extends Buff{
     }
 }

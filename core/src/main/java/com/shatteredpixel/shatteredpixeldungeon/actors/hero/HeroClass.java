@@ -130,6 +130,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfGnollKing;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
@@ -269,7 +270,6 @@ public enum HeroClass {
 			new GooBlob().quantity(100).collect();
 			new Greatsword().upgrade(30).identify().collect();
 			new PlateArmor().upgrade(30).identify().collect();
-			new WandOfTransfusion().upgrade(10).collect();
 			new RingOfSkill().upgrade(30).collect();
 			new RingOfArcana().upgrade(30).collect();
 			new PawWithRings().collect();

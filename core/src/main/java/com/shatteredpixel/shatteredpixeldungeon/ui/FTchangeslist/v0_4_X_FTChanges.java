@@ -73,7 +73,8 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(Icons.get(Icons.STAIRS), "夜翼天赋加强",
                 "交换位置在使用后还会使英雄获得蝙蝠的视野10回合，蝙蝠必定格挡下一次攻击。\n\n" +
                         "斗篷庇护在无敌外还增加3回合全面净化效果。\n\n" +
-                        "吸收陷阱的能量消耗从2下降为1，而且蝙蝠死亡时可以选择是否释放陷阱。陷阱联动的大部分效果即使蝙蝠闪避或格挡了攻击也可以生效。"));
+                        "吸收陷阱的能量消耗从2下降为1，而且蝙蝠死亡时可以选择是否释放陷阱。陷阱联动的大部分效果即使蝙蝠闪避或格挡了攻击也可以生效。\n\n" +
+                        "元素戒指的联动效果从使用蝙蝠攻击的伤害改为独立roll一次伤害值，避免被护甲削减。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(CharSprite.NEGATIVE);

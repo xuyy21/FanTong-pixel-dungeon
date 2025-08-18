@@ -53,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWind;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesLevel;
@@ -980,6 +981,14 @@ public class Dungeon {
 			BArray.or( level.visited, level.heroFOV, a.pos - 1, 3, level.visited );
 			BArray.or( level.visited, level.heroFOV, a.pos - 1 + level.width(), 3, level.visited );
 			GameScene.updateFog(a.pos, 2);
+		}
+
+		for (WandOfWind.WindRevealedArea a : hero.buffs(WandOfWind.WindRevealedArea.class)){
+			if (Dungeon.depth != a.depth || Dungeon.branch != a.branch) continue;
+			BArray.or( level.visited, level.heroFOV, a.pos - 1 - level.width(), 5, level.visited );
+			BArray.or( level.visited, level.heroFOV, a.pos - 1, 5, level.visited );
+			BArray.or( level.visited, level.heroFOV, a.pos - 1 + level.width(), 5, level.visited );
+			GameScene.updateFog(a.pos, 3);
 		}
 
 		for (Char ch : Actor.chars()){

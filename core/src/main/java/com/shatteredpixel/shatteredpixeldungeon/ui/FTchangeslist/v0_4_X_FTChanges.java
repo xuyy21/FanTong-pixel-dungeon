@@ -62,6 +62,9 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EX_ENCHANTMENT), "死生恒常附魔加强",
                 "死生恒常附魔触发后给予的护盾量现在可以受附魔强度加成影响。"));
 
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_WIND), "风语法杖加强",
+                "风语法杖的伤害成长从1~2提高为1~3。\n\n风语法杖给予的视野从3*3扩大为5*5，持续时间从固定10回合改为6+2*等级回合，而且可以发现隐藏地形。但是不再可以同时拥有多个风语视野，而是替换之前的风语视野。"));
+
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(CharSprite.NEGATIVE);
         changeInfos.add(changes);

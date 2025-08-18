@@ -1040,14 +1040,13 @@ public class CloakOfShadows extends Artifact {
 			}
 		}
 
-		@Override
-		public int defenseProc(Char enemy, int damage) {
+		public void defenseWithSharedTrap(Char enemy) {
 			if (shared_trap_lvl()>0 && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null) {
 				Class<?extends Trap> trap = Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap();
-                if (trap == AlarmTrap.class || trap == DistortionTrap.class || trap == GuardianTrap.class || trap == SummoningTrap.class) {
+				if (trap == AlarmTrap.class || trap == DistortionTrap.class || trap == GuardianTrap.class || trap == SummoningTrap.class) {
 					if (Random.Float() < 0.15f*shared_trap_lvl())
 						Buff.prolong(enemy, Amok.class, 4f);
-                } else if (trap == BlazingTrap.class || trap == BurningTrap.class) {
+				} else if (trap == BlazingTrap.class || trap == BurningTrap.class) {
 					if (Random.Float() < 0.3f*shared_trap_lvl())
 						Buff.affect(enemy, Burning.class).reignite(enemy, 8f);
 				} else if (trap == ChillingTrap.class || trap == FrostTrap.class) {
@@ -1065,8 +1064,6 @@ public class CloakOfShadows extends Artifact {
 				} else if (trap == DisintegrationTrap.class || trap == GrimTrap.class) {
 					if (Random.Float() < 0.3f*shared_trap_lvl())
 						Buff.prolong(enemy, Vulnerable.class, 4f);
-				} else if (trap == ExplosiveTrap.class || trap == FlashingTrap.class || trap == GrippingTrap.class || trap == PoisonDartTrap.class || trap == TenguDartTrap.class || trap == WornDartTrap.class) {
-					enemy.damage(Math.round(damage*0.1f*shared_trap_lvl()), this);
 				} else if (trap == GatewayTrap.class || trap == TeleportationTrap.class || trap == WarpingTrap.class) {
 					if (!enemy.properties().contains(Char.Property.IMMOVABLE) && Random.Float() < 0.15f*shared_trap_lvl()) {
 						ArrayList<Integer> visiblePositions = new ArrayList<>();
@@ -1119,12 +1116,23 @@ public class CloakOfShadows extends Artifact {
 							}
 						}
 					}
+				}
+			}
+		}
+
+		@Override
+		public int defenseProc(Char enemy, int damage) {
+			if (shared_trap_lvl()>0 && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null){
+				Class<?extends Trap> trap = Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap();
+				if (trap == ExplosiveTrap.class || trap == FlashingTrap.class || trap == GrippingTrap.class || trap == PoisonDartTrap.class || trap == TenguDartTrap.class || trap == WornDartTrap.class) {
+					enemy.damage(Math.round(damage*0.15f*shared_trap_lvl()), this);
 				} else if (trap == ShockingTrap.class || trap == StormTrap.class) {
-					if (Random.Float() < 0.15f*shared_trap_lvl())
+					if (Random.Float() < 0.2f*shared_trap_lvl())
 						Buff.prolong(enemy, Paralysis.class, 4f);
 				}
 			}
-			return damage;
+
+			return super.defenseProc(enemy, damage);
 		}
 
 		@Override

@@ -240,17 +240,17 @@ public abstract class PlantMonster extends Mob{
 
         @Override
         public int attackProc(Char enemy, int damage) {
-            enemy.damage(Random.NormalIntRange(2 + Dungeon.scalingDepth() / 5, 4 + Dungeon.scalingDepth() / 5), new Electricity());
+            enemy.damage(Random.NormalIntRange(Dungeon.scalingDepth() / 5, 2 + Dungeon.scalingDepth() / 5), new Electricity());
 
             return super.attackProc( enemy, damage );
         }
 
         @Override
-        public int defenseProc( Char enemy, int damage ) {
+        public void die(Object canse){
             Ballistica aim = new Ballistica(pos, pos, Ballistica.STOP_TARGET);
             new CursedWand.LightningBolt().effect(null, this, aim, false);
 
-            return super.defenseProc( enemy, damage );
+            super.die(canse);
         }
     }
 

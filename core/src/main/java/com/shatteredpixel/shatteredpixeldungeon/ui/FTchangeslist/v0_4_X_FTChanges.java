@@ -68,5 +68,8 @@ public class v0_4_X_FTChanges {
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(CharSprite.NEGATIVE);
         changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Stormvine()), "风暴鲲",
+                "风暴鲲的攻击附加电伤从2+楼层/5~4+楼层/5下降为楼层/5~2+楼层/5。\n\n风暴鲲受攻击时释放电击改为死亡时释放电击。"));
     }
 }

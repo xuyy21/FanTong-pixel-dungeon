@@ -95,7 +95,7 @@ public class Destiny extends Weapon.Enchantment{
 
         @Override
         public void detach() {
-            Buff.affect(target, Barrier.class).setShield(Math.round(target.HT * points / 25f));
+            Buff.affect(target, Barrier.class).setShield(Math.round(target.HT * points * genericProcChanceMultiplier(target) / 25f));
 
             super.detach();
         }

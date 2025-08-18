@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_1_Changes(changeInfos);
         add_v0_4_0_Changes(changeInfos);
     }
 
@@ -49,4 +50,20 @@ public class v0_4_X_FTChanges {
                 "有玩家反应真菌怪人的等级太高导致容易在16，17层刷到较高等级，所以将真菌怪人的经验等级从22级下调为20级。"));
     }
 
+    public static void add_v0_4_1_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.1", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
+        changes.hardlight(CharSprite.POSITIVE);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EX_ENCHANTMENT), "死生恒常附魔加强",
+                "死生恒常附魔触发后给予的护盾量现在可以受附魔强度加成影响。"));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
+        changes.hardlight(CharSprite.NEGATIVE);
+        changeInfos.add(changes);
+    }
 }

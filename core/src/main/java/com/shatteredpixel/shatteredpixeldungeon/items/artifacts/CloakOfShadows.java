@@ -919,7 +919,7 @@ public class CloakOfShadows extends Artifact {
 		public int attackProc(Char enemy, int damage) {
 			if (shared_rings_lvl()>0) {
 				if (getBuffedBonus(Dungeon.hero, RingOfElements.Resistance.class)>0) {
-					enemy.damage(Math.round(damage * 0.25f * shared_rings_lvl()), new WandOfMagicMissile());
+					enemy.damage(Math.round(damageRoll() * 0.25f * shared_rings_lvl()), new WandOfMagicMissile());
 				}
 				if (getBuffedBonus(Dungeon.hero, RingOfArcana.Arcana.class)>0) {
 					Weapon wep = new Sword();

@@ -232,7 +232,7 @@ public class CloakOfShadows extends Artifact {
 			}
 
 			if (bat==null) {
-				if (charge<5) {
+				if (charge<3) {
 					GLog.w(Messages.get(this, "no_charge"));
 				} else {
 					ArrayList<Integer> respawnPoints = new ArrayList<>();
@@ -246,9 +246,10 @@ public class CloakOfShadows extends Artifact {
 						bat.updateHTandHeal(hero, true, false);
 						bat.pos = respawnPoints.get(index);
 						bat.attachControler(hero);
+						Buff.affect(bat, Shadow_Bat.Focus.class);
 						GameScene.add(bat);
-						charge -= 5;
-						gainExp(5);
+						charge -= 3;
+						gainExp(3);
 						updateQuickslot();
 
 						hero.spend( 1f );
@@ -260,12 +261,14 @@ public class CloakOfShadows extends Artifact {
 					}
 				}
 			} else {
-				if (charge<4) {
+				if (charge<3) {
 					GLog.w(Messages.get(this, "no_charge"));
 				} else {
 					bat.updateHTandHeal(hero, false, true);
-					charge -= 4;
-					gainExp(4);
+					Buff.affect(bat, Shadow_Bat.Focus.class);
+
+					charge -= 3;
+					gainExp(3);
 					updateQuickslot();
 
 					hero.spend( 1f );
@@ -800,10 +803,10 @@ public class CloakOfShadows extends Artifact {
 
 		public void updateHTandHeal(Hero hero, boolean isNew, boolean heal) {
 			if (hero != null) {
-				HT = Math.round(2.5f * hero.lvl);
+				HT = 3 * hero.lvl;
 			}
 			if (isNew) HP = HT;
-			if (heal && hero!=null) Buff.affect(this, Healing.class).setHeal(3*hero.lvl, 0, 1);
+			if (heal && hero!=null) Buff.affect(this, Healing.class).setHeal(4*hero.lvl, 0.25f, 0);
 		}
 
 		public void updateHT(Hero hero) {

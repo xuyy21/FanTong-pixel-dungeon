@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -11,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MushmenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PlantMonsterSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
@@ -64,6 +66,12 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_WIND), "风语法杖加强",
                 "风语法杖的伤害成长从1~2提高为1~3。\n\n风语法杖给予的视野从3*3扩大为5*5，持续时间从固定10回合改为6+2*等级回合，而且可以发现隐藏地形。但是不再可以同时拥有多个风语视野，而是替换之前的风语视野。"));
+
+        changes.addButton(new ChangeButton(new Image(new CloakOfShadows.BatSprite()), "暗影蝙蝠加强",
+                "暗影蝙蝠的HP上限从2.5倍英雄等级提高为3倍英雄等级，同时召唤和治疗的消耗从5点和4点斗篷充能下降为均为3点斗篷充能，且治疗的速度加快。\n\n蝙蝠在被召唤或治疗后必定格挡下一次攻击。"));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.STAIRS), "夜翼天赋加强",
+                "交换位置在使用后还会使英雄获得蝙蝠的视野10回合，蝙蝠必定格挡下一次攻击。\n\n斗篷庇护在无敌外还增加3回合全面净化效果。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(CharSprite.NEGATIVE);

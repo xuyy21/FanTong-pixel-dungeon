@@ -30,6 +30,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SmokeScreen;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Addiction;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -38,7 +40,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
@@ -57,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfArcana;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
@@ -351,7 +356,25 @@ public class CloakOfShadows extends Artifact {
 				}
 
 				Buff.affect(hero, Invulnerability.class, 3.01f);
-				if (bat!=null) Buff.affect(bat, Invulnerability.class, 3.01f);
+				for (Buff b : hero.buffs()){
+					if (b.type == Buff.buffType.NEGATIVE
+							&& !(b instanceof AllyBuff)
+							&& !(b instanceof LostInventory)){
+						b.detach();
+					}
+				}
+				Buff.prolong(hero, PotionOfCleansing.Cleanse.class, 3f);
+				if (bat!=null) {
+					Buff.affect(bat, Invulnerability.class, 3.01f);
+					for (Buff b : bat.buffs()){
+						if (b.type == Buff.buffType.NEGATIVE
+								&& !(b instanceof AllyBuff)
+								&& !(b instanceof LostInventory)){
+							b.detach();
+						}
+					}
+					Buff.prolong(bat, PotionOfCleansing.Cleanse.class, 3f);
+				}
 
 				charge -= 5;
 				gainExp(5);

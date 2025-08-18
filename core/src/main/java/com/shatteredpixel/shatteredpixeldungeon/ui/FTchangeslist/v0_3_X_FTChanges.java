@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PlantMonsterSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
@@ -65,6 +66,9 @@ public class v0_3_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ELEMENTALCORE), "元素核心",
                 "元素们掉落元素核心的概率略有提高。"));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.STAIRS), "斗篷异能加强",
+                "交换位置在使用后还会使英雄获得蝙蝠的视野10回合，蝙蝠必定格挡下一次攻击。\n\n斗篷庇护在无敌外还增加3回合全面净化效果。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(CharSprite.NEGATIVE);

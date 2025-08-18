@@ -333,6 +333,9 @@ public class CloakOfShadows extends Artifact {
 					Dungeon.observe();
 					GameScene.updateFog();
 
+					Buff.affect(bat, Shadow_Bat.Focus.class);
+					Buff.prolong(bat, Shadow_Bat.Viewer.class, 10f);
+
 					charge -= 3;
 					gainExp(3);
 					updateQuickslot();
@@ -1005,6 +1008,12 @@ public class CloakOfShadows extends Artifact {
 				super.restoreFromBundle(bundle);
 				count = bundle.getInt(COUNT);
 				enemyID = bundle.getInt(ENEMY);
+			}
+		}
+
+		public static class Viewer extends FlavourBuff {
+			{
+				type = buffType.POSITIVE;
 			}
 		}
 

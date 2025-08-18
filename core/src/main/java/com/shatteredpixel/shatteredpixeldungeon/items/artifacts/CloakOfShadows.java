@@ -124,12 +124,15 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
@@ -280,7 +283,7 @@ public class CloakOfShadows extends Artifact {
 		}
 
 		if (action.equals(AC_TRAP)) {
-			if (charge<2) {
+			if (charge<1) {
 				GLog.w(Messages.get(this, "no_charge"));
 			} else {
 				GameScene.selectCell(selectTrap);
@@ -511,12 +514,29 @@ public class CloakOfShadows extends Artifact {
 
 	public void releaseTrap(int cell) {
 		if (storedTrap==null) return;
-
 		Trap t = Reflection.newInstance(storedTrap);
 		t.pos = cell;
 		t.reclaimed = true;
-		Bestiary.countEncounter(t.getClass());
-		t.activate();
+
+		GameScene.show( new WndOptions(new TalentIcon(Talent.SHARED_TRAP),
+				Messages.get(this, "releasing_trap"),
+				Messages.get(this, "confirming"),
+				Messages.get(this, "yes"),
+				Messages.get(this, "no") ) {
+			@Override
+			protected void onSelect( int index ) {
+				switch (index) {
+					case 0:
+						Bestiary.countEncounter(t.getClass());
+						t.activate();
+						break;
+					case 1:
+						// do nothing
+						break;
+				}
+			}
+			public void onBackPressed() {}
+		} );
 
 		storedTrap = null;
 	}
@@ -619,8 +639,8 @@ public class CloakOfShadows extends Artifact {
 				t.disarm(); //even disarms traps that normally wouldn't be
 				storedTrap = t.getClass();
 
-				charge -= 2;
-				gainExp(2);
+				charge -= 1;
+				gainExp(1);
 				updateQuickslot();
 
 				Dungeon.hero.spend( 1f );

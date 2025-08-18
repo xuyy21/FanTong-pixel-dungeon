@@ -71,7 +71,9 @@ public class v0_4_X_FTChanges {
                 "暗影蝙蝠的HP上限从2.5倍英雄等级提高为3倍英雄等级，同时召唤和治疗的消耗从5点和4点斗篷充能下降为均为3点斗篷充能，且治疗的速度加快。\n\n蝙蝠在被召唤或治疗后必定格挡下一次攻击。"));
 
         changes.addButton(new ChangeButton(Icons.get(Icons.STAIRS), "夜翼天赋加强",
-                "交换位置在使用后还会使英雄获得蝙蝠的视野10回合，蝙蝠必定格挡下一次攻击。\n\n斗篷庇护在无敌外还增加3回合全面净化效果。"));
+                "交换位置在使用后还会使英雄获得蝙蝠的视野10回合，蝙蝠必定格挡下一次攻击。\n\n" +
+                        "斗篷庇护在无敌外还增加3回合全面净化效果。\n\n" +
+                        "吸收陷阱的能量消耗从2下降为1，而且蝙蝠死亡时可以选择是否释放陷阱。陷阱联动的效果即使蝙蝠闪避或格挡了攻击也可以生效。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(CharSprite.NEGATIVE);

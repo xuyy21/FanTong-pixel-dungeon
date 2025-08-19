@@ -60,7 +60,8 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "夜翼的斗篷充能上限翻倍效果不再会继承给新档盗贼。\n\n" +
                         "曼德拉草的警戒不再会无视无声步伐和魔法睡眠效果。还修复了曼德拉草导致的闪退问题。\n\n" +
-                        "修复韧性戒指的联动效果不生效的问题，修复狂怒戒指的联动效果数值错误的问题。"));
+                        "修复韧性戒指的联动效果不生效的问题，修复狂怒戒指的联动效果数值错误的问题。\n\n" +
+                        "修复存在灵壤护甲时骷髅爆炸导致的闪退问题。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
         changes.hardlight(CharSprite.POSITIVE);

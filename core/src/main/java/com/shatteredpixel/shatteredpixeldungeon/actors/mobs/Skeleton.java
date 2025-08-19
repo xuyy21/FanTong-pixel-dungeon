@@ -89,7 +89,7 @@ public class Skeleton extends Mob {
 				}
 
 				RockGuarding.RockGuardingArmor rockGuardingArmor = ch.buff(RockGuarding.RockGuardingArmor.class);
-				if (damage > 0 && rockArmor != null) {
+				if (damage > 0 && rockGuardingArmor != null) {
 					int preDmg = damage;
 					damage = rockGuardingArmor.absorb(damage);
 					damage = Math.round(damage * damage / (float)preDmg); //apply the % reduction twice

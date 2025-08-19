@@ -42,6 +42,11 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.GoldenKing;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.LivingVines;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.Magic_Rolling;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.Magic_Steps;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.EX_glyphs.WaterMoon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.AntiEntropy;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Bulk;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Corrosion;
@@ -809,6 +814,10 @@ public class Armor extends EquipableItem {
 		public static final Class<?>[] curses = new Class<?>[]{
 				AntiEntropy.class, Corrosion.class, Displacement.class, Metabolism.class,
 				Multiplicity.class, Stench.class, Overgrowth.class, Bulk.class
+		};
+
+		public static final Class<?>[] ex = new Class<?>[]{
+				GoldenKing.class, LivingVines.class, Magic_Rolling.class, Magic_Steps.class, WaterMoon.class
 		};
 		
 		public abstract int proc( Armor armor, Char attacker, Char defender, int damage );

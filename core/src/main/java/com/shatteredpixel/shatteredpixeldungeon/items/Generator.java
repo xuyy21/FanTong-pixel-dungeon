@@ -202,6 +202,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSp
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Tomahawk;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Trident;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Xuanmi;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
@@ -539,9 +540,10 @@ public class Generator {
 			MIS_T4.classes = new Class<?>[]{
 					Javelin.class,
 					Tomahawk.class,
-					HeavyBoomerang.class
+					HeavyBoomerang.class,
+					Xuanmi.class
 			};
-			MIS_T4.defaultProbs = new float[]{ 3, 3, 3 };
+			MIS_T4.defaultProbs = new float[]{ 3, 3, 3, 0 };
 			MIS_T4.probs = MIS_T4.defaultProbs.clone();
 			
 			MIS_T5.classes = new Class<?>[]{

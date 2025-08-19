@@ -44,6 +44,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Destiny;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.FortuneBloom;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.TriElement;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.YinYang;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Annoying;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Dazzling;
@@ -518,6 +522,10 @@ abstract public class Weapon extends KindOfWeapon {
 		public static final Class<?>[] curses = new Class<?>[]{
 				Annoying.class, Displacing.class, Dazzling.class, Explosive.class,
 				Sacrificial.class, Wayward.class, Polarized.class, Friendly.class
+		};
+
+		public static final Class<?>[] ex = new Class<?>[]{
+				Destiny.class, FortuneBloom.class, RockGuarding.class, TriElement.class, YinYang.class
 		};
 		
 			

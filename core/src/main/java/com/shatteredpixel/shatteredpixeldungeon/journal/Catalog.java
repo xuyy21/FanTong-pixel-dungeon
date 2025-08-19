@@ -203,11 +203,13 @@ public enum Catalog {
 		ENCHANTMENTS.addItems(Weapon.Enchantment.uncommon);
 		ENCHANTMENTS.addItems(Weapon.Enchantment.rare);
 		ENCHANTMENTS.addItems(Weapon.Enchantment.curses);
+		ENCHANTMENTS.addItems(Weapon.Enchantment.ex);
 
 		GLYPHS.addItems(Armor.Glyph.common);
 		GLYPHS.addItems(Armor.Glyph.uncommon);
 		GLYPHS.addItems(Armor.Glyph.rare);
 		GLYPHS.addItems(Armor.Glyph.curses);
+		GLYPHS.addItems(Armor.Glyph.ex);
 
 		WANDS.addItems(Generator.Category.WAND.classes);
 

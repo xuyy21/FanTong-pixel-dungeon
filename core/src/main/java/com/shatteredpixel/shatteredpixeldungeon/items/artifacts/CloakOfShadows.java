@@ -145,6 +145,7 @@ import com.watabou.utils.Reflection;
 import java.util.ArrayList;
 
 public class CloakOfShadows extends Artifact {
+	private boolean is_nightwing = false;
 
 	{
 		image = ItemSpriteSheet.ARTIFACT_CLOAK;
@@ -502,10 +503,9 @@ public class CloakOfShadows extends Artifact {
 
 	private static final String STEALTHED = "stealthed";
 	private static final String BUFF = "buff";
-	private final String IS_NIGHTWING = "is_nightwing";
+	private static final String IS_NIGHTWING = "is_nightwing";
 	private static final String STORED_TRAP = "stored_trap";
 
-	private static boolean is_nightwing = false;
 	private Class<?extends Trap> storedTrap = null;
 
 	public Class<?extends Trap> getStoredTrap() {
@@ -543,9 +543,9 @@ public class CloakOfShadows extends Artifact {
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
+		bundle.put(IS_NIGHTWING, is_nightwing);
 		super.storeInBundle(bundle);
 		if (activeBuff != null) bundle.put(BUFF, activeBuff);
-		bundle.put(IS_NIGHTWING, is_nightwing);
 		if (storedTrap != null) bundle.put(STORED_TRAP, storedTrap);
 	}
 

@@ -520,7 +520,7 @@ public class CloakOfShadows extends Artifact {
 
 		GameScene.show( new WndOptions(new TalentIcon(Talent.SHARED_TRAP),
 				Messages.get(this, "releasing_trap"),
-				Messages.get(this, "confirming"),
+				Messages.get(this, "confirming", Messages.get(this, storedTrap.getSimpleName())),
 				Messages.get(this, "yes"),
 				Messages.get(this, "no") ) {
 			@Override

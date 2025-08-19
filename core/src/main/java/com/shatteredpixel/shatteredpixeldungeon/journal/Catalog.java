@@ -22,6 +22,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotHeart;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
@@ -33,6 +35,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.KingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
+import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
+import com.shatteredpixel.shatteredpixeldungeon.items.SlimeBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
@@ -53,18 +57,60 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.RegrowthBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ShrapnelBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.SmokeBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.WoollyBomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.AllySoup;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BatBody;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BatCookie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BerryCake;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BigEye;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ChewGum;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Cola;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Cooked_larva;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Cookit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.CrabClaw;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Crystal_Heart;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Digestion_pill;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Doges_meat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Glandcandy;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Larva;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MagicHeart;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Magic_Coin;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mandrake_liquor;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MushroomSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Nut;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.PotionOfMandrake;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Rabbit_Head;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.RatTail;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTail;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SupplyRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ZakoSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
@@ -142,6 +188,7 @@ public enum Catalog {
 	SCROLLS,
 	STONES,
 	FOOD,
+	RAW_FOOD,
 	EXOTIC_POTIONS,
 	EXOTIC_SCROLLS,
 	BOMBS,
@@ -234,7 +281,18 @@ public enum Catalog {
 
 		FOOD.addItems( Food.class, Pasty.class, MysteryMeat.class, ChargrilledMeat.class,
 				StewedMeat.class, FrozenCarpaccio.class, SmallRation.class, Berry.class,
-				SupplyRation.class, Blandfruit.class, PhantomMeat.class, MeatPie.class );
+				SupplyRation.class, Blandfruit.class, PhantomMeat.class, MeatPie.class,
+				HoneyMeat.class, Icecream.class, Juice.class, Tempura.class,
+				Cola.class, Doges_meat.class, ZakoSoup.class, Crystal_Heart.class,
+				Salad.class, BoneSoup.class, BBQ.class, ToastBat.class, Glandcandy.class,
+				ScorpioTempura.class, Cookit.class, GoldenPudding.class, BlackPudding.class,
+				Sorbet.class, MushroomSoup.class, BerryCake.class, EyeCake.class,
+				Cooked_larva.class, Mandrake_liquor.class, ChewGum.class, Rabbit_Head.class,
+				Magic_Coin.class, Digestion_pill.class, AllySoup.class, BatCookie.class);
+
+		RAW_FOOD.addItems(RatTail.class, CrabClaw.class, SlimeBlob.class, MysteryBone.class,
+				Mushroom.class, MandrakeRoot.class, BatBody.class, Gland.class, Nut.class,
+				ElementalCore.class, MagicHeart.class, ScorpioTail.class, BigEye.class, Larva.class);
 
 		EXOTIC_POTIONS.addItems(ExoticPotion.exoToReg.keySet().toArray(new Class[0]));
 
@@ -297,6 +355,7 @@ public enum Catalog {
 		consumableCatalogs.add(SEEDS);
 		consumableCatalogs.add(STONES);
 		consumableCatalogs.add(FOOD);
+		consumableCatalogs.add(RAW_FOOD);
 		consumableCatalogs.add(EXOTIC_POTIONS);
 		consumableCatalogs.add(EXOTIC_SCROLLS);
 		consumableCatalogs.add(BOMBS);

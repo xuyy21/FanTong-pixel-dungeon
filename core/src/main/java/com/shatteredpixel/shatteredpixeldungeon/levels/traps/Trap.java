@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -124,7 +125,7 @@ public abstract class Trap implements Bundlable {
 
 	public String desc() {
 		String desc = Messages.get(this, "desc");
-		if (Dungeon.hero!=null && Dungeon.hero.subClass== HeroSubClass.NIGHTWING)
+		if (Dungeon.hero!=null && Dungeon.hero.hasTalent(Talent.SHARED_TRAP))
 			desc += "\n\n" + Messages.get(CloakOfShadows.class, this.getClass().getSimpleName());
 		return desc;
 	}

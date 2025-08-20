@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_2_Changes(changeInfos);
         add_v0_4_1_Changes(changeInfos);
         add_v0_4_0_Changes(changeInfos);
     }
@@ -88,5 +89,17 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new Image(new PlantMonsterSprite.Stormvine()), "风暴鲲",
                 "风暴鲲的攻击附加电伤从2+楼层/5~4+楼层/5下降为楼层/5~2+楼层/5。\n\n风暴鲲受攻击时释放电击改为死亡时释放电击。"));
+    }
+
+    public static void add_v0_4_2_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.2", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了暗影蝙蝠死亡时选择是否陷阱的页面闪退的问题。"));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.JOURNAL), "图鉴完善",
+                "在图鉴中补充了饭桶地牢的新增事物。"));
     }
 }

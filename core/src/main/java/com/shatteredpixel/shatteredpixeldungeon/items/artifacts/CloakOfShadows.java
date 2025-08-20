@@ -133,11 +133,13 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -515,30 +517,37 @@ public class CloakOfShadows extends Artifact {
 	public void releaseTrap(int cell) {
 		if (storedTrap==null) return;
 		Trap t = Reflection.newInstance(storedTrap);
+		if (t == null) return;
 		t.pos = cell;
 		t.reclaimed = true;
 
-		GameScene.show( new WndOptions(new TalentIcon(Talent.SHARED_TRAP),
-				Messages.get(this, "releasing_trap"),
-				Messages.get(this, "confirming", Messages.get(this, storedTrap.getSimpleName())),
-				Messages.get(this, "yes"),
-				Messages.get(this, "no") ) {
+		Game.runOnRenderThread(new Callback() {
 			@Override
-			protected void onSelect( int index ) {
-				switch (index) {
-					case 0:
-						Bestiary.countEncounter(t.getClass());
-						t.activate();
-						break;
-					case 1:
-						// do nothing
-						break;
-				}
+			public void call() {
+				GameScene.show( new WndOptions(new TalentIcon(Talent.SHARED_TRAP),
+						Messages.get(CloakOfShadows.class, "releasing_trap"),
+						Messages.get(CloakOfShadows.class, "confirming", t.name()),
+						Messages.get(CloakOfShadows.class, "yes"),
+						Messages.get(CloakOfShadows.class, "no") ) {
+					@Override
+					protected void onSelect( int index ) {
+						switch (index) {
+							case 0:
+								Bestiary.countEncounter(t.getClass());
+								t.activate();
+								storedTrap = null;
+								break;
+							case 1: default:
+								storedTrap = null;
+								break;
+						}
+					}
+					public void onBackPressed() {
+						storedTrap = null;
+					}
+				} );
 			}
-			public void onBackPressed() {}
-		} );
-
-		storedTrap = null;
+		});
 	}
 
 	@Override
@@ -1171,7 +1180,7 @@ public class CloakOfShadows extends Artifact {
 
 		@Override
 		public void die(Object cause) {
-			if (Dungeon.hero!=null && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null){
+			if (Dungeon.hero!=null && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null && shared_trap_lvl()>0){
 				Dungeon.hero.belongings.getItem(CloakOfShadows.class).releaseTrap(pos);
 			}
 

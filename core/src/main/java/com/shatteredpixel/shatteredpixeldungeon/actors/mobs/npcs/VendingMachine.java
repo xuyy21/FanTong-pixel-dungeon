@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -7,7 +8,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.VendingMachineSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.XuyySprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
@@ -21,7 +24,7 @@ import java.util.ArrayList;
 public class VendingMachine extends NPC{
 
     {
-        spriteClass = XuyySprite.class;
+        spriteClass = VendingMachineSprite.class;
 
         properties.add(Property.IMMOVABLE);
     }
@@ -47,6 +50,7 @@ public class VendingMachine extends NPC{
     public boolean interact(Char c) {
         if (buy_counts>=max_Buy_Counts()){
             GLog.n(Messages.get(this, "overbuy"));
+            ((VendingMachineSprite)sprite).empty();
         } else {
             Game.runOnRenderThread(new Callback() {
                 @Override
@@ -66,6 +70,10 @@ public class VendingMachine extends NPC{
                                 if (!goods.doPickUp(Dungeon.hero)){
                                     Dungeon.level.drop(goods, Dungeon.hero.pos);
                                 }
+                            }
+
+                            if (buy_counts>=max_Buy_Counts()) {
+                                ((VendingMachineSprite)sprite).empty();
                             }
                         }
 
@@ -89,6 +97,15 @@ public class VendingMachine extends NPC{
         }
 
         return true;
+    }
+
+    @Override
+    public CharSprite sprite() {
+        CharSprite sprite = super.sprite();
+        if (buy_counts>=max_Buy_Counts()) {
+            ((VendingMachineSprite)sprite).empty();
+        }
+        return sprite;
     }
 
     public static ArrayList<Item> getGoods() {

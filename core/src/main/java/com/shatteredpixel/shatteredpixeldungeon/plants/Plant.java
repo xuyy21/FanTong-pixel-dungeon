@@ -141,6 +141,10 @@ public abstract class Plant implements Bundlable {
 		}
 		
 		protected Class<? extends Plant> plantClass;
+
+		public Class<? extends Plant> getPlantClass() {
+			return plantClass;
+		}
 		
 		@Override
 		public ArrayList<String> actions( Hero hero ) {

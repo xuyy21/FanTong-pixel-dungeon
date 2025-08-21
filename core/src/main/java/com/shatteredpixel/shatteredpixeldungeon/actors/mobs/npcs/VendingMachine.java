@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ChangFen;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -111,6 +112,8 @@ public class VendingMachine extends NPC{
     public static ArrayList<Item> getGoods() {
         ArrayList<Item> goods = new ArrayList<>();
 
+        goods.add(new ChangFen());
+
         return goods;
     }
 
@@ -127,11 +130,13 @@ public class VendingMachine extends NPC{
     }
 
     public static int max_Buy_Counts() {
-        int challenges = Challenges.activeChallenges();
+        return 100;
 
-        if (challenges < 1) {
-            return 0;
-        } else return 3 + (challenges-1) / 3;
+//        int challenges = Challenges.activeChallenges();
+//
+//        if (challenges < 1) {
+//            return 0;
+//        } else return 3 + (challenges-1) / 3;
     }
 
     public static final String COUNTS = "counts";

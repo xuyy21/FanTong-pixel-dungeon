@@ -409,7 +409,7 @@ public abstract class Wand extends Item {
 			}
 
 			if (charger.target.buff(FoodEmpower.class) != null) {
-				lvl += 1;
+				lvl += charger.target.buff(FoodEmpower.class).getBufflvl();
 			}
 
 			if (charger.target.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class) != null) {

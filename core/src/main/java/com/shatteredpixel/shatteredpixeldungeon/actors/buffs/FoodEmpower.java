@@ -13,10 +13,18 @@ public class FoodEmpower extends Buff {
     }
 
     private int left;
+    private int bufflvl = 0;
 
-    public void reset(int left){
-        this.left = left;
-        Item.updateQuickslot();
+    public void reset(int left) {
+        reset(left, 1);
+    }
+
+    public void reset(int left, int lvl){
+        if (this.bufflvl<=lvl) {
+            if (this.bufflvl<lvl || this.left<left) this.left = left;
+            this.bufflvl = lvl;
+            Item.updateQuickslot();
+        }
     }
 
     public void use(){
@@ -24,6 +32,10 @@ public class FoodEmpower extends Buff {
         if (left <= 0){
             detach();
         }
+    }
+
+    public int getBufflvl() {
+        return bufflvl;
     }
 
     @Override
@@ -54,20 +66,23 @@ public class FoodEmpower extends Buff {
 
     @Override
     public String desc() {
-        return Messages.get(this, "desc", 1, left);
+        return Messages.get(this, "desc", bufflvl, left);
     }
 
     private static final String LEFT = "left";
+    private static final String BUFFLVL = "bufflvl";
 
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
         bundle.put(LEFT, left);
+        bundle.put(BUFFLVL, bufflvl);
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
         left = bundle.getInt(LEFT);
+        bufflvl = bundle.getInt(BUFFLVL);
     }
 }

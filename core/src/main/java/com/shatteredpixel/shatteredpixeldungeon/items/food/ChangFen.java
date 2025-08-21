@@ -25,7 +25,7 @@ public class ChangFen extends Food{
 
     {
         image = ItemSpriteSheet.ALLY_SOUP;
-        energy = 2 * Hunger.HUNGRY / 3f; //250 food value
+        energy = 2 * Hunger.HUNGRY / 3f; //200 food value
     }
 
     @Override

@@ -48,6 +48,11 @@ public class ChangFen extends Food{
         GameScene.selectItem(seedSelector);
     }
 
+    @Override
+    public int value() {
+        return 10 * quantity;
+    }
+
     protected WndBag.ItemSelector seedSelector = new WndBag.ItemSelector() {
         @Override
         public String textPrompt() {

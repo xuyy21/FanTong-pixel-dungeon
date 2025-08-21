@@ -73,6 +73,11 @@ public class Chocolate_Egg extends Food{
         prize = (MeleeWeapon) bundle.get(PRIZE);
     }
 
+    @Override
+    public int value() {
+        return 10 * quantity;
+    }
+
     public static class Piece extends Item {
 
         public static final String AC_COMPOUND = "COMPOUND";

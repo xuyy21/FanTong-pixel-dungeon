@@ -111,6 +111,11 @@ public class DM201 extends DM200 {
 		public boolean act( boolean enemyInFOV, boolean justAlerted ) {
 
 			if (threatened && enemyInFOV){
+				if(enemy != null && Dungeon.level.adjacent(pos, enemy.pos)){
+					threatened = false;
+					return super.act( enemyInFOV, justAlerted );
+				}
+
 				if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
 					sprite.zap( enemy.pos );
 					return false;

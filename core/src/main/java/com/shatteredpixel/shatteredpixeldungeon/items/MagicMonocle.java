@@ -46,7 +46,7 @@ public class MagicMonocle extends Item{
 
     @Override
     public int value(){
-        return 10*quantity;
+        return 15*quantity;
     }
 
     public static class Monocle extends FlavourBuff {

@@ -24,7 +24,7 @@ import com.watabou.utils.Reflection;
 public class ChangFen extends Food{
 
     {
-        image = ItemSpriteSheet.ALLY_SOUP;
+        image = ItemSpriteSheet.CHANGFEN;
         energy = 2 * Hunger.HUNGRY / 3f; //200 food value
     }
 

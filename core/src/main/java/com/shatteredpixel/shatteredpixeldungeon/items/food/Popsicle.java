@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 public class Popsicle extends Food{
 
     {
-        image = ItemSpriteSheet.BERRY;
+        image = ItemSpriteSheet.POPSICLE;
         energy = 100; //100 food value
 
         canFakeEat = true;

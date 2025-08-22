@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Chocolate_Egg extends Food{
 
     {
-        image = ItemSpriteSheet.ALLY_SOUP;
+        image = ItemSpriteSheet.CHOCOLATE_EGG;
         energy = Hunger.HUNGRY/2f; //150 food value
 
         stackable = false;

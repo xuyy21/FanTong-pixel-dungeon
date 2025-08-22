@@ -12,7 +12,7 @@ public class InsulatedGloves extends Item{
     public static final String AC_USE = "USE";
 
     {
-        image = ItemSpriteSheet.SEAL;
+        image = ItemSpriteSheet.INS_GLOVES;
 
         stackable = true;
     }

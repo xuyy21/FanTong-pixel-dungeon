@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 public class LaTiao extends Food{
     {
-        image = ItemSpriteSheet.BERRY;
+        image = ItemSpriteSheet.LATIAO;
         energy = 100; //100 food value
     }
 

@@ -13,7 +13,7 @@ public class MagicMonocle extends Item{
     public static final String AC_USE = "USE";
 
     {
-        image = ItemSpriteSheet.SEAL;
+        image = ItemSpriteSheet.MONOCLE;
 
         stackable = true;
     }

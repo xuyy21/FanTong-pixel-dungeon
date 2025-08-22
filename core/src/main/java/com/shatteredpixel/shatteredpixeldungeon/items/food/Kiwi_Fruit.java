@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class Kiwi_Fruit extends Food{
 
     {
-        image = ItemSpriteSheet.BERRY;
+        image = ItemSpriteSheet.KIWI_FRUIT;
         energy = Hunger.HUNGRY/3f; //100 food value
 
         canFakeEat = true;

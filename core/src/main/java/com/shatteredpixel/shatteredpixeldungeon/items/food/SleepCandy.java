@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class SleepCandy extends Food{
     {
-        image = ItemSpriteSheet.BERRY;
+        image = ItemSpriteSheet.SLEEPCANDY;
         energy = 0;
     }
 

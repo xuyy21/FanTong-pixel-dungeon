@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 public class IcyRedTea extends Food{
 
     {
-        image = ItemSpriteSheet.JUICE;
+        image = ItemSpriteSheet.ICYREDTEA;
         energy = Hunger.HUNGRY/3f; //100 food value
 
         canFakeEat = true;

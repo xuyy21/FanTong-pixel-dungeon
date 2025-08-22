@@ -66,6 +66,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MagicMonocle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
@@ -1392,6 +1393,9 @@ public abstract class Level implements Bundlable {
 				int mindVisRange = 0;
 				if (((Hero) c).hasTalent(Talent.HEIGHTENED_SENSES)){
 					mindVisRange = 1+((Hero) c).pointsInTalent(Talent.HEIGHTENED_SENSES);
+				}
+				if (c.buff(MagicMonocle.Monocle.class)!=null){
+					mindVisRange = Math.max(3, mindVisRange);
 				}
 				if (c.buff(DivineSense.DivineSenseTracker.class) != null){
 					if (((Hero) c).heroClass == HeroClass.CLERIC){

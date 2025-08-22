@@ -45,7 +45,7 @@ public class IcyRedTea extends Food{
 
         @Override
         public int icon() {
-            return BuffIndicator.WEAPON;
+            return BuffIndicator.MANBA;
         }
 
         @Override

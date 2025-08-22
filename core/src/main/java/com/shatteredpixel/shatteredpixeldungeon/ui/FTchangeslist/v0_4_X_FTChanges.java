@@ -110,13 +110,12 @@ public class v0_4_X_FTChanges {
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
-        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
-        changes.hardlight(Window.TITLE_COLOR);
-        changeInfos.add(changes);
-
         changes.addButton(new ChangeButton(new Image(new VendingMachineSprite()), "自动售货机",
                 "至少开启一个挑战后，每大区的普通炼金房会出现自动售货机，以便宜的价格出售实用的消耗品。\n\n" +
                         "一挑时每台售货机限购3次，出售两种商品。每增加三个挑战，售货机追加一次购买次数和两种商品。"));
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了暗影蝙蝠使用元素戒指联动效果时近战攻击也可能令DM201喷毒的BUG。"));
 
     }
 }

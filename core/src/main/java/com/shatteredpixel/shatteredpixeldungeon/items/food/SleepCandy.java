@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class SleepCandy extends Food{
     {
         image = ItemSpriteSheet.BERRY;
-        energy = 0; //100 food value
+        energy = 0;
     }
 
     @Override

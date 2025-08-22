@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MushmenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PlantMonsterSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.VendingMachineSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_3_Changes(changeInfos);
         add_v0_4_2_Changes(changeInfos);
         add_v0_4_1_Changes(changeInfos);
         add_v0_4_0_Changes(changeInfos);
@@ -101,5 +103,20 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(Icons.get(Icons.JOURNAL), "图鉴完善",
                 "在图鉴中补充了饭桶地牢的新增事物。"));
+    }
+
+    public static void add_v0_4_3_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.3", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(new VendingMachineSprite()), "自动售货机",
+                "至少开启一个挑战后，每大区的普通炼金房会出现自动售货机，以便宜的价格出售实用的消耗品。\n\n" +
+                        "一挑时每台售货机限购3次，出售两种商品。每增加三个挑战，售货机追加一次购买次数和两种商品。"));
+
     }
 }

@@ -56,6 +56,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Popsicle;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -804,7 +805,29 @@ public abstract class Wand extends Item {
 								new Callback() {
 									@Override
 									public void call() {
-										curWand.wandUsed();
+										if (curUser.buff(Popsicle.IcePower.class)!=null){
+											Wand wand = new WandOfFrost();
+											wand.upgrade(3);
+											if (wand.tryToZap(curUser, target)){
+												final Ballistica shot = new Ballistica( curUser.pos, target, wand.collisionProperties(target));
+												int cell = shot.collisionPos;
+
+												if (target == curUser.pos || cell == curUser.pos) {
+//													GLog.i( Messages.get(Wand.class, "self_target") );
+													return;
+												}
+
+												Dungeon.hero.sprite.zap(cell);
+												wand.fx(shot, new Callback() {
+													public void call(){
+														wand.onZap(shot);
+														wand.wandUsed();
+													}
+												});
+											}
+										} else {
+											curWand.wandUsed();
+										}
 										RabbitMagicBlink(curWand, target);
 									}
 								});
@@ -820,12 +843,56 @@ public abstract class Wand extends Item {
 												@Override
 												public void call() {
 													WondrousResin.forcePositive = false;
-													curWand.wandUsed();
+													if (curUser.buff(Popsicle.IcePower.class)!=null){
+														Wand wand = new WandOfFrost();
+														wand.upgrade(3);
+														if (wand.tryToZap(curUser, target)){
+															final Ballistica shot = new Ballistica( curUser.pos, target, wand.collisionProperties(target));
+															int cell = shot.collisionPos;
+
+															if (target == curUser.pos || cell == curUser.pos) {
+//													GLog.i( Messages.get(Wand.class, "self_target") );
+																return;
+															}
+
+															Dungeon.hero.sprite.zap(cell);
+															wand.fx(shot, new Callback() {
+																public void call(){
+																	wand.onZap(shot);
+																	wand.wandUsed();
+																}
+															});
+														}
+													} else {
+														curWand.wandUsed();
+													}
 													RabbitMagicBlink(curWand, target);
 												}
 											});
 								} else {
-									curWand.wandUsed();
+									if (curUser.buff(Popsicle.IcePower.class)!=null){
+										Wand wand = new WandOfFrost();
+										wand.upgrade(3);
+										if (wand.tryToZap(curUser, target)){
+											final Ballistica shot = new Ballistica( curUser.pos, target, wand.collisionProperties(target));
+											int cell = shot.collisionPos;
+
+											if (target == curUser.pos || cell == curUser.pos) {
+//													GLog.i( Messages.get(Wand.class, "self_target") );
+												return;
+											}
+
+											Dungeon.hero.sprite.zap(cell);
+											wand.fx(shot, new Callback() {
+												public void call(){
+													wand.onZap(shot);
+													wand.wandUsed();
+												}
+											});
+										}
+									} else {
+										curWand.wandUsed();
+									}
 									RabbitMagicBlink(curWand, target);
 								}
 							}

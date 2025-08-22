@@ -157,7 +157,7 @@ public class LaTiao extends Food{
 
                                         Dungeon.hero.spendAndNext( eatingTime() );
                                         detach( Dungeon.hero.belongings.backpack );
-                                        Catalog.countUse(getClass());
+                                        Catalog.countUse(LaTiao.class);
                                     }
                                 });
                     }
@@ -175,7 +175,7 @@ public class LaTiao extends Food{
 
                 Dungeon.hero.spend( eatingTime() );
                 detach( Dungeon.hero.belongings.backpack );
-                Catalog.countUse(getClass());
+                Catalog.countUse(LaTiao.class);
             }
         }
 

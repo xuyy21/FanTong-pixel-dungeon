@@ -36,8 +36,6 @@ public class LaTiao extends Food{
     {
         image = ItemSpriteSheet.BERRY;
         energy = 100; //100 food value
-
-        canFakeEat = true;
     }
 
     @Override

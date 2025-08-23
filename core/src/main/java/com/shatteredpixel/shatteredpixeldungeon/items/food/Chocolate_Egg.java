@@ -83,7 +83,7 @@ public class Chocolate_Egg extends Food{
         public static final String AC_COMPOUND = "COMPOUND";
 
         {
-            image = ItemSpriteSheet.ALLY_SOUP;
+            image = ItemSpriteSheet.EGG_PIECE;
 
             stackable = true;
         }

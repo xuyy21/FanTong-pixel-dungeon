@@ -891,16 +891,18 @@ public class ItemSpriteSheet {
 	private static final int GOODS   		=								xy(9, 36);
 	public static final int CHANGFEN		= GOODS+0;
 	public static final int CHOCOLATE_EGG	= GOODS+1;
-	public static final int ICYREDTEA		= GOODS+2;
-	public static final int KIWI_FRUIT		= GOODS+3;
-	public static final int POPSICLE		= GOODS+4;
-	public static final int SLEEPCANDY		= GOODS+5;
-	public static final int LATIAO			= GOODS+6;
-	public static final int MONOCLE			= GOODS+7;
-	public static final int INS_GLOVES		= GOODS+8;
+	public static final int EGG_PIECE		= GOODS+2;
+	public static final int ICYREDTEA		= GOODS+3;
+	public static final int KIWI_FRUIT		= GOODS+4;
+	public static final int POPSICLE		= GOODS+5;
+	public static final int SLEEPCANDY		= GOODS+6;
+	public static final int LATIAO			= GOODS+7;
+	public static final int MONOCLE			= GOODS+8;
+	public static final int INS_GLOVES		= GOODS+9;
 	static {
 		assignItemRect(CHANGFEN,		16, 12);
 		assignItemRect(CHOCOLATE_EGG,	13, 16);
+		assignItemRect(EGG_PIECE,		13, 14);
 		assignItemRect(ICYREDTEA,		11, 16);
 		assignItemRect(KIWI_FRUIT,		16, 15);
 		assignItemRect(POPSICLE,		16, 16);

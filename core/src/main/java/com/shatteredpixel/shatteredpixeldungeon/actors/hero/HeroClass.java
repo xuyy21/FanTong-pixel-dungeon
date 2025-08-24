@@ -90,6 +90,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.RatTail;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTail;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
@@ -274,7 +275,6 @@ public enum HeroClass {
 			new PlateArmor().upgrade(30).identify().collect();
 			new RingOfSkill().upgrade(30).collect();
 			new RingOfArcana().upgrade(30).collect();
-			new PawWithRings().collect();
 //			new Hulu().collect();
 			new Ankh().collect();
 			new TrinketCatalyst().collect();
@@ -282,13 +282,9 @@ public enum HeroClass {
 //			new Piezoelectric_Element().collect();
 //			new Sprouted_Potato().collect();
 			new WandOfWind().collect();
-			new WandOfGnollKing().collect();
-			new Extinctioner().collect();
-			new Sling().collect();
-			new RunicGauntle().collect();
-			new PotatoGun().collect();
 			new MetalShard().quantity(10).collect();
 			new PiranhaPot().collect();
+			new Implement().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

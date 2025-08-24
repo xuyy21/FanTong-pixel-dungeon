@@ -75,6 +75,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
@@ -678,6 +679,7 @@ public class Dungeon {
 			Scroll.save( bundle );
 			Potion.save( bundle );
 			Ring.save( bundle );
+			Runes.save( bundle );
 
 			Actor.storeNextID( bundle );
 			
@@ -745,6 +747,7 @@ public class Dungeon {
 		Scroll.restore( bundle );
 		Potion.restore( bundle );
 		Ring.restore( bundle );
+		Runes.restore( bundle );
 
 		quickslot.restorePlaceholders( bundle );
 		

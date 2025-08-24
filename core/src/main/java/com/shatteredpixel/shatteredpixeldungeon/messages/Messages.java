@@ -71,6 +71,7 @@ public class Messages {
 			Assets.Messages.LEVELS,
 			Assets.Messages.MISC,
 			Assets.Messages.PLANTS,
+			Assets.Messages.RUNES,
 			Assets.Messages.SCENES,
 			Assets.Messages.UI,
 			Assets.Messages.WINDOWS

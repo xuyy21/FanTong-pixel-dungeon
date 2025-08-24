@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.InsulatedGloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MagicMonocle;
@@ -15,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Kiwi_Fruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.LaTiao;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Popsicle;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SleepCandy;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -87,16 +89,33 @@ public class VendingMachine extends NPC{
                             super.onSelect(index);
 
                             Item goods = getGoods().get(index);
-                            if (goods != null) {
-                                Dungeon.gold -= goods.value() * valueMultiplier;
-                                buy_counts++;
-                                if (!goods.doPickUp(Dungeon.hero)){
-                                    Dungeon.level.drop(goods, Dungeon.hero.pos);
-                                }
-                            }
+                            int price = goods.value() * valueMultiplier;
 
-                            if (buy_counts>=max_Buy_Counts()) {
-                                ((VendingMachineSprite)sprite).empty();
+                            if (goods != null) {
+                                GameScene.show(new WndOptions(new ItemSprite(goods),
+                                        goods.title(), goods.desc(),
+                                        Messages.get(VendingMachine.class, "buy", price),
+                                        Messages.get(VendingMachine.class, "cancel")) {
+                                    @Override
+                                    protected void onSelect(int index) {
+                                        switch (index) {
+                                            case 0:
+                                                Dungeon.gold -= price;
+                                                Catalog.countUses(Gold.class, price);
+                                                buy_counts++;
+                                                if (!goods.doPickUp(Dungeon.hero)){
+                                                    Dungeon.level.drop(goods, Dungeon.hero.pos);
+                                                }
+                                                if (buy_counts>=max_Buy_Counts()) {
+                                                    ((VendingMachineSprite)sprite).empty();
+                                                }
+                                                break;
+                                            case 1: default:
+                                                //do nothing
+                                                break;
+                                        }
+                                    }
+                                });
                             }
                         }
 

@@ -39,7 +39,7 @@ public class Chocolate_Egg extends Food{
 
     @Override
     public void effect(Hero hero) {
-        if (prize!=null && Random.Float()<0.7f+0.02*Dungeon.scalingDepth()-0.1*prize.tier) {
+        if (prize!=null && Random.Float()<0.6f+0.02*Dungeon.scalingDepth()-0.1*prize.tier) {
             if(!prize.doPickUp(hero)){
                 Dungeon.level.drop( prize, hero.pos ).sprite.drop();
             }

@@ -118,4 +118,15 @@ public class v0_4_X_FTChanges {
                 "修复了暗影蝙蝠使用元素戒指联动效果时近战攻击也可能令DM201喷毒的BUG。"));
 
     }
+
+    public static void add_v0_4_4_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.4", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(new VendingMachineSprite()), "自动售货机",
+                "优化售货机界面，点击按钮后不是直接购买而是弹出详情界面。\n\n" +
+                        "修复售货机的消费不计入金币消耗的BUG。\n\n" +
+                        "增加详情界面后出现一个良性BUG，可以预览和刷新巧克力蛋的奖励种类，因此将其奖励概率下调10%。"));
+    }
 }

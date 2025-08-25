@@ -139,7 +139,7 @@ public class Runes {
             IconTitle titlebar = new IconTitle();
             titlebar.icon(new ItemSprite(new HolyTome()));
             titlebar.label(Messages.get(Runes.class, "wndlabel"));
-            RenderedTextBlock message = PixelScene.renderTextBlock(Messages.get(Runes.class, "wndlabel"), 6);
+            RenderedTextBlock message = PixelScene.renderTextBlock(Messages.get(Runes.class, "wndtitle"), 6);
 
             titlebar.setRect( 0, 0, WIDTH, 0 );
             add( titlebar );

@@ -249,6 +249,7 @@ public class Dungeon {
 			Scroll.initLabels();
 			Potion.initColors();
 			Ring.initGems();
+			Runes.initSpells();
 
 			SpecialRoom.initForRun();
 			SecretRoom.initForRun();

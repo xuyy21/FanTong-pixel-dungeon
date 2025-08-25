@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Bundle;
@@ -21,44 +20,40 @@ import java.util.Arrays;
 public class Runes {
 
     public static int RUNES_NUM = 4;
-    protected static boolean[] known = new boolean[RUNES_NUM*RUNES_NUM*RUNES_NUM];
+    protected static SpellStatusHandler known;
 
-    public static void initKnow() {
-        Arrays.fill(known, false);
+    public static void initSpells(){
+        known = new SpellStatusHandler();
     }
 
     public static void setKnown(int i, int j, int k, boolean value) {
-        if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
-            return;
-        known[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k] = value;
+        if (known!=null) {
+            known.setKnown(i, j, k, value);
+        }
     }
 
     public static boolean getKnown(int i, int j, int k){
-        if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
+        if (known==null)
             return false;
-        return known[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k];
+        return known.getKnown(i, j, k);
     }
 
-    public static boolean testSpell() {
+    public static void testSpell() {
         GameScene.show(new WndRunes());
 
-        return false;
     }
 
-    public static final String KNOWN = "known";
-
     public static void save( Bundle bundle ){
-        bundle.put(KNOWN, known);
+        if (known!=null){
+            known.save(bundle);
+        }
     }
 
     public static void restore( Bundle bundle ){
-        boolean[] knowntorestore = bundle.getBooleanArray(KNOWN);
-        if (knowntorestore!=null && knowntorestore.length==RUNES_NUM*RUNES_NUM*RUNES_NUM) {
-            known = knowntorestore;
-        } else {
-            initKnow();
-            // TODO
+        if (known==null){
+            known = new SpellStatusHandler();
         }
+        known.restore(bundle);
     }
 
     public enum Rune {
@@ -89,6 +84,45 @@ public class Runes {
 
         public RuneIcon(Rune rune) {
             this(rune.icon());
+        }
+    }
+
+    public static class SpellStatusHandler {
+        private boolean[] known;
+
+        public SpellStatusHandler() {
+            known = new boolean[RUNES_NUM*RUNES_NUM*RUNES_NUM];
+        }
+
+        public void initKnow() {
+            Arrays.fill(known, false);
+        }
+
+        public void setKnown(int i, int j, int k, boolean value) {
+            if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
+                return;
+            known[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k] = value;
+        }
+
+        public boolean getKnown(int i, int j, int k){
+            if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
+                return false;
+            return known[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k];
+        }
+
+        private static final String KNOWN = "known";
+
+        public void save( Bundle bundle ){
+            bundle.put(KNOWN, known);
+        }
+
+        public void restore( Bundle bundle ){
+            boolean[] knowntorestore = bundle.getBooleanArray(KNOWN);
+            if (knowntorestore!=null && knowntorestore.length==RUNES_NUM*RUNES_NUM*RUNES_NUM) {
+                known = knowntorestore;
+            } else {
+                initKnow();
+            }
         }
     }
 

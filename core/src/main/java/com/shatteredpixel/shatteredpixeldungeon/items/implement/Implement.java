@@ -1,9 +1,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.implement;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
+import com.shatteredpixel.shatteredpixeldungeon.runes.WndSpell;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
@@ -43,7 +46,7 @@ public class Implement extends Item {
         if (hero.buff(MagicImmune.class) != null) return;
 
         if (action.equals(AC_CAST)){
-            //TODO
+            GameScene.show(new WndSpell(this, curUser, false));
         }
         if (action.equals(AC_TEST)){
             Runes.testSpell();

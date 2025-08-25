@@ -13,8 +13,10 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Reflection;
 
 import java.util.Arrays;
 
@@ -264,6 +266,8 @@ public class Runes {
                 if (getSpell(rune1, rune2, rune3)!=null){
                     GLog.p(Messages.get(Runes.class, "test_success", Messages.get(getSpell(rune1, rune2, rune3), "name")));
                     Sample.INSTANCE.play( Assets.Sounds.SECRET );
+                    Spell spell = Reflection.newInstance(getSpell(rune1, rune2, rune3));
+                    GameScene.show(new WndTitledMessage(spell.icon(), Messages.titleCase(spell.name()), spell.desc()));
 
                 } else {
                     GLog.i(Messages.get(Runes.class, "test_fall"));

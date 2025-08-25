@@ -19,6 +19,10 @@ public class Implement extends Item {
         defaultAction = AC_CAST;
     }
 
+    public float POWER = 1f;
+    public float DELAY = 1f;
+    public float FAULT = 1f;
+
     public static final String AC_CAST = "CAST";
     public static final String AC_TEST = "TEST";
 

@@ -29,10 +29,22 @@ public class Runes {
         handler = new SpellStatusHandler();
     }
 
+    public static void setKnown(int index, boolean value){
+        if (handler !=null){
+            handler.setKnown(index, value);
+        }
+    }
+
     public static void setKnown(int i, int j, int k, boolean value) {
         if (handler !=null) {
             handler.setKnown(i, j, k, value);
         }
+    }
+
+    public static boolean getKnown(int index){
+        if (handler ==null)
+            return false;
+        return handler.getKnown(index);
     }
 
     public static boolean getKnown(int i, int j, int k){
@@ -41,10 +53,22 @@ public class Runes {
         return handler.getKnown(i, j, k);
     }
 
+    public static void setSpell(int index, Class<? extends Spell> spell){
+        if (handler !=null){
+            handler.setSpell(index, spell);
+        }
+    }
+
     public static void setSpell(int i, int j, int k, Class<? extends Spell> spell){
         if (handler !=null){
             handler.setSpell(i, j, k, spell);
         }
+    }
+
+    public static Class<? extends Spell> getSpell(int index){
+        if (handler ==null)
+            return null;
+        return handler.getSpell(index);
     }
 
     public static Class<? extends Spell> getSpell(int i, int j, int k){
@@ -102,28 +126,52 @@ public class Runes {
             Arrays.fill(spells, null);
         }
 
+        public void setKnown(int index, boolean value) {
+            if (index<0 || index>=RUNES_NUM*RUNES_NUM*RUNES_NUM)
+                return;
+            known[index] = value;
+        }
+
         public void setKnown(int i, int j, int k, boolean value) {
             if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
                 return;
-            known[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k] = value;
+            setKnown(RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k, value);
+        }
+
+        public boolean getKnown(int index) {
+            if (index<0 || index>=RUNES_NUM*RUNES_NUM*RUNES_NUM)
+                return false;
+            return known[index];
         }
 
         public boolean getKnown(int i, int j, int k){
             if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
                 return false;
-            return known[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k];
+            return getKnown(RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k);
+        }
+
+        public void setSpell(int index, Class<? extends Spell> spell) {
+            if (index<0 || index>=RUNES_NUM*RUNES_NUM*RUNES_NUM)
+                return;
+            spells[index] = spell;
         }
 
         public void setSpell(int i, int j, int k, Class<? extends Spell> spell){
             if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
                 return;
-            spells[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k] = spell;
+            setSpell(RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k, spell);
+        }
+
+        public Class<? extends Spell> getSpell(int index){
+            if (index<0 || index>=RUNES_NUM*RUNES_NUM*RUNES_NUM)
+                return null;
+            return spells[index];
         }
 
         public Class<? extends Spell> getSpell(int i, int j, int k){
             if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
                 return null;
-            return spells[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k];
+            return getSpell(RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k);
         }
 
         private static final String KNOWN = "known";

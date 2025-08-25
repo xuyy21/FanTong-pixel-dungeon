@@ -1,11 +1,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.implement;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
 import com.shatteredpixel.shatteredpixeldungeon.runes.WndSpell;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -51,6 +53,44 @@ public class Implement extends Item {
         if (action.equals(AC_TEST)){
             Runes.testSpell();
         }
+    }
+
+    //used to ensure tome has variable targeting logic for whatever spell is being case
+    public Spell targetingSpell = null;
+
+    @Override
+    public int targetingPos(Hero user, int dst) {
+        if (targetingSpell == null || targetingSpell.targetingFlags() == -1) {
+            return super.targetingPos(user, dst);
+        } else {
+            return new Ballistica( user.pos, dst, targetingSpell.targetingFlags() ).collisionPos;
+        }
+    }
+
+
+
+    public float powerMultiplier(Hero hero) {
+        return powerMultiplier(hero, null);
+    }
+
+    public float powerMultiplier(Hero hero, Spell spell) {
+        return POWER;
+    }
+
+    public float delay(Hero hero) {
+        return delay(hero, null);
+    }
+
+    public float delay(Hero hero, Spell spell) {
+        return DELAY;
+    }
+
+    public float faultMultiplier(Hero hero) {
+        return faultMultiplier(hero, null);
+    }
+
+    public float faultMultiplier(Hero hero, Spell spell) {
+        return FAULT;
     }
 
     @Override

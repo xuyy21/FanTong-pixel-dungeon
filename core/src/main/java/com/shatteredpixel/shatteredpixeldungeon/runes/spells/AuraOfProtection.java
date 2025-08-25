@@ -4,6 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -27,6 +28,13 @@ public class AuraOfProtection extends Spell{
         int dmgReduction = 10 + 10* Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
         int glyphPow = 25 + 25*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
         return Messages.get(this, "desc", dmgReduction, glyphPow) + "\n\n" + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+    }
+
+    @Override
+    public boolean canCast(Implement implement, Hero hero) {
+        if (hero.buff(MagicImmune.class) != null)
+            return false;
+        return hero.hasTalent(Talent.AURA_OF_PROTECTION);
     }
 
     @Override

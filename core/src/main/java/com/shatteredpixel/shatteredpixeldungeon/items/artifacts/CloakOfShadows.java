@@ -433,6 +433,9 @@ public class CloakOfShadows extends Artifact {
 					&& ((Hero) container.owner).hasTalent(Talent.LIGHT_CLOAK)){
 				activate((Hero) container.owner);
 			}
+			if (container.owner instanceof Hero && Dungeon.hero.subClass==HeroSubClass.NIGHTWING){
+				is_nightwing = true;
+			}
 			return true;
 		} else{
 			return false;

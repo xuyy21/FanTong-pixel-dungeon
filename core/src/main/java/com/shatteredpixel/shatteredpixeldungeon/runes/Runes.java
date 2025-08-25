@@ -70,23 +70,6 @@ public class Runes {
         }
     }
 
-    public static class RuneIcon extends Image {
-        private static TextureFilm film;
-        private static final int SIZE = 16;
-
-        public RuneIcon(int icon) {
-            super( Assets.Interfaces.RUNES_ICON );
-
-            if (film == null) film = new TextureFilm(texture, SIZE, SIZE);
-
-            frame(film.get(icon));
-        }
-
-        public RuneIcon(Rune rune) {
-            this(rune.icon());
-        }
-    }
-
     public static class SpellStatusHandler {
         private boolean[] known;
 

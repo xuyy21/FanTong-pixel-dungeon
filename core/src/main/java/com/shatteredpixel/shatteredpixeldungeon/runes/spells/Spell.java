@@ -1,9 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.runes.spells;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.runes.RuneIcon;
 import com.watabou.noosa.Image;
-import com.watabou.noosa.TextureFilm;
 
 public class Spell {
     public TYPE type = TYPE.NORMAL;

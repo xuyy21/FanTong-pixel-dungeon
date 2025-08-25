@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.runes;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -10,9 +11,9 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
-import com.watabou.noosa.Image;
-import com.watabou.noosa.TextureFilm;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
 import java.util.Arrays;
@@ -20,22 +21,34 @@ import java.util.Arrays;
 public class Runes {
 
     public static int RUNES_NUM = 4;
-    protected static SpellStatusHandler known;
+    protected static SpellStatusHandler handler;
 
     public static void initSpells(){
-        known = new SpellStatusHandler();
+        handler = new SpellStatusHandler();
     }
 
     public static void setKnown(int i, int j, int k, boolean value) {
-        if (known!=null) {
-            known.setKnown(i, j, k, value);
+        if (handler !=null) {
+            handler.setKnown(i, j, k, value);
         }
     }
 
     public static boolean getKnown(int i, int j, int k){
-        if (known==null)
+        if (handler ==null)
             return false;
-        return known.getKnown(i, j, k);
+        return handler.getKnown(i, j, k);
+    }
+
+    public static void setSpell(int i, int j, int k, Class<? extends Spell> spell){
+        if (handler !=null){
+            handler.setSpell(i, j, k, spell);
+        }
+    }
+
+    public static Class<? extends Spell> getSpell(int i, int j, int k){
+        if (handler ==null)
+            return null;
+        return handler.getSpell(i, j, k);
     }
 
     public static void testSpell() {
@@ -44,16 +57,16 @@ public class Runes {
     }
 
     public static void save( Bundle bundle ){
-        if (known!=null){
-            known.save(bundle);
+        if (handler !=null){
+            handler.save(bundle);
         }
     }
 
     public static void restore( Bundle bundle ){
-        if (known==null){
-            known = new SpellStatusHandler();
+        if (handler ==null){
+            handler = new SpellStatusHandler();
         }
-        known.restore(bundle);
+        handler.restore(bundle);
     }
 
     public enum Rune {
@@ -72,13 +85,19 @@ public class Runes {
 
     public static class SpellStatusHandler {
         private boolean[] known;
+        private Class<? extends Spell>[] spells;
 
         public SpellStatusHandler() {
             known = new boolean[RUNES_NUM*RUNES_NUM*RUNES_NUM];
+            spells = new Class[RUNES_NUM*RUNES_NUM*RUNES_NUM];
         }
 
         public void initKnow() {
             Arrays.fill(known, false);
+        }
+
+        public void initSpells() {
+            Arrays.fill(spells, null);
         }
 
         public void setKnown(int i, int j, int k, boolean value) {
@@ -93,18 +112,43 @@ public class Runes {
             return known[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k];
         }
 
+        public void setSpell(int i, int j, int k, Class<? extends Spell> spell){
+            if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
+                return;
+            spells[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k] = spell;
+        }
+
+        public Class<? extends Spell> getSpell(int i, int j, int k){
+            if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
+                return null;
+            return spells[RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k];
+        }
+
         private static final String KNOWN = "known";
+        private static final String SPELLS = "spells";
 
         public void save( Bundle bundle ){
             bundle.put(KNOWN, known);
+            for (int index = 0; index<spells.length; index++){
+                if (spells[index]!=null) {
+                    bundle.put(SPELLS+index, spells[index]);
+                }
+            }
         }
 
         public void restore( Bundle bundle ){
             boolean[] knowntorestore = bundle.getBooleanArray(KNOWN);
             if (knowntorestore!=null && knowntorestore.length==RUNES_NUM*RUNES_NUM*RUNES_NUM) {
                 known = knowntorestore;
+
+                for (int index = 0; index<knowntorestore.length; index++){
+                    if (bundle.contains(SPELLS+index)){
+                        spells[index] = bundle.getClass(SPELLS+index);
+                    }
+                }
             } else {
                 initKnow();
+                initSpells();
             }
         }
     }
@@ -159,7 +203,7 @@ public class Runes {
             public RuneButton(int index, WndRunes window) {
                 super(new RuneIcon(1));
 
-                rune = 1;
+                rune = 0;
                 this.index = index;
                 this.window = window;
             }
@@ -168,8 +212,8 @@ public class Runes {
             protected void onClick(){
                 super.onClick();
 
-                rune = rune%RUNES_NUM + 1;
-                this.icon(new RuneIcon(rune));
+                rune = (rune+1)%RUNES_NUM;
+                this.icon(new RuneIcon(rune+1));
 
                 switch (index){
                     case 1:
@@ -190,9 +234,9 @@ public class Runes {
         }
 
         public static class TestButton extends RedButton{
-            public int rune1 = 1;
-            public int rune2 = 1;
-            public int rune3 = 1;
+            public int rune1 = 0;
+            public int rune2 = 0;
+            public int rune3 = 0;
             protected WndRunes window;
 
             public TestButton(String label, WndRunes window) {
@@ -216,6 +260,16 @@ public class Runes {
                 super.onClick();
 
                 setKnown(rune1, rune2, rune3, true);
+
+                if (getSpell(rune1, rune2, rune3)!=null){
+                    GLog.p(Messages.get(Runes.class, "test_success", Messages.get(getSpell(rune1, rune2, rune3), "name")));
+                    Sample.INSTANCE.play( Assets.Sounds.SECRET );
+
+                } else {
+                    GLog.i(Messages.get(Runes.class, "test_fall"));
+                    Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
+                }
+
                 window.hide();
             }
         }

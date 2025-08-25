@@ -477,6 +477,12 @@ public abstract class Char extends Actor {
 				dmg *= 0.9f - 0.1f*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
 			}
 
+			if (Dungeon.hero.alignment == enemy.alignment
+					&& Dungeon.hero.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.AuraOfProtection.AuraBuff.class) != null
+					&& (Dungeon.level.distance(enemy.pos, Dungeon.hero.pos) <= 2 || enemy.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)){
+				dmg *= 0.9f - 0.1f*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
+			}
+
 			if (enemy.buff(MonkEnergy.MonkAbility.Meditate.MeditateResistance.class) != null){
 				dmg *= 0.2f;
 			}
@@ -768,6 +774,15 @@ public abstract class Char extends Actor {
 			}
 		}
 
+		// hero and pris images skip this as they already benefit from hero's armor glyph proc
+		if (!(this instanceof Hero || this instanceof PrismaticImage)) {
+			if (Dungeon.hero.alignment == alignment && Dungeon.hero.belongings.armor() != null
+					&& Dungeon.hero.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.AuraOfProtection.AuraBuff.class) != null
+					&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)) {
+				damage = Dungeon.hero.belongings.armor().proc( enemy, this, damage );
+			}
+		}
+
 		return damage;
 	}
 
@@ -778,6 +793,11 @@ public abstract class Char extends Actor {
 				&& this != Dungeon.hero && Dungeon.hero.alignment == alignment
 				&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
 				&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)) {
+			return Dungeon.hero.glyphLevel(cls);
+		} else if (Dungeon.hero != null && Dungeon.level != null
+				&& this != Dungeon.hero && Dungeon.hero.alignment == alignment
+				&& Dungeon.hero.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.AuraOfProtection.AuraBuff.class) != null
+				&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)){
 			return Dungeon.hero.glyphLevel(cls);
 		} else {
 			return -1;
@@ -864,6 +884,15 @@ public abstract class Char extends Actor {
 		if (!(src instanceof Char)) {
 			if (Dungeon.hero.alignment == alignment
 					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
+					&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)) {
+				damage *= 0.9f - 0.1f*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
+			}
+		}
+
+		//if dmg is from a character we already reduced it in Char.attack
+		if (!(src instanceof Char)) {
+			if (Dungeon.hero.alignment == alignment
+					&& Dungeon.hero.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.AuraOfProtection.AuraBuff.class) != null
 					&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)) {
 				damage *= 0.9f - 0.1f*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
 			}

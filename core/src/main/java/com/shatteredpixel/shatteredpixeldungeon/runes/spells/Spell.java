@@ -114,7 +114,15 @@ public abstract class Spell {
             default:
                 //do nothing
                 break;
-                //TODO
+            case 1:
+                break;
+            case 2:
+                spells.add(AuraOfProtection.INSTANCE);
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
         }
 
         return spells;
@@ -122,7 +130,7 @@ public abstract class Spell {
 
     public static ArrayList<Spell> getAllSpellList(Hero hero){
         ArrayList<Spell> spells = new ArrayList<>();
-        //TODO
+        spells.add(AuraOfProtection.INSTANCE);
         return spells;
     }
 }

@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 public class Runes {
 
-    public static int RUNES_NUM = 4;
+    public static int RUNES_NUM = 5;
     protected static SpellStatusHandler handler;
 
     public static void initSpells(){

@@ -533,7 +533,7 @@ public class Armor extends EquipableItem {
 				}
 				//so that this effect procs for allies using this armor via aura of protection
 				if (defender.alignment == Dungeon.hero.alignment
-						&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
+						&& (Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null || Dungeon.hero.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.AuraOfProtection.AuraBuff.class) != null)
 						&& (Dungeon.level.distance(defender.pos, Dungeon.hero.pos) <= 2 || defender.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)
 						&& Dungeon.hero.buff(HolyWard.HolyArmBuff.class) != null) {
 					int blocking = Dungeon.hero.subClass == HeroSubClass.PALADIN ? 3 : 1;
@@ -830,7 +830,7 @@ public class Armor extends EquipableItem {
 			float multi = RingOfArcana.enchantPowerMultiplier(defender);
 
 			if (Dungeon.hero.alignment == defender.alignment
-					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
+					&& (Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null || Dungeon.hero.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.AuraOfProtection.AuraBuff.class) != null)
 					&& (Dungeon.level.distance(defender.pos, Dungeon.hero.pos) <= 2 || defender.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)){
 				multi += 0.25f + 0.25f*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
 			}

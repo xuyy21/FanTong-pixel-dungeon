@@ -122,7 +122,7 @@ public class WndSpell extends Window {
 
             if (!spell.canCast(implement, Dungeon.hero)){
                 icon.alpha(0.3f);
-            } else if (spell.overRunes()==0){
+            } else if (spell.overRunes(Dungeon.hero)==0){
                 icon.brightness(3);
             }
 

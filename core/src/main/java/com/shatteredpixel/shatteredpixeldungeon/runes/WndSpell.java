@@ -1,7 +1,10 @@
 package com.shatteredpixel.shatteredpixeldungeon.runes;
 
 
+import static com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell.MAX_SPELL_TIER;
+
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
@@ -12,13 +15,19 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
+import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RightClickMenu;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndClericSpells;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
+import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.NinePatch;
 import com.watabou.utils.DeviceCompat;
+
+import java.util.ArrayList;
 
 public class WndSpell extends Window {
 
@@ -62,9 +71,31 @@ public class WndSpell extends Window {
         int top = (int)msg.bottom()+4;
 
         //TODO
-//        for (Class spell: SPELL_T1) {
-//
-//        }
+        for (int i=1; i<=MAX_SPELL_TIER; i++) {
+            ArrayList<Spell> spells = Spell.getSpellList(hero, i);
+
+            if (!spells.isEmpty() && i != 1){
+                top += BTN_SIZE + 2;
+                ColorBlock sep = new ColorBlock(WIDTH, 1, 0xFF000000);
+                sep.y = top;
+                add(sep);
+                top += 3;
+            }
+
+            ArrayList<IconButton> spellBtns = new ArrayList<>();
+
+            for (Spell spell: spells) {
+                IconButton spellBtn = new SpellButton(spell, implement, info);
+                add(spellBtn);
+                spellBtns.add(spellBtn);
+            }
+
+            int left = 2 + (WIDTH - spellBtns.size() * (BTN_SIZE + 4)) / 2;
+            for (IconButton btn : spellBtns) {
+                btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
+                left += btn.width() + 4;
+            }
+        }
 
         resize(WIDTH, top + BTN_SIZE);
 
@@ -89,12 +120,11 @@ public class WndSpell extends Window {
             this.implement = implement;
             this.info = info;
 
-            //TODO
-//            if (!implement.canCast(Dungeon.hero, spell)){
-//                icon.alpha( 0.3f );
-//            } else if (spell == GuidingLight.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
-//                icon.brightness(3);
-//            }
+            if (!spell.canCast(implement, Dungeon.hero)){
+                icon.alpha(0.3f);
+            } else if (spell.overRunes()==0){
+                icon.brightness(3);
+            }
 
             bg = Chrome.get(Chrome.Type.TOAST);
             addToBack(bg);
@@ -118,19 +148,16 @@ public class WndSpell extends Window {
             } else {
                 hide();
 
+                if (!spell.canCast(implement, Dungeon.hero)){
+                    GLog.w(Messages.get(WndSpell.class, "cant_cast"));
+                } else {
+                    spell.onCast(implement, Dungeon.hero);
 
-                //TODO
-//                if(!tome.canCast(Dungeon.hero, spell)){
-//                    GLog.w(Messages.get(HolyTome.class, "no_spell"));
-//                } else {
-//                    spell.onCast(tome, Dungeon.hero);
-//
-//                    if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(tome)){
-//                        tome.targetingSpell = spell;
-//                        QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(tome));
-//                    }
-//                }
-
+                    if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(implement)){
+                        implement.targetingSpell = spell;
+                        QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(implement));
+                    }
+                }
             }
         }
 
@@ -149,17 +176,17 @@ public class WndSpell extends Window {
                             break;
                         case 0:
                             hide();
-                            //TODO
-//                            if(!tome.canCast(Dungeon.hero, spell)){
-//                                GLog.w(Messages.get(HolyTome.class, "no_spell"));
-//                            } else {
-//                                spell.onCast(tome, Dungeon.hero);
-//
-//                                if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(tome)){
-//                                    tome.targetingSpell = spell;
-//                                    QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(tome));
-//                                }
-//                            }
+
+                            if (!spell.canCast(implement, Dungeon.hero)){
+                                GLog.w(Messages.get(WndSpell.class, "cant_cast"));
+                            } else {
+                                spell.onCast(implement, Dungeon.hero);
+
+                                if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(implement)){
+                                    implement.targetingSpell = spell;
+                                    QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(implement));
+                                }
+                            }
                             break;
                         case 1:
                             GameScene.show(new WndTitledMessage(spell.icon(), Messages.titleCase(spell.name()), spell.desc()));

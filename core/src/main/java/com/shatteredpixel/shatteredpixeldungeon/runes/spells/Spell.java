@@ -18,10 +18,13 @@ import java.util.ArrayList;
 public abstract class Spell {
     public TYPE type = TYPE.NORMAL;
     public int icon = DEFAULT;
+    public int tier = 1;
 
     public enum TYPE {
         NORMAL, HOLY, NATURE, ENERGETIC, PHYSICAL, INVERSE
     }
+
+    public static int MAX_SPELL_TIER = 4;
 
     public static int SPELLICON = 8;
     public static int DEFAULT   = SPELLICON+0;
@@ -57,7 +60,7 @@ public abstract class Spell {
     public abstract void onCast(Implement implement, Hero hero);
 
     public float overRunes() {
-        return 20f;
+        return 10f + 10f*tier;
     }
 
     public boolean usesTargeting(){

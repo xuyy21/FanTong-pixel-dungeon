@@ -69,11 +69,36 @@ public abstract class Spell {
     }
 
     public String desc() {
-        return Messages.get(this, "desc") + "\n\n" + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        return Messages.get(this, "desc") + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
 
     public String shortDesc() {
-        return Messages.get(this, "shortdesc" + " " + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero)));
+        return Messages.get(this, "shortdesc" + " " + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero)));
+    }
+
+    public String Type() {
+        String type = "";
+        switch (this.type) {
+            case NORMAL:
+                type = Messages.get(this, "normal");
+                break;
+            case HOLY:
+                type = Messages.get(this, "holy");
+                break;
+            case NATURE:
+                type = Messages.get(this, "nature");
+                break;
+            case ENERGETIC:
+                type = Messages.get(this, "energetic");
+                break;
+            case PHYSICAL:
+                type = Messages.get(this, "physical");
+                break;
+            case INVERSE:
+                type = Messages.get(this, "inverse");
+                break;
+        }
+        return Messages.get(this, "type", tier, type);
     }
 
     public boolean canCast(Implement implement, Hero hero) {
@@ -122,6 +147,7 @@ public abstract class Spell {
             case 3:
                 break;
             case 4:
+                spells.add(BeamingRay.INSTANCE);
                 break;
         }
 
@@ -131,6 +157,13 @@ public abstract class Spell {
     public static ArrayList<Spell> getAllSpellList(Hero hero){
         ArrayList<Spell> spells = new ArrayList<>();
         spells.add(AuraOfProtection.INSTANCE);
+        spells.add(BeamingRay.INSTANCE);
+        return spells;
+    }
+
+    public static ArrayList<Class<Spell>> getGeneralSpellsList(){
+        ArrayList<Class<Spell>> spells = new ArrayList<>();
+
         return spells;
     }
 }

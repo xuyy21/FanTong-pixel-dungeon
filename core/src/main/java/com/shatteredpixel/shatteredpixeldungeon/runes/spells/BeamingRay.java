@@ -35,7 +35,7 @@ public class BeamingRay extends TargetedSpell{
 
     @Override
     public String desc() {
-        return Messages.get(this, "desc", 4* Dungeon.hero.pointsInTalent(Talent.BEAMING_RAY), 30 + 5*Dungeon.hero.pointsInTalent(Talent.BEAMING_RAY)) + "\n\n" + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        return Messages.get(this, "desc", 4* Dungeon.hero.pointsInTalent(Talent.BEAMING_RAY), 30 + 5*Dungeon.hero.pointsInTalent(Talent.BEAMING_RAY)) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
 
     @Override

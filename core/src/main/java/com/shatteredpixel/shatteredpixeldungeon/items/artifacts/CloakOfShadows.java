@@ -1057,6 +1057,8 @@ public class CloakOfShadows extends Artifact {
 		}
 
 		public void defenseWithSharedTrap(Char enemy) {
+			if (enemy == Dungeon.hero && alignment == Alignment.ALLY) return;
+
 			if (shared_trap_lvl()>0 && Dungeon.hero.belongings.getItem(CloakOfShadows.class)!=null) {
 				Class<?extends Trap> trap = Dungeon.hero.belongings.getItem(CloakOfShadows.class).getStoredTrap();
 				if (trap == AlarmTrap.class || trap == DistortionTrap.class || trap == GuardianTrap.class || trap == SummoningTrap.class) {

@@ -869,6 +869,10 @@ public class CloakOfShadows extends Artifact {
 				return INFINITE_EVASION;
 			}
 
+			if (surprisedBy(enemy) || paralysed > 0 || (alignment == Alignment.ALLY && enemy == Dungeon.hero)){
+				return 0;
+			}
+
 			float multiplier = 1f;
 			if (shared_rings_lvl()>0 && buff(evasionBuff.class)!=null)
 				multiplier += 0.4f * shared_rings_lvl();

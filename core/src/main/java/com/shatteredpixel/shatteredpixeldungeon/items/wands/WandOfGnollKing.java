@@ -333,6 +333,10 @@ public class WandOfGnollKing extends DamageWand{
 
         @Override
         public int defenseSkill(Char enemy) {
+            if (surprisedBy(enemy) || paralysed > 0 || (alignment == Alignment.ALLY && enemy == Dungeon.hero)){
+                return 0;
+            }
+
             return 4 + Dungeon.scalingDepth();
         }
 

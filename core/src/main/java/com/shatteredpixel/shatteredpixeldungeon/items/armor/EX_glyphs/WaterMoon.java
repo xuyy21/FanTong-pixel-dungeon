@@ -110,6 +110,10 @@ public class WaterMoon extends Armor.Glyph {
 
         @Override
         public int defenseSkill(Char enemy) {
+            if (surprisedBy(enemy) || paralysed > 0 || (alignment == Alignment.ALLY && enemy == Dungeon.hero)){
+                return 0;
+            }
+
             return 27 + 3 * Dungeon.scalingDepth() + 3 * level;
         }
     }

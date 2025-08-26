@@ -136,7 +136,8 @@ public class MnemonicPrayer extends TargetedClericSpell {
 				//does not boost buffs from armor abilities or T4 spells
 				if (b instanceof AscendedForm.AscendBuff
 						|| b instanceof BodyForm.BodyFormBuff || b instanceof SpiritForm.SpiritFormBuff
-						|| b instanceof PowerOfMany.PowerBuff || b instanceof BeamingRay.BeamingRayBoost || b instanceof LifeLink || b instanceof LifeLinkSpell.LifeLinkSpellBuff){
+						|| b instanceof PowerOfMany.PowerBuff || b instanceof BeamingRay.BeamingRayBoost || b instanceof LifeLink || b instanceof LifeLinkSpell.LifeLinkSpellBuff
+						|| b instanceof com.shatteredpixel.shatteredpixeldungeon.runes.spells.BeamingRay.BeamingRayBoost){
 					continue;
 				}
 

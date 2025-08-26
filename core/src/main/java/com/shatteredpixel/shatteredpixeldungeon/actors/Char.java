@@ -443,10 +443,13 @@ public abstract class Char extends Actor {
 			}
 
 			if (buff( PowerOfMany.PowerBuff.class) != null){
-				if (buff( BeamingRay.BeamingRayBoost.class) != null
+				if ((buff( BeamingRay.BeamingRayBoost.class) != null)
 					&& buff( BeamingRay.BeamingRayBoost.class).object == enemy.id()){
 					dmg *= 1.3f + 0.05f*Dungeon.hero.pointsInTalent(Talent.BEAMING_RAY);
-				} else {
+				} else if (buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.BeamingRay.BeamingRayBoost.class) != null
+					&& buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.BeamingRay.BeamingRayBoost.class).object == enemy.id()) {
+					dmg *= 1.3f + 0.05f*Dungeon.hero.pointsInTalent(Talent.BEAMING_RAY);
+				}else {
 					dmg *= 1.25f;
 				}
 			}

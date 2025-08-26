@@ -43,7 +43,7 @@ public class AuraOfProtection extends Spell{
 
         Sample.INSTANCE.play(Assets.Sounds.READ);
 
-        hero.spend( 1f );
+        hero.spend( implement.delay(hero, this) );
         hero.busy();
         hero.sprite.operate(hero.pos);
 

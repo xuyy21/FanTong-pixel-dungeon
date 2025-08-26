@@ -236,7 +236,7 @@ public class PowerOfMany extends ArmorAbility {
 
 		@Override
 		public boolean act() {
-			if (target.buff(BeamingRay.BeamingRayBoost.class) != null
+			if ((target.buff(BeamingRay.BeamingRayBoost.class) != null || target.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.BeamingRay.BeamingRayBoost.class) != null)
 				|| target.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
 				spend(TICK);
 				return true;

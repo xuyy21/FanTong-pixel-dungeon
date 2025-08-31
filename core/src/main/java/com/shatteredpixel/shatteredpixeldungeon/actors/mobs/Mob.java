@@ -697,6 +697,19 @@ public abstract class Mob extends Char {
 			}
 		}
 
+		if (buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.GuidingLight.Illuminated.class) != null){
+			//the attacker must be using a weapon they have the str for
+			if (enemy instanceof Hero){
+				Hero h = (Hero) enemy;
+				if (!(h.belongings.attackingWeapon() instanceof Weapon)
+						|| ((Weapon) h.belongings.attackingWeapon()).STRReq() <= h.STR()){
+					return 0;
+				}
+			} else {
+				return 0;
+			}
+		}
+
 		if ( !surprisedBy(enemy)
 				&& paralysed == 0
 				&& !(alignment == Alignment.ALLY && enemy == Dungeon.hero)) {

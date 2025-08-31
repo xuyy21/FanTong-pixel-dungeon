@@ -103,6 +103,8 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( Smite.class );
 		RESISTS.add( Judgement.class );
 
+		RESISTS.add( com.shatteredpixel.shatteredpixeldungeon.runes.spells.GuidingLight.class );
+
 		RESISTS.add( ElementalBlast.class );
 		RESISTS.add( CursedWand.class );
 		RESISTS.add( WandOfBlastWave.class );

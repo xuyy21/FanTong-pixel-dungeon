@@ -434,6 +434,9 @@ public abstract class Char extends Actor {
 					enemy.damage(5+Dungeon.hero.lvl, GuidingLight.INSTANCE);
 				}
 			}
+			if (enemy.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.GuidingLight.Illuminated.class) != null){
+				enemy.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.GuidingLight.Illuminated.class).detach();
+			}
 
 			Berserk berserk = buff(Berserk.class);
 			if (berserk != null) dmg = berserk.damageFactor(dmg);

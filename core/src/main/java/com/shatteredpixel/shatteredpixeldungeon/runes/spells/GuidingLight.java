@@ -74,7 +74,7 @@ public class GuidingLight extends TargetedSpell{
                     Dungeon.level.pressCell(aim.collisionPos);
                 }
 
-                hero.spend( 1f );
+                hero.spend( implement.delay(hero, GuidingLight.this) );
                 hero.next();
 
                 onSpellCast(implement, hero);

@@ -16,17 +16,28 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Runes {
 
-    public static int RUNES_NUM = 5;
+    public static int RUNES_NUM = 4;
     protected static SpellStatusHandler handler;
 
     public static void initSpells(){
         handler = new SpellStatusHandler();
+        Class[] spells = Spell.getGeneralSpellsList().toArray(new Class[0]);
+        ArrayList<Integer> index = new ArrayList<>();
+        for(int i=0; i<RUNES_NUM*RUNES_NUM*RUNES_NUM; i++)
+            index.add(i);
+        Random.shuffle(index);
+        for (Class spell: spells) {
+            if (index.isEmpty()) break;
+            setSpell(index.remove(0), spell);
+        }
     }
 
     public static void setKnown(int index, boolean value){
@@ -53,25 +64,25 @@ public class Runes {
         return handler.getKnown(i, j, k);
     }
 
-    public static void setSpell(int index, Class<? extends Spell> spell){
+    public static void setSpell(int index, Class spell){
         if (handler !=null){
             handler.setSpell(index, spell);
         }
     }
 
-    public static void setSpell(int i, int j, int k, Class<? extends Spell> spell){
+    public static void setSpell(int i, int j, int k, Class spell){
         if (handler !=null){
             handler.setSpell(i, j, k, spell);
         }
     }
 
-    public static Class<? extends Spell> getSpell(int index){
+    public static Class getSpell(int index){
         if (handler ==null)
             return null;
         return handler.getSpell(index);
     }
 
-    public static Class<? extends Spell> getSpell(int i, int j, int k){
+    public static Class getSpell(int i, int j, int k){
         if (handler ==null)
             return null;
         return handler.getSpell(i, j, k);
@@ -111,7 +122,7 @@ public class Runes {
 
     public static class SpellStatusHandler {
         private boolean[] known;
-        private Class<? extends Spell>[] spells;
+        private Class[] spells;
 
         public SpellStatusHandler() {
             known = new boolean[RUNES_NUM*RUNES_NUM*RUNES_NUM];
@@ -150,25 +161,25 @@ public class Runes {
             return getKnown(RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k);
         }
 
-        public void setSpell(int index, Class<? extends Spell> spell) {
+        public void setSpell(int index, Class spell) {
             if (index<0 || index>=RUNES_NUM*RUNES_NUM*RUNES_NUM)
                 return;
             spells[index] = spell;
         }
 
-        public void setSpell(int i, int j, int k, Class<? extends Spell> spell){
+        public void setSpell(int i, int j, int k, Class spell){
             if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
                 return;
             setSpell(RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k, spell);
         }
 
-        public Class<? extends Spell> getSpell(int index){
+        public Class getSpell(int index){
             if (index<0 || index>=RUNES_NUM*RUNES_NUM*RUNES_NUM)
                 return null;
             return spells[index];
         }
 
-        public Class<? extends Spell> getSpell(int i, int j, int k){
+        public Class getSpell(int i, int j, int k){
             if (i<0 || j<0 || k<0 || i>=RUNES_NUM || j>=RUNES_NUM || k>=RUNES_NUM)
                 return null;
             return getSpell(RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k);
@@ -314,7 +325,7 @@ public class Runes {
                 if (getSpell(rune1, rune2, rune3)!=null){
                     GLog.p(Messages.get(Runes.class, "test_success", Messages.get(getSpell(rune1, rune2, rune3), "name")));
                     Sample.INSTANCE.play( Assets.Sounds.SECRET );
-                    Spell spell = Reflection.newInstance(getSpell(rune1, rune2, rune3));
+                    Spell spell = (Spell) Reflection.newInstance(getSpell(rune1, rune2, rune3));
                     GameScene.show(new WndTitledMessage(spell.icon(), Messages.titleCase(spell.name()), spell.desc()));
 
                 } else {

@@ -2,7 +2,11 @@ package com.shatteredpixel.shatteredpixeldungeon.runes.spells;
 
 import static com.shatteredpixel.shatteredpixeldungeon.runes.Runes.RUNES_NUM;
 
+import static java.lang.Math.max;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -12,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.RuneIcon;
 import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 
 import java.util.ArrayList;
@@ -129,6 +134,7 @@ public abstract class Spell {
 
     public void onSpellCast(Implement implement, Hero hero){
         Invisibility.dispel();
+        Buff.affect(hero, OverRunes.class, overRunes(hero));
     }
 
     public static ArrayList<Spell> getSpellList(Hero hero, int tier){
@@ -197,5 +203,35 @@ public abstract class Spell {
         spells.add(WallOfLight.class);
 
         return spells;
+    }
+
+    public static class OverRunes extends FlavourBuff{
+        public static float DURATION = 100f;
+
+        @Override
+        public int icon() {
+            return BuffIndicator.BLESS;
+        }
+
+        @Override
+        public float iconFadePercent() { return max(0, visualcooldown() / DURATION); }
+
+        @Override
+        public String desc() {
+            return Messages.get(this, "desc", dispTurns(), Messages.decimalFormat("#.##", Math.max(0f, visualcooldown()-DURATION)));
+        }
+
+        public float faultChance(){
+            return Math.max(0f, visualcooldown()-DURATION) * 0.01f;
+        }
+
+        public void reduce(float time){
+            if (visualcooldown()<=time) {
+                detach();
+            }
+            else {
+                spend(-time);
+            }
+        }
     }
 }

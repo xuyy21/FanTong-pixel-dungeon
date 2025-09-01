@@ -9,7 +9,7 @@ public class Eating extends Spell{
 
     {
         type = TYPE.NORMAL;
-        icon = GUIDING_LIGHT;
+        icon = EATING;
         tier = 1;
     }
 

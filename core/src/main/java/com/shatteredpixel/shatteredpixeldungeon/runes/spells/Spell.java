@@ -128,7 +128,6 @@ public abstract class Spell {
     }
 
     public void onSpellCast(Implement implement, Hero hero){
-        //TODO
         Invisibility.dispel();
     }
 
@@ -140,14 +139,24 @@ public abstract class Spell {
                 //do nothing
                 break;
             case 1:
+                spells.add(BlessSpell.INSTANCE);
+                spells.add(GuidingLight.INSTANCE);
+                spells.add(HolyIntuition.INSTANCE);
+                spells.add(ShieldOfLight.INSTANCE);
                 break;
             case 2:
-                spells.add(AuraOfProtection.INSTANCE);
+                spells.add(Cleanse.INSTANCE);
+                spells.add(DivineSense.INSTANCE);
+                spells.add(MnemonicPrayer.INSTANCE);
+                spells.add(Sunray.INSTANCE);
+//                spells.add(AuraOfProtection.INSTANCE);
                 break;
             case 3:
+                spells.add(HallowedGround.INSTANCE);
+                spells.add(WallOfLight.INSTANCE);
                 break;
             case 4:
-                spells.add(BeamingRay.INSTANCE);
+//                spells.add(BeamingRay.INSTANCE);
                 break;
         }
 
@@ -156,13 +165,36 @@ public abstract class Spell {
 
     public static ArrayList<Spell> getAllSpellList(Hero hero){
         ArrayList<Spell> spells = new ArrayList<>();
-        spells.add(AuraOfProtection.INSTANCE);
-        spells.add(BeamingRay.INSTANCE);
+
+        spells.add(BlessSpell.INSTANCE);
+        spells.add(Cleanse.INSTANCE);
+        spells.add(DivineSense.INSTANCE);
+        spells.add(HallowedGround.INSTANCE);
+        spells.add(HolyIntuition.INSTANCE);
+        spells.add(MnemonicPrayer.INSTANCE);
+        spells.add(ShieldOfLight.INSTANCE);
+        spells.add(Sunray.INSTANCE);
+        spells.add(WallOfLight.INSTANCE);
+//        spells.add(AuraOfProtection.INSTANCE);
+        //BodyForm
+//        spells.add(BeamingRay.INSTANCE);
+
         return spells;
     }
 
-    public static ArrayList<Class<Spell>> getGeneralSpellsList(){
-        ArrayList<Class<Spell>> spells = new ArrayList<>();
+    public static ArrayList<Class> getGeneralSpellsList(){
+        ArrayList<Class> spells = new ArrayList<>();
+
+        spells.add(Cleanse.class);
+        spells.add(BlessSpell.class);
+        spells.add(DivineSense.class);
+        spells.add(GuidingLight.class);
+        spells.add(HallowedGround.class);
+        spells.add(HolyIntuition.class);
+        spells.add(MnemonicPrayer.class);
+        spells.add(ShieldOfLight.class);
+        spells.add(Sunray.class);
+        spells.add(WallOfLight.class);
 
         return spells;
     }

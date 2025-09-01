@@ -145,6 +145,7 @@ public abstract class Spell {
                 //do nothing
                 break;
             case 1:
+                spells.add(Eating.INSTANCE);
                 spells.add(BlessSpell.INSTANCE);
                 spells.add(GuidingLight.INSTANCE);
                 spells.add(HolyIntuition.INSTANCE);
@@ -171,6 +172,8 @@ public abstract class Spell {
 
     public static ArrayList<Spell> getAllSpellList(Hero hero){
         ArrayList<Spell> spells = new ArrayList<>();
+
+        spells.add(Eating.INSTANCE);
 
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
@@ -201,6 +204,7 @@ public abstract class Spell {
         spells.add(ShieldOfLight.class);
         spells.add(Sunray.class);
         spells.add(WallOfLight.class);
+        spells.add(Eating.class);
 
         return spells;
     }

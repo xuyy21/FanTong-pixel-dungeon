@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.NinePatch;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -151,11 +152,17 @@ public class WndSpell extends Window {
                 if (!spell.canCast(implement, Dungeon.hero)){
                     GLog.w(Messages.get(WndSpell.class, "cant_cast"));
                 } else {
-                    spell.onCast(implement, Dungeon.hero);
+                    if (Dungeon.hero.buff(Spell.OverRunes.class)!=null && Random.Float()<implement.faultMultiplier(Dungeon.hero, spell)*Dungeon.hero.buff(Spell.OverRunes.class).faultChance()) {
+                        spell.onCast(implement, Dungeon.hero);
 
-                    if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(implement)){
-                        implement.targetingSpell = spell;
-                        QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(implement));
+                        if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(implement)) {
+                            implement.targetingSpell = spell;
+                            QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(implement));
+                        }
+                    } else {
+                        GLog.n(Messages.get(WndSpell.class, "fault"));
+                        Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+                        Dungeon.hero.spendAndNext(implement.delay(Dungeon.hero, spell));
                     }
                 }
             }
@@ -180,11 +187,17 @@ public class WndSpell extends Window {
                             if (!spell.canCast(implement, Dungeon.hero)){
                                 GLog.w(Messages.get(WndSpell.class, "cant_cast"));
                             } else {
-                                spell.onCast(implement, Dungeon.hero);
+                                if (Dungeon.hero.buff(Spell.OverRunes.class)!=null && Random.Float()<implement.faultMultiplier(Dungeon.hero, spell)*Dungeon.hero.buff(Spell.OverRunes.class).faultChance()){
+                                    spell.onCast(implement, Dungeon.hero);
 
-                                if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(implement)){
-                                    implement.targetingSpell = spell;
-                                    QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(implement));
+                                    if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(implement)) {
+                                        implement.targetingSpell = spell;
+                                        QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(implement));
+                                    }
+                                } else {
+                                    GLog.n(Messages.get(WndSpell.class, "fault"));
+                                    Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+                                    Dungeon.hero.spendAndNext(implement.delay(Dungeon.hero, spell));
                                 }
                             }
                             break;

@@ -16,5 +16,7 @@ public class Eating extends Spell{
     @Override
     public void onCast(Implement implement, Hero hero){
         Talent.onFoodEaten(hero, 100*implement.powerMultiplier(hero, this), null);
+        hero.sprite.operate(hero.pos);
+        hero.spendAndNext(implement.delay(hero, this));
     }
 }

@@ -36,6 +36,7 @@ public abstract class Spell {
     public static int DEFAULT   = SPELLICON+0;
     //normal spells
     public static final int EATING          = SPELLICON+1;
+    public static final int SEE_THOUGH      = SPELLICON+2;
 
     //holy spells
     public static int HOLY_SPELLICON        = SPELLICON+8;

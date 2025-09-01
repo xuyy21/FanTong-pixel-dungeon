@@ -18,5 +18,6 @@ public class Eating extends Spell{
         hero.sprite.operate(hero.pos);
         Talent.onFoodEaten(hero, 100*implement.powerMultiplier(hero, this), null);
         hero.spendAndNext(implement.delay(hero, this));
+        onSpellCast(implement, hero);
     }
 }

@@ -105,6 +105,7 @@ public class AntiMagic extends Armor.Glyph {
 
 		RESISTS.add( com.shatteredpixel.shatteredpixeldungeon.runes.spells.GuidingLight.class );
 		RESISTS.add( com.shatteredpixel.shatteredpixeldungeon.runes.spells.HolyLance.class );
+		RESISTS.add( com.shatteredpixel.shatteredpixeldungeon.runes.spells.Sunray.class );
 
 		RESISTS.add( ElementalBlast.class );
 		RESISTS.add( CursedWand.class );

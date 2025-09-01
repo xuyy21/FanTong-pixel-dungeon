@@ -940,7 +940,8 @@ public class Dungeon {
 	
 		GameScene.updateFog(l, t, width, height);
 
-		if (hero.buff(MindVision.class) != null || hero.buff(DivineSense.DivineSenseTracker.class) != null){
+		if (hero.buff(MindVision.class) != null || hero.buff(DivineSense.DivineSenseTracker.class) != null
+			|| hero.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.DivineSense.DivineSenseTracker.class)!=null){
 			for (Mob m : level.mobs.toArray(new Mob[0])){
 				if (m instanceof Mimic && m.alignment == Char.Alignment.NEUTRAL && ((Mimic) m).stealthy()){
 					continue;

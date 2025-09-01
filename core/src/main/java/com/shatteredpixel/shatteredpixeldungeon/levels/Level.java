@@ -1399,10 +1399,13 @@ public abstract class Level implements Bundlable {
 				}
 				if (c.buff(DivineSense.DivineSenseTracker.class) != null){
 					if (((Hero) c).heroClass == HeroClass.CLERIC){
-						mindVisRange = 4+4*((Hero) c).pointsInTalent(Talent.DIVINE_SENSE);
+						mindVisRange = Math.max(4+4*((Hero) c).pointsInTalent(Talent.DIVINE_SENSE), mindVisRange);
 					} else {
-						mindVisRange = 1+2*((Hero) c).pointsInTalent(Talent.DIVINE_SENSE);
+						mindVisRange = Math.max(1+2*((Hero) c).pointsInTalent(Talent.DIVINE_SENSE), mindVisRange);
 					}
+				}
+				if (c.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.DivineSense.DivineSenseTracker.class)!=null){
+					mindVisRange = Math.max(8, mindVisRange);
 				}
 				mindVisRange = Math.max(mindVisRange, EyeOfNewt.mindVisionRange());
 

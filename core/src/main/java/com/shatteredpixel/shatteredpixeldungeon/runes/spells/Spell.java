@@ -210,7 +210,7 @@ public abstract class Spell {
 
         @Override
         public int icon() {
-            return BuffIndicator.BLESS;
+            return BuffIndicator.OVERRUNES;
         }
 
         @Override

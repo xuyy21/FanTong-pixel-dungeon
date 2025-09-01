@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -30,7 +29,7 @@ public class WallOfLight extends TargetedSpell{
 
     @Override
     public String desc() {
-        return Messages.get(this, "desc", 1 + 2* Dungeon.hero.pointsInTalent(Talent.WALL_OF_LIGHT)) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        return Messages.get(this, "desc", 3) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
 
     @Override
@@ -154,7 +153,8 @@ public class WallOfLight extends TargetedSpell{
         //process early so that cost is calculated before walls are added
         onSpellCast(implement, hero);
 
-        placeWall(closest, knockBackDir);
+        float power = implement.powerMultiplier(hero, this);
+        placeWall(closest, knockBackDir, power);
 
         int leftPos = closest;
         int rightPos = closest;
@@ -166,14 +166,14 @@ public class WallOfLight extends TargetedSpell{
                 if (!Dungeon.level.insideMap(leftPos)){
                     break;
                 }
-                placeWall(leftPos, knockBackDir);
+                placeWall(leftPos, knockBackDir, power);
             }
             if (leftDirX != 0) {
                 leftPos += leftDirX;
                 if (!Dungeon.level.insideMap(leftPos)){
                     break;
                 }
-                placeWall(leftPos, knockBackDir);
+                placeWall(leftPos, knockBackDir, power);
             }
         }
         for (int i = 0; i < steps; i++) {
@@ -182,14 +182,14 @@ public class WallOfLight extends TargetedSpell{
                 if (!Dungeon.level.insideMap(rightPos)){
                     break;
                 }
-                placeWall(rightPos, knockBackDir);
+                placeWall(rightPos, knockBackDir, power);
             }
             if (rightDirY != 0) {
                 rightPos += rightDirY * Dungeon.level.width();
                 if (!Dungeon.level.insideMap(rightPos)){
                     break;
                 }
-                placeWall(rightPos, knockBackDir);
+                placeWall(rightPos, knockBackDir, power);
             }
         }
 
@@ -199,9 +199,9 @@ public class WallOfLight extends TargetedSpell{
         Dungeon.hero.spendAndNext(implement.delay(hero, this));
     }
 
-    private void placeWall( int pos, int knockbackDIR){
+    private void placeWall( int pos, int knockbackDIR, float power){
         if (!Dungeon.level.solid[pos]) {
-            GameScene.add(Blob.seed(pos, 20, com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.WallOfLight.LightWall.class));
+            GameScene.add(Blob.seed(pos, Math.round(20 * power), com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.WallOfLight.LightWall.class));
 
             Char ch = Actor.findChar(pos);
             if (ch != null && ch.alignment == Char.Alignment.ENEMY){

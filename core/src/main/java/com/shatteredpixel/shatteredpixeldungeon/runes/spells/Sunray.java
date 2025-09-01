@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -32,9 +31,9 @@ public class Sunray extends TargetedSpell{
 
     @Override
     public String desc() {
-        int min = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 6 : 4;
-        int max = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 12 : 8;
-        int dur = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 6 : 4;
+        int min = 4;
+        int max = 8;
+        int dur = 4;
         return Messages.get(this, "desc", min, max, dur) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
 
@@ -67,28 +66,22 @@ public class Sunray extends TargetedSpell{
         Char ch = Actor.findChar( aim.collisionPos );
         if (ch != null) {
             ch.sprite.burst(0xFFFFFF44, 5);
+            int min_dmg = Math.round(4 * implement.powerMultiplier(hero, this));
+            int max_dmg = Math.round(8 * implement.powerMultiplier(hero, this));
 
             if (Char.hasProp(ch, Char.Property.UNDEAD) || Char.hasProp(ch, Char.Property.DEMONIC)){
-                if (hero.pointsInTalent(Talent.SUNRAY) == 2) {
-                    ch.damage(12, Sunray.this);
-                } else {
-                    ch.damage(8, Sunray.this);
-                }
+                    ch.damage(max_dmg, Sunray.this);
             } else {
-                if (hero.pointsInTalent(Talent.SUNRAY) == 2) {
-                    ch.damage(Random.NormalIntRange(6, 12), Sunray.this);
-                } else {
-                    ch.damage(Random.NormalIntRange(4, 8), Sunray.this);
-                }
+                ch.damage(Random.NormalIntRange(min_dmg, max_dmg), Sunray.this);
             }
 
             if (ch.isAlive()) {
                 if (ch.buff(Blindness.class) != null && ch.buff(SunRayRecentlyBlindedTracker.class) != null) {
-                    Buff.prolong(ch, Paralysis.class, 2f + 2f*hero.pointsInTalent(Talent.SUNRAY));
+                    Buff.prolong(ch, Paralysis.class, 4f*implement.powerMultiplier(hero, this));
                     ch.buff(SunRayRecentlyBlindedTracker.class).detach();
                 } else if (ch.buff(SunRayUsedTracker.class) == null) {
-                    Buff.prolong(ch, Blindness.class, 2f + 2f*hero.pointsInTalent(Talent.SUNRAY));
-                    Buff.prolong(ch, SunRayRecentlyBlindedTracker.class, 2f + 2f*hero.pointsInTalent(Talent.SUNRAY));
+                    Buff.prolong(ch, Blindness.class, 4f*implement.powerMultiplier(hero, this));
+                    Buff.prolong(ch, SunRayRecentlyBlindedTracker.class, 4f*implement.powerMultiplier(hero, this));
                     Buff.affect(ch, SunRayUsedTracker.class);
                 }
             }

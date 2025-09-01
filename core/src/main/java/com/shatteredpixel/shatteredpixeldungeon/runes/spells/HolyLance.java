@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -37,8 +36,8 @@ public class HolyLance extends TargetedSpell{
 
     @Override
     public String desc() {
-        int min = 15 + 15* Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE);
-        int max = Math.round(27.5f + 27.5f*Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE));
+        int min = 30;
+        int max = 55;
         return Messages.get(this, "desc", min, max) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
 
@@ -80,8 +79,8 @@ public class HolyLance extends TargetedSpell{
                             new Callback() {
                                 @Override
                                 public void call() {
-                                    int min = 15 + 15*Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE);
-                                    int max = Math.round(27.5f + 27.5f*Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE));
+                                    int min = Math.round(30*implement.powerMultiplier(hero, HolyLance.this));
+                                    int max = Math.round(55*implement.powerMultiplier(hero, HolyLance.this));
                                     if (Char.hasProp(enemy, Char.Property.UNDEAD) || Char.hasProp(enemy, Char.Property.DEMONIC)){
                                         min = max;
                                     }
@@ -90,7 +89,7 @@ public class HolyLance extends TargetedSpell{
                                     Sample.INSTANCE.play( Assets.Sounds.HIT_STAB, 1, Random.Float(0.8f, 1f) );
 
                                     enemy.sprite.burst(0xFFFFFFFF, 10);
-                                    hero.spendAndNext(1f);
+                                    hero.spendAndNext(implement.delay(hero, HolyLance.this));
                                     onSpellCast(implement, hero);
                                     FlavourBuff.affect(hero, LanceCooldown.class, 30f);
                                 }
@@ -105,7 +104,7 @@ public class HolyLance extends TargetedSpell{
                                 public void call() {
                                     Splash.at(target, 0xFFFFFFFF, 10);
                                     Dungeon.level.pressCell(aim.collisionPos);
-                                    hero.spendAndNext(1f);
+                                    hero.spendAndNext(implement.delay(hero, HolyLance.this));
                                     onSpellCast(implement, hero);
                                     FlavourBuff.affect(hero, LanceCooldown.class, 30f);
                                 }

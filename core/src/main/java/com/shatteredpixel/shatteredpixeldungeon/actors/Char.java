@@ -773,8 +773,7 @@ public abstract class Char extends Actor {
 
 		com.shatteredpixel.shatteredpixeldungeon.runes.spells.ShieldOfLight.ShieldOfLightTracker shield2 = buff( com.shatteredpixel.shatteredpixeldungeon.runes.spells.ShieldOfLight.ShieldOfLightTracker.class );
 		if (shield2 != null && shield2.object == enemy.id()){
-			int min = 1 + Dungeon.hero.pointsInTalent(Talent.SHIELD_OF_LIGHT);
-			damage -= Random.NormalIntRange(min, 2*min);
+			damage -= Random.NormalIntRange(shield2.min, shield2.max);
 			damage = Math.max(damage, 0);
 		}
 

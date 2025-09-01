@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -29,7 +28,7 @@ public class ShieldOfLight extends TargetedSpell{
 
     @Override
     public String desc() {
-        int min = 1 + Dungeon.hero.pointsInTalent(Talent.SHIELD_OF_LIGHT);
+        int min = 2;
         int max = 2*min;
         return Messages.get(this, "desc", min, max) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
@@ -58,6 +57,9 @@ public class ShieldOfLight extends TargetedSpell{
 
         //1 turn less as the casting is instant
         Buff.prolong( hero, ShieldOfLightTracker.class, 4f).object = ch.id();
+        ShieldOfLightTracker shield = hero.buff(ShieldOfLightTracker.class);
+        shield.min = Math.round(2 * implement.powerMultiplier(hero, this));
+        shield.max = Math.round(4 * implement.powerMultiplier(hero, this));
 
         hero.busy();
         hero.sprite.operate(hero.pos);
@@ -70,6 +72,8 @@ public class ShieldOfLight extends TargetedSpell{
     public static class ShieldOfLightTracker extends FlavourBuff {
 
         public int object = 0;
+        public int min = 0;
+        public int max = 0;
 
         private static final float DURATION = 5;
 
@@ -83,22 +87,33 @@ public class ShieldOfLight extends TargetedSpell{
         }
 
         @Override
+        public String desc(){
+            return Messages.get(this, "desc", min, max);
+        }
+
+        @Override
         public float iconFadePercent() {
             return Math.max(0, (DURATION - visualcooldown()) / DURATION);
         }
 
         private static final String OBJECT  = "object";
+        private static final String MIN  = "min";
+        private static final String MAX  = "max";
 
         @Override
         public void storeInBundle( Bundle bundle ) {
             super.storeInBundle( bundle );
             bundle.put( OBJECT, object );
+            bundle.put( MIN, min );
+            bundle.put( MAX, max );
         }
 
         @Override
         public void restoreFromBundle( Bundle bundle ) {
             super.restoreFromBundle( bundle );
             object = bundle.getInt( OBJECT );
+            min = bundle.getInt( MIN );
+            min = bundle.getInt( MAX );
         }
 
     }

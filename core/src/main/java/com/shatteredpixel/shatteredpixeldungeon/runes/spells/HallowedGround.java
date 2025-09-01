@@ -12,7 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.LifeLinkSpell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
@@ -50,7 +49,7 @@ public class HallowedGround extends TargetedSpell{
     }
 
     public String desc(){
-        int area = 1 + 2*Dungeon.hero.pointsInTalent(Talent.HALLOWED_GROUND);
+        int area = 3;
         return Messages.get(this, "desc", area) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
 
@@ -67,7 +66,7 @@ public class HallowedGround extends TargetedSpell{
 
         ArrayList<Char> affected = new ArrayList<>();
 
-        PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null), hero.pointsInTalent(Talent.HALLOWED_GROUND));
+        PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null), 1);
         for (int i = 0; i < Dungeon.level.length(); i++){
             if (PathFinder.distance[i] != Integer.MAX_VALUE){
                 int c = Dungeon.level.map[i];
@@ -76,7 +75,7 @@ public class HallowedGround extends TargetedSpell{
                     GameScene.updateMap( i );
                     CellEmitter.get(i).burst(LeafParticle.LEVEL_SPECIFIC, 2);
                 }
-                GameScene.add(Blob.seed(i, 20, HallowedTerrain.class));
+                GameScene.add(Blob.seed(i, Math.round(20*implement.powerMultiplier(hero, HallowedGround.this)), HallowedTerrain.class));
                 CellEmitter.get(i).burst(ShaftParticle.FACTORY, 2);
 
                 Char ch = Actor.findChar(i);
@@ -86,17 +85,8 @@ public class HallowedGround extends TargetedSpell{
             }
         }
 
-        Char ally = PowerOfMany.getPoweredAlly();
-        if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-            if (affected.contains(hero) && !affected.contains(ally)){
-                affected.add(ally);
-            } else if (!affected.contains(hero) && affected.contains(ally)){
-                affected.add(hero);
-            }
-        }
-
         for (Char ch : affected){
-            affectChar(ch);
+            affectChar(ch, implement);
         }
 
         Sample.INSTANCE.play(Assets.Sounds.MELD);
@@ -106,21 +96,22 @@ public class HallowedGround extends TargetedSpell{
         onSpellCast(implement, hero);
     }
 
-    private void affectChar( Char ch ){
+    private void affectChar( Char ch, Implement implement ){
         if (ch.alignment == Char.Alignment.ALLY){
+            int barrier = Math.round(15 * implement.powerMultiplier(Dungeon.hero, this));
 
             if (ch == Dungeon.hero || ch.HP == ch.HT){
-                int barrierToGive = Math.min(15, 30 - ch.shielding());
+                int barrierToGive = Math.min(barrier, Math.round(20 * implement.powerMultiplier(Dungeon.hero, this)) - ch.shielding());
                 Buff.affect(ch, Barrier.class).incShield(barrierToGive);
                 ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(barrierToGive), FloatingText.SHIELDING );
             } else {
-                int barrier = 15 - (ch.HT - ch.HP);
-                barrier = Math.max(barrier, 0);
-                ch.HP += 15 - barrier;
-                ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(15-barrier), FloatingText.HEALING );
-                if (barrier > 0){
-                    Buff.affect(ch, Barrier.class).incShield(barrier);
-                    ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(barrier), FloatingText.SHIELDING );
+                int barrierToGive = barrier - (ch.HT - ch.HP);
+                barrierToGive = Math.max(barrierToGive, 0);
+                ch.HP += barrier - barrierToGive;
+                ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(barrier- barrierToGive), FloatingText.HEALING );
+                if (barrierToGive > 0){
+                    Buff.affect(ch, Barrier.class).incShield(barrierToGive);
+                    ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(barrierToGive), FloatingText.SHIELDING );
                 }
             }
         } else if (!ch.flying) {
@@ -139,8 +130,8 @@ public class HallowedGround extends TargetedSpell{
 
             ArrayList<Char> affected = new ArrayList<>();
 
-            // on avg, hallowed ground produces 9/17/25 tiles of grass, 100/67/50% of total tiles
-            int chance = 10 + 10*Dungeon.hero.pointsInTalent(Talent.HALLOWED_GROUND);
+            // on avg, hallowed ground produces 17 tiles of grass, 67 of total tiles
+            int chance = 20;
 
             for (int i = area.left-1; i <= area.right; i++) {
                 for (int j = area.top-1; j <= area.bottom; j++) {

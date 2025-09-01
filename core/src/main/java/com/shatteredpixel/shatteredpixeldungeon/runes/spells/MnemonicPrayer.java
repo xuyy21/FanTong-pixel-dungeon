@@ -24,11 +24,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ToxicImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WellFed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.LifeLinkSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -55,7 +53,7 @@ public class MnemonicPrayer extends TargetedSpell{
     }
 
     public String desc(){
-        return Messages.get(this, "desc", 2 + Dungeon.hero.pointsInTalent(Talent.MNEMONIC_PRAYER)) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        return Messages.get(this, "desc", 3) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
 
     @Override
@@ -78,17 +76,8 @@ public class MnemonicPrayer extends TargetedSpell{
 
         QuickSlotButton.target(ch);
 
-        float extension = 2 + hero.pointsInTalent(Talent.MNEMONIC_PRAYER);
+        float extension = 3 * implement.powerMultiplier(hero, this);
         affectChar(ch, extension);
-
-        Char ally = PowerOfMany.getPoweredAlly();
-        if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-            if (ch == hero){
-                affectChar(ally, extension); //if cast on hero, duplicate to ally
-            } else if (ch == ally){
-                affectChar(hero, extension); //if cast on ally, duplicate to hero
-            }
-        }
 
         if (ch == hero){
             hero.sprite.operate(ch.pos);

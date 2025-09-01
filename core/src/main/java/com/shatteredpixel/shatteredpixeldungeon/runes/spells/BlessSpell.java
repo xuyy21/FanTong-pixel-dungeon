@@ -8,9 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.LifeLinkSpell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
@@ -29,18 +26,14 @@ public class BlessSpell extends TargetedSpell{
     }
 
     public String desc(){
-        int talentLvl = Dungeon.hero.pointsInTalent(Talent.BLESS);
-        return Messages.get(this, "desc", 2+4*talentLvl, 5+5*talentLvl, 5+5*talentLvl, 5+5*talentLvl) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        float power = 1;
+        return Messages.get(this, "desc", 2+4*power, 5+5*power, 5+5*power, 5+5*power) +
+                "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
 
     @Override
     public int targetingFlags(){
         return -1; //auto-targeting behaviour is often wrong, so we don't use it
-    }
-
-    @Override
-    public boolean canCast(Implement implement, Hero hero) {
-        return super.canCast(implement, hero) && hero.hasTalent(Talent.BLESS);
     }
 
     @Override
@@ -57,38 +50,31 @@ public class BlessSpell extends TargetedSpell{
 
         Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
-        affectChar(hero, ch);
+        affectChar(hero, implement, ch);
 
         if (ch == hero){
             hero.busy();
             hero.sprite.operate(ch.pos);
-            hero.spend( 1f );
+            hero.spend( implement.delay(hero, this) );
         } else {
             hero.sprite.zap(ch.pos);
-            hero.spendAndNext( 1f );
-        }
-
-        Char ally = PowerOfMany.getPoweredAlly();
-        if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-            if (ch == hero){
-                affectChar(hero, ally); //if cast on hero, duplicate to ally
-            } else if (ally == ch) {
-                affectChar(hero, hero); //if cast on ally, duplicate to hero
-            }
+            hero.spendAndNext( implement.delay(hero, this) );
         }
 
         onSpellCast(implement, hero);
     }
 
-    private void affectChar(Hero hero, Char ch){
+    private void affectChar(Hero hero, Implement implement, Char ch){
+        float power = implement.powerMultiplier(hero, this);
+
         new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
         if (ch == hero){
-            Buff.prolong(ch, Bless.class, 2f + 4*hero.pointsInTalent(Talent.BLESS));
-            Buff.affect(ch, Barrier.class).setShield(5 + 5*hero.pointsInTalent(Talent.BLESS));
-            ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(5 + 5*hero.pointsInTalent(Talent.BLESS)), FloatingText.SHIELDING );
+            Buff.prolong(ch, Bless.class, 2f + 4*power);
+            Buff.affect(ch, Barrier.class).setShield(Math.round(5 + 5*power));
+            ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(Math.round(5 + 5*power)), FloatingText.SHIELDING );
         } else {
-            Buff.prolong(ch, Bless.class, 5f + 5*hero.pointsInTalent(Talent.BLESS));
-            int totalHeal = 5 + 5*hero.pointsInTalent(Talent.BLESS);
+            Buff.prolong(ch, Bless.class, 5f + 5*power);
+            int totalHeal = Math.round(5 + 5*power);
             if (ch.HT - ch.HP < totalHeal){
                 int barrier = totalHeal - (ch.HT - ch.HP);
                 barrier = Math.max(barrier, 0);

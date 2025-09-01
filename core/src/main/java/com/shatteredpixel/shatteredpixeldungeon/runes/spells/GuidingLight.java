@@ -29,12 +29,6 @@ public class GuidingLight extends TargetedSpell{
         tier = 1;
     }
 
-    public String desc(){
-        String desc = Messages.get(this, "desc");
-
-        return desc + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
-    }
-
     @Override
     protected void onTargetSelected(Implement implement, Hero hero, Integer target){
         if (target == null){
@@ -63,7 +57,8 @@ public class GuidingLight extends TargetedSpell{
 
                 Char ch = Actor.findChar( aim.collisionPos );
                 if (ch != null) {
-                    ch.damage(Random.NormalIntRange(2, 8), GuidingLight.this);
+                    int dmg = Math.round(Random.NormalIntRange(2, 8) * implement.powerMultiplier(hero, GuidingLight.this));
+                    ch.damage(dmg, GuidingLight.this);
                     Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
                     ch.sprite.burst(0xFFFFFF44, 3);
                     if (ch.isAlive()){

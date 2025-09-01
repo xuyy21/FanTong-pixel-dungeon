@@ -155,6 +155,7 @@ public abstract class Spell {
                 spells.add(ShieldOfLight.INSTANCE);
                 break;
             case 2:
+                spells.add(See_Though.INSTANCE);
                 spells.add(Cleanse.INSTANCE);
                 spells.add(DivineSense.INSTANCE);
                 spells.add(MnemonicPrayer.INSTANCE);
@@ -177,6 +178,7 @@ public abstract class Spell {
         ArrayList<Spell> spells = new ArrayList<>();
 
         spells.add(Eating.INSTANCE);
+        spells.add(See_Though.INSTANCE);
 
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
@@ -208,6 +210,7 @@ public abstract class Spell {
         spells.add(Sunray.class);
         spells.add(WallOfLight.class);
         spells.add(Eating.class);
+        spells.add(See_Though.class);
 
         return spells;
     }

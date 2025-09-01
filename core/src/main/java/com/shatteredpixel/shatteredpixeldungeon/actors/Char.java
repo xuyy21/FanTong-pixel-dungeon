@@ -771,6 +771,13 @@ public abstract class Char extends Actor {
 			}
 		}
 
+		com.shatteredpixel.shatteredpixeldungeon.runes.spells.ShieldOfLight.ShieldOfLightTracker shield2 = buff( com.shatteredpixel.shatteredpixeldungeon.runes.spells.ShieldOfLight.ShieldOfLightTracker.class );
+		if (shield2 != null && shield2.object == enemy.id()){
+			int min = 1 + Dungeon.hero.pointsInTalent(Talent.SHIELD_OF_LIGHT);
+			damage -= Random.NormalIntRange(min, 2*min);
+			damage = Math.max(damage, 0);
+		}
+
 		// hero and pris images skip this as they already benefit from hero's armor glyph proc
 		if (!(this instanceof Hero || this instanceof PrismaticImage)) {
 			if (Dungeon.hero.alignment == alignment && Dungeon.hero.belongings.armor() != null

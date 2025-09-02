@@ -225,6 +225,7 @@ public class Assets {
 		public static final String MINE    = "sounds/mine.mp3";
 		public static final String SCREAM   = "sounds/scream.mp3";
 		public static final String FEAST   	= "sounds/feast.mp3";
+		public static final String THUNDER  = "sounds/thunder.mp3";
 
 		public static final String[] all = new String[]{
 				CLICK, BADGE, GOLD,

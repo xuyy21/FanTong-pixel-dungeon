@@ -72,6 +72,7 @@ public abstract class Spell {
     //nature spells
     public static int NATURE_SPELLICON       = SPELLICON+40;
     public static final int EVAPORATING      = NATURE_SPELLICON+0;
+    public static final int THUNDER_SOUND    = NATURE_SPELLICON+1;
 
     public Image icon() {
         return new RuneIcon(icon);
@@ -172,6 +173,7 @@ public abstract class Spell {
                 spells.add(RunicLance.INSTANCE);
                 spells.add(HallowedGround.INSTANCE);
                 spells.add(WallOfLight.INSTANCE);
+                spells.add(Thunder_Sound.INSTANCE);
                 break;
             case 4:
 //                spells.add(BeamingRay.INSTANCE);
@@ -202,6 +204,7 @@ public abstract class Spell {
 //        spells.add(BeamingRay.INSTANCE);
 
         spells.add(Evaporating.INSTANCE);
+        spells.add(Thunder_Sound.INSTANCE);
 
         return spells;
     }
@@ -223,6 +226,7 @@ public abstract class Spell {
         spells.add(See_Though.class);
         spells.add(RunicLance.class);
         spells.add(Evaporating.class);
+        spells.add(Thunder_Sound.class);
 
         return spells;
     }

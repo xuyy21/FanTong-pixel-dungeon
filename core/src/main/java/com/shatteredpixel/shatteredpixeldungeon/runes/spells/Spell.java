@@ -161,6 +161,7 @@ public abstract class Spell {
                 spells.add(MnemonicPrayer.INSTANCE);
                 spells.add(Sunray.INSTANCE);
 //                spells.add(AuraOfProtection.INSTANCE);
+                spells.add(Evaporating.INSTANCE);
                 break;
             case 3:
                 spells.add(RunicLance.INSTANCE);
@@ -195,6 +196,8 @@ public abstract class Spell {
         //BodyForm
 //        spells.add(BeamingRay.INSTANCE);
 
+        spells.add(Evaporating.INSTANCE);
+
         return spells;
     }
 
@@ -214,6 +217,7 @@ public abstract class Spell {
         spells.add(Eating.class);
         spells.add(See_Though.class);
         spells.add(RunicLance.class);
+        spells.add(Evaporating.class);
 
         return spells;
     }

@@ -21,7 +21,7 @@ public class RunicLance extends TargetedSpell{
 
     {
         type = TYPE.NORMAL;
-        icon = BLESS;
+        icon = RUNICLANCE;
         tier = 3;
     }
 

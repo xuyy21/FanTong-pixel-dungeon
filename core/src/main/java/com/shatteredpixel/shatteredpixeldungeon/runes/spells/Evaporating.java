@@ -18,7 +18,7 @@ public class Evaporating extends Spell{
 
     {
         type = TYPE.NATURE;
-        icon = EATING;
+        icon = EVAPORATING;
         tier = 2;
     }
 

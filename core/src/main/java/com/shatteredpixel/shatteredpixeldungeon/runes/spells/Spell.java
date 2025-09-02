@@ -37,6 +37,7 @@ public abstract class Spell {
     //normal spells
     public static final int EATING          = SPELLICON+1;
     public static final int SEE_THOUGH      = SPELLICON+2;
+    public static final int RUNICLANCE      = SPELLICON+3;
 
     //holy spells
     public static int HOLY_SPELLICON        = SPELLICON+8;
@@ -67,6 +68,10 @@ public abstract class Spell {
     public static final int BEAMING_RAY     = HOLY_SPELLICON+24;
     public static final int LIFE_LINK       = HOLY_SPELLICON+25;
     public static final int STASIS          = HOLY_SPELLICON+26;
+
+    //nature spells
+    public static int NATURE_SPELLICON       = SPELLICON+40;
+    public static final int EVAPORATING      = NATURE_SPELLICON+0;
 
     public Image icon() {
         return new RuneIcon(icon);

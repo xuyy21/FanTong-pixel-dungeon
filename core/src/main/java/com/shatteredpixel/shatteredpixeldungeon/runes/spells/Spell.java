@@ -216,7 +216,7 @@ public abstract class Spell {
     }
 
     public static class OverRunes extends FlavourBuff{
-        public static float DURATION = 100f;
+        public static float DURATION = 50f;
 
         @Override
         public int icon() {
@@ -232,7 +232,7 @@ public abstract class Spell {
         }
 
         public float faultChance(){
-            return Math.max(0f, visualcooldown()-DURATION) * 0.01f;
+            return Math.max(0f, visualcooldown()-DURATION) * 0.02f;
         }
 
         public void reduce(float time){

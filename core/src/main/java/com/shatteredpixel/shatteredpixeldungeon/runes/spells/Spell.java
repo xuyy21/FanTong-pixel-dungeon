@@ -163,6 +163,7 @@ public abstract class Spell {
 //                spells.add(AuraOfProtection.INSTANCE);
                 break;
             case 3:
+                spells.add(RunicLance.INSTANCE);
                 spells.add(HallowedGround.INSTANCE);
                 spells.add(WallOfLight.INSTANCE);
                 break;
@@ -179,6 +180,7 @@ public abstract class Spell {
 
         spells.add(Eating.INSTANCE);
         spells.add(See_Though.INSTANCE);
+        spells.add(RunicLance.INSTANCE);
 
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
@@ -211,6 +213,7 @@ public abstract class Spell {
         spells.add(WallOfLight.class);
         spells.add(Eating.class);
         spells.add(See_Though.class);
+        spells.add(RunicLance.class);
 
         return spells;
     }

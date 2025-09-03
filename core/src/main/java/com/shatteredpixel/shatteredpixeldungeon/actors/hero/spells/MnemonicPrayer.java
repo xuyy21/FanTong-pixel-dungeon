@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ElectricImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.GreaterHaste;
@@ -151,6 +152,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 				else if (b instanceof GreaterHaste)     ((GreaterHaste) b).extend(extension);
 				else if (b instanceof Healing)          ((Healing) b).increaseHeal((int)extension);
 				else if (b instanceof ToxicImbue)       ((ToxicImbue) b).extend(extension);
+				else if (b instanceof ElectricImbue)       ((ElectricImbue) b).extend(extension);
 				else if (b instanceof WellFed)          ((WellFed) b).extend(extension);
 				else if (b instanceof ElixirOfAquaticRejuvenation.AquaHealing)  ((ElixirOfAquaticRejuvenation.AquaHealing) b).extend(extension);
 				else if (b instanceof ScrollOfChallenge.ChallengeArena)         ((ScrollOfChallenge.ChallengeArena) b).extend(extension);

@@ -28,7 +28,7 @@ public class Burning extends TargetedSpell{
             return;
         }
 
-        if (!Dungeon.level.heroFOV[target]){
+        if (!Dungeon.level.heroFOV[target] || Dungeon.level.solid[target]){
             GLog.w(Messages.get(this, "no_target"));
             return;
         }

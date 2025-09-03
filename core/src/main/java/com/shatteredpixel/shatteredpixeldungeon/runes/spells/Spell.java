@@ -177,6 +177,7 @@ public abstract class Spell {
                 spells.add(HolyIntuition.INSTANCE);
                 spells.add(ShieldOfLight.INSTANCE);
                 spells.add(Burning.INISTANCE);
+                spells.add(Junior_Reshape.INSTANCE);
                 break;
             case 2:
                 spells.add(See_Though.INSTANCE);
@@ -216,6 +217,7 @@ public abstract class Spell {
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
         spells.add(DivineSense.INSTANCE);
+        spells.add(GuidingLight.INSTANCE);
         spells.add(HallowedGround.INSTANCE);
         spells.add(HolyIntuition.INSTANCE);
         spells.add(MnemonicPrayer.INSTANCE);
@@ -236,6 +238,8 @@ public abstract class Spell {
 
         spells.add(Proofing.INSTANCE);
         spells.add(Framing.INSTANCE);
+
+        spells.add(Junior_Reshape.INSTANCE);
 
         return spells;
     }
@@ -264,6 +268,7 @@ public abstract class Spell {
         spells.add(Electric_Power.class);
         spells.add(Proofing.class);
         spells.add(Framing.class);
+        spells.add(Junior_Reshape.class);
 
         return spells;
     }

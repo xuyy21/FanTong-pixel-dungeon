@@ -18,7 +18,7 @@ public class Burning extends TargetedSpell{
 
     {
         type = TYPE.ENERGETIC;
-        icon = BLESS;
+        icon = BURNING;
         tier = 1;
     }
 

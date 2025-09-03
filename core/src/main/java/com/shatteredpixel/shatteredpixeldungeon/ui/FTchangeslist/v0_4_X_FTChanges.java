@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_4_Changes(changeInfos);
         add_v0_4_3_Changes(changeInfos);
         add_v0_4_2_Changes(changeInfos);
         add_v0_4_1_Changes(changeInfos);
@@ -124,9 +125,22 @@ public class v0_4_X_FTChanges {
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME), "符文法器",
+                "新推出的符文法器系统。\n\n" +
+                        "可以通过法器试验符文组合与施展已发现的符术。\n\n" +
+                        "现在有11个从牧师法术中迁移来的神圣符术和13个全新的符术。"));
+
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(CharSprite.WARNING);
         changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了有些新增的盟友会闪避英雄的投武的BUG。\n\n" +
+                        "暗影蝙蝠的陷阱联动效果改为不会对英雄生效。"));
 
         changes.addButton(new ChangeButton(new Image(new VendingMachineSprite()), "自动售货机",
                 "优化售货机界面，点击按钮后不是直接购买而是弹出详情界面。\n\n" +

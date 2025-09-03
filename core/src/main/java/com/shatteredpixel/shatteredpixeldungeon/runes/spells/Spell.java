@@ -78,6 +78,7 @@ public abstract class Spell {
     //energetic spells
     public static int ENERGETIC_SPELLICON   = SPELLICON+48;
     public static final int BURNING         = ENERGETIC_SPELLICON+0;
+    public static final int ELECTRIC_POWER  = ENERGETIC_SPELLICON+1;
 
     public Image icon() {
         return new RuneIcon(icon);
@@ -180,6 +181,7 @@ public abstract class Spell {
                 spells.add(HallowedGround.INSTANCE);
                 spells.add(WallOfLight.INSTANCE);
                 spells.add(Thunder_Sound.INSTANCE);
+                spells.add(Electric_Power.INSTANCE);
                 break;
             case 4:
 //                spells.add(BeamingRay.INSTANCE);
@@ -215,6 +217,7 @@ public abstract class Spell {
         spells.add(Switch_Gravity.INSTANCE);
 
         spells.add(Burning.INISTANCE);
+        spells.add(Electric_Power.INSTANCE);
 
         return spells;
     }
@@ -239,6 +242,7 @@ public abstract class Spell {
         spells.add(Thunder_Sound.class);
         spells.add(Switch_Gravity.class);
         spells.add(Burning.class);
+        spells.add(Electric_Power.class);
 
         return spells;
     }

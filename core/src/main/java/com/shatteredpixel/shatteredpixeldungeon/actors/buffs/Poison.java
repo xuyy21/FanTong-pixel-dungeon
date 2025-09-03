@@ -113,6 +113,10 @@ public class Poison extends Buff implements Hero.Doom {
 		return true;
 	}
 
+	public float left(){
+		return left;
+	}
+
 	@Override
 	public void onDeath() {
 		Badges.validateDeathFromPoison();

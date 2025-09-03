@@ -232,6 +232,10 @@ public class Burning extends Buff implements Hero.Doom {
 		return Messages.get(this, "desc", dispTurns(left));
 	}
 
+	public float left(){
+		return left;
+	}
+
 	@Override
 	public void onDeath() {
 		

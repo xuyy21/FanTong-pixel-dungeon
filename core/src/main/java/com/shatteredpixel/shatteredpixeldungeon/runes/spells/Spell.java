@@ -83,6 +83,7 @@ public abstract class Spell {
     //physical spells
     public static int PHYSICAL_SPELLICON    = SPELLICON+54;
     public static final int PROOFING        = PHYSICAL_SPELLICON+0;
+    public static final int FRAMING         = PHYSICAL_SPELLICON+1;
 
     public Image icon() {
         return new RuneIcon(icon);
@@ -191,6 +192,7 @@ public abstract class Spell {
             case 4:
 //                spells.add(BeamingRay.INSTANCE);
                 spells.add(Switch_Gravity.INSTANCE);
+                spells.add(Framing.INSTANCE);
                 break;
         }
 
@@ -225,6 +227,7 @@ public abstract class Spell {
         spells.add(Electric_Power.INSTANCE);
 
         spells.add(Proofing.INSTANCE);
+        spells.add(Framing.INSTANCE);
 
         return spells;
     }
@@ -251,6 +254,7 @@ public abstract class Spell {
         spells.add(Burning.class);
         spells.add(Electric_Power.class);
         spells.add(Proofing.class);
+        spells.add(Framing.class);
 
         return spells;
     }

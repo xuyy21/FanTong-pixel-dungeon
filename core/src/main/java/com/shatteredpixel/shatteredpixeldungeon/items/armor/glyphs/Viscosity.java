@@ -170,6 +170,10 @@ public class Viscosity extends Glyph {
 			return true;
 		}
 
+		public int getDamage(){
+			return damage;
+		}
+
 		@Override
 		public String desc() {
 			return Messages.get(this, "desc", damage);

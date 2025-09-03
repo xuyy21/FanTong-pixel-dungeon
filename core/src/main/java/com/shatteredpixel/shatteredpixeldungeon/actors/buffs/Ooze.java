@@ -119,4 +119,8 @@ public class Ooze extends Buff {
 		}
 		return true;
 	}
+
+	public float left(){
+		return left;
+	}
 }

@@ -118,6 +118,14 @@ public class Corrosion extends Buff implements Hero.Doom {
 
 		return true;
 	}
+
+	public float left(){
+		return left;
+	}
+
+	public float damage(){
+		return damage;
+	}
 	
 	@Override
 	public void onDeath() {

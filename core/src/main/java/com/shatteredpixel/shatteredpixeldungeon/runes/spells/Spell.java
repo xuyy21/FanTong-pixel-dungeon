@@ -195,6 +195,7 @@ public abstract class Spell {
                 spells.add(WallOfLight.INSTANCE);
                 spells.add(Thunder_Sound.INSTANCE);
                 spells.add(Proofing.INSTANCE);
+                spells.add(Senior_Reshape.INSTANCE);
                 break;
             case 4:
 //                spells.add(BeamingRay.INSTANCE);
@@ -240,6 +241,7 @@ public abstract class Spell {
         spells.add(Framing.INSTANCE);
 
         spells.add(Junior_Reshape.INSTANCE);
+        spells.add(Senior_Reshape.INSTANCE);
 
         return spells;
     }
@@ -269,6 +271,7 @@ public abstract class Spell {
         spells.add(Proofing.class);
         spells.add(Framing.class);
         spells.add(Junior_Reshape.class);
+        spells.add(Senior_Reshape.class);
 
         return spells;
     }

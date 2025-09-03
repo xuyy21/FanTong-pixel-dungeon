@@ -124,9 +124,21 @@ public class v0_4_X_FTChanges {
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+        changes.hardlight(CharSprite.WARNING);
+        changeInfos.add(changes);
+
         changes.addButton(new ChangeButton(new Image(new VendingMachineSprite()), "自动售货机",
                 "优化售货机界面，点击按钮后不是直接购买而是弹出详情界面。\n\n" +
                         "修复售货机的消费不计入金币消耗的BUG。\n\n" +
                         "增加详情界面后出现一个良性BUG，可以预览和刷新巧克力蛋的奖励种类，因此将其奖励概率下调10%。"));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
+        changes.hardlight(CharSprite.POSITIVE);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ANKH), "祝福十字架加强",
+                "现在祝福十字架触发后会回满英雄的HP并产生等同全面净化合剂的效果。"));
+
     }
 }

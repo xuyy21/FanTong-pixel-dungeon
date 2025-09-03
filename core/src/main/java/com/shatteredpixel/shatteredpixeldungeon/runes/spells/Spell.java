@@ -81,9 +81,12 @@ public abstract class Spell {
     public static final int ELECTRIC_POWER  = ENERGETIC_SPELLICON+1;
 
     //physical spells
-    public static int PHYSICAL_SPELLICON    = SPELLICON+54;
+    public static int PHYSICAL_SPELLICON    = SPELLICON+56;
     public static final int PROOFING        = PHYSICAL_SPELLICON+0;
     public static final int FRAMING         = PHYSICAL_SPELLICON+1;
+
+    //inverse spells
+    public static int INVERSE_SPELLICON    = SPELLICON+64;
 
     public Image icon() {
         return new RuneIcon(icon);

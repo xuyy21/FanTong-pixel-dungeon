@@ -37,7 +37,7 @@ public class Thunder_Sound extends TargetedSpell{
         }
 
         CellEmitter.center( target ).start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
-        Sample.INSTANCE.play(Assets.Sounds.THUNDER, 3f);
+        Sample.INSTANCE.play(Assets.Sounds.THUNDER, 20f, 1.5f);
         for (Mob mob : Dungeon.level.mobs) {
             mob.beckon( target );
         }

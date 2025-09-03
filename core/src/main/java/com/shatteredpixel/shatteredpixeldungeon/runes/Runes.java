@@ -29,6 +29,7 @@ public class Runes {
 
     public static void initSpells(){
         handler = new SpellStatusHandler();
+        handler.initKnow();
         Class[] spells = Spell.getGeneralSpellsList().toArray(new Class[0]);
         ArrayList<Integer> index = new ArrayList<>();
         for(int i=0; i<RUNES_NUM*RUNES_NUM*RUNES_NUM; i++)
@@ -130,7 +131,7 @@ public class Runes {
         }
 
         public void initKnow() {
-            Arrays.fill(known, false);
+            Arrays.fill(known, true);
         }
 
         public void initSpells() {

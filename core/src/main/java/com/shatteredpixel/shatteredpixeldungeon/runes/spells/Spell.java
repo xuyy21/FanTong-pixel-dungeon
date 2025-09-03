@@ -186,6 +186,7 @@ public abstract class Spell {
                 break;
             case 3:
                 spells.add(RunicLance.INSTANCE);
+                spells.add(HolyLance.INSTANCE);
                 spells.add(HallowedGround.INSTANCE);
                 spells.add(WallOfLight.INSTANCE);
                 spells.add(Thunder_Sound.INSTANCE);
@@ -218,6 +219,7 @@ public abstract class Spell {
         spells.add(ShieldOfLight.INSTANCE);
         spells.add(Sunray.INSTANCE);
         spells.add(WallOfLight.INSTANCE);
+        spells.add(HolyLance.INSTANCE);
 //        spells.add(AuraOfProtection.INSTANCE);
         //BodyForm
 //        spells.add(BeamingRay.INSTANCE);
@@ -244,6 +246,7 @@ public abstract class Spell {
         spells.add(GuidingLight.class);
         spells.add(HallowedGround.class);
         spells.add(HolyIntuition.class);
+        spells.add(HolyLance.class);
         spells.add(MnemonicPrayer.class);
         spells.add(ShieldOfLight.class);
         spells.add(Sunray.class);

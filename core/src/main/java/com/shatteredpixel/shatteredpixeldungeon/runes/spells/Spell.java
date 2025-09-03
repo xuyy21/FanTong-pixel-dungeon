@@ -187,6 +187,7 @@ public abstract class Spell {
                 spells.add(Sunray.INSTANCE);
 //                spells.add(AuraOfProtection.INSTANCE);
                 spells.add(Evaporating.INSTANCE);
+                spells.add(Swap_Between.INSTANCE);
                 break;
             case 3:
                 spells.add(RunicLance.INSTANCE);
@@ -242,6 +243,7 @@ public abstract class Spell {
 
         spells.add(Junior_Reshape.INSTANCE);
         spells.add(Senior_Reshape.INSTANCE);
+        spells.add(Swap_Between.INSTANCE);
 
         return spells;
     }
@@ -272,6 +274,7 @@ public abstract class Spell {
         spells.add(Framing.class);
         spells.add(Junior_Reshape.class);
         spells.add(Senior_Reshape.class);
+        spells.add(Swap_Between.class);
 
         return spells;
     }

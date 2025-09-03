@@ -86,7 +86,10 @@ public abstract class Spell {
     public static final int FRAMING         = PHYSICAL_SPELLICON+1;
 
     //inverse spells
-    public static int INVERSE_SPELLICON    = SPELLICON+64;
+    public static int INVERSE_SPELLICON     = SPELLICON+64;
+    public static final int JUNIOR_RESHAPE  = INVERSE_SPELLICON+0;
+    public static final int SENIOR_RESHAPE  = INVERSE_SPELLICON+1;
+    public static final int SWAP_BETWEEN    = INVERSE_SPELLICON+2;
 
     public Image icon() {
         return new RuneIcon(icon);

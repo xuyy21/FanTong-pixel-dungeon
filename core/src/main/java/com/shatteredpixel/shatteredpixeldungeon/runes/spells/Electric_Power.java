@@ -16,7 +16,7 @@ public class Electric_Power extends Spell{
     {
         type = TYPE.ENERGETIC;
         icon = ELECTRIC_POWER;
-        tier = 3;
+        tier = 4;
     }
 
     @Override

@@ -190,12 +190,12 @@ public abstract class Spell {
                 spells.add(HallowedGround.INSTANCE);
                 spells.add(WallOfLight.INSTANCE);
                 spells.add(Thunder_Sound.INSTANCE);
-                spells.add(Electric_Power.INSTANCE);
                 spells.add(Proofing.INSTANCE);
                 break;
             case 4:
 //                spells.add(BeamingRay.INSTANCE);
                 spells.add(Switch_Gravity.INSTANCE);
+                spells.add(Electric_Power.INSTANCE);
                 spells.add(Framing.INSTANCE);
                 break;
         }

@@ -104,7 +104,7 @@ public abstract class Spell {
     }
 
     public String shortDesc() {
-        return Messages.get(this, "shortdesc" + " " + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero)));
+        return Messages.get(this, "short_desc") + " " + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
     }
 
     public String Type() {

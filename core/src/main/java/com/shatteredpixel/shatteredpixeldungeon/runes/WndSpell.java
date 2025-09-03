@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class WndSpell extends Window {
 
-    protected static final int WIDTH    = 120;
+    protected static final int WIDTH    = 200;
 
     public static int BTN_SIZE = 20;
 

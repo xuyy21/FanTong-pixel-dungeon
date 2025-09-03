@@ -70,10 +70,14 @@ public abstract class Spell {
     public static final int STASIS          = HOLY_SPELLICON+26;
 
     //nature spells
-    public static int NATURE_SPELLICON       = SPELLICON+40;
-    public static final int EVAPORATING      = NATURE_SPELLICON+0;
-    public static final int THUNDER_SOUND    = NATURE_SPELLICON+1;
-    public static final int SWITCH_GRAVITY   = NATURE_SPELLICON+2;
+    public static int NATURE_SPELLICON      = SPELLICON+40;
+    public static final int EVAPORATING     = NATURE_SPELLICON+0;
+    public static final int THUNDER_SOUND   = NATURE_SPELLICON+1;
+    public static final int SWITCH_GRAVITY  = NATURE_SPELLICON+2;
+
+    //energetic spells
+    public static int ENERGETIC_SPELLICON   = SPELLICON+48;
+    public static final int BURNING         = ENERGETIC_SPELLICON+0;
 
     public Image icon() {
         return new RuneIcon(icon);
@@ -160,6 +164,7 @@ public abstract class Spell {
                 spells.add(GuidingLight.INSTANCE);
                 spells.add(HolyIntuition.INSTANCE);
                 spells.add(ShieldOfLight.INSTANCE);
+                spells.add(Burning.INISTANCE);
                 break;
             case 2:
                 spells.add(See_Though.INSTANCE);
@@ -209,6 +214,8 @@ public abstract class Spell {
         spells.add(Thunder_Sound.INSTANCE);
         spells.add(Switch_Gravity.INSTANCE);
 
+        spells.add(Burning.INISTANCE);
+
         return spells;
     }
 
@@ -231,6 +238,7 @@ public abstract class Spell {
         spells.add(Evaporating.class);
         spells.add(Thunder_Sound.class);
         spells.add(Switch_Gravity.class);
+        spells.add(Burning.class);
 
         return spells;
     }

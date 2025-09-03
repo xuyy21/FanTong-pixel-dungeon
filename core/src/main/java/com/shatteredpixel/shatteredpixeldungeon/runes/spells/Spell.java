@@ -82,6 +82,7 @@ public abstract class Spell {
 
     //physical spells
     public static int PHYSICAL_SPELLICON    = SPELLICON+54;
+    public static final int PROOFING        = PHYSICAL_SPELLICON+0;
 
     public Image icon() {
         return new RuneIcon(icon);

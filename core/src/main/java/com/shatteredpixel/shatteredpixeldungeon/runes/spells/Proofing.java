@@ -10,7 +10,7 @@ public class Proofing extends Spell{
 
     {
         type = TYPE.PHYSICAL;
-        icon = EATING;
+        icon = PROOFING;
         tier = 3;
     }
 

@@ -292,7 +292,7 @@ public abstract class Spell {
 
         @Override
         public String desc() {
-            return Messages.get(this, "desc", dispTurns(), Messages.decimalFormat("#.##", Math.max(0f, visualcooldown()-DURATION)));
+            return Messages.get(this, "desc", dispTurns(), Messages.decimalFormat("#.##", 2f*Math.max(0f, visualcooldown()-DURATION)));
         }
 
         public float faultChance(){

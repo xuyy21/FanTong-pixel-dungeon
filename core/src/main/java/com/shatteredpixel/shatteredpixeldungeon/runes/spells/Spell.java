@@ -190,7 +190,6 @@ public abstract class Spell {
                 spells.add(Swap_Between.INSTANCE);
                 break;
             case 3:
-                spells.add(RunicLance.INSTANCE);
                 spells.add(HolyLance.INSTANCE);
                 spells.add(HallowedGround.INSTANCE);
                 spells.add(WallOfLight.INSTANCE);
@@ -200,6 +199,7 @@ public abstract class Spell {
                 spells.add(Senior_Reshape.INSTANCE);
                 break;
             case 4:
+                spells.add(RunicLance.INSTANCE);
 //                spells.add(BeamingRay.INSTANCE);
                 spells.add(Switch_Gravity.INSTANCE);
                 spells.add(Electric_Power.INSTANCE);

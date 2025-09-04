@@ -22,7 +22,7 @@ public class RunicLance extends TargetedSpell{
     {
         type = TYPE.NORMAL;
         icon = RUNICLANCE;
-        tier = 3;
+        tier = 4;
     }
 
     @Override

@@ -21,7 +21,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RightClickMenu;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndClericSpells;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.NinePatch;
@@ -32,7 +31,7 @@ import java.util.ArrayList;
 
 public class WndSpell extends Window {
 
-    protected static final int WIDTH    = 200;
+    protected static final int WIDTH    = 150;
 
     public static int BTN_SIZE = 20;
 
@@ -85,16 +84,47 @@ public class WndSpell extends Window {
 
             ArrayList<IconButton> spellBtns = new ArrayList<>();
 
-            for (Spell spell: spells) {
-                IconButton spellBtn = new SpellButton(spell, implement, info);
-                add(spellBtn);
-                spellBtns.add(spellBtn);
-            }
+            if (spells.size()<=6) {
+                for (Spell spell : spells) {
+                    IconButton spellBtn = new SpellButton(spell, implement, info);
+                    add(spellBtn);
+                    spellBtns.add(spellBtn);
+                }
 
-            int left = 2 + (WIDTH - spellBtns.size() * (BTN_SIZE + 4)) / 2;
-            for (IconButton btn : spellBtns) {
-                btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
-                left += btn.width() + 4;
+                int left = 2 + (WIDTH - spellBtns.size() * (BTN_SIZE + 4)) / 2;
+                for (IconButton btn : spellBtns) {
+                    btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
+                    left += btn.width() + 4;
+                }
+            } else {
+                // separate into two rows
+                int oneRow = (spells.size()+1)/2;
+
+                // first row
+                for (int index = 0; index < oneRow; index++) {
+                    IconButton spellBtn = new SpellButton(spells.get(index), implement, info);
+                    add(spellBtn);
+                    spellBtns.add(spellBtn);
+                }
+                int left = 2 + (WIDTH - spellBtns.size() * (BTN_SIZE + 4)) / 2;
+                for (IconButton btn : spellBtns) {
+                    btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
+                    left += btn.width() + 4;
+                }
+
+                //second row
+                top += BTN_SIZE + 3;
+                spellBtns.clear();
+                for (int index = oneRow; index < spells.size(); index++) {
+                    IconButton spellBtn = new SpellButton(spells.get(index), implement, info);
+                    add(spellBtn);
+                    spellBtns.add(spellBtn);
+                }
+                left = 2 + (WIDTH - spellBtns.size() * (BTN_SIZE + 4)) / 2;
+                for (IconButton btn : spellBtns) {
+                    btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
+                    left += btn.width() + 4;
+                }
             }
         }
 

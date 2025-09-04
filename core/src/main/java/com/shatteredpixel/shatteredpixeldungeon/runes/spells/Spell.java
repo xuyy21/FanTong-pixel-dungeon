@@ -147,7 +147,7 @@ public abstract class Spell {
     public abstract void onCast(Implement implement, Hero hero);
 
     public float overRunes(Hero hero) {
-        return 10f + 10f*tier;
+        return 10f + 20f*tier;
     }
 
     public boolean usesTargeting(){

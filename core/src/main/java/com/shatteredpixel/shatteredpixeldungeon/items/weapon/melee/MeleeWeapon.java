@@ -44,12 +44,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSkill;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -596,6 +598,22 @@ public class MeleeWeapon extends Weapon {
 			ActionIndicator.setAction(this);
 			Item.updateQuickslot();
 			AttackIndicator.updateState();
+		}
+	}
+
+	public static class PlaceHolder extends MeleeWeapon{
+		{
+			image = ItemSpriteSheet.WEAPON_HOLDER;
+		}
+
+		@Override
+		public boolean isSimilar(Item item) {
+			return (item instanceof MeleeWeapon && !(item instanceof MagesStaff));
+		}
+
+		@Override
+		public String info() {
+			return "";
 		}
 	}
 

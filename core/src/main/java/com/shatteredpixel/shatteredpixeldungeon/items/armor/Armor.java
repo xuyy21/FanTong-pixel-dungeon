@@ -72,6 +72,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfArcana;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -357,7 +358,7 @@ public class Armor extends EquipableItem {
 		if (super.doUnequip( hero, collect, single )) {
 
 			hero.belongings.armor = null;
-			((HeroSprite)hero.sprite).updateArmor();
+			if (hero.sprite!=null) ((HeroSprite)hero.sprite).updateArmor();
 
 			BrokenSeal.WarriorShield sealBuff = hero.buff(BrokenSeal.WarriorShield.class);
 			if (sealBuff != null) sealBuff.setArmor(null);
@@ -923,5 +924,25 @@ public class Armor extends EquipableItem {
 			}
 		}
 		
+	}
+
+	public static class PlaceHolder extends Armor {
+		{
+			image = ItemSpriteSheet.ARMOR_HOLDER;
+		}
+
+		public PlaceHolder() {
+			super(1);
+		}
+
+		@Override
+		public boolean isSimilar(Item item) {
+			return item instanceof Armor;
+		}
+
+		@Override
+		public String info() {
+			return "";
+		}
 	}
 }

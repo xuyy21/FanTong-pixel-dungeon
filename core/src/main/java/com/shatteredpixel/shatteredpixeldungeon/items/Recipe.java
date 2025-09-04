@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.AllySoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
@@ -92,7 +93,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.runes.RunicAsh;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
@@ -202,7 +206,8 @@ public abstract class Recipe {
 	//*******
 
 	private static Recipe[] variableRecipes = new Recipe[]{
-			new LiquidMetal.Recipe()
+			new LiquidMetal.Recipe(),
+			new RunicAsh.Recipe()
 	};
 	
 	private static Recipe[] oneIngredientRecipes = new Recipe[]{
@@ -325,8 +330,9 @@ public abstract class Recipe {
 	
 	public static boolean usableInRecipe(Item item){
 		if (item instanceof EquipableItem){
-			//only thrown weapons and wands allowed among equipment items
-			return item.isIdentified() && !item.cursed && item instanceof MissileWeapon;
+			return item.isIdentified() && !item.cursed
+					&& (item instanceof MissileWeapon || item instanceof MeleeWeapon || item instanceof Armor)
+					&& !(item instanceof MagesStaff);
 		} else if (item instanceof Wand) {
 			return item.isIdentified() && !item.cursed;
 		} else if (item instanceof RecipeBook || item instanceof RecipeFolder) {

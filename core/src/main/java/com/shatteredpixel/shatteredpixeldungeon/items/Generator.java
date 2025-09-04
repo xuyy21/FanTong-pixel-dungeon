@@ -52,6 +52,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicBell;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicCube;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicPlate;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
@@ -251,6 +256,8 @@ public class Generator {
 		WAND	( 1, 1, Wand.class ),
 		RING	( 1, 0, Ring.class ),
 		ARTIFACT( 0, 1, Artifact.class),
+
+		IMPLEMENT( 0, 1, Implement.class),
 		
 		FOOD	( 0, 0, Food.class ),
 		
@@ -595,6 +602,15 @@ public class Generator {
 			};
 			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1 };
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();
+
+			IMPLEMENT.classes = new Class<?>[]{
+					RunicBook.class,
+					RunicCube.class,
+					RunicBell.class,
+					RunicPlate.class
+			};
+			IMPLEMENT.defaultProbs = new float[]{1, 1, 1, 1};
+			IMPLEMENT.probs = IMPLEMENT.defaultProbs.clone();
 
 			//Trinkets are unique like artifacts, but unlike them you can only have one at once
 			//So we don't need the same enforcement of uniqueness

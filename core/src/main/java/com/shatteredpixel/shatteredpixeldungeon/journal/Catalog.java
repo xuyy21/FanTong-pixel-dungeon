@@ -193,6 +193,7 @@ public enum Catalog {
 	WANDS,
 	RINGS,
 	ARTIFACTS,
+	IMPLEMENTS,
 	TRINKETS,
 	MISC_EQUIPMENT,
 
@@ -277,6 +278,8 @@ public enum Catalog {
 		RINGS.addItems(Generator.Category.RING.classes);
 
 		ARTIFACTS.addItems(Generator.Category.ARTIFACT.classes);
+
+		IMPLEMENTS.addItems(Generator.Category.IMPLEMENT.classes);
 
 		TRINKETS.addItems(Generator.Category.TRINKET.classes);
 
@@ -363,6 +366,7 @@ public enum Catalog {
 		equipmentCatalogs.add(WANDS);
 		equipmentCatalogs.add(RINGS);
 		equipmentCatalogs.add(ARTIFACTS);
+		equipmentCatalogs.add(IMPLEMENTS);
 		equipmentCatalogs.add(TRINKETS);
 		equipmentCatalogs.add(MISC_EQUIPMENT);
 	}

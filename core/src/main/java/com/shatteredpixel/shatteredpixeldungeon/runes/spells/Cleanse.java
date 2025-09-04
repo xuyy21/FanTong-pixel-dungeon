@@ -25,7 +25,9 @@ public class Cleanse extends Spell{
 
     public String desc(){
         int shield = 10;
-        return Messages.get(this, "desc", shield) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        String desc = Messages.get(this, "desc", shield) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        if (levelPunishment()>1f) desc += Messages.get(this, "level_punishment");
+        return desc;
     }
 
     @Override

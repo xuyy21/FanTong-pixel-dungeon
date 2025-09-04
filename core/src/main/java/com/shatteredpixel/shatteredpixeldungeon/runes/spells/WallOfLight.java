@@ -28,7 +28,9 @@ public class WallOfLight extends TargetedSpell{
 
     @Override
     public String desc() {
-        return Messages.get(this, "desc", 3) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        String desc =  Messages.get(this, "desc", 3) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        if (levelPunishment()>1f) desc += Messages.get(this, "level_punishment");
+        return desc;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class WallOfLight extends TargetedSpell{
                 && Dungeon.level.blobs.get(com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.WallOfLight.LightWall.class).volume > 0){
             return 0f;
         }
-        return 10f + 10f*tier;
+        return super.overRunes(hero);
     }
 
     @Override

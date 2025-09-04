@@ -27,7 +27,9 @@ public class AuraOfProtection extends Spell{
     public String desc() {
         int dmgReduction = 10 + 10* Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
         int glyphPow = 25 + 25*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
-        return Messages.get(this, "desc", dmgReduction, glyphPow) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        String desc = Messages.get(this, "desc", dmgReduction, glyphPow) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        if (levelPunishment()>1f) desc += Messages.get(this, "level_punishment");
+        return desc;
     }
 
     @Override

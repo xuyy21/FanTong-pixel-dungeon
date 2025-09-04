@@ -54,7 +54,9 @@ public class MnemonicPrayer extends TargetedSpell{
     }
 
     public String desc(){
-        return Messages.get(this, "desc", 3) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        String desc =  Messages.get(this, "desc", 3) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        if (levelPunishment()>1f) desc += Messages.get(this, "level_punishment");
+        return desc;
     }
 
     @Override

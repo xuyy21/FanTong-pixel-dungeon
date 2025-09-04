@@ -34,7 +34,9 @@ public class Sunray extends TargetedSpell{
         int min = 4;
         int max = 8;
         int dur = 4;
-        return Messages.get(this, "desc", min, max, dur) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        String desc =  Messages.get(this, "desc", min, max, dur) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        if (levelPunishment()>1f) desc += Messages.get(this, "level_punishment");
+        return desc;
     }
 
     @Override

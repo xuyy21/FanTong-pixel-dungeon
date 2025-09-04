@@ -102,7 +102,9 @@ public abstract class Spell {
     }
 
     public String desc() {
-        return Messages.get(this, "desc") + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        String desc = Messages.get(this, "desc") + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        if (levelPunishment()>1f) desc += Messages.get(this, "level_punishment");
+        return desc;
     }
 
     public String shortDesc() {
@@ -148,8 +150,12 @@ public abstract class Spell {
 
     public abstract void onCast(Implement implement, Hero hero);
 
+    public float levelPunishment(){
+        return Math.max(1f, tier-Dungeon.scalingDepth()/5f+0.2f);
+    }
+
     public float overRunes(Hero hero) {
-        return 10f + 20f*tier;
+        return (10f + 20f*tier) * levelPunishment();
     }
 
     public boolean usesTargeting(){

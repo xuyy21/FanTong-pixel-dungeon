@@ -37,7 +37,7 @@ public class RunicLance extends TargetedSpell{
         if (hero.belongings.attackingWeapon() instanceof Weapon)
             heavy = Math.max(0, ((Weapon) hero.belongings.attackingWeapon()).STRReq()-hero.STR());
 
-        return super.overRunes(hero) + heavy * 20f;
+        return super.overRunes(hero) + heavy * 20f * levelPunishment();
     }
 
     @Override

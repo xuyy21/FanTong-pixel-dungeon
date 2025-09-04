@@ -27,8 +27,10 @@ public class BlessSpell extends TargetedSpell{
 
     public String desc(){
         int power = 1;
-        return Messages.get(this, "desc", 2+4*power, 5+5*power, 5+5*power, 5+5*power) +
+        String desc = Messages.get(this, "desc", 2+4*power, 5+5*power, 5+5*power, 5+5*power) +
                 "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+        if (levelPunishment()>1f) desc += Messages.get(this, "level_punishment");
+        return desc;
     }
 
     @Override

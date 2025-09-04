@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
@@ -89,7 +90,9 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			return !item.unique;
 
 		//all rings, wands, trinkets, seeds, and runestones
-		} else {
+		} else if (item instanceof Implement) {
+			return true;
+		}else {
 			return item instanceof Ring || item instanceof Wand || item instanceof Trinket
 					|| item instanceof Plant.Seed || item instanceof Runestone;
 		}
@@ -188,7 +191,12 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			} else {
 				return a;
 			}
-		} else if (item instanceof Trinket) {
+		} else if (item instanceof Implement) {
+			Implement implement = changeImplement((Implement) item);
+			if (implement == null) {
+                return Generator.randomUsingDefaults(Generator.Category.RING);
+			} else return implement;
+		}else if (item instanceof Trinket) {
 			return changeTrinket( (Trinket)item );
 		} else {
 			return null;
@@ -305,6 +313,15 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		}
 		
 		return null;
+	}
+
+	private static Implement changeImplement(Implement implement) {
+		Implement n;
+		do {
+			n = Generator.randomImplement();
+		} while ( n != null && (Challenges.isItemBlocked(n) || n.getClass() == implement.getClass()));
+
+		return n;
 	}
 
 	private static Trinket changeTrinket( Trinket t ){

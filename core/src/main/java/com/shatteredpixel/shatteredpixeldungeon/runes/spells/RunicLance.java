@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.audio.Sample;
@@ -28,6 +29,15 @@ public class RunicLance extends TargetedSpell{
     @Override
     public int targetingFlags() {
         return Ballistica.STOP_SOLID;
+    }
+
+    @Override
+    public float overRunes(Hero hero){
+        int heavy = 0;
+        if (hero.belongings.attackingWeapon() instanceof Weapon)
+            heavy = Math.max(0, ((Weapon) hero.belongings.attackingWeapon()).STRReq()-hero.STR());
+
+        return super.overRunes(hero) + heavy * 20f;
     }
 
     @Override

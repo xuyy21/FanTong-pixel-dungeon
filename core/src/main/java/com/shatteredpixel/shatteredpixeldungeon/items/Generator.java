@@ -746,6 +746,10 @@ public class Generator {
 				Item item = randomArtifact();
 				//if we're out of artifacts, return a ring instead.
 				return item != null ? item : random(Category.RING);
+			case IMPLEMENT:
+				Item item2 = randomImplement();
+				//if we're out of implements, return a ring instead.
+				return item2 != null ? item2 : random(Category.RING);
 			default:
 				if (cat.defaultProbs != null && cat.seed != null){
 					Random.pushGenerator(cat.seed);
@@ -786,7 +790,7 @@ public class Generator {
 			return randomWeapon(true);
 		} else if (cat == Category.MISSILE){
 			return randomMissile(true);
-		} else if (cat.defaultProbs == null || cat == Category.ARTIFACT) {
+		} else if (cat.defaultProbs == null || cat == Category.ARTIFACT || cat == Category.IMPLEMENT) {
 			return random(cat);
 		} else if (cat.defaultProbsTotal != null){
 			return ((Item) Reflection.newInstance(cat.classes[Random.chances(cat.defaultProbsTotal)])).random();
@@ -921,6 +925,42 @@ public class Generator {
 		Category cat = Category.ARTIFACT;
 		for (int i = 0; i < cat.classes.length; i++){
 			if (cat.classes[i].equals(artifact) && cat.probs[i] > 0) {
+				cat.probs[i] = 0;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	//enforces uniqueness of implements throughout a run.
+	public static Implement randomImplement() {
+		Category cat = Category.IMPLEMENT;
+
+		if (cat.defaultProbs != null && cat.seed != null){
+			Random.pushGenerator(cat.seed);
+			for (int i = 0; i < cat.dropped; i++) Random.Long();
+		}
+
+		int i = Random.chances( cat.probs );
+
+		if (cat.defaultProbs != null && cat.seed != null){
+			Random.popGenerator();
+			cat.dropped++;
+		}
+
+		//if no implements are left, return null
+		if (i == -1){
+			return null;
+		}
+
+		cat.probs[i]--;
+		return (Implement) Reflection.newInstance((Class<? extends Implement>) cat.classes[i]);
+	}
+
+	public static boolean removeImplement(Class<?extends Implement> implement) {
+		Category cat = Category.IMPLEMENT;
+		for (int i = 0; i < cat.classes.length; i++){
+			if (cat.classes[i].equals(implement) && cat.probs[i] > 0) {
 				cat.probs[i] = 0;
 				return true;
 			}

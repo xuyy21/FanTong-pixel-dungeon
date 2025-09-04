@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.runes;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
@@ -90,8 +91,11 @@ public class Runes {
     }
 
     public static void testSpell() {
+        if (Dungeon.hero.belongings.getItem(RunicAsh.class)==null){
+            GLog.w(Messages.get(WndRunes.class, "no_ash"));
+            return;
+        }
         GameScene.show(new WndRunes());
-
     }
 
     public static void save( Bundle bundle ){
@@ -333,6 +337,8 @@ public class Runes {
                     GLog.i(Messages.get(Runes.class, "test_fall"));
                     Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
                 }
+
+                Dungeon.hero.belongings.getItem(RunicAsh.class).detach(Dungeon.hero.belongings.backpack);
 
                 window.hide();
             }

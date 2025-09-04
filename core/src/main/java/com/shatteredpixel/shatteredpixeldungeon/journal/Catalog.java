@@ -173,6 +173,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.RunicAsh;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -336,7 +337,7 @@ public enum Catalog {
 				GooBlob.class, TengusMask.class, MetalShard.class, KingsCrown.class,
 				LiquidMetal.class, ArcaneResin.class,
 				SealShard.class, BrokenStaff.class, CloakScrap.class, BowFragment.class, BrokenHilt.class, TornPage.class,
-				Cookware.class, PiranhaPot.class, Chocolate_Egg.Piece.class);
+				Cookware.class, PiranhaPot.class, Chocolate_Egg.Piece.class, RunicAsh.class);
 
 	}
 

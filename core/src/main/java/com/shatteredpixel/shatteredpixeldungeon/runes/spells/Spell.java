@@ -303,10 +303,9 @@ public abstract class Spell {
         @Override
         public boolean act() {
             if (target.buff(LockedFloor.class)==null || target.buff(LockedFloor.class).regenOn()){
-                spend(TICK);
                 left -= TICK;
             }
-
+            spend(TICK);
             if (left<=0) detach();
 
             return true;

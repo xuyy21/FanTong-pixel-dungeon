@@ -169,6 +169,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
+import com.shatteredpixel.shatteredpixeldungeon.runes.RunicAsh;
 import com.watabou.utils.DeviceCompat;
 
 public enum HeroClass {
@@ -285,6 +286,7 @@ public enum HeroClass {
 			new MetalShard().quantity(10).collect();
 			new PiranhaPot().collect();
 			new Implement().collect();
+			new RunicAsh().quantity(100).collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

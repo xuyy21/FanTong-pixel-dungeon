@@ -92,7 +92,7 @@ public class Runes {
 
     public static void testSpell() {
         if (Dungeon.hero.belongings.getItem(RunicAsh.class)==null){
-            GLog.w(Messages.get(WndRunes.class, "no_ash"));
+            GLog.w(Messages.get(Runes.class, "no_ash"));
             return;
         }
         GameScene.show(new WndRunes());
@@ -135,7 +135,7 @@ public class Runes {
         }
 
         public void initKnow() {
-            Arrays.fill(known, true);
+            Arrays.fill(known, false);
         }
 
         public void initSpells() {

@@ -26,7 +26,7 @@ public class Framing extends TargetedSpell{
     {
         type = TYPE.PHYSICAL;
         icon = FRAMING;
-        tier = 4;
+        tier = 3;
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
@@ -18,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.runes.RuneIcon;
 import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
+import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
@@ -160,7 +162,7 @@ public abstract class Spell {
 
     public void onSpellCast(Implement implement, Hero hero){
         Invisibility.dispel();
-        Buff.affect(hero, OverRunes.class, overRunes(hero));
+        Buff.affect(hero, OverRunes.class).extend(overRunes(hero));
     }
 
     public static ArrayList<Spell> getSpellList(Hero hero, int tier){
@@ -279,8 +281,36 @@ public abstract class Spell {
         return spells;
     }
 
-    public static class OverRunes extends FlavourBuff{
+    public static class OverRunes extends Buff{
         public static float DURATION = 50f;
+
+        private float left = 0;
+
+        private static final String LEFT = "left";
+
+        @Override
+        public void storeInBundle( Bundle bundle ) {
+            super.storeInBundle( bundle );
+            bundle.put( LEFT, left );
+        }
+
+        @Override
+        public void restoreFromBundle( Bundle bundle ) {
+            super.restoreFromBundle(bundle);
+            left = bundle.getFloat( LEFT );
+        }
+
+        @Override
+        public boolean act() {
+            if (target.buff(LockedFloor.class)==null || target.buff(LockedFloor.class).regenOn()){
+                spend(TICK);
+                left -= TICK;
+            }
+
+            if (left<=0) detach();
+
+            return true;
+        }
 
         @Override
         public int icon() {
@@ -288,23 +318,32 @@ public abstract class Spell {
         }
 
         @Override
-        public float iconFadePercent() { return max(0, visualcooldown() / DURATION); }
+        public float iconFadePercent() { return max(0, (DURATION - left) / DURATION); }
+
+        @Override
+        public String iconTextDisplay() {
+            return Integer.toString((int)left);
+        }
 
         @Override
         public String desc() {
-            return Messages.get(this, "desc", dispTurns(), Messages.decimalFormat("#.##", 2f*Math.max(0f, visualcooldown()-DURATION)));
+            return Messages.get(this, "desc", Messages.decimalFormat("#.##", left), Messages.decimalFormat("#.##", 2f*Math.max(0f, left-DURATION)));
         }
 
         public float faultChance(){
-            return Math.max(0f, visualcooldown()-DURATION) * 0.02f;
+            return Math.max(0f, left-DURATION) * 0.02f;
+        }
+
+        public void extend( float duration ) {
+            left += duration;
         }
 
         public void reduce(float time){
-            if (visualcooldown()<=time) {
+            if (left<=time) {
                 detach();
             }
             else {
-                spend(-time);
+                left-=time;
             }
         }
     }

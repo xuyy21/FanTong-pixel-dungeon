@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -85,7 +84,7 @@ public class WallOfLight extends TargetedSpell{
         int rightDirX = 0;
         int rightDirY = 0;
 
-        int steps = Dungeon.hero.pointsInTalent(Talent.WALL_OF_LIGHT);
+        int steps = 1;
 
         switch (closestIdx){
             case 0: //top left

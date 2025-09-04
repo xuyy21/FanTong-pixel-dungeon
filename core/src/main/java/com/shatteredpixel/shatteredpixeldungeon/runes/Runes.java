@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.runes;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -339,6 +340,7 @@ public class Runes {
                 }
 
                 Dungeon.hero.belongings.getItem(RunicAsh.class).detach(Dungeon.hero.belongings.backpack);
+                Catalog.countUse(RunicAsh.class);
 
                 window.hide();
             }

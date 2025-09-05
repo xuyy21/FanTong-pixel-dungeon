@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfDivination;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -160,7 +161,7 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ANKH), "祝福十字架加强",
                 "现在祝福十字架触发后会回满英雄的HP并产生等同全面净化合剂的效果。"));
 
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.Icons.SCROLL_DIVINATE), "预知密卷",
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_KAUNAN), "预知密卷",
                 "预知密卷添加试验4个随机符文组合的功能。阅读密卷后可以在原本的鉴定物品和新增的鉴定符文中二选一。"));
 
     }

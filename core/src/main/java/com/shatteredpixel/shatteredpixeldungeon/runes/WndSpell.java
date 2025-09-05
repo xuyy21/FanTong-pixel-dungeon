@@ -31,7 +31,11 @@ import java.util.ArrayList;
 
 public class WndSpell extends Window {
 
-    protected static final int WIDTH    = 150;
+//    protected static final int WIDTH    = 120;
+
+    protected static int width() {
+        return PixelScene.landscape() ? 250 : 120;
+    }
 
     public static int BTN_SIZE = 20;
 
@@ -43,7 +47,7 @@ public class WndSpell extends Window {
             title = new IconTitle(Icons.INFO.get(), Messages.titleCase(Messages.get(this, "info_title")));
         }
 
-        title.setRect(0, 0, WIDTH, 0);
+        title.setRect(0, 0, width(), 0);
         add(title);
 
         IconButton btnInfo = new IconButton(info ? new ItemSprite(implement) : Icons.INFO.get()){
@@ -53,7 +57,7 @@ public class WndSpell extends Window {
                 hide();
             }
         };
-        btnInfo.setRect(WIDTH-16, 0, 16, 16);
+        btnInfo.setRect(width()-16, 0, 16, 16);
         add(btnInfo);
 
         RenderedTextBlock msg;
@@ -64,19 +68,18 @@ public class WndSpell extends Window {
         } else {
             msg = PixelScene.renderTextBlock( Messages.get( this, "cast_desc_mobile"), 6);
         }
-        msg.maxWidth(WIDTH);
+        msg.maxWidth(width());
         msg.setPos(0, title.bottom()+4);
         add(msg);
 
         int top = (int)msg.bottom()+4;
 
-        //TODO
         for (int i=1; i<=MAX_SPELL_TIER; i++) {
             ArrayList<Spell> spells = Spell.getSpellList(hero, i);
 
             if (!spells.isEmpty() && i != 1){
                 top += BTN_SIZE + 2;
-                ColorBlock sep = new ColorBlock(WIDTH, 1, 0xFF000000);
+                ColorBlock sep = new ColorBlock(width(), 1, 0xFF000000);
                 sep.y = top;
                 add(sep);
                 top += 3;
@@ -84,17 +87,17 @@ public class WndSpell extends Window {
 
             ArrayList<IconButton> spellBtns = new ArrayList<>();
 
-            if (spells.size()<=6) {
+            if (spells.size()<=6 || PixelScene.landscape()) {
                 for (Spell spell : spells) {
                     IconButton spellBtn = new SpellButton(spell, implement, info);
                     add(spellBtn);
                     spellBtns.add(spellBtn);
                 }
 
-                int left = 2 + (WIDTH - spellBtns.size() * (BTN_SIZE + 4)) / 2;
+                int left = 2 + (width() - spellBtns.size() * BTN_SIZE) / 2;
                 for (IconButton btn : spellBtns) {
                     btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
-                    left += btn.width() + 4;
+                    left += btn.width();
                 }
             } else {
                 // separate into two rows
@@ -106,29 +109,29 @@ public class WndSpell extends Window {
                     add(spellBtn);
                     spellBtns.add(spellBtn);
                 }
-                int left = 2 + (WIDTH - spellBtns.size() * (BTN_SIZE + 4)) / 2;
+                int left = 2 + (width() - spellBtns.size() * BTN_SIZE) / 2;
                 for (IconButton btn : spellBtns) {
                     btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
-                    left += btn.width() + 4;
+                    left += btn.width();
                 }
 
                 //second row
-                top += BTN_SIZE + 3;
+                top += BTN_SIZE;
                 spellBtns.clear();
                 for (int index = oneRow; index < spells.size(); index++) {
                     IconButton spellBtn = new SpellButton(spells.get(index), implement, info);
                     add(spellBtn);
                     spellBtns.add(spellBtn);
                 }
-                left = 2 + (WIDTH - spellBtns.size() * (BTN_SIZE + 4)) / 2;
+                left = 2 + (width() - spellBtns.size() * BTN_SIZE) / 2;
                 for (IconButton btn : spellBtns) {
                     btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
-                    left += btn.width() + 4;
+                    left += btn.width();
                 }
             }
         }
 
-        resize(WIDTH, top + BTN_SIZE);
+        resize(width(), top + BTN_SIZE);
 
         //if we are on mobile, offset the window down to just above the toolbar
         if (SPDSettings.interfaceSize() != 2){

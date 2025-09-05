@@ -132,7 +132,13 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME), "符文法器",
                 "新推出的符文法器系统。\n\n" +
                         "可以通过法器试验符文组合与施展已发现的符术。\n\n" +
-                        "现在有11个从牧师法术中迁移来的神圣符术和13个全新的符术。"));
+                        "现在有11个从牧师法术中迁移来的神圣符术和13个全新的符术。\n\n" +
+                        "法器可以有概率出现在商店，财富戒指奖励，水晶箱和水晶门选择房中。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.RUNICASH), "符文粉尘",
+                "每次使用法器试验符文组合都需要消耗一个符文粉尘。\n\n" +
+                        "符文粉尘可以在炼金锅中分解鉴定且无诅咒的武器或护甲获得，分解不消耗炼金能量。\n\n" +
+                        "符文粉尘的产量为1 + 2*武器/护甲的等级，如果存在正面附魔或正面刻印额外加1产量，如果存在EX附魔或EX刻印额外加3产量。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(CharSprite.WARNING);
@@ -153,6 +159,9 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ANKH), "祝福十字架加强",
                 "现在祝福十字架触发后会回满英雄的HP并产生等同全面净化合剂的效果。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.Icons.SCROLL_DIVINATE), "预知密卷",
+                "预知密卷添加试验4个随机符文组合的功能。阅读密卷后可以在原本的鉴定物品和新增的鉴定符文中二选一。"));
 
     }
 }

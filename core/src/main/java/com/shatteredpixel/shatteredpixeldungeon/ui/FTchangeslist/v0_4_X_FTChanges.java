@@ -130,7 +130,7 @@ public class v0_4_X_FTChanges {
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME), "符文法器",
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.IMPLEMENT_BOOK), "符文法器",
                 "新推出的符文法器系统。\n\n" +
                         "可以通过法器试验符文组合与施展已发现的符术。\n\n" +
                         "现在有11个从牧师法术中迁移来的神圣符术和13个全新的符术。\n\n" +

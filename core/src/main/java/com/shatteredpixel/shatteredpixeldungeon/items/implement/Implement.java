@@ -105,7 +105,7 @@ public class Implement extends Item {
 
     @Override
     public int value() {
-        return 100*quantity;
+        return 50*quantity;
     }
 
 

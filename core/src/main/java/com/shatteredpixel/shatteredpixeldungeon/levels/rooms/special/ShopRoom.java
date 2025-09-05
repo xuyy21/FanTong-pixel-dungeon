@@ -398,6 +398,9 @@ public class ShopRoom extends SpecialRoom {
 			case 2:
 				rare = Generator.random( Generator.Category.ARTIFACT );
 				break;
+			case 3:
+				rare = Generator.random( Generator.Category.IMPLEMENT );
+				break;
 			default:
 				rare = new Stylus();
 		}

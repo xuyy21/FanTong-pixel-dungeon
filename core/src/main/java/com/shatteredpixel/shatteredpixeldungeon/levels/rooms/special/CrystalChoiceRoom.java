@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -32,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EmptyRoom;
+import com.shatteredpixel.shatteredpixeldungeon.runes.RunicAsh;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -122,12 +124,17 @@ public class CrystalChoiceRoom extends SpecialRoom {
 		Item hidden = Generator.random(Random.oneOf(
 				Generator.Category.WAND,
 				Generator.Category.RING,
-				Generator.Category.ARTIFACT
+				Generator.Category.ARTIFACT,
+				Generator.Category.IMPLEMENT
 		));
 		Heap chest = level.drop(hidden, level.pointToCell(room2.center()));
 		chest.type = Heap.Type.CHEST;
 		//opening the chest is optional, so it doesn't count for exploration bonus
 		chest.autoExplored = true;
+		//add three runic ash if it's an implement
+		if (hidden instanceof Implement) {
+			chest.items.add(new RunicAsh().quantity(3));
+		}
 
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
 

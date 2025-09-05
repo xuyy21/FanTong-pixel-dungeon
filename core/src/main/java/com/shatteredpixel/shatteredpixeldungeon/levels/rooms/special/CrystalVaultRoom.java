@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.MimicTooth;
@@ -35,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.runes.RunicAsh;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -71,14 +73,30 @@ public class CrystalVaultRoom extends SpecialRoom {
 			i2Pos = c + PathFinder.CIRCLE8[(neighbourIdx+4)%8];
 		} while (level.adjacent(i1Pos, doorPos) || level.adjacent(i2Pos, doorPos));
 
-		level.drop( i1, i1Pos ).type = Heap.Type.CRYSTAL_CHEST;
+		Heap h1 = level.drop( i1, i1Pos );
+		h1.type = Heap.Type.CRYSTAL_CHEST;
+		//add three runic ash if it's an implement
+		if (i1 instanceof Implement) {
+			h1.items.add(new RunicAsh().quantity(3));
+		}
+
 		float altChance = 1/10f * RatSkull.exoticChanceMultiplier();
 		if (altChance > 0.1f) altChance = (altChance+0.1f)/2f; //rat skull is 1/2 as effective here
 		altChance *= MimicTooth.mimicChanceMultiplier(); //mimic tooth has full effectiveness
 		if (Random.Float() < altChance){
-			level.mobs.add(Mimic.spawnAt(i2Pos, CrystalMimic.class, i2));
+			Mimic m = Mimic.spawnAt(i2Pos, CrystalMimic.class, i2);
+			//add three runic ash if it's an implement
+			if (i2 instanceof Implement) {
+				m.items.add(new RunicAsh().quantity(3));
+			}
+			level.mobs.add(m);
 		} else {
-			level.drop(i2, i2Pos).type = Heap.Type.CRYSTAL_CHEST;
+			Heap h2 = level.drop(i2, i2Pos);
+			h2.type = Heap.Type.CRYSTAL_CHEST;
+			//add three runic ash if it's an implement
+			if (i2 instanceof Implement) {
+				h2.items.add(new RunicAsh().quantity(3));
+			}
 		}
 		Painter.set(level, i1Pos, Terrain.PEDESTAL);
 		Painter.set(level, i2Pos, Terrain.PEDESTAL);
@@ -102,5 +120,6 @@ public class CrystalVaultRoom extends SpecialRoom {
 	private ArrayList<Generator.Category> prizeClasses = new ArrayList<>(
 			Arrays.asList(Generator.Category.WAND,
 					Generator.Category.RING,
-					Generator.Category.ARTIFACT));
+					Generator.Category.ARTIFACT,
+					Generator.Category.IMPLEMENT));
 }

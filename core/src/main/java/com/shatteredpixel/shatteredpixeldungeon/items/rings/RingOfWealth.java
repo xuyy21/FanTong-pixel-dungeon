@@ -271,7 +271,7 @@ public class RingOfWealth extends Ring {
 		Item result;
 		//each upgrade increases depth used for calculating drops by 1
 		int floorset = (Dungeon.depth + level)/5;
-		switch (Random.Int(5)){
+		switch (Random.Int(6)){
 			default: case 0: case 1:
 				Weapon w = Generator.randomWeapon(floorset, true);
 				if (!w.hasGoodEnchant() && Random.Int(10) < level)      w.enchant();
@@ -290,6 +290,8 @@ public class RingOfWealth extends Ring {
 			case 4:
 				result = Generator.random(Generator.Category.ARTIFACT);
 				break;
+			case 5:
+				result = Generator.random(Generator.Category.IMPLEMENT);
 		}
 		//minimum level is 1/2/3/4/5/6 when ring level is 1/3/5/7/9/11
 		if (result.isUpgradable()){

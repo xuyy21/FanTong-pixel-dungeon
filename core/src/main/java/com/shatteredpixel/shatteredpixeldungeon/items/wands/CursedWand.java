@@ -1173,7 +1173,7 @@ public class CursedWand {
 			Item result;
 			do {
 				result = Generator.randomUsingDefaults(Random.oneOf(Generator.Category.WEAPON, Generator.Category.ARMOR,
-						Generator.Category.RING, Generator.Category.ARTIFACT));
+						Generator.Category.RING, Generator.Category.ARTIFACT, Generator.Category.IMPLEMENT));
 			} while (result.cursed);
 			if (result.isUpgradable()) result.upgrade();
 			result.cursed = result.cursedKnown = true;

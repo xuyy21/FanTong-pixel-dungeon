@@ -118,6 +118,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfArcana;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSkill;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
@@ -276,6 +277,7 @@ public enum HeroClass {
 			new PlateArmor().upgrade(30).identify().collect();
 			new RingOfSkill().upgrade(30).collect();
 			new RingOfArcana().upgrade(30).collect();
+			new RingOfHaste().upgrade(100).collect();
 //			new Hulu().collect();
 			new Ankh().collect();
 			new TrinketCatalyst().collect();

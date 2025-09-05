@@ -410,7 +410,19 @@ public class ItemSpriteSheet {
 		assignItemRect(ARMOR_CLERIC,    13, 14);
 	}
 
-	                                                                                    //16 free slots
+	private static final int IMPLEMENT          =                           xy(1, 13);
+	public static final int IMPLEMENT_BOOK		= IMPLEMENT+0;
+	public static final int IMPLEMENT_CUBE		= IMPLEMENT+1;
+	public static final int IMPLEMENT_BELL		= IMPLEMENT+2;
+	public static final int IMPLEMENT_PLATE		= IMPLEMENT+3;
+	static{
+		assignItemRect(IMPLEMENT_BOOK,	14, 16);
+		assignItemRect(IMPLEMENT_CUBE,	15, 15);
+		assignItemRect(IMPLEMENT_BELL,	16, 15);
+		assignItemRect(IMPLEMENT_PLATE,	16, 16);
+	}
+
+	//16 free slots
 
 	private static final int WANDS              =                           xy(1, 14);  //16 slots
 	public static final int WAND_MAGIC_MISSILE  = WANDS+0;

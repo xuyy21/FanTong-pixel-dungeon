@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class RunicBook extends Implement{
     {
-        image = ItemSpriteSheet.ARTIFACT_TOME;
+        image = ItemSpriteSheet.IMPLEMENT_BOOK;
     }
 
     @Override

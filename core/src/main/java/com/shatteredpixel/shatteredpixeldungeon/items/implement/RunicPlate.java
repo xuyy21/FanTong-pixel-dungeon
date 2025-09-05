@@ -4,7 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class RunicPlate extends Implement{
     {
-        image = ItemSpriteSheet.ARTIFACT_TOME;
+        image = ItemSpriteSheet.IMPLEMENT_PLATE;
 
         FAULT = 0.5f;
     }

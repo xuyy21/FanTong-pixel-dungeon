@@ -4,7 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class RunicCube extends Implement{
     {
-        image = ItemSpriteSheet.ARTIFACT_TOME;
+        image = ItemSpriteSheet.IMPLEMENT_CUBE;
 
         POWER = 1.5f;
         DELAY = 1.5f;

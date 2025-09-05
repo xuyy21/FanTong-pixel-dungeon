@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic;
 
+import static com.shatteredpixel.shatteredpixeldungeon.runes.Runes.RUNES_NUM;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Identification;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -28,6 +30,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -36,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -57,18 +62,40 @@ public class ScrollOfDivination extends ExoticScroll {
 		
 		Sample.INSTANCE.play( Assets.Sounds.READ );
 		
+		GameScene.show(new WndOptions(new ItemSprite(ItemSpriteSheet.Icons.SCROLL_DIVINATE),
+				Messages.get(ScrollOfDivination.class, "choose_title"),
+				Messages.get(ScrollOfDivination.class, "choose_desc"),
+				Messages.get(ScrollOfDivination.class, "choose_items"),
+				Messages.get(ScrollOfDivination.class, "choose_runes")){
+			@Override
+			protected void onSelect(int index){
+				if (index == 0) {
+					identifyItems();
+				} else if (index == 1) {
+					identifyRunes();
+				}
+			}
+
+			@Override
+			public void onBackPressed(){
+				//do nothing
+			}
+		});
+	}
+
+	public void identifyItems() {
 		HashSet<Class<? extends Potion>> potions = Potion.getUnknown();
 		HashSet<Class<? extends Scroll>> scrolls = Scroll.getUnknown();
 		HashSet<Class<? extends Ring>> rings = Ring.getUnknown();
-		
+
 		int total = potions.size() + scrolls.size() + rings.size();
-		
+
 		ArrayList<Item> IDed = new ArrayList<>();
 		int left = 4;
-		
+
 		float[] baseProbs = new float[]{3, 3, 3};
 		float[] probs = baseProbs.clone();
-		
+
 		while (left > 0 && total > 0) {
 			switch (Random.chances(probs)) {
 				default:
@@ -121,6 +148,36 @@ public class ScrollOfDivination extends ExoticScroll {
 		readAnimation();
 		identify();
 	}
+
+	public void identifyRunes() {
+		int left = 4;
+		ArrayList<Integer> toIdentify = new ArrayList<>();
+		for (int i=0; i < RUNES_NUM*RUNES_NUM*RUNES_NUM; i++) {
+			toIdentify.add(i);
+		}
+		Random.shuffle(toIdentify);
+		ArrayList<Class> identified = new ArrayList<>();
+
+		for (Integer i: toIdentify) {
+			if (!Runes.getKnown(i)) {
+				Runes.setKnown(i, true);
+				if (Runes.getSpell(i)!=null) {
+					identified.add(Runes.getSpell(i));
+				}
+				left--;
+			}
+			if (left<=0) break;
+		}
+
+		if (identified.isEmpty()){
+			GLog.n( Messages.get(this, "no_spells_left") );
+		} else {
+			GameScene.show(new WndSpellsIdentified(identified));
+		}
+
+		readAnimation();
+		identify();
+	}
 	
 	private class WndDivination extends Window {
 		
@@ -151,5 +208,33 @@ public class ScrollOfDivination extends ExoticScroll {
 			resize(WIDTH, (int)pos);
 		}
 		
+	}
+
+	private class WndSpellsIdentified extends Window {
+		private static final int WIDTH = 120;
+
+		WndSpellsIdentified(ArrayList<Class> spells){
+			IconTitle cur = new IconTitle(new ItemSprite(ScrollOfDivination.this),
+					Messages.titleCase(Messages.get(ScrollOfDivination.class, "name")));
+			cur.setRect(0, 0, WIDTH, 0);
+			add(cur);
+
+			RenderedTextBlock msg = PixelScene.renderTextBlock(Messages.get(this, "desc"), 6);
+			msg.maxWidth(120);
+			msg.setPos(0, cur.bottom() + 2);
+			add(msg);
+
+			float pos = msg.bottom() + 10;
+
+			for (Class spell: spells){
+				Spell s = (Spell) Reflection.newInstance(spell);
+				cur = new IconTitle(s.icon(), s.name());
+				cur.setRect(0, pos, WIDTH, 0);
+				add(cur);
+				pos = cur.bottom() + 2;
+			}
+
+			resize(WIDTH, (int)pos);
+		}
 	}
 }

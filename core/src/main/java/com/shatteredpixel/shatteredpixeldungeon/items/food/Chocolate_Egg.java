@@ -27,6 +27,10 @@ public class Chocolate_Egg extends Food{
     public Chocolate_Egg init() {
         if (prize==null) {
             prize = (MeleeWeapon)Generator.randomUsingDefaults(Generator.Category.WEAPON);
+            prize.enchantment = null;
+            prize.level(0);
+            prize.cursed = false;
+            prize.cursedKnown = true;
         }
         return this;
     }

@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
@@ -330,7 +331,7 @@ public abstract class Recipe {
 	
 	public static boolean usableInRecipe(Item item){
 		if (item instanceof EquipableItem){
-			return item.isIdentified() && !item.cursed
+			return item.isIdentified() && !item.cursed && !item.isEquipped(Dungeon.hero)
 					&& (item instanceof MissileWeapon || item instanceof MeleeWeapon || item instanceof Armor)
 					&& !(item instanceof MagesStaff);
 		} else if (item instanceof Wand) {

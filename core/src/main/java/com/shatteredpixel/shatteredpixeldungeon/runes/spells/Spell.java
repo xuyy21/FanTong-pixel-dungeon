@@ -323,7 +323,19 @@ public abstract class Spell {
         }
 
         @Override
-        public float iconFadePercent() { return max(0, (DURATION - left) / DURATION); }
+        public void tintIcon(Image icon) {
+            if (left > DURATION){
+                icon.hardlight(1f, 0f, 0f);
+            } else {
+                icon.hardlight(1f, 1f, 1f);
+            }
+        }
+
+        @Override
+        public float iconFadePercent() {
+            if (left > DURATION) return max(0, (2*DURATION - left) / DURATION);
+            return max(0, (DURATION - left) / DURATION);
+        }
 
         @Override
         public String iconTextDisplay() {

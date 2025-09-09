@@ -90,6 +90,7 @@ public class Implement extends Item {
     }
 
     public float faultMultiplier(Hero hero, Spell spell) {
+        if ( spell != null && spell.overRunes(hero)<=0 ) return 0;
         return FAULT;
     }
 

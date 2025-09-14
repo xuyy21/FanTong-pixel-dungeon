@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -19,8 +20,10 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.EarthGuardianSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -206,7 +209,7 @@ public class RockGuarding extends Weapon.Enchantment {
     public static class RockGuardian extends NPC {
 
         {
-            spriteClass = EarthGuardianSprite.class;
+            spriteClass = RockGuardianSprite.class;
 
             alignment = Alignment.ALLY;
             state = HUNTING;
@@ -329,5 +332,34 @@ public class RockGuarding extends Weapon.Enchantment {
 
         }
 
+    }
+
+    public static class RockGuardianSprite extends MobSprite {
+        public RockGuardianSprite() {
+            super();
+
+            texture( Assets.Sprites.ROCKGUARDIAN );
+
+            TextureFilm frames = new TextureFilm( texture, 12, 15 );
+
+            idle = new Animation( 2, true );
+            idle.frames( frames, 0, 0, 0, 0, 0, 1, 1 );
+
+            run = new Animation( 15, true );
+            run.frames( frames, 2, 3, 4, 5, 6, 7 );
+
+            attack = new Animation( 12, false );
+            attack.frames( frames, 8, 9, 10 );
+
+            die = new Animation( 5, false );
+            die.frames( frames, 11, 12, 13, 14, 15, 15 );
+
+            play( idle );
+        }
+
+        @Override
+        public int blood() {
+            return 0x33333300;
+        }
     }
 }

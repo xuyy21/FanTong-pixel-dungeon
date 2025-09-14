@@ -4,6 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfDivination;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -185,5 +186,9 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.CHOCOLATE_EGG), "巧克力蛋",
                 "巧克力蛋现在提供的奖励一定是无等级无诅咒无附魔的武器。"));
+
+        changes.addButton(new ChangeButton(new Image(new RockGuarding.RockGuardianSprite()), "磐石守卫",
+                "更新磐石守卫的贴图。\n\n" +
+                        "感谢群友血红角猫提供的支持。"));
     }
 }

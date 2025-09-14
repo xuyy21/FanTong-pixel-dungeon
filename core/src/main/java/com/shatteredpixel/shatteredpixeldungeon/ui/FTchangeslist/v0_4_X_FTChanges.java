@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_5_Changes(changeInfos);
         add_v0_4_4_Changes(changeInfos);
         add_v0_4_3_Changes(changeInfos);
         add_v0_4_2_Changes(changeInfos);

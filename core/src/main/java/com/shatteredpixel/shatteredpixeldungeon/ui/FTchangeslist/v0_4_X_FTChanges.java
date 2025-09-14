@@ -14,6 +14,8 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MandrakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MushmenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PlantMonsterSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.VendingMachineSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIcon;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
@@ -165,5 +167,23 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_KAUNAN), "预知密卷",
                 "预知密卷添加试验4个随机符文组合的功能。阅读密卷后可以在原本的鉴定物品和新增的鉴定符文中二选一。"));
 
+    }
+
+    public static void add_v0_4_5_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.5", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了夜翼在有轻便斗篷和不装备斗篷时退出游戏，会导致读档错误的BUG。\n\n" +
+                        "装备中的装备不再可以用于炼金。\n\n" +
+                        "过载为0的符术现在一定会成功。\n\n" +
+                        "调整了符术界面的大小，并加入横竖屏切换。"));
+
+        changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.OVERRUNES, true), "符文过载",
+                "现在当符文过载超过50回合时，图标会变红，提示已经有可能导致符术失败。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.CHOCOLATE_EGG), "巧克力蛋",
+                "巧克力蛋现在提供的奖励一定是无等级无诅咒无附魔的武器。"));
     }
 }

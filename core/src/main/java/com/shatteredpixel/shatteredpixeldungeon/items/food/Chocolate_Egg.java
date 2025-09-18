@@ -63,10 +63,10 @@ public class Chocolate_Egg extends Food{
     public String desc() {
         float foodVal = energy;
         String desc = Messages.get(this, "desc", prize!=null ? prize.name() : "??");
-        desc += "\n\n" + Messages.get(Food.class, "energy", (int)foodVal);
+        desc += "\n\n" + Messages.get(Food.class, "energy", Messages.decimalFormat("#.##", foodVal));
         if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) {
             foodVal *= (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
-            desc += Messages.get(Food.class, "imagine_energy", (int)foodVal);
+            desc += Messages.get(Food.class, "imagine_energy", Messages.decimalFormat("#.##", foodVal));
         }
         return desc;
     }

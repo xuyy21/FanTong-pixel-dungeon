@@ -181,10 +181,10 @@ public class Food extends Item {
 		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
 			foodVal /= 3f;
 		}
-		desc += "\n\n" + Messages.get(Food.class, "energy", (int)foodVal);
+		desc += "\n\n" + Messages.get(Food.class, "energy", Messages.decimalFormat("#.##", foodVal));
 		if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) {
 			foodVal *= (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
-			desc += Messages.get(Food.class, "imagine_energy", (int)foodVal);
+			desc += Messages.get(Food.class, "imagine_energy", Messages.decimalFormat("#.##", foodVal));
 		}
 		return desc;
 	}

@@ -4,6 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
@@ -60,7 +61,14 @@ public class Chocolate_Egg extends Food{
 
     @Override
     public String desc() {
-        return Messages.get(this, "desc", prize!=null ? prize.name() : "??");
+        float foodVal = energy;
+        String desc = Messages.get(this, "desc", prize!=null ? prize.name() : "??");
+        desc += "\n\n" + Messages.get(Food.class, "energy", (int)foodVal);
+        if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) {
+            foodVal *= (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
+            desc += Messages.get(Food.class, "imagine_energy", (int)foodVal);
+        }
+        return desc;
     }
 
     @Override

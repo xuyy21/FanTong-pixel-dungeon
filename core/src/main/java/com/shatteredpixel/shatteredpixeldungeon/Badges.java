@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -120,6 +121,7 @@ public class Badges {
 		ALL_POTIONS_IDENTIFIED      , //still exists internally for pre-2.5 saves
 		ALL_SCROLLS_IDENTIFIED      , //still exists internally for pre-2.5 saves
 		CATALOG_POTIONS_SCROLLS     ( 50 ),
+		ALL_RAWFOODS_IDENTIFIED		( 58, BadgeType.JOURNAL ),
 		DEATH_FROM_ENEMY_MAGIC      ( 51 ),
 		DEATH_FROM_FRIENDLY_MAGIC   ( 52 ),
 		DEATH_FROM_SACRIFICE        ( 53 ),
@@ -158,6 +160,8 @@ public class Badges {
 		ALL_RINGS_IDENTIFIED        , //still exists internally for pre-2.5 saves
 		ALL_ARTIFACTS_IDENTIFIED    , //still exists internally for pre-2.5 saves
 		ALL_RARE_ENEMIES            ( 80, BadgeType.JOURNAL ), //no longer all, just 10 as of v3.1
+		ALL_ENCHANTMENTS_IDENTIFIED	( 88, BadgeType.JOURNAL ),
+		ALL_GLYPHES_IDENTIFIED		( 89, BadgeType.JOURNAL ),
 		DEATH_FROM_GRIM_TRAP        ( 81 ), //also disintegration traps
 		VICTORY                     ( 82 ),
 		BOSS_CHALLENGE_1            ( 83 ),
@@ -177,6 +181,7 @@ public class Badges {
 		ALL_ARMOR_IDENTIFIED        , //still exists internally for pre-2.5 saves
 		ALL_WANDS_IDENTIFIED        , //still exists internally for pre-2.5 saves
 		ALL_ITEMS_IDENTIFIED        , //still exists internally for pre-2.5 saves
+		ALL_FOODS_IDENTIFIED		( 111, BadgeType.JOURNAL ),
 		VICTORY_WARRIOR,
 		VICTORY_MAGE,
 		VICTORY_ROGUE,
@@ -708,6 +713,30 @@ public class Badges {
 			displayBadge(Badge.RODNEY);
 		}
 
+		boolean valid = true;
+
+		for (Class<?> raw : Catalog.RAW_FOOD.items()) {
+			if (!Catalog.isSeen(raw)) valid = false;
+		}
+		if (valid) unlock(Badge.ALL_RAWFOODS_IDENTIFIED);
+
+		valid = true;
+		for (Class<?> ench : Catalog.ENCHANTMENTS.items()) {
+			if (!Catalog.isSeen(ench)) valid = false;
+		}
+		if (valid) unlock(Badge.ALL_ENCHANTMENTS_IDENTIFIED);
+
+		valid = true;
+		for (Class<?> glyph : Catalog.GLYPHS.items()) {
+			if (!Catalog.isSeen(glyph)) valid = false;
+		}
+		if (valid) unlock(Badge.ALL_GLYPHES_IDENTIFIED);
+
+		valid = true;
+		for (Class<?> food : Catalog.FOOD.items()) {
+			if (!Catalog.isSeen(food)) valid = false;
+		}
+		if (valid) unlock(Badge.ALL_FOODS_IDENTIFIED);
 	}
 	
 	public static void validateDeathFromFire() {

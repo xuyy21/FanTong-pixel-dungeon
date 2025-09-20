@@ -296,7 +296,7 @@ public enum Catalog {
 
 		STONES.addItems(Generator.Category.STONE.classes);
 
-		FOOD.addItems( Food.class, Pasty.class, MysteryMeat.class, ChargrilledMeat.class,
+		FOOD.addItems( Food.class, Pasty.class, ChargrilledMeat.class,
 				StewedMeat.class, FrozenCarpaccio.class, SmallRation.class, Berry.class,
 				SupplyRation.class, Blandfruit.class, PhantomMeat.class, MeatPie.class,
 				HoneyMeat.class, Icecream.class, Juice.class, Tempura.class,
@@ -309,7 +309,7 @@ public enum Catalog {
 				ChangFen.class, Chocolate_Egg.class, IcyRedTea.class, Kiwi_Fruit.class,
 				SleepCandy.class, LaTiao.class, Popsicle.class);
 
-		RAW_FOOD.addItems(RatTail.class, CrabClaw.class, SlimeBlob.class, MysteryBone.class,
+		RAW_FOOD.addItems(MysteryMeat.class, RatTail.class, CrabClaw.class, SlimeBlob.class, MysteryBone.class,
 				Mushroom.class, MandrakeRoot.class, BatBody.class, Gland.class, Nut.class,
 				ElementalCore.class, MagicHeart.class, ScorpioTail.class, BigEye.class, Larva.class);
 

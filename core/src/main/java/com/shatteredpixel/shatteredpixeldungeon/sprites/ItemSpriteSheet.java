@@ -418,7 +418,7 @@ public class ItemSpriteSheet {
 	static{
 		assignItemRect(IMPLEMENT_BOOK,	14, 16);
 		assignItemRect(IMPLEMENT_CUBE,	15, 15);
-		assignItemRect(IMPLEMENT_BELL,	16, 15);
+		assignItemRect(IMPLEMENT_BELL,	16, 16);
 		assignItemRect(IMPLEMENT_PLATE,	16, 16);
 	}
 

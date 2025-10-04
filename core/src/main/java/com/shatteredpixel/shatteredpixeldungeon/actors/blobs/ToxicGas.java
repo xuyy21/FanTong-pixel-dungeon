@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -71,6 +72,9 @@ public class ToxicGas extends Blob implements Hero.Doom {
 	public void onDeath() {
 		
 		Badges.validateDeathFromGas();
+
+		if (Dungeon.hero!=null && Dungeon.hero.buff(Paralysis.class)!=null)
+			Badges.validateDeathFromMixGas();
 		
 		Dungeon.fail( this );
 		GLog.n( Messages.get(this, "ondeath") );

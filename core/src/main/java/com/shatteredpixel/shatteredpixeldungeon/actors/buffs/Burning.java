@@ -240,6 +240,9 @@ public class Burning extends Buff implements Hero.Doom {
 	public void onDeath() {
 		
 		Badges.validateDeathFromFire();
+
+		if (Dungeon.hero!=null && Dungeon.hero.buff(Levitation.class)!=null)
+			Badges.validateDeathFromBurningFly();
 		
 		Dungeon.fail( this );
 		GLog.n( Messages.get(this, "ondeath") );

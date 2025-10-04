@@ -125,6 +125,8 @@ public class Badges {
 		DEATH_FROM_ENEMY_MAGIC      ( 51 ),
 		DEATH_FROM_FRIENDLY_MAGIC   ( 52 ),
 		DEATH_FROM_SACRIFICE        ( 53 ),
+		DEATH_FROM_MIX_GAS			( 59 ),
+		DEATH_FROM_BURNING_FLY		( 60 ),
 		BOSS_SLAIN_1_WARRIOR,
 		BOSS_SLAIN_1_MAGE,
 		BOSS_SLAIN_1_ROGUE,
@@ -803,6 +805,22 @@ public class Badges {
 		validateDeathFromAll();
 	}
 
+	public static void validateDeathFromMixGas() {
+		Badge badge = Badge.DEATH_FROM_MIX_GAS;
+		local.add( badge );
+		displayBadge( badge );
+
+		validateDeathFromAll();
+	}
+
+	public static void validateDeathFromBurningFly() {
+		Badge badge = Badge.DEATH_FROM_BURNING_FLY;
+		local.add( badge );
+		displayBadge( badge );
+
+		validateDeathFromAll();
+	}
+
 	public static void validateDeathFromGrimOrDisintTrap() {
 		Badge badge = Badge.DEATH_FROM_GRIM_TRAP;
 		local.add( badge );
@@ -820,7 +838,9 @@ public class Badges {
 				isUnlocked( Badge.DEATH_FROM_ENEMY_MAGIC) &&
 				isUnlocked( Badge.DEATH_FROM_FRIENDLY_MAGIC) &&
 				isUnlocked( Badge.DEATH_FROM_SACRIFICE) &&
-				isUnlocked( Badge.DEATH_FROM_GRIM_TRAP)) {
+				isUnlocked( Badge.DEATH_FROM_GRIM_TRAP) &&
+				isUnlocked( Badge.DEATH_FROM_MIX_GAS) &&
+				isUnlocked( Badge.DEATH_FROM_BURNING_FLY)) {
 
 			Badge badge = Badge.DEATH_FROM_ALL;
 			if (!isUnlocked( badge )) {
@@ -1295,6 +1315,8 @@ public class Badges {
 			{Badge.DEATH_FROM_FRIENDLY_MAGIC, Badge.DEATH_FROM_ALL},
 			{Badge.DEATH_FROM_SACRIFICE, Badge.DEATH_FROM_ALL},
 			{Badge.DEATH_FROM_GRIM_TRAP, Badge.DEATH_FROM_ALL},
+			{Badge.DEATH_FROM_MIX_GAS, Badge.DEATH_FROM_ALL},
+			{Badge.DEATH_FROM_BURNING_FLY, Badge.DEATH_FROM_ALL},
 
 			{Badge.ALL_WEAPONS_IDENTIFIED, Badge.ALL_ITEMS_IDENTIFIED},
 			{Badge.ALL_ARMOR_IDENTIFIED, Badge.ALL_ITEMS_IDENTIFIED},

@@ -50,7 +50,8 @@ public class Speck extends Image {
 	public static final int STEAM       = 13;
 	public static final int COIN        = 14;
 	public static final int DOWN        = 15;
-	
+	public static final int VINES		= 16;
+
 	public static final int DISCOVER    = 101;
 	public static final int EVOKE       = 102;
 	public static final int MASK        = 103;
@@ -382,6 +383,13 @@ public class Speck extends Image {
 			acc.y = 256;
 			lifespan = -speed.y / acc.y * 2;
 			break;
+
+		case VINES:
+			speed.y = -Random.Float( 10, 15 );
+			angularSpeed = Random.Float( +180 );
+			angle = Random.Float( 360 );
+			lifespan = 1f;
+			break;
 		}
 		
 		left = lifespan;
@@ -484,6 +492,7 @@ public class Speck extends Image {
 			case BLIZZARD:
 			case INFERNO:
 			case DUST:
+			case VINES:
 				am = (float)Math.sqrt( (p < 0.5f ? p : 1 - p) * 0.5f );
 				scale.set( 1 + p );
 				break;

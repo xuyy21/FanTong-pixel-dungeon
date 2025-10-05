@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfDivination;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_6_Changes(changeInfos);
         add_v0_4_5_Changes(changeInfos);
         add_v0_4_4_Changes(changeInfos);
         add_v0_4_3_Changes(changeInfos);
@@ -191,5 +193,23 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new Image(new RockGuarding.RockGuardianSprite()), "磐石守卫",
                 "更新磐石守卫的贴图。\n\n" +
                         "感谢群友血红角猫提供的支持。"));
+    }
+
+    public static void add_v0_4_6_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.6", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了巧克力蛋不显示饱食度的BUG。\n\n" +
+                        "修正了所有食物的饱食度显示，由原来的整数改为2位小数。\n\n" +
+                        "生肉在图鉴中从食物调整为食材。"));
+
+        changes.addButton(new ChangeButton(Swap_Between.INSTANCE.icon(), "交换位置",
+                "修复了交换位置不能使用的BUG。不过注意要连续使用两次才可以。"));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.BADGES), "增加徽章",
+                "补上了新增的三个转职击败DM300的徽章。\n\n" +
+                        "新增6个徽章：食材采集员，美食鉴赏家，附魔大师，刻印大师，混合毒气，凤凰浴火"));
     }
 }

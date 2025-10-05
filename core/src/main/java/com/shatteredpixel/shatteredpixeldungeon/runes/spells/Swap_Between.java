@@ -4,6 +4,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -24,41 +27,31 @@ public class Swap_Between extends Spell{
 
     @Override
     public void onCast(Implement implement, Hero hero){
-        GameScene.selectCell(new CellSelector.Listener() {
-            @Override
-            public void onSelect(Integer cell) {
-                if (cell == null){
-                    return;
-                }
-
-                Char ch1 = Actor.findChar(cell);
-                if (ch1 == null || !Dungeon.level.heroFOV[cell]){
-                    GLog.w(Messages.get(this, "no_target"));
-                    return;
-                }
-                if (ch1.properties().contains(Char.Property.IMMOVABLE)){
-                    GLog.w(Messages.get(this, "immovable"));
-                    return;
-                }
-
+        if (hero.buff(Swap_Target.class)!=null){
+            if (hero.buff(Swap_Target.class).getTarget()!=null){
                 GameScene.selectCell(new CellSelector.Listener() {
                     @Override
-                    public void onSelect(Integer cell){
+                    public void onSelect(Integer cell) {
                         if (cell == null){
                             return;
                         }
 
-                        Char ch2 = Actor.findChar(cell);
-                        if (ch2 == null || !Dungeon.level.heroFOV[cell]){
+                        Char ch = Actor.findChar(cell);
+                        if (ch == null || !Dungeon.level.heroFOV[cell]){
                             GLog.w(Messages.get(this, "no_target"));
                             return;
                         }
-                        if (ch2.properties().contains(Char.Property.IMMOVABLE)){
+                        if (ch.properties().contains(Char.Property.IMMOVABLE)){
                             GLog.w(Messages.get(this, "immovable"));
                             return;
                         }
 
-                        Swap(implement, hero, ch1, ch2);
+                        if (ch==hero.buff(Swap_Target.class).getTarget()){
+                            GLog.w(Messages.get(Swap_Between.class, "same_targets"));
+                            hero.buff(Swap_Target.class).detach();
+                        } else {
+                            Swap(implement, hero, hero.buff(Swap_Target.class).getTarget(), ch);
+                        }
                     }
 
                     @Override
@@ -66,6 +59,39 @@ public class Swap_Between extends Spell{
                         return Messages.get(Swap_Between.class, "second_select");
                     }
                 });
+            } else {
+                hero.buff(Swap_Target.class).detach();
+
+                selectFirstTarget(implement, hero);
+            }
+        } else {
+            selectFirstTarget(implement, hero);
+        }
+    }
+
+    public void selectFirstTarget(Implement implement, Hero hero) {
+        GameScene.selectCell(new CellSelector.Listener() {
+            @Override
+            public void onSelect(Integer cell) {
+                if (cell == null) {
+                    return;
+                }
+
+                Char ch = Actor.findChar(cell);
+                if (ch == null || !Dungeon.level.heroFOV[cell]) {
+                    GLog.w(Messages.get(this, "no_target"));
+                    return;
+                }
+                if (ch.properties().contains(Char.Property.IMMOVABLE)) {
+                    GLog.w(Messages.get(this, "immovable"));
+                    return;
+                }
+
+                Buff.affect(hero, Swap_Target.class, Swap_Target.DURATION).set(ch, Dungeon.depth);
+                hero.sprite.operate(ch.pos);
+                Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+                Invisibility.dispel();
+
             }
 
             @Override
@@ -90,5 +116,24 @@ public class Swap_Between extends Spell{
 
         Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
         onSpellCast(implement, hero);
+        hero.spendAndNext(0);
+    }
+
+    public static class Swap_Target extends FlavourBuff {
+        public static float DURATION = 0.001f;
+
+        public Char target;
+        public int depth = 0;
+
+        public void set(Char target, int depth){
+            this.target = target;
+            this.depth = depth;
+        }
+
+        public Char getTarget(){
+            if (Dungeon.depth==this.depth)
+                return target;
+            return null;
+        }
     }
 }

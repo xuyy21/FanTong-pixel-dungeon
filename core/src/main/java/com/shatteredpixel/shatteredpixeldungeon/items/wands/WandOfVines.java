@@ -106,18 +106,20 @@ public class WandOfVines extends Wand{
         float procChance = (level+1f)/(level+2f) * procChanceMultiplier(attacker);
         if (Random.Float() < procChance){
             ArrayList<Integer> vines = new ArrayList<>();
+
+            RedVines redVines = (RedVines) Dungeon.level.blobs.get(RedVines.class);
+            YellowVines yellowVines = (YellowVines) Dungeon.level.blobs.get(YellowVines.class);
+            MagicVines greenVines = (MagicVines) Dungeon.level.blobs.get(MagicVines.class);
+
             for (int i=0; i<Dungeon.level.length(); i++) {
-                RedVines redVines = (RedVines) Dungeon.level.blobs.get(RedVines.class);
                 if (redVines!=null && redVines.volume>0 && redVines.cur[i]>0) {
                     vines.add(i);
                     continue;
                 }
-                YellowVines yellowVines = (YellowVines) Dungeon.level.blobs.get(YellowVines.class);
                 if (yellowVines!=null && yellowVines.volume>0 && yellowVines.cur[i]>0) {
                     vines.add(i);
                     continue;
                 }
-                MagicVines greenVines = (MagicVines) Dungeon.level.blobs.get(MagicVines.class);
                 if (greenVines!=null && greenVines.volume>0 && greenVines.cur[i]>0) {
                     vines.add(i);
                     continue;
@@ -126,17 +128,14 @@ public class WandOfVines extends Wand{
             if (!vines.isEmpty()) {
                 Random.shuffle(vines);
                 int cell = vines.get(0);
-                RedVines redVines = (RedVines) Dungeon.level.blobs.get(RedVines.class);
                 if (redVines!=null && redVines.volume>0 && redVines.cur[cell]>0) {
                     redVines.add(buffedLvl(), 1, cell);
                     return;
                 }
-                YellowVines yellowVines = (YellowVines) Dungeon.level.blobs.get(YellowVines.class);
                 if (yellowVines!=null && yellowVines.volume>0 && yellowVines.cur[cell]>0) {
                     yellowVines.add(buffedLvl(), 1, cell);
                     return;
                 }
-                MagicVines greenVines = (MagicVines) Dungeon.level.blobs.get(MagicVines.class);
                 if (greenVines!=null && greenVines.volume>0 && greenVines.cur[cell]>0) {
                     greenVines.add(buffedLvl(), 1, cell);
                     return;

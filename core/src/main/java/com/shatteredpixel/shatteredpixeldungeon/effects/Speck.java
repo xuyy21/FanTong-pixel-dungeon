@@ -71,6 +71,8 @@ public class Speck extends Image {
 	public static final int STORM       = 117;
 	public static final int INFERNO     = 118;
 	public static final int BLIZZARD    = 119;
+	public static final int YELLOW_VINES= 120;
+	public static final int RED_VINES   = 121;
 	
 	private static final int SIZE = 7;
 	
@@ -142,6 +144,10 @@ public class Speck extends Image {
 			break;
 		case CALM:
 			frame( film.get( SCREAM ) );
+			break;
+		case YELLOW_VINES:
+		case RED_VINES:
+			frame( film.get( VINES ));
 			break;
 		default:
 			frame( film.get( type ) );
@@ -385,6 +391,22 @@ public class Speck extends Image {
 			break;
 
 		case VINES:
+			speed.y = -Random.Float( 10, 15 );
+			angularSpeed = Random.Float( +180 );
+			angle = Random.Float( 360 );
+			lifespan = 1f;
+			break;
+
+		case YELLOW_VINES:
+			hardlight(0xFFFF00);
+			speed.y = -Random.Float( 10, 15 );
+			angularSpeed = Random.Float( +180 );
+			angle = Random.Float( 360 );
+			lifespan = 1f;
+			break;
+
+		case RED_VINES:
+			hardlight(0xFF3300);
 			speed.y = -Random.Float( 10, 15 );
 			angularSpeed = Random.Float( +180 );
 			angle = Random.Float( 360 );

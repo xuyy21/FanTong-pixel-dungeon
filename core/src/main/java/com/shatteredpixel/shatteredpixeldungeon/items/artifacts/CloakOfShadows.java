@@ -524,6 +524,8 @@ public class CloakOfShadows extends Artifact {
 		t.pos = cell;
 		t.reclaimed = true;
 
+		Dungeon.hero.interrupt();
+
 		Game.runOnRenderThread(new Callback() {
 			@Override
 			public void call() {

@@ -203,7 +203,8 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "修复了巧克力蛋不显示饱食度的BUG。\n\n" +
                         "修正了所有食物的饱食度显示，由原来的整数改为2位小数。\n\n" +
-                        "生肉在图鉴中从食物调整为食材。"));
+                        "生肉在图鉴中从食物调整为食材。\n\n" +
+                        "暗影蝙蝠死亡释放陷阱时会打断英雄的自动行动。"));
 
         changes.addButton(new ChangeButton(Swap_Between.INSTANCE.icon(), "交换位置",
                 "修复了交换位置不能使用的BUG。不过注意要连续使用两次才可以。"));

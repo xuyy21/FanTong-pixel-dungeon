@@ -230,7 +230,7 @@ public class Blob extends Actor {
 		return null;
 	}
 	
-	public String tileDesc() {
+	public String tileDesc(int cell) {
 		return null;
 	}
 	

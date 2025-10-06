@@ -75,6 +75,20 @@ public class MagicVines extends Blob{
             }
         }
     }
+    
+    public void pull( int cell, int distance, boolean pullEnemy ){
+        if (pullEnemy) {
+
+            left[cell] -= 1;
+            if (left[cell]<=0) clear(cell);
+        } else {
+
+        }
+    }
+
+    public void pull( int cell, int distance ){
+        pull(cell, distance, true);
+    }
 
     @Override
     public void use( BlobEmitter emitter ) {
@@ -84,9 +98,10 @@ public class MagicVines extends Blob{
     }
 
     @Override
-    public String tileDesc() {
+    public String tileDesc(int cell) {
         String desc = Messages.get(this, "desc");
         desc += Messages.get(this, "desc_distance", 4);
+        desc += Messages.get(this, "left", left[cell]);
         return desc;
     }
 

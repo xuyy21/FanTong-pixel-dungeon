@@ -13,10 +13,11 @@ public class YellowVines extends MagicVines{
     }
 
     @Override
-    public String tileDesc() {
+    public String tileDesc(int cell) {
         String desc = Messages.get(this, "desc");
         desc += Messages.get(this, "desc_yellow");
         desc += Messages.get(this, "desc_distance", 5);
+        desc += Messages.get(this, "left", left[cell]);
         return desc;
     }
 }

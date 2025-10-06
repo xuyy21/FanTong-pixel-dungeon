@@ -916,7 +916,7 @@ public class Tengu extends Mob {
 			}
 			
 			@Override
-			public String tileDesc() {
+			public String tileDesc(int cell) {
 				return Messages.get(this, "desc");
 			}
 		}
@@ -1092,7 +1092,7 @@ public class Tengu extends Mob {
 			}
 			
 			@Override
-			public String tileDesc() {
+			public String tileDesc(int cell) {
 				return Messages.get(this, "desc");
 			}
 		}

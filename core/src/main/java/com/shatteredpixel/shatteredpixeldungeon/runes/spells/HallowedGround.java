@@ -212,7 +212,7 @@ public class HallowedGround extends TargetedSpell{
         }
 
         @Override
-        public String tileDesc() {
+        public String tileDesc(int cell) {
             return Messages.get(this, "desc");
         }
     }

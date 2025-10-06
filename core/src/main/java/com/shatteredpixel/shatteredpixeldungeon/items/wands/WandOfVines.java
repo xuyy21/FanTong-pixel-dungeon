@@ -128,6 +128,7 @@ public class WandOfVines extends Wand{
             if (!vines.isEmpty()) {
                 Random.shuffle(vines);
                 int cell = vines.get(0);
+                GLog.p(Messages.get(this, "add_vines"));
                 if (redVines!=null && redVines.volume>0 && redVines.cur[cell]>0) {
                     redVines.add(buffedLvl(), 1, cell);
                     return;
@@ -140,7 +141,6 @@ public class WandOfVines extends Wand{
                     greenVines.add(buffedLvl(), 1, cell);
                     return;
                 }
-                GLog.p(Messages.get(this, "add_vines"));
             }
         }
     }

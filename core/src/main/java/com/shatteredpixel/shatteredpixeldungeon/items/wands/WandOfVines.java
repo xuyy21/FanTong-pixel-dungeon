@@ -100,10 +100,10 @@ public class WandOfVines extends Wand{
 
         int level = Math.max( 0, buffedLvl() );
 
-        // lvl 0 - 33%
-        // lvl 1 - 50%
-        // lvl 2 - 60%
-        float procChance = (level+1f)/(level+3f) * procChanceMultiplier(attacker);
+        // lvl 0 - 50%
+        // lvl 1 - 67%
+        // lvl 2 - 75%
+        float procChance = (level+1f)/(level+2f) * procChanceMultiplier(attacker);
         if (Random.Float() < procChance){
             ArrayList<Integer> vines = new ArrayList<>();
             for (int i=0; i<Dungeon.level.length(); i++) {

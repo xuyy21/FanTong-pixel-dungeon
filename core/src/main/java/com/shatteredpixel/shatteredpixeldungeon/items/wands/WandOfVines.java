@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.MagicVines;
@@ -44,16 +45,25 @@ public class WandOfVines extends Wand{
         RedVines redVines = (RedVines) Dungeon.level.blobs.get(RedVines.class);
         if (redVines!=null && redVines.volume>0 && redVines.cur[bolt.collisionPos]>0) {
             redVines.add(buffedLvl(), 1, bolt.collisionPos);
+            if (Actor.findChar(bolt.collisionPos)==null && Dungeon.level.distance(bolt.collisionPos, curUser.pos)<=6) {
+                redVines.pull(bolt.collisionPos, curUser);
+            }
             return;
         }
         YellowVines yellowVines = (YellowVines) Dungeon.level.blobs.get(YellowVines.class);
         if (yellowVines!=null && yellowVines.volume>0 && yellowVines.cur[bolt.collisionPos]>0) {
             yellowVines.add(buffedLvl(), 1, bolt.collisionPos);
+            if (Actor.findChar(bolt.collisionPos)==null && Dungeon.level.distance(bolt.collisionPos, curUser.pos)<=5) {
+                yellowVines.pull(bolt.collisionPos, curUser);
+            }
             return;
         }
         MagicVines greenVines = (MagicVines) Dungeon.level.blobs.get(MagicVines.class);
         if (greenVines!=null && greenVines.volume>0 && greenVines.cur[bolt.collisionPos]>0) {
             greenVines.add(buffedLvl(), 1, bolt.collisionPos);
+            if (Actor.findChar(bolt.collisionPos)==null && Dungeon.level.distance(bolt.collisionPos, curUser.pos)<=4) {
+                greenVines.pull(bolt.collisionPos, curUser);
+            }
             return;
         }
 
@@ -67,13 +77,13 @@ public class WandOfVines extends Wand{
                 break;
             case 2:
                 YellowVines vines2 = Blob.seed(bolt.collisionPos, 1, YellowVines.class);
-                vines2.set(buffedLvl(), 2, bolt.collisionPos);
+                vines2.set(buffedLvl(), 3, bolt.collisionPos);
                 CellEmitter.get(bolt.collisionPos).burst(Speck.factory(Speck.YELLOW_VINES), 10 );
                 GameScene.add(vines2);
                 break;
             case 3:
                 RedVines vines3 = Blob.seed(bolt.collisionPos, 1, RedVines.class);
-                vines3.set(buffedLvl(), 2, bolt.collisionPos);
+                vines3.set(buffedLvl(), 4, bolt.collisionPos);
                 CellEmitter.get(bolt.collisionPos).burst(Speck.factory(Speck.RED_VINES), 10 );
                 GameScene.add(vines3);
                 break;

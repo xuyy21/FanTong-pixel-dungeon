@@ -1,12 +1,25 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.blobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 
 public class MagicVines extends Blob{
     public int[] Lvl;
@@ -59,7 +72,6 @@ public class MagicVines extends Blob{
 
     @Override
     protected void evolve(){
-        //TODO
         int cell;
 
         Level l = Dungeon.level;
@@ -70,24 +82,103 @@ public class MagicVines extends Blob{
                     off[cell] = cur[cell];
                     volume += off[cell];
                 }
-                if (l.solid[cell] || l.pit[cell]) clear(cell);
-                if (left[cell]<=0) clear(cell);
+
+                if (l.solid[cell] || l.pit[cell]) {
+                    clear(cell);
+                } else if (left[cell]<=0) {
+                    clear(cell);
+                } else {
+                    if (Actor.findChar(cell)==null) {
+                        Char target = findTarget(cell);
+                        if (target!=null) {
+                            pull(cell, target);
+                        }
+                    }
+                }
             }
         }
     }
     
-    public void pull( int cell, int distance, boolean pullEnemy ){
-        if (pullEnemy) {
+    public void pull( int cell, Char target, boolean consume){
+        Ballistica chain = new Ballistica(cell, target.pos, Ballistica.PROJECTILE);
+        if (chain.collisionPos!=target.pos || Dungeon.level.pit[cell])
+            return;
 
+        int newPos = -1;
+        for (int i : chain.subPath(0, chain.dist)){
+            if (!Dungeon.level.solid[i] && Actor.findChar(i) == null){
+                newPos = i;
+                break;
+            }
+        }
+
+        if (newPos == -1){
+            return;
+        } else {
+            final int newPosFinal = newPos;
+            Sample.INSTANCE.play(Assets.Sounds.CHAINS);
+            target.sprite.parent.add(new Chains(DungeonTilemap.tileToWorld( cell ),
+                    target.sprite.destinationCenter(),
+                    Effects.Type.VINES,
+                    new Callback() {
+                        public void call() {
+                            Actor.add(new Pushing(target, target.pos, newPosFinal, new Callback() {
+                                public void call() {
+                                    pullTarget(target, newPosFinal);
+                                }
+                            }));
+                            next();
+                        }
+                    }));
+        }
+
+        if (consume) {
             left[cell] -= 1;
             if (left[cell]<=0) clear(cell);
-        } else {
-
+            Buff.affect(target, PullTracker.class, 60f/(3+Lvl[cell]));
         }
     }
 
-    public void pull( int cell, int distance ){
-        pull(cell, distance, true);
+    public void pull( int cell, Char target ){
+        pull(cell, target, !(target instanceof Hero));
+    }
+
+    public void pull( int cell ){
+        pull(cell, Dungeon.hero, false);
+    }
+
+    public void pullTarget(Char target, int pullPos ){
+        target.pos = pullPos;
+        target.sprite.place(pullPos);
+        Dungeon.level.occupyCell(target);
+        if (target == Dungeon.hero) {
+            Dungeon.hero.interrupt();
+            Dungeon.observe();
+            GameScene.updateFog();
+        }
+    }
+
+    public Char findTarget(int cell, int distance) {
+        // TODO: 狭窄地形不能拉大体形
+        Char target = null;
+        int dis = 10;
+
+        for (Char ch: Dungeon.level.mobs) {
+            if (ch.buff(PullTracker.class)!=null) continue;
+            Ballistica chain = new Ballistica(cell, ch.pos, Ballistica.PROJECTILE);
+            if (chain.collisionPos==ch.pos && chain.path.size()<=distance) {
+                if (target==null || dis>chain.path.size()) {
+                    target = ch;
+                    dis = chain.path.size();
+                }
+            }
+        }
+
+        return target;
+    }
+
+    public Char findTarget(int cell) {
+        return findTarget(cell, 4);
     }
 
     @Override

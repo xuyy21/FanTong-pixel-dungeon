@@ -1,5 +1,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.blobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -19,5 +23,18 @@ public class YellowVines extends MagicVines{
         desc += Messages.get(this, "desc_distance", 5);
         desc += Messages.get(this, "left", left[cell]);
         return desc;
+    }
+
+    @Override
+    public void pullTarget(Char target, int pullPos ){
+        super.pullTarget(target, pullPos);
+        if (!(target instanceof Hero)) {
+            Buff.affect(target, Cripple.class, 3f+Lvl[pullPos]);
+        }
+    }
+
+    @Override
+    public Char findTarget(int cell){
+        return findTarget(cell, 5);
     }
 }

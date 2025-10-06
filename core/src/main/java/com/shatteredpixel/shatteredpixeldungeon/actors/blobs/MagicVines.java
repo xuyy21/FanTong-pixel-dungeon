@@ -90,6 +90,27 @@ public class MagicVines extends Blob{
         return desc;
     }
 
+    @Override
+    public void seed( Level level, int cell, int amount ){
+        super.seed(level, cell, amount);
+        if (Lvl==null) Lvl = new int[level.length()];
+        if (left==null) left = new int[level.length()];
+    }
+
+    @Override
+    public void clear( int cell ) {
+        super.clear(cell);
+        Lvl[cell] = 0;
+        left[cell] = 0;
+    }
+
+    @Override
+    public void fullyClear(){
+        super.fullyClear();
+        Lvl = new int[Dungeon.level.length()];
+        left = new int[Dungeon.level.length()];
+    }
+
     public static class PullTracker extends FlavourBuff{
 
     }

@@ -21,7 +21,7 @@ public class YellowVines extends MagicVines{
         String desc = Messages.get(this, "desc");
         desc += Messages.get(this, "desc_yellow");
         desc += Messages.get(this, "desc_distance", 5);
-        desc += Messages.get(this, "left", left[cell]);
+        desc += Messages.get(this, "left", getLeft(cell));
         return desc;
     }
 
@@ -29,7 +29,7 @@ public class YellowVines extends MagicVines{
     public void pullTarget(Char target, int pullPos ){
         super.pullTarget(target, pullPos);
         if (!(target instanceof Hero)) {
-            Buff.affect(target, Cripple.class, 3f+Lvl[pullPos]);
+            Buff.affect(target, Cripple.class, 3f+getLvl(pullPos));
         }
     }
 

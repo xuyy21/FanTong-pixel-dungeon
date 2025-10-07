@@ -22,7 +22,7 @@ public class RedVines extends MagicVines{
         String desc = Messages.get(this, "desc");
         desc += Messages.get(this, "desc_red");
         desc += Messages.get(this, "desc_distance", 6);
-        desc += Messages.get(this, "left", left[cell]);
+        desc += Messages.get(this, "left", getLeft(cell));
         return desc;
     }
 
@@ -30,8 +30,8 @@ public class RedVines extends MagicVines{
     public void pullTarget(Char target, int pullPos ){
         super.pullTarget(target, pullPos);
         if (!(target instanceof Hero)) {
-            Buff.affect(target, Cripple.class, 3f+Lvl[pullPos]);
-            Buff.affect(target, Bleeding.class).set(4+2*Lvl[pullPos]);
+            Buff.affect(target, Cripple.class, 3f+getLvl(pullPos));
+            Buff.affect(target, Bleeding.class).set(4+2*getLvl(pullPos));
         }
     }
 

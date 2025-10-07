@@ -22,55 +22,70 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 
 public class MagicVines extends Blob{
-    public int[] Lvl;
-    public int[] left;
+//    public int[] Lvl;
+//    public int[] left;
+//
+//    private static final String LVL = "lvl";
+//    private static final String LEFT	= "left";
+//    private static final String LEN = "len";
 
-    private static final String LVL = "lvl";
-    private static final String LEFT	= "left";
-    private static final String LEN = "len";
+//    @Override
+//    public void restoreFromBundle(Bundle bundle) {
+//        super.restoreFromBundle(bundle);
+//        int len = bundle.getInt(LEN);
+//        if (bundle.contains( LVL )) {
+//
+//            Lvl = new int[len];
+//
+//            int[] data = bundle.getIntArray(LVL);
+//            System.arraycopy(data, 0, Lvl, 0, data.length);
+//        }
+//        if (bundle.contains( LEFT )) {
+//
+//            left = new int[len];
+//
+//            int[] data = bundle.getIntArray(LEFT);
+//            System.arraycopy(data, 0, left, 0, data.length);
+//        }
+//    }
 
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-        int len = bundle.getInt(LEN);
-        if (bundle.contains( LVL )) {
-
-            Lvl = new int[len];
-
-            int[] data = bundle.getIntArray(LVL);
-            System.arraycopy(data, 0, Lvl, 0, data.length);
-        }
-        if (bundle.contains( LEFT )) {
-
-            left = new int[len];
-
-            int[] data = bundle.getIntArray(LEFT);
-            System.arraycopy(data, 0, left, 0, data.length);
-        }
-    }
-
-    @Override
-    public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-        bundle.put(LEN, Dungeon.level.length());
-        if (volume > 0) {
-            int[] copy = new int[Dungeon.level.length()];
-            System.arraycopy( Lvl, 0, copy, 0, Dungeon.level.length() );
-            bundle.put( LVL, copy );
-            int[] copy2 = new int[Dungeon.level.length()];
-            System.arraycopy( left, 0, copy, 0, Dungeon.level.length() );
-            bundle.put( LEFT, copy2 );
-        }
-    }
+//    @Override
+//    public void storeInBundle(Bundle bundle) {
+//        super.storeInBundle(bundle);
+//        bundle.put(LEN, Dungeon.level.length());
+//        if (volume > 0) {
+//            int[] copy = new int[Dungeon.level.length()];
+//            System.arraycopy( Lvl, 0, copy, 0, Dungeon.level.length() );
+//            bundle.put( LVL, copy );
+//            int[] copy2 = new int[Dungeon.level.length()];
+//            System.arraycopy( left, 0, copy, 0, Dungeon.level.length() );
+//            bundle.put( LEFT, copy2 );
+//        }
+//    }
 
     public void set(int lvl, int left, int cell) {
-        this.Lvl[cell] = lvl;
-        this.left[cell] = left;
+//        this.Lvl[cell] = lvl;
+//        this.left[cell] = left;
+        cur[cell] = left*100 + lvl;
     }
 
     public void add(int lvl, int toAdd, int cell) {
-        this.Lvl[cell] = Math.max(lvl, this.Lvl[cell]);
-        this.left[cell] += toAdd;
+//        this.Lvl[cell] = Math.max(lvl, this.Lvl[cell]);
+//        this.left[cell] += toAdd;
+        int Lvl = cur[cell]%100;
+        int left = cur[cell]/100;
+        Lvl = Math.max(lvl, Lvl);
+        left += toAdd;
+        set(Lvl, left, cell);
+    }
+
+    //因为我写的存储变量有BUG不会修，所以改成用气体量代替，姑且认为等级不会超过99吧
+    public int getLvl(int cell) {
+        return cur[cell]%100;
+    }
+
+    public int getLeft(int cell) {
+        return cur[cell]/100;
     }
 
     @Override
@@ -88,7 +103,7 @@ public class MagicVines extends Blob{
 
                 if (l.solid[cell] || l.pit[cell]) {
                     clear(cell);
-                } else if (left[cell]<=0) {
+                } else if (getLeft(cell)<=0) {
                     clear(cell);
                 } else {
                     if (Actor.findChar(cell)==null) {
@@ -136,9 +151,9 @@ public class MagicVines extends Blob{
         }
 
         if (consume) {
-            left[cell] -= 1;
-            if (left[cell]<=0) clear(cell);
-            Buff.affect(target, PullTracker.class, 60f/(3+Lvl[cell]));
+            add(getLvl(cell), -1, cell);
+            if (getLeft(cell)<=0) clear(cell);
+            Buff.affect(target, PullTracker.class, 60f/(3+getLvl(cell)));
         }
     }
 
@@ -195,30 +210,30 @@ public class MagicVines extends Blob{
     public String tileDesc(int cell) {
         String desc = Messages.get(this, "desc");
         desc += Messages.get(this, "desc_distance", 4);
-        desc += Messages.get(this, "left", left[cell]);
+        desc += Messages.get(this, "left", getLeft(cell));
         return desc;
     }
 
-    @Override
-    public void seed( Level level, int cell, int amount ){
-        super.seed(level, cell, amount);
-        if (Lvl==null) Lvl = new int[level.length()];
-        if (left==null) left = new int[level.length()];
-    }
+//    @Override
+//    public void seed( Level level, int cell, int amount ){
+//        super.seed(level, cell, amount);
+//        if (Lvl==null) Lvl = new int[level.length()];
+//        if (left==null) left = new int[level.length()];
+//    }
 
-    @Override
-    public void clear( int cell ) {
-        super.clear(cell);
-        Lvl[cell] = 0;
-        left[cell] = 0;
-    }
+//    @Override
+//    public void clear( int cell ) {
+//        super.clear(cell);
+//        Lvl[cell] = 0;
+//        left[cell] = 0;
+//    }
 
-    @Override
-    public void fullyClear(){
-        super.fullyClear();
-        Lvl = new int[Dungeon.level.length()];
-        left = new int[Dungeon.level.length()];
-    }
+//    @Override
+//    public void fullyClear(){
+//        super.fullyClear();
+//        Lvl = new int[Dungeon.level.length()];
+//        left = new int[Dungeon.level.length()];
+//    }
 
     public static class PullTracker extends FlavourBuff{
 

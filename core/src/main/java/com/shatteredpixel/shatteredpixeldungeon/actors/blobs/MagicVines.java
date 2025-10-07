@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
@@ -17,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -181,13 +183,13 @@ public class MagicVines extends Blob{
         Char target = null;
         int dis = 10;
 
-        for (Char ch: Dungeon.level.mobs) {
+        for (Char ch: Dungeon.level.mobs.toArray( new Mob[0] )) {
             if (ch.buff(PullTracker.class)!=null) continue;
-            Ballistica chain = new Ballistica(cell, ch.pos, Ballistica.PROJECTILE);
-            if (chain.collisionPos==ch.pos && chain.path.size()<=distance) {
-                if (target==null || dis>chain.path.size()) {
+            Ballistica chain = new Ballistica(cell, ch.pos, Ballistica.STOP_SOLID|Ballistica.STOP_TARGET);
+            if (chain.collisionPos==ch.pos && Dungeon.level.distance(cell, ch.pos)<=distance) {
+                if (target==null || dis>Dungeon.level.distance(cell, ch.pos)) {
                     target = ch;
-                    dis = chain.path.size();
+                    dis = Dungeon.level.distance(cell, ch.pos);
                 }
             }
         }

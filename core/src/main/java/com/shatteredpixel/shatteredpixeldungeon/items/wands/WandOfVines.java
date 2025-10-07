@@ -29,10 +29,11 @@ import java.util.ArrayList;
 
 public class WandOfVines extends Wand{
     {
-        image = ItemSpriteSheet.WAND_CORROSION;
+        image = ItemSpriteSheet.WAND_CORROSION;//TODO
 
         collisionProperties = Ballistica.STOP_TARGET | Ballistica.STOP_SOLID;
     }
+    //TODO：元素风暴效果
 
     @Override
     public void onZap(Ballistica bolt){

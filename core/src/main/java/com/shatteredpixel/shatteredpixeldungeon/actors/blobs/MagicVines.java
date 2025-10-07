@@ -27,20 +27,22 @@ public class MagicVines extends Blob{
 
     private static final String LVL = "lvl";
     private static final String LEFT	= "left";
+    private static final String LEN = "len";
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
+        int len = bundle.getInt(LEN);
         if (bundle.contains( LVL )) {
 
-            Lvl = new int[Dungeon.level.length()];
+            Lvl = new int[len];
 
             int[] data = bundle.getIntArray(LVL);
             System.arraycopy(data, 0, Lvl, 0, data.length);
         }
         if (bundle.contains( LEFT )) {
 
-            left = new int[Dungeon.level.length()];
+            left = new int[len];
 
             int[] data = bundle.getIntArray(LEFT);
             System.arraycopy(data, 0, left, 0, data.length);
@@ -50,6 +52,7 @@ public class MagicVines extends Blob{
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
+        bundle.put(LEN, Dungeon.level.length());
         if (volume > 0) {
             int[] copy = new int[Dungeon.level.length()];
             System.arraycopy( Lvl, 0, copy, 0, Dungeon.level.length() );

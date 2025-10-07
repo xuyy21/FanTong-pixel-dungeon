@@ -391,10 +391,10 @@ public class Speck extends Image {
 			break;
 
 		case VINES:
-			speed.y = -Random.Float( 10, 15 );
+			speed.y = 0;
 			angularSpeed = Random.Float( +180 );
 			angle = Random.Float( 360 );
-			lifespan = 1f;
+			lifespan = Random.Float(5f, 8f);
 			break;
 
 		case YELLOW_VINES:
@@ -514,7 +514,6 @@ public class Speck extends Image {
 			case BLIZZARD:
 			case INFERNO:
 			case DUST:
-			case VINES:
 				am = (float)Math.sqrt( (p < 0.5f ? p : 1 - p) * 0.5f );
 				scale.set( 1 + p );
 				break;
@@ -537,6 +536,10 @@ public class Speck extends Image {
 				rm = gm = bm = (Math.abs( scale.x ) + 1) * 0.5f;
 				am = p < 0.9f ? 1 : (1 - p) * 10;
 				break;
+
+			case VINES:
+				am = p<0.5 ? p*0.5f : 0.5f;
+				scale.set( 0.8f );
 			}
 		}
 	}

@@ -65,10 +65,14 @@ public class MagicVines extends Blob{
 //        }
 //    }
 
+    //因为我写的存储变量有BUG不会修，所以改成用气体量代替，姑且认为等级不会超过99吧
     public void set(int lvl, int left, int cell) {
 //        this.Lvl[cell] = lvl;
 //        this.left[cell] = left;
+        volume -= cur[cell];
         cur[cell] = left*100 + lvl;
+        off[cell] = cur[cell];
+        volume += cur[cell];
     }
 
     public void add(int lvl, int toAdd, int cell) {
@@ -184,8 +188,8 @@ public class MagicVines extends Blob{
         int dis = 10;
 
         for (Char ch: Dungeon.level.mobs.toArray( new Mob[0] )) {
-            if (ch.buff(PullTracker.class)!=null) continue;
-            Ballistica chain = new Ballistica(cell, ch.pos, Ballistica.STOP_SOLID|Ballistica.STOP_TARGET);
+            if (ch.properties().contains(Char.Property.IMMOVABLE) || ch.buff(PullTracker.class)!=null) continue;
+            Ballistica chain = new Ballistica(cell, ch.pos, Ballistica.PROJECTILE);
             if (chain.collisionPos==ch.pos && Dungeon.level.distance(cell, ch.pos)<=distance) {
                 if (target==null || dis>Dungeon.level.distance(cell, ch.pos)) {
                     target = ch;

@@ -18,7 +18,7 @@ public class Implement extends Item {
         image = ItemSpriteSheet.ARTIFACT_TOME;
 
         stackable = false;
-        unique = true;
+//        unique = true;
         bones = false;
 
         defaultAction = AC_CAST;

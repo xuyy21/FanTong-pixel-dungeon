@@ -277,7 +277,7 @@ public class Heap implements Bundlable {
 			for (Item item : items.toArray( new Item[0] )) {
 
 				//unique items and equipment aren't affect by explosions
-				if (item.unique || item.isUpgradable() || item instanceof EquipableItem){
+				if (item.unique || item.isUpgradable() || item instanceof EquipableItem || item instanceof Implement){
 					continue;
 				}
 

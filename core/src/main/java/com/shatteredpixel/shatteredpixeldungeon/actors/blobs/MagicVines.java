@@ -180,6 +180,7 @@ public class MagicVines extends Blob{
             Dungeon.observe();
             GameScene.updateFog();
         }
+        target.sprite.update();
     }
 
     public Char findTarget(int cell, int distance) {
@@ -230,8 +231,7 @@ public class MagicVines extends Blob{
 //    @Override
 //    public void clear( int cell ) {
 //        super.clear(cell);
-//        Lvl[cell] = 0;
-//        left[cell] = 0;
+//        GLog.i(cell + ":" + volume + ":" + cur[cell]);
 //    }
 
 //    @Override

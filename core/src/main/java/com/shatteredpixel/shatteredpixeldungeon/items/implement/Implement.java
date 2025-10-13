@@ -1,15 +1,27 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.implement;
 
+import static com.shatteredpixel.shatteredpixeldungeon.runes.Runes.RUNES_NUM;
+
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfDivination;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
 import com.shatteredpixel.shatteredpixeldungeon.runes.WndSpell;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.watabou.noosa.Image;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -30,6 +42,7 @@ public class Implement extends Item {
 
     public static final String AC_CAST = "CAST";
     public static final String AC_TEST = "TEST";
+    public static final String AC_BRAKE = "BRAKE";
 
     @Override
     public ArrayList<String> actions(Hero hero ){
@@ -37,6 +50,7 @@ public class Implement extends Item {
         if (hero.buff(MagicImmune.class) == null){
             actions.add(AC_CAST);
             actions.add(AC_TEST);
+            actions.add(AC_BRAKE);
         }
         return actions;
     }
@@ -52,6 +66,50 @@ public class Implement extends Item {
         }
         if (action.equals(AC_TEST)){
             Runes.testSpell();
+        }
+        if (action.equals(AC_BRAKE)){
+            GameScene.show(new WndOptions(new ItemSprite(image),
+                    Messages.get(Implement.class, "brake"),
+                    Messages.get(Implement.class, "brake_prompt"),
+                    Messages.get(Implement.class, "brake_yes"),
+                    Messages.get(Implement.class, "brake_no"))
+            {
+                @Override
+                protected void onSelect(int index){
+                    if (index == 0) {
+                        ArrayList<Integer> toIdentify = new ArrayList<>();
+                        for (int i=0; i < RUNES_NUM*RUNES_NUM*RUNES_NUM; i++) {
+                            toIdentify.add(i);
+                        }
+                        Random.shuffle(toIdentify);
+                        ArrayList<Class> identified = new ArrayList<>();
+
+                        for (Integer i: toIdentify) {
+                            if (!Runes.getKnown(i)) {
+                                Runes.setKnown(i, true);
+                                if (Runes.getSpell(i)!=null) {
+                                    identified.add(Runes.getSpell(i));
+                                }
+                            }
+                            if (identified.size()>=2) break;
+                        }
+
+                        if (identified.isEmpty()){
+                            GLog.w( Messages.get(this, "no_spells_left") );
+                        } else {
+                            for (Class spell: identified){
+                                GLog.p(Messages.get(Runes.class, "test_success", Messages.get(spell, "name")));
+                            }
+                        }
+
+                        hero.sprite.operate(hero.pos);
+                        hero.spend(Actor.TICK);
+                        Sample.INSTANCE.play( Assets.Sounds.SECRET );
+                        if (hero.buff(Spell.OverRunes.class)!=null) hero.buff(Spell.OverRunes.class).detach();
+                        detach(hero.belongings.backpack);
+                    }
+                }
+            });
         }
     }
 

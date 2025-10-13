@@ -52,7 +52,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.ChaosBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.JadeLotus;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicBell;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicCube;
@@ -607,9 +609,12 @@ public class Generator {
 					RunicBook.class,
 					RunicCube.class,
 					RunicBell.class,
-					RunicPlate.class
+					RunicPlate.class,
+					ChaosBook.class,
+					EnergyCrystal.class,
+					JadeLotus.class
 			};
-			IMPLEMENT.defaultProbs = new float[]{1, 1, 1, 1};
+			IMPLEMENT.defaultProbs = new float[]{1, 1, 1, 1, 1, 1, 1};
 			IMPLEMENT.probs = IMPLEMENT.defaultProbs.clone();
 
 			//Trinkets are unique like artifacts, but unlike them you can only have one at once

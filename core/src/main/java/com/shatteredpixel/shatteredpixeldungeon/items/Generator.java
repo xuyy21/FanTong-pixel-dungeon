@@ -53,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.ChaosBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.EnergrticRing;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.JadeLotus;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicBell;
@@ -611,7 +612,7 @@ public class Generator {
 					RunicBell.class,
 					RunicPlate.class,
 					ChaosBook.class,
-					EnergyCrystal.class,
+					EnergrticRing.class,
 					JadeLotus.class
 			};
 			IMPLEMENT.defaultProbs = new float[]{1, 1, 1, 1, 1, 1, 1};

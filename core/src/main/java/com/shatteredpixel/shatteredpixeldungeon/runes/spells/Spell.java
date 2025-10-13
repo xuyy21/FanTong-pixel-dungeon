@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Cassock;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.RuneIcon;
@@ -20,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -167,6 +169,10 @@ public abstract class Spell {
     }
 
     public void onSpellCast(Implement implement, Hero hero){
+        if (implement instanceof Cassock) {
+            Dungeon.gold -= Random.Int(Math.round(overRunes(hero)));
+        }
+
         Invisibility.dispel();
         Buff.affect(hero, OverRunes.class).extend(overRunes(hero));
     }

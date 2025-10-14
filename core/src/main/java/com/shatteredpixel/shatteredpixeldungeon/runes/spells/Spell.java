@@ -185,7 +185,7 @@ public abstract class Spell {
                 //do nothing
                 break;
             case 1:
-                spells.add(Eating.INSTANCE);
+                spells.add(See_Though.INSTANCE);
                 spells.add(BlessSpell.INSTANCE);
                 spells.add(GuidingLight.INSTANCE);
                 spells.add(HolyIntuition.INSTANCE);
@@ -194,7 +194,7 @@ public abstract class Spell {
                 spells.add(Junior_Reshape.INSTANCE);
                 break;
             case 2:
-                spells.add(See_Though.INSTANCE);
+                spells.add(Eating.INSTANCE);
                 spells.add(Cleanse.INSTANCE);
                 spells.add(DivineSense.INSTANCE);
                 spells.add(MnemonicPrayer.INSTANCE);

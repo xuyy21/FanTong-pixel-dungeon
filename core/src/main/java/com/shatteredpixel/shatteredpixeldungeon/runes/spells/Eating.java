@@ -10,7 +10,7 @@ public class Eating extends Spell{
     {
         type = TYPE.NORMAL;
         icon = EATING;
-        tier = 1;
+        tier = 2;
     }
 
     @Override

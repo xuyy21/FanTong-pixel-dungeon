@@ -16,7 +16,7 @@ public class See_Though extends TargetedSpell{
     {
         type = TYPE.NORMAL;
         icon = SEE_THOUGH;
-        tier = 2;
+        tier = 1;
     }
 
     @Override

@@ -170,7 +170,7 @@ public abstract class Spell {
 
     public void onSpellCast(Implement implement, Hero hero){
         if (implement instanceof Cassock) {
-            Dungeon.gold -= Random.NormalIntRange(0, Math.round(0.25f * overRunes(hero)));
+            Cassock.consumeGold(overRunes(hero));
         }
 
         Invisibility.dispel();

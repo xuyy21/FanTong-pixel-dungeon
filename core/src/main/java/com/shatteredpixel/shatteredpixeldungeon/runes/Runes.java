@@ -26,7 +26,7 @@ import java.util.Arrays;
 
 public class Runes {
 
-    public static int RUNES_NUM = 4;
+    public static int RUNES_NUM = 5;
     protected static SpellStatusHandler handler;
 
     public static void initSpells(){
@@ -113,7 +113,7 @@ public class Runes {
     }
 
     public enum Rune {
-        DEFAULT(0), HA(1), PA(2), BO(3), LA(4);
+        DEFAULT(0), HA(1), PA(2), BO(3), LA(4), DU(5);
 
         int icon = 0;
 
@@ -211,6 +211,16 @@ public class Runes {
                 for (int index = 0; index<knowntorestore.length; index++){
                     if (bundle.contains(SPELLS+index)){
                         spells[index] = bundle.getClass(SPELLS+index);
+                    }
+                }
+            } else if (knowntorestore!=null && knowntorestore.length==64) {
+                known = new boolean[RUNES_NUM*RUNES_NUM*RUNES_NUM];
+                for (int index = 0; index<knowntorestore.length; index++) {
+                    int new_index = index/16*RUNES_NUM*RUNES_NUM + (index%16)/4*RUNES_NUM + index%4;
+
+                    known[new_index] = true;
+                    if (bundle.contains(SPELLS+index)){
+                        spells[new_index] = bundle.getClass(SPELLS+index);
                     }
                 }
             } else {

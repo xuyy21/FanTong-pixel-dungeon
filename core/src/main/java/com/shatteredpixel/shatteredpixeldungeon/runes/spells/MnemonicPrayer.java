@@ -50,7 +50,7 @@ public class MnemonicPrayer extends TargetedSpell{
     {
         type = TYPE.HOLY;
         icon = MNEMONIC_PRAYER;
-        tier = 2;
+        tier = 3;
     }
 
     public String desc(){

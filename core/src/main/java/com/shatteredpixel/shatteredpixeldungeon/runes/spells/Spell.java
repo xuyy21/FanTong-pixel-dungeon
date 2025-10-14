@@ -189,7 +189,7 @@ public abstract class Spell {
                 spells.add(BlessSpell.INSTANCE);
                 spells.add(GuidingLight.INSTANCE);
                 spells.add(HolyIntuition.INSTANCE);
-                spells.add(ShieldOfLight.INSTANCE);
+//                spells.add(ShieldOfLight.INSTANCE);
                 spells.add(Burning.INISTANCE);
                 spells.add(Junior_Reshape.INSTANCE);
                 break;
@@ -197,15 +197,15 @@ public abstract class Spell {
                 spells.add(Eating.INSTANCE);
                 spells.add(Cleanse.INSTANCE);
                 spells.add(DivineSense.INSTANCE);
-                spells.add(MnemonicPrayer.INSTANCE);
-                spells.add(Sunray.INSTANCE);
+//                spells.add(Sunray.INSTANCE);
 //                spells.add(AuraOfProtection.INSTANCE);
                 spells.add(Evaporating.INSTANCE);
                 spells.add(Swap_Between.INSTANCE);
                 break;
             case 3:
-                spells.add(HolyLance.INSTANCE);
-                spells.add(HallowedGround.INSTANCE);
+//                spells.add(HolyLance.INSTANCE);
+//                spells.add(HallowedGround.INSTANCE);
+                spells.add(MnemonicPrayer.INSTANCE);
                 spells.add(WallOfLight.INSTANCE);
                 spells.add(Thunder_Sound.INSTANCE);
                 spells.add(Proofing.INSTANCE);

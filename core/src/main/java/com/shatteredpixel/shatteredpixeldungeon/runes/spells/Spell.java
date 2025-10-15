@@ -269,12 +269,12 @@ public abstract class Spell {
         spells.add(BlessSpell.class);
         spells.add(DivineSense.class);
         spells.add(GuidingLight.class);
-        spells.add(HallowedGround.class);
+//        spells.add(HallowedGround.class);
         spells.add(HolyIntuition.class);
-        spells.add(HolyLance.class);
+//        spells.add(HolyLance.class);
         spells.add(MnemonicPrayer.class);
-        spells.add(ShieldOfLight.class);
-        spells.add(Sunray.class);
+//        spells.add(ShieldOfLight.class);
+//        spells.add(Sunray.class);
         spells.add(WallOfLight.class);
         spells.add(Eating.class);
         spells.add(See_Though.class);

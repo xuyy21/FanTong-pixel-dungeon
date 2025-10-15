@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_7_Changes(changeInfos);
         add_v0_4_6_Changes(changeInfos);
         add_v0_4_5_Changes(changeInfos);
         add_v0_4_4_Changes(changeInfos);
@@ -212,5 +213,21 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(Icons.get(Icons.BADGES), "增加徽章",
                 "补上了新增的三个转职击败DM300的徽章。\n\n" +
                         "新增6个徽章：食材采集员，美食鉴赏家，附魔大师，刻印大师，混合毒气，凤凰浴火"));
+    }
+
+    public static void add_v0_4_7_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.7", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.IMPLEMENT_BOOK), "符文与符术调整",
+                "符文数量从4增加为5，这意味着符文组合数从64增加为125。\n\n" +
+                        "新增了22个符术和4个法器。\n\n" +
+                        "删除了4个神圣符术：神圣之盾，阳炎射线，神圣长枪，神圣之地。\n\n" +
+                        "法器去除了贵重品属性，这使得法器可以被卖给商人，也可以被小偷窃取，但是添加了防爆属性。此外，法器添加新功能“破解”，永久摧毁一件法器以发现3个符术。\n\n" +
+                        "进食秘法从1阶调整为2阶，透视容器从2阶调整为1阶，祈愿诗篇从2阶调整为3阶。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_KAUNAN), "预知密卷增强",
+                "预知密卷用于试验符文组合时试验数量从4个增加为6个。"));
     }
 }

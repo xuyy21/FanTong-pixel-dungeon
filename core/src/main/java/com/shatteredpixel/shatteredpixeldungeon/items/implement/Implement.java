@@ -86,12 +86,12 @@ public class Implement extends Item {
 
                         for (Integer i: toIdentify) {
                             if (!Runes.getKnown(i)) {
-                                Runes.setKnown(i, true);
                                 if (Runes.getSpell(i)!=null) {
+                                    Runes.setKnown(i, true);
                                     identified.add(Runes.getSpell(i));
                                 }
                             }
-                            if (identified.size()>=2) break;
+                            if (identified.size()>=3) break;
                         }
 
                         if (identified.isEmpty()){

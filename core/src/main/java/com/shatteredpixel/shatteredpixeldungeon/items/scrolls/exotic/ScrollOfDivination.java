@@ -150,7 +150,7 @@ public class ScrollOfDivination extends ExoticScroll {
 	}
 
 	public void identifyRunes() {
-		int left = 4;
+		int left = 6;
 		ArrayList<Integer> toIdentify = new ArrayList<>();
 		for (int i=0; i < RUNES_NUM*RUNES_NUM*RUNES_NUM; i++) {
 			toIdentify.add(i);

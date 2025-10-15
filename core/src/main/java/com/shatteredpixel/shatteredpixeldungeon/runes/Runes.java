@@ -215,13 +215,32 @@ public class Runes {
                 }
             } else if (knowntorestore!=null && knowntorestore.length==64) {
                 known = new boolean[RUNES_NUM*RUNES_NUM*RUNES_NUM];
+                ArrayList<Class> deleted_spells = Spell.deletedSpells("0.4.7");
+                ArrayList<Integer> occupied_index = new ArrayList<>();
+
                 for (int index = 0; index<knowntorestore.length; index++) {
                     int new_index = index/16*RUNES_NUM*RUNES_NUM + (index%16)/4*RUNES_NUM + index%4;
 
-                    known[new_index] = true;
+                    known[new_index] = knowntorestore[index];
+                    if (known[new_index])
+                        occupied_index.add(new_index);
+
                     if (bundle.contains(SPELLS+index)){
-                        spells[new_index] = bundle.getClass(SPELLS+index);
+                        if (!deleted_spells.contains(bundle.getClass(SPELLS+index))) {
+                            spells[new_index] = bundle.getClass(SPELLS + index);
+                            occupied_index.add(new_index);
+                        }
                     }
+                }
+
+                ArrayList<Class> new_spells = Spell.newSpells("0.4.7");
+                ArrayList<Integer> spear_index = new ArrayList<>();
+                for (int index = 0; index<RUNES_NUM*RUNES_NUM*RUNES_NUM; index++) {
+                    if (!occupied_index.contains(index)) spear_index.add(index);
+                }
+                Random.shuffle(spear_index);
+                while (!new_spells.isEmpty()) {
+                    spells[spear_index.remove(0)] = new_spells.remove(0);
                 }
             } else {
                 initKnow();

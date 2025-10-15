@@ -293,6 +293,37 @@ public abstract class Spell {
         return spells;
     }
 
+    // spells added in new versions
+    public static ArrayList<Class> newSpells(String version){
+        ArrayList<Class> spells = new ArrayList<>();
+
+        switch (version){
+            default:
+                break;
+            case "0.4.7"://V0.4.7
+
+        }
+
+        return spells;
+    }
+
+    // spells deleted in old versions
+    public static ArrayList<Class> deletedSpells(String version){
+        ArrayList<Class> spells = new ArrayList<>();
+
+        switch (version){
+            default:
+                break;
+            case "0.4.7"://V0.4.7
+                spells.add(HallowedGround.class);
+                spells.add(HolyLance.class);
+                spells.add(ShieldOfLight.class);
+                spells.add(Sunray.class);
+        }
+
+        return spells;
+    }
+
     public static class OverRunes extends Buff{
         public static float DURATION = 50f;
 

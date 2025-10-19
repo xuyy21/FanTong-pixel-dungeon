@@ -192,6 +192,7 @@ public abstract class Spell {
 //                spells.add(ShieldOfLight.INSTANCE);
                 spells.add(Burning.INISTANCE);
                 spells.add(Junior_Reshape.INSTANCE);
+                spells.add(Junior_Phantom.INSTANCE);
                 break;
             case 2:
                 spells.add(Eating.INSTANCE);
@@ -201,6 +202,7 @@ public abstract class Spell {
 //                spells.add(AuraOfProtection.INSTANCE);
                 spells.add(Evaporating.INSTANCE);
                 spells.add(Swap_Between.INSTANCE);
+                spells.add(Senoir_Phantom.INSTANCE);
                 break;
             case 3:
 //                spells.add(HolyLance.INSTANCE);
@@ -229,6 +231,8 @@ public abstract class Spell {
         spells.add(Eating.INSTANCE);
         spells.add(See_Though.INSTANCE);
         spells.add(RunicLance.INSTANCE);
+        spells.add(Junior_Phantom.INSTANCE);
+        spells.add(Senoir_Phantom.INSTANCE);
 
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
@@ -289,6 +293,9 @@ public abstract class Spell {
         spells.add(Junior_Reshape.class);
         spells.add(Senior_Reshape.class);
         spells.add(Swap_Between.class);
+
+        spells.add(Junior_Phantom.class);
+        spells.add(Senoir_Phantom.class);
 
         return spells;
     }

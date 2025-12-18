@@ -415,11 +415,19 @@ public class ItemSpriteSheet {
 	public static final int IMPLEMENT_CUBE		= IMPLEMENT+1;
 	public static final int IMPLEMENT_BELL		= IMPLEMENT+2;
 	public static final int IMPLEMENT_PLATE		= IMPLEMENT+3;
+	public static final int IMPLEMENT_LOTUS		= IMPLEMENT+4;
+	public static final int IMPLEMENT_CASSOCK	= IMPLEMENT+5;
+	public static final int IMPLEMENT_RING		= IMPLEMENT+6;
+	public static final int IMPLEMENT_CHAOS		= IMPLEMENT+7;
 	static{
 		assignItemRect(IMPLEMENT_BOOK,	14, 16);
 		assignItemRect(IMPLEMENT_CUBE,	15, 15);
 		assignItemRect(IMPLEMENT_BELL,	16, 16);
 		assignItemRect(IMPLEMENT_PLATE,	16, 16);
+		assignItemRect(IMPLEMENT_LOTUS,	15, 15);
+		assignItemRect(IMPLEMENT_CASSOCK,	16, 15);
+		assignItemRect(IMPLEMENT_RING,	16, 16);
+		assignItemRect(IMPLEMENT_CHAOS,	14, 15);
 	}
 
 	//16 free slots

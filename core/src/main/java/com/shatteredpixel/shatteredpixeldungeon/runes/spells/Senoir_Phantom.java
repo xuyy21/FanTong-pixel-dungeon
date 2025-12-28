@@ -3,6 +3,10 @@ package com.shatteredpixel.shatteredpixeldungeon.runes.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.CorrosiveGas;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
@@ -10,9 +14,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.MirrorSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.PhantomSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class Senoir_Phantom extends TargetedSpell{
     public static Senoir_Phantom INSTANCE = new Senoir_Phantom();
@@ -39,6 +44,7 @@ public class Senoir_Phantom extends TargetedSpell{
         } else {
             Phantom phantom = new Phantom();
             phantom.pos = target;
+            phantom.setType();
             phantom.set(hero);
             GameScene.add(phantom);
 
@@ -50,7 +56,7 @@ public class Senoir_Phantom extends TargetedSpell{
 
     public static class Phantom extends NPC {
         {
-            spriteClass = MirrorSprite.class;
+            spriteClass = PhantomSprite.class;
 
             viewDistance = 6;
 
@@ -62,6 +68,19 @@ public class Senoir_Phantom extends TargetedSpell{
 
             properties.add(Property.IMMOVABLE);
             properties.add(Property.INORGANIC);
+
+            immunities.add( ToxicGas.class );
+            immunities.add( CorrosiveGas.class );
+            immunities.add( Burning.class );
+            immunities.add( AllyBuff.class );
+        }
+
+        public int type = -1;
+
+        public void setType() {
+            if (type<0) {
+                type = Random.Int(4);
+            }
         }
 
         public void set(Hero hero) {
@@ -100,14 +119,30 @@ public class Senoir_Phantom extends TargetedSpell{
             return 4 + Dungeon.scalingDepth();
         }
 
+        public static String TYPE = "type";
+
+        @Override
+        public void storeInBundle( Bundle bundle ){
+            super.storeInBundle( bundle );
+
+            bundle.put(TYPE, type);
+        }
+
+        @Override
+        public void restoreFromBundle( Bundle bundle ){
+            super.restoreFromBundle( bundle );
+
+            type = bundle.getInt(TYPE);
+        }
+
         @Override
         public CharSprite sprite(){
-            return super.sprite();
-            //TODO
-        }
-    }
+            PhantomSprite s = (PhantomSprite) super.sprite();
 
-    public static class PhantomSprite extends MobSprite {
-        // TODO
+            s.setType(type);
+            s.setAlpha(0.8f);
+
+            return s;
+        }
     }
 }

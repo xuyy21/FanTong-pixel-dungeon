@@ -84,7 +84,7 @@ public class Senoir_Phantom extends TargetedSpell{
         }
 
         public void set(Hero hero) {
-            HP = HT = Math.round(0.4f * hero.HT);
+            HP = HT = Math.round(0.5f * hero.HT);
         }
 
         @Override
@@ -116,7 +116,7 @@ public class Senoir_Phantom extends TargetedSpell{
 
         @Override
         public int defenseSkill(Char enemy) {
-            return 4 + Dungeon.scalingDepth();
+            return 9 + Dungeon.scalingDepth();
         }
 
         public static String TYPE = "type";

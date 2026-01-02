@@ -6,13 +6,10 @@ import static java.lang.Math.max;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Cassock;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -21,7 +18,6 @@ import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -42,6 +38,10 @@ public abstract class Spell {
     public static final int EATING          = SPELLICON+1;
     public static final int SEE_THOUGH      = SPELLICON+2;
     public static final int RUNICLANCE      = SPELLICON+3;
+    public static final int JUNIOR_PHANTOM  = SPELLICON+4;
+    public static final int SENIOR_PHANTOM  = SPELLICON+5;
+    public static final int RUNICBOMB       = SPELLICON+6;
+    public static final int ANIMATE_ARMOR   = SPELLICON+7;
 
     //holy spells
     public static int HOLY_SPELLICON        = SPELLICON+8;
@@ -72,28 +72,46 @@ public abstract class Spell {
     public static final int BEAMING_RAY     = HOLY_SPELLICON+24;
     public static final int LIFE_LINK       = HOLY_SPELLICON+25;
     public static final int STASIS          = HOLY_SPELLICON+26;
+    public static final int HEAVEN_EYE      = HOLY_SPELLICON+27;
 
     //nature spells
     public static int NATURE_SPELLICON      = SPELLICON+40;
     public static final int EVAPORATING     = NATURE_SPELLICON+0;
     public static final int THUNDER_SOUND   = NATURE_SPELLICON+1;
     public static final int SWITCH_GRAVITY  = NATURE_SPELLICON+2;
+    public static final int POTION_RESTORE  = NATURE_SPELLICON+3;
+    public static final int GARDEN_SPELL    = NATURE_SPELLICON+4;
+    public static final int SPIN_COCOON     = NATURE_SPELLICON+5;
+    public static final int BEAN_SOLDIER    = NATURE_SPELLICON+6;
 
     //energetic spells
     public static int ENERGETIC_SPELLICON   = SPELLICON+48;
     public static final int BURNING         = ENERGETIC_SPELLICON+0;
     public static final int ELECTRIC_POWER  = ENERGETIC_SPELLICON+1;
+    public static final int ELECTRIC_TOUCH  = ENERGETIC_SPELLICON+2;
+    public static final int BLIGHTING       = ENERGETIC_SPELLICON+3;
+    public static final int FIRE_RING       = ENERGETIC_SPELLICON+4;
+    public static final int LIVING_FIRE     = ENERGETIC_SPELLICON+5;
+    public static final int WANDS_CHARGE    = ENERGETIC_SPELLICON+6;
 
     //physical spells
     public static int PHYSICAL_SPELLICON    = SPELLICON+56;
     public static final int PROOFING        = PHYSICAL_SPELLICON+0;
     public static final int FRAMING         = PHYSICAL_SPELLICON+1;
+    public static final int BLOODY_RUNES    = PHYSICAL_SPELLICON+2;
+    public static final int HEALING         = PHYSICAL_SPELLICON+3;
+    public static final int CURSING         = PHYSICAL_SPELLICON+4;
+    public static final int ANATOMICAL_VIEWS    = PHYSICAL_SPELLICON+5;
+    public static final int ABSORB_DAMAGE   = PHYSICAL_SPELLICON+6;
 
     //inverse spells
     public static int INVERSE_SPELLICON     = SPELLICON+64;
     public static final int JUNIOR_RESHAPE  = INVERSE_SPELLICON+0;
     public static final int SENIOR_RESHAPE  = INVERSE_SPELLICON+1;
     public static final int SWAP_BETWEEN    = INVERSE_SPELLICON+2;
+    public static final int CHAOS_LIVES     = INVERSE_SPELLICON+3;
+    public static final int ASCENDING       = INVERSE_SPELLICON+4;
+    public static final int EXCHANGE_POWER  = INVERSE_SPELLICON+5;
 
     public Image icon() {
         return new RuneIcon(icon);
@@ -186,23 +204,23 @@ public abstract class Spell {
                 break;
             case 1:
                 spells.add(See_Though.INSTANCE);
+                spells.add(Junior_Phantom.INSTANCE);
                 spells.add(BlessSpell.INSTANCE);
                 spells.add(GuidingLight.INSTANCE);
                 spells.add(HolyIntuition.INSTANCE);
 //                spells.add(ShieldOfLight.INSTANCE);
                 spells.add(Burning.INISTANCE);
                 spells.add(Junior_Reshape.INSTANCE);
-                spells.add(Junior_Phantom.INSTANCE);
                 break;
             case 2:
                 spells.add(Eating.INSTANCE);
+                spells.add(Senior_Phantom.INSTANCE);
                 spells.add(Cleanse.INSTANCE);
                 spells.add(DivineSense.INSTANCE);
 //                spells.add(Sunray.INSTANCE);
 //                spells.add(AuraOfProtection.INSTANCE);
                 spells.add(Evaporating.INSTANCE);
                 spells.add(Swap_Between.INSTANCE);
-                spells.add(Senoir_Phantom.INSTANCE);
                 break;
             case 3:
 //                spells.add(HolyLance.INSTANCE);
@@ -232,7 +250,7 @@ public abstract class Spell {
         spells.add(See_Though.INSTANCE);
         spells.add(RunicLance.INSTANCE);
         spells.add(Junior_Phantom.INSTANCE);
-        spells.add(Senoir_Phantom.INSTANCE);
+        spells.add(Senior_Phantom.INSTANCE);
 
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
@@ -295,7 +313,7 @@ public abstract class Spell {
         spells.add(Swap_Between.class);
 
         spells.add(Junior_Phantom.class);
-        spells.add(Senoir_Phantom.class);
+        spells.add(Senior_Phantom.class);
 
         return spells;
     }

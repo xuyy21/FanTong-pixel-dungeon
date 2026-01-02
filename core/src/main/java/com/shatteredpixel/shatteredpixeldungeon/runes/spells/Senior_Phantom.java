@@ -19,12 +19,12 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class Senoir_Phantom extends TargetedSpell{
-    public static Senoir_Phantom INSTANCE = new Senoir_Phantom();
+public class Senior_Phantom extends TargetedSpell{
+    public static Senior_Phantom INSTANCE = new Senior_Phantom();
 
     {
         type = TYPE.NORMAL;
-        icon = SEE_THOUGH;
+        icon = SENIOR_PHANTOM;
         tier = 2;
     }
 
@@ -89,6 +89,9 @@ public class Senoir_Phantom extends TargetedSpell{
 
         @Override
         protected boolean act(){
+            if (fieldOfView==null)
+                // in case when the phantom is nearly generated and don't have view
+                return super.act();
             for (Mob mob : Dungeon.level.mobs) {
                 if (mob.alignment == Alignment.ENEMY && fieldOfView[mob.pos]) {
                     // attract enemies in view

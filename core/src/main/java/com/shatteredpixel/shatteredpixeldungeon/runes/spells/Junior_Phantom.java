@@ -25,7 +25,7 @@ public class Junior_Phantom extends TargetedSpell{
 
     {
         type = TYPE.NORMAL;
-        icon = SEE_THOUGH;
+        icon = JUNIOR_PHANTOM;
         tier = 1;
     }
 
@@ -86,6 +86,9 @@ public class Junior_Phantom extends TargetedSpell{
 
         @Override
         protected boolean act(){
+            if (fieldOfView==null)
+                // in case when the phantom is nearly generated and don't have view
+                return super.act();
             for (Mob mob : Dungeon.level.mobs) {
                 if (mob.alignment == Alignment.ENEMY && fieldOfView[mob.pos]) {
                     // attract enemies in view

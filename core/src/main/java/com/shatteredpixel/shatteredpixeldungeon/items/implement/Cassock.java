@@ -8,7 +8,7 @@ import com.watabou.utils.Random;
 
 public class Cassock extends Implement{
     {
-        image = ItemSpriteSheet.IMPLEMENT_BELL;
+        image = ItemSpriteSheet.IMPLEMENT_CASSOCK;
     }
 
     @Override

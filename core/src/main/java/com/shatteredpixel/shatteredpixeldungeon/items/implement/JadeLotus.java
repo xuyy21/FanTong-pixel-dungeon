@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class JadeLotus extends Implement{
     {
-        image = ItemSpriteSheet.IMPLEMENT_BELL;
+        image = ItemSpriteSheet.IMPLEMENT_LOTUS;
     }
 
     @Override

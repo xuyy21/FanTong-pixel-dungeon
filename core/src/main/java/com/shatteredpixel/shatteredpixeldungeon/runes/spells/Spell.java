@@ -215,6 +215,7 @@ public abstract class Spell {
             case 2:
                 spells.add(Eating.INSTANCE);
                 spells.add(Senior_Phantom.INSTANCE);
+                spells.add(RunicBoom.INSTANCE);
                 spells.add(Cleanse.INSTANCE);
                 spells.add(DivineSense.INSTANCE);
 //                spells.add(Sunray.INSTANCE);
@@ -251,6 +252,7 @@ public abstract class Spell {
         spells.add(RunicLance.INSTANCE);
         spells.add(Junior_Phantom.INSTANCE);
         spells.add(Senior_Phantom.INSTANCE);
+        spells.add(RunicBoom.INSTANCE);
 
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
@@ -314,6 +316,7 @@ public abstract class Spell {
 
         spells.add(Junior_Phantom.class);
         spells.add(Senior_Phantom.class);
+        spells.add(RunicBoom.class);
 
         return spells;
     }

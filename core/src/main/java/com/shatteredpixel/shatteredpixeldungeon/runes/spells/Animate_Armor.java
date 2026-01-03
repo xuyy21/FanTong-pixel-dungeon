@@ -169,7 +169,9 @@ public class Animate_Armor extends InventorySpell{
                             }
                         }
                     }
-                    if (closest == null || Dungeon.level.distance(closest.pos, pos) > Dungeon.level.distance(Dungeon.hero.pos, pos)){
+                    if ((closest == null || Dungeon.level.distance(closest.pos, pos) > Dungeon.level.distance(Dungeon.hero.pos, pos))
+                        && Dungeon.level.distance(Dungeon.hero.pos, originPos) <= 5
+                        && !Dungeon.hero.isInvulnerable(getClass())){
                         closest = Dungeon.hero;
                     }
 

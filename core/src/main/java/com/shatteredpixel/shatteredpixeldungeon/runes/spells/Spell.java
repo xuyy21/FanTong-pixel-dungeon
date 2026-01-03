@@ -224,6 +224,7 @@ public abstract class Spell {
                 spells.add(Swap_Between.INSTANCE);
                 break;
             case 3:
+                spells.add(Animate_Armor.INSTANCE);
 //                spells.add(HolyLance.INSTANCE);
 //                spells.add(HallowedGround.INSTANCE);
                 spells.add(MnemonicPrayer.INSTANCE);
@@ -253,6 +254,7 @@ public abstract class Spell {
         spells.add(Junior_Phantom.INSTANCE);
         spells.add(Senior_Phantom.INSTANCE);
         spells.add(RunicBoom.INSTANCE);
+        spells.add(Animate_Armor.INSTANCE);
 
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
@@ -317,6 +319,7 @@ public abstract class Spell {
         spells.add(Junior_Phantom.class);
         spells.add(Senior_Phantom.class);
         spells.add(RunicBoom.class);
+        spells.add(Animate_Armor.class);
 
         return spells;
     }

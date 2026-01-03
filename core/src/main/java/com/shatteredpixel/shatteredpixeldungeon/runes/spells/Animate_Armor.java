@@ -154,7 +154,7 @@ public class Animate_Armor extends InventorySpell{
         protected Char chooseEnemy(){
             if (armor.cursed || buff( Amok.class ) != null) {
                 if (enemy == null || !enemy.isAlive() || !Actor.chars().contains(enemy) || state == WANDERING
-                    || Dungeon.level.distance(originPos, this.pos)>5
+                    || Dungeon.level.distance(originPos, enemy.pos)>5
                     || enemy.isInvulnerable(getClass())) {
 
                     //target closest potential enemy near the origin pos

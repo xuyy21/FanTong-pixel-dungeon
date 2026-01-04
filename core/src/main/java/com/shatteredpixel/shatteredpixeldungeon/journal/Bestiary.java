@@ -169,6 +169,8 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.HeavenEye;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Junior_Phantom;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Senior_Phantom;
 import com.watabou.utils.Bundle;
@@ -261,7 +263,7 @@ public enum Bestiary {
 				ShadowClone.ShadowAlly.class, SmokeBomb.NinjaLog.class, SpiritHawk.HawkAlly.class, PowerOfMany.LightAlly.class,
 				WandOfGnollKing.MirrorGnoll.class, MagicianImage.class, CloakOfShadows.Shadow_Bat.class,
 				RockGuarding.RockGuardian.class, WaterMoon.WaterMirror.class,
-				Junior_Phantom.Phantom.class, Senior_Phantom.Phantom.class);
+				Junior_Phantom.Phantom.class, Senior_Phantom.Phantom.class, Animate_Armor.Animated_Armor.class, HeavenEye.Eye.class);
 
 		TRAP.addEntities(WornDartTrap.class, PoisonDartTrap.class, DisintegrationTrap.class, GatewayTrap.class,
 				ChillingTrap.class, BurningTrap.class, ShockingTrap.class, AlarmTrap.class, GrippingTrap.class, TeleportationTrap.class, OozeTrap.class,

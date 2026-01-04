@@ -96,6 +96,7 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.HeavenEye;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -1369,6 +1370,18 @@ public abstract class Level implements Bundlable {
 			}
 		}
 
+		if (c instanceof HeavenEye.Eye) {
+			int range = 8;
+			for (Mob mob : mobs) {
+				int p = mob.pos;
+				if (!fieldOfView[p] && distance(c.pos, p) <= range) {
+					for (int i : PathFinder.NEIGHBOURS9) {
+						fieldOfView[mob.pos + i] = true;
+					}
+				}
+			}
+		}
+
 		//Currently only the hero can get mind vision or awareness
 		if (c.isAlive() && c == Dungeon.hero) {
 
@@ -1456,7 +1469,8 @@ public abstract class Level implements Bundlable {
 						|| m instanceof WandOfRegrowth.Lotus
 						|| m instanceof SpiritHawk.HawkAlly
 						|| m.buff(PowerOfMany.PowerBuff.class) != null
-						|| (m instanceof CloakOfShadows.Shadow_Bat && m.buff(CloakOfShadows.Shadow_Bat.Viewer.class)!=null)){
+						|| (m instanceof CloakOfShadows.Shadow_Bat && m.buff(CloakOfShadows.Shadow_Bat.Viewer.class)!=null)
+						|| m instanceof HeavenEye.Eye){
 					if (m.fieldOfView == null || m.fieldOfView.length != length()){
 						m.fieldOfView = new boolean[length()];
 						Dungeon.level.updateFieldOfView( m, m.fieldOfView );

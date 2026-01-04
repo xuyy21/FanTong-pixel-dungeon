@@ -76,6 +76,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.HeavenEye;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
@@ -1002,7 +1003,8 @@ public class Dungeon {
 					|| ch instanceof WandOfRegrowth.Lotus
 					|| ch instanceof SpiritHawk.HawkAlly
 					|| ch.buff(PowerOfMany.PowerBuff.class) != null
-					|| (ch instanceof CloakOfShadows.Shadow_Bat && ch.buff(CloakOfShadows.Shadow_Bat.Viewer.class)!=null)){
+					|| (ch instanceof CloakOfShadows.Shadow_Bat && ch.buff(CloakOfShadows.Shadow_Bat.Viewer.class)!=null)
+					|| ch instanceof HeavenEye.Eye){
 				x = ch.pos % level.width();
 				y = ch.pos / level.width();
 

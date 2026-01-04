@@ -306,13 +306,13 @@ public class Animate_Armor extends InventorySpell{
             idle = new Animation( 8, true );
             idle.frames( film, typeBias+1, typeBias+2, typeBias+3, typeBias+2, typeBias+2, typeBias+1, typeBias+1 );
 
-            die = new Animation( 12, true );
+            die = new Animation( 12, false );
             die.frames( film, typeBias+1, typeBias+0, typeBias+0);
 
             run = new Animation( 12, true );
             run.frames( film, typeBias+1, typeBias+4, typeBias+2, typeBias+5, typeBias+3, typeBias+5, typeBias+2, typeBias+1 );
 
-            attack = new Animation( 12, true );
+            attack = new Animation( 12, false );
             attack.frames( film, typeBias+0, typeBias+2, typeBias+2, typeBias+1, typeBias+1 );
 
             play(idle);

@@ -63,6 +63,7 @@ public class HeavenEye extends TargetedSpell{
 
             if (eye == null) {
                 eye = new Eye();
+                eye.initHT(Math.round((50 + 10*Dungeon.scalingDepth())*implement.powerMultiplier(hero, this)));
                 eye.pos = target;
                 GameScene.add(eye);
             } else {
@@ -98,6 +99,10 @@ public class HeavenEye extends TargetedSpell{
             if (buff(Heaven_Healing.class)==null) Buff.affect(this, Heaven_Healing.class);
 
             return super.act();
+        }
+
+        public void initHT(int HT) {
+            this.HP = this.HT = HT;
         }
 
         public void blink(int target) {

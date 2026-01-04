@@ -78,7 +78,7 @@ public class Animate_Armor extends InventorySpell{
             if (armor.cursed) {
                 GLog.n(Messages.get(this, "succeed_cursed"));
             } else {
-                GLog.n(Messages.get(this, "succeed_not_cursed"));
+                GLog.p(Messages.get(this, "succeed_not_cursed"));
             }
             armor.detach(hero.belongings.backpack);
 

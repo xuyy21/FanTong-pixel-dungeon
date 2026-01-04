@@ -79,7 +79,7 @@ public abstract class Spell {
     public static final int EVAPORATING     = NATURE_SPELLICON+0;
     public static final int THUNDER_SOUND   = NATURE_SPELLICON+1;
     public static final int SWITCH_GRAVITY  = NATURE_SPELLICON+2;
-    public static final int POTION_RESTORE  = NATURE_SPELLICON+3;
+    public static final int REVERSE_POTION = NATURE_SPELLICON+3;
     public static final int GARDEN_SPELL    = NATURE_SPELLICON+4;
     public static final int SPIN_COCOON     = NATURE_SPELLICON+5;
     public static final int BEAN_SOLDIER    = NATURE_SPELLICON+6;

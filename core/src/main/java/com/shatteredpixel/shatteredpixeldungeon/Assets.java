@@ -355,5 +355,6 @@ public class Assets {
 		public static final String PHANTOM	= "sprites/phantom.png";
 		public static final String ARMOR	= "sprites/animated_armor.png";
 		public static final String HEAVEN_EYE		= "sprites/heaven_eye.png";
+		public static final String BEAN_SOLDIER		= "sprites/bean_soldier.png";
 	}
 }

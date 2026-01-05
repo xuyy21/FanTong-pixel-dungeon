@@ -153,6 +153,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.ElectricTouch;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
@@ -1401,6 +1402,10 @@ public abstract class Char extends Actor {
 				result *= 0.5f;
 			}
 		}
+
+		// this will increase effectiveness, it's not suitable for here but now the whole project have not a common func for increasing effectiveness
+		result *= ElectricTouch.Electric_Feel.electricMultiplier(this, effect);
+
 		return result * RingOfElements.resist(this, effect);
 	}
 	

@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Sprouted_Potato;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Grassyterrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -91,7 +92,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			} else {
 
 				float hungerDelay = 1f;
-				if (target.buff(Shadows.class) != null){
+				if (target.buff(Shadows.class) != null || target.buff(Grassyterrain.GardenRelax.class) != null){
 					hungerDelay *= 1.5f;
 				}
 

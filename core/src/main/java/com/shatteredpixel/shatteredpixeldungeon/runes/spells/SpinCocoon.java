@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.EarthParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WebParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.watabou.noosa.audio.Sample;
@@ -90,6 +91,11 @@ public class SpinCocoon extends Spell{
             super.restoreFromBundle(bundle);
             shield = bundle.getInt(SHIELD);
             left = bundle.getInt(LEFT);
+        }
+
+        @Override
+        public String desc() {
+            return Messages.get(this, "desc", shield, left);
         }
     }
 }

@@ -129,6 +129,7 @@ public class MnemonicPrayer extends TargetedSpell{
                 else if (b instanceof ShieldBuff)               ((ShieldBuff) b).delay(extension);
                 else if (b instanceof Kinetic.ConservedDamage)  ((Kinetic.ConservedDamage) b).delay(extension);
                 else if (b instanceof Sungrass.Health)          ((Sungrass.Health) b).boost((int) extension);
+                else if (b instanceof FireRing.FireRingBuff)    ((FireRing.FireRingBuff) b).setLeft(((FireRing.FireRingBuff) b).left + (int)extension);
 
                 b.mnemonicExtended = true;
 

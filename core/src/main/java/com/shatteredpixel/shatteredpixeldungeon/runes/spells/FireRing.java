@@ -143,6 +143,11 @@ public class FireRing extends Spell{
         }
 
         @Override
+        public String iconTextDisplay() {
+            return Integer.toString(left);
+        }
+
+        @Override
         public String desc() {
             return Messages.get(this, "desc", left);
         }

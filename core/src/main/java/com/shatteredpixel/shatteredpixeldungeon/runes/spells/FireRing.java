@@ -127,6 +127,7 @@ public class FireRing extends Spell{
                 }
                 Sample.INSTANCE.play( Assets.Sounds.BURNING );
                 left--;
+                spend(TICK);
             }
 
             return super.act();

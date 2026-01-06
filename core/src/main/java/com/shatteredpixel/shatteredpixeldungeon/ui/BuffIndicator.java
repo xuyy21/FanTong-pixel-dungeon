@@ -145,6 +145,7 @@ public class BuffIndicator extends Component {
 	public static final int ELECTRICTOUCH	= 91;
 	public static final int ELECTRICFEEL 	= 92;
 	public static final int FIRERING	= 93;
+	public static final int LIVINGFIRE	= 94;
 
 	public static final int SIZE_SMALL  = 7;
 	public static final int SIZE_LARGE  = 16;

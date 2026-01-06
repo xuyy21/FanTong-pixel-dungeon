@@ -58,6 +58,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kineti
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.FireRing;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.LivingFire;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -159,6 +161,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 				else if (b instanceof ShieldBuff)               ((ShieldBuff) b).delay(extension);
 				else if (b instanceof Kinetic.ConservedDamage)  ((Kinetic.ConservedDamage) b).delay(extension);
 				else if (b instanceof Sungrass.Health)          ((Sungrass.Health) b).boost((int) extension);
+				else if (b instanceof FireRing.FireRingBuff)    ((FireRing.FireRingBuff) b).setLeft(((FireRing.FireRingBuff) b).left + (int)extension);
 
 				b.mnemonicExtended = true;
 
@@ -188,6 +191,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 				else if (b instanceof Ooze)         ((Ooze) b).extend( extension );
 				else if (b instanceof Poison)       ((Poison) b).extend( extension );
 				else if (b instanceof Viscosity.DeferedDamage)  ((Viscosity.DeferedDamage) b).extend( extension );
+				else if (b instanceof LivingFire.LivingFireBuff)    ((LivingFire.LivingFireBuff) b).extend(extension);
 
 				b.mnemonicExtended = true;
 

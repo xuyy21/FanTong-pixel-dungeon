@@ -155,6 +155,7 @@ public class MnemonicPrayer extends TargetedSpell{
                 else if (b instanceof Ooze)         ((Ooze) b).extend( extension );
                 else if (b instanceof Poison)       ((Poison) b).extend( extension );
                 else if (b instanceof Viscosity.DeferedDamage)  ((Viscosity.DeferedDamage) b).extend( extension );
+                else if (b instanceof LivingFire.LivingFireBuff)    ((LivingFire.LivingFireBuff) b).extend(extension);
 
                 b.mnemonicExtended = true;
 

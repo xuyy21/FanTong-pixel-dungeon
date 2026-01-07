@@ -165,6 +165,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.AbsorbDamage;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.ElectricTouch;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -1612,6 +1613,11 @@ public class Hero extends Char {
 
 		//temporarily assign to a float to avoid rounding a bunch
 		float damage = dmg;
+
+		AbsorbDamage.Absorbing absorbing = buff(AbsorbDamage.Absorbing.class);
+		if (absorbing != null) {
+			damage = absorbing.absorb(damage);
+		}
 
 		Endure.EndureTracker endure = buff(Endure.EndureTracker.class);
 		if (!(src instanceof Char)){

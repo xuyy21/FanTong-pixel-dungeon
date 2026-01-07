@@ -99,7 +99,7 @@ public abstract class Spell {
     public static final int PROOFING        = PHYSICAL_SPELLICON+0;
     public static final int FRAMING         = PHYSICAL_SPELLICON+1;
     public static final int BLOODY_RUNES    = PHYSICAL_SPELLICON+2;
-    public static final int HEALING         = PHYSICAL_SPELLICON+3;
+    public static final int RECOVER         = PHYSICAL_SPELLICON+3;
     public static final int CURSING         = PHYSICAL_SPELLICON+4;
     public static final int ANATOMICAL_VIEWS    = PHYSICAL_SPELLICON+5;
     public static final int ABSORB_DAMAGE   = PHYSICAL_SPELLICON+6;

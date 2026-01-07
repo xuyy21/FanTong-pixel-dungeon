@@ -90,6 +90,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.AnatomicalView;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -988,6 +989,9 @@ public abstract class Mob extends Char {
 		float foodChance = this.foodChance;
 
 		foodChance *= (Dungeon.hero.subClass == HeroSubClass.CHIEF)? 1 : 0.05f;
+
+		if (Dungeon.hero.buff(AnatomicalView.AnatomicalViewBuff.class)!=null)
+			foodChance *= 2f;
 
 		return foodChance;
 	}

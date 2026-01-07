@@ -8,7 +8,7 @@ public class BloodyRunes extends Spell{
 
     {
         type = TYPE.PHYSICAL;
-        icon = RECOVER;
+        icon = BLOODY_RUNES;
         tier = 1;
     }
 

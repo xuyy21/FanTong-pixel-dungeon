@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Recover;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class Cripple extends FlavourBuff {
@@ -30,6 +32,14 @@ public class Cripple extends FlavourBuff {
 	{
 		type = buffType.NEGATIVE;
 		announced = true;
+	}
+
+	@Override
+	public boolean attachTo( Char target ){
+		if (target.buff(Recover.Recovering.class)!=null)
+			return false;
+
+		return super.attachTo(target);
 	}
 	
 	@Override

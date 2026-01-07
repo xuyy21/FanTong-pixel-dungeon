@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Recover;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class Degrade extends FlavourBuff {
@@ -38,6 +39,9 @@ public class Degrade extends FlavourBuff {
 
 	@Override
 	public boolean attachTo(Char target) {
+		if (target.buff(Recover.Recovering.class)!=null)
+			return false;
+
 		if (super.attachTo(target)){
 			Item.updateQuickslot();
 			if (target == Dungeon.hero) ((Hero) target).updateHT(false);

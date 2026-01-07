@@ -36,10 +36,12 @@ public class Suppress extends TargetedSpell{
             hero.busy();
             hero.sprite.operate(hero.pos);
 
+            float duration = Duration * implement.powerMultiplier(hero, this);
+
             Char ch = Actor.findChar(target);
-            Buff.affect(ch, Vulnerable.class, Duration);
-            Buff.affect(ch, Weakness.class, Duration);
-            Buff.affect(ch, Hex.class, Duration);
+            Buff.affect(ch, Vulnerable.class, duration);
+            Buff.affect(ch, Weakness.class, duration);
+            Buff.affect(ch, Hex.class, duration);
 
             hero.spendAndNext(implement.delay(hero, this));
             onSpellCast(implement, hero);

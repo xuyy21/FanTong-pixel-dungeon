@@ -40,7 +40,7 @@ public class Recover extends TargetedSpell{
             hero.busy();
             hero.sprite.operate(hero.pos);
 
-            Buff.affect(Actor.findChar(target), Recovering.class, Recovering.DURATION);
+            Buff.affect(Actor.findChar(target), Recovering.class, Recovering.DURATION*implement.powerMultiplier(hero, this));
 
             hero.spendAndNext(implement.delay(hero, this));
             onSpellCast(implement, hero);

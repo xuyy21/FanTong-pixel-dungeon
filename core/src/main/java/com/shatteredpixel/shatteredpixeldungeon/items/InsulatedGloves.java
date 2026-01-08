@@ -30,6 +30,7 @@ public class InsulatedGloves extends Item{
 
         if (action.equals( AC_USE )){
             Buff.affect(hero, MagicImmune.class, 5f);
+            detach(hero.belongings.backpack);
         }
     }
 

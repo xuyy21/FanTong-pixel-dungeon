@@ -372,6 +372,7 @@ public abstract class Spell {
         spells.add(AnatomicalView.class);
         spells.add(AbsorbDamage.class);
         spells.add(ChaosOfLife.class);
+        spells.add(Ascending.class);
         spells.add(PowerSwap.class);
 
         return spells;
@@ -405,6 +406,7 @@ public abstract class Spell {
                 spells.add(AnatomicalView.class);
                 spells.add(AbsorbDamage.class);
                 spells.add(ChaosOfLife.class);
+                spells.add(Ascending.class);
                 spells.add(PowerSwap.class);
         }
 

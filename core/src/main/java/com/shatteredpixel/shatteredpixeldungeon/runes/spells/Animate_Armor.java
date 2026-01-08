@@ -156,6 +156,8 @@ public class Animate_Armor extends InventorySpell{
         }
 
         public boolean IsCursed() {
+            if (armor==null) return false;
+
             return armor.cursed;
         }
 

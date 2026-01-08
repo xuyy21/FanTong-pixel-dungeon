@@ -31,6 +31,8 @@ public class FastCharge extends InventorySpell{
         float charge = implement.powerMultiplier(hero, this);
 
         for (Item i: hero.belongings.backpack.items) {
+            if (i == item) continue;
+
             if (i instanceof Wand) {
                 ((Wand) i).gainCharge(charge, true);
             } else if (i instanceof MagesStaff) {
@@ -39,9 +41,9 @@ public class FastCharge extends InventorySpell{
         }
 
         if (item instanceof Wand) {
-            ((Wand) item).gainCharge(charge, true);
+            ((Wand) item).gainCharge(2*charge, true);
         } else if (item instanceof MagesStaff) {
-            ((MagesStaff) item).gainCharge(charge, true);
+            ((MagesStaff) item).gainCharge(2*charge, true);
         }
 
         hero.busy();

@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.runes.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
@@ -60,7 +61,7 @@ public class ElectricTouch extends Spell{
         }
 
         public void affectChar(Char enemy) {
-            enemy.damage(damage, Shocking.class);
+            enemy.damage(damage, Electricity.class);
             Buff.affect(enemy, Electric_Feel.class);
             detach();
         }

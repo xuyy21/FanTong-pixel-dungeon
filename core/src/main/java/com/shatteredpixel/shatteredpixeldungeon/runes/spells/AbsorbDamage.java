@@ -71,7 +71,10 @@ public class AbsorbDamage extends TargetedSpell{
             damage = bundle.getFloat( DAMAGE );
         }
 
-        public float absorb(float damage) {
+        public float absorb(float damage, Object src) {
+            if (src instanceof BloodyRunes)
+                return damage;
+
             float toAbsorb = damage * 0.8f;
             this.damage += toAbsorb;
             return damage - toAbsorb;

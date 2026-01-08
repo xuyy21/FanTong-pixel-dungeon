@@ -1635,7 +1635,7 @@ public class Hero extends Char {
 
 		AbsorbDamage.Absorbing absorbing = buff(AbsorbDamage.Absorbing.class);
 		if (absorbing != null) {
-			damage = absorbing.absorb(damage);
+			damage = absorbing.absorb(damage, src);
 		}
 
 		Endure.EndureTracker endure = buff(Endure.EndureTracker.class);

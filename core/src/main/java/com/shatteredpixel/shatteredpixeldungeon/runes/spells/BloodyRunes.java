@@ -1,5 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.runes.spells;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 
@@ -27,6 +29,9 @@ public class BloodyRunes extends Spell{
         if (buff!=null) {
             buff.reduce(50f * implement.powerMultiplier(hero, this));
         }
+
+        // avoid using invulnerability to repeat this spell costlessly
+        Buff.detach(hero, Invulnerability.class);
 
         hero.spendAndNext(implement.delay(hero, this));
         onSpellCast(implement, hero);

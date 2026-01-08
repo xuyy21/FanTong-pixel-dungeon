@@ -87,7 +87,7 @@ public class HeavenEye extends TargetedSpell{
             viewDistance = 8;
 
             alignment = Alignment.ALLY;
-            state = PASSIVE;
+            state = WANDERING;
 
             flying = true;
             properties.add(Property.IMMOVABLE);

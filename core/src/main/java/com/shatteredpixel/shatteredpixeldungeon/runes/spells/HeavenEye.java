@@ -142,8 +142,25 @@ public class HeavenEye extends TargetedSpell{
         }
 
         @Override
+        protected boolean getCloser(int target) {
+            return false;
+        }
+
+        @Override
+        protected boolean getFurther(int target) {
+            return false;
+        }
+
+        @Override
         public int defenseSkill(Char enemy) {
             return 9 + Dungeon.scalingDepth();
+        }
+
+        @Override
+        public void destroy() {
+            super.destroy();
+            Dungeon.observe();
+            GameScene.updateFog(pos, viewDistance+1);
         }
 
         public static class Heaven_Healing extends Buff{

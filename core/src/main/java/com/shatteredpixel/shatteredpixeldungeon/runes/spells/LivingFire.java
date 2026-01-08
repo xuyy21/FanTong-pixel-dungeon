@@ -28,10 +28,12 @@ public class LivingFire extends TargetedSpell{
             return;
         }
 
-        if (Actor.findChar(target)==null || !Dungeon.level.heroFOV[target]) {
+        Char ch = Actor.findChar(target);
+        if (ch==null || !Dungeon.level.heroFOV[target]) {
             GLog.w(Messages.get(this, "invalid_target"));
         } else {
-            Buff.affect(Actor.findChar(target), LivingFireBuff.class).extend(LivingFireBuff.DURATION * implement.powerMultiplier(hero, this));
+            Buff.affect(ch, LivingFireBuff.class).extend(LivingFireBuff.DURATION * implement.powerMultiplier(hero, this));
+            Buff.affect(ch, Burning.class).reignite(ch, 2f);
 
             hero.sprite.operate(target);
             onSpellCast(implement, hero);
@@ -77,13 +79,6 @@ public class LivingFire extends TargetedSpell{
         }
 
         @Override
-        public boolean attachTo(Char target) {
-//            Buff.affect(target, Burning.class).reignite(target, 2f);
-
-            return super.attachTo(target);
-        }
-
-        @Override
         public boolean act() {
             if (left<=0f || !target.isAlive() || target.isImmune(Burning.class))
                 detach();
@@ -112,6 +107,7 @@ public class LivingFire extends TargetedSpell{
                 }
                 if (closest!=null) {
                     Buff.affect(closest, LivingFireBuff.class).extend(left);
+                    Buff.affect(target, Burning.class).reignite(target, 2f);
                 }
             }
 

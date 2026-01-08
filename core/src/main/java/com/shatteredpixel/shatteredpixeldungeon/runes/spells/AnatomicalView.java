@@ -36,7 +36,7 @@ public class AnatomicalView extends Spell{
 
         @Override
         public int icon() {
-            return BuffIndicator.RECOVERING;
+            return BuffIndicator.ANATOMICAL_VIEWS;
         }
 
         @Override

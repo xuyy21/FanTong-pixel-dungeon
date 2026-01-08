@@ -96,6 +96,7 @@ public class BeanSoldier extends InventorySpell{
 
         public void spawn(int pos, float energy) {
             HP = Math.round(HT * energy / Hunger.STARVING);
+            HP = Math.max(1, HP);
             if (HP > HT) {
                 int shield = HP - HT;
                 HP = HT;

@@ -78,7 +78,7 @@ public class LivingFire extends TargetedSpell{
 
         @Override
         public boolean attachTo(Char target) {
-            Buff.affect(target, Burning.class).reignite(target, 2f);
+//            Buff.affect(target, Burning.class).reignite(target, 2f);
 
             return super.attachTo(target);
         }
@@ -93,7 +93,7 @@ public class LivingFire extends TargetedSpell{
                 left -= TICK;
             }
 
-            return super.act();
+            return true;
         }
 
         @Override

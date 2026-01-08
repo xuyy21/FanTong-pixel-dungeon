@@ -48,6 +48,6 @@ public class FastCharge extends InventorySpell{
         hero.sprite.operate(hero.pos);
         Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
         hero.spendAndNext( implement.delay(hero, this) );
-//        onSpellCast(implement, hero);
+        onSpellCast(implement, hero);
     }
 }

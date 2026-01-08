@@ -91,6 +91,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.AnatomicalView;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -796,6 +797,9 @@ public abstract class Mob extends Char {
 
 	//whether the hero should interact with the mob (true) or attack it (false)
 	public boolean heroShouldInteract(){
+		if (this instanceof Animate_Armor.Animated_Armor && ((Animate_Armor.Animated_Armor)this).IsCursed())
+			return false;
+
 		return alignment != Alignment.ENEMY && buff(Amok.class) == null;
 	}
 

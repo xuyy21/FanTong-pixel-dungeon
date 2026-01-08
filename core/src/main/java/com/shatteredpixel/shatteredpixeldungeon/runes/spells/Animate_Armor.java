@@ -152,9 +152,13 @@ public class Animate_Armor extends InventorySpell{
             GameScene.add(this);
         }
 
+        public boolean IsCursed() {
+            return armor.cursed;
+        }
+
         @Override
         protected Char chooseEnemy(){
-            if (armor.cursed || buff( Amok.class ) != null) {
+            if (IsCursed() || buff( Amok.class ) != null) {
                 if (enemy == null || !enemy.isAlive() || !Actor.chars().contains(enemy) || state == WANDERING
                     || Dungeon.level.distance(originPos, enemy.pos)>5
                     || enemy.isInvulnerable(getClass())) {
@@ -272,7 +276,7 @@ public class Animate_Armor extends InventorySpell{
             String s = Messages.get(Armor.PlaceHolder.class, "name");
             if (this.armor!=null) s = armor.name();
             s = Messages.get(this, "desc", s);
-            if (armor.cursed) s += "\n\n" + Messages.get(this, "cursed");
+            if (IsCursed()) s += "\n\n" + Messages.get(this, "cursed");
             return s;
         }
 
@@ -316,10 +320,10 @@ public class Animate_Armor extends InventorySpell{
             die.frames( film, typeBias+1, typeBias+0, typeBias+0);
 
             run = new Animation( 12, true );
-            run.frames( film, typeBias+1, typeBias+4, typeBias+2, typeBias+5, typeBias+3, typeBias+5, typeBias+2, typeBias+1 );
+            run.frames( film, typeBias+1, typeBias+4, typeBias+2, typeBias+2, typeBias+5, typeBias+3, typeBias+3, typeBias+5, typeBias+2, typeBias+2, typeBias+1 );
 
             attack = new Animation( 12, false );
-            attack.frames( film, typeBias+0, typeBias+2, typeBias+2, typeBias+1, typeBias+1 );
+            attack.frames( film, typeBias+0, typeBias+4, typeBias+4, typeBias+0, typeBias+1 );
 
             play(idle);
         }

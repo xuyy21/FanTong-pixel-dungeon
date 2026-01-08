@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
@@ -30,12 +31,13 @@ public class SpinCocoon extends Spell{
         hero.busy();
         hero.sprite.operate(hero.pos);
 
-        Buff.affect(hero, Cocoon.class).set(10, Math.round(hero.HT*0.15f*implement.powerMultiplier(hero, this)));
+        Buff.detach(hero, Cocoon.class);
         Buff.affect(hero, Earthroot.Armor.class).level(hero.lvl/3);
         Buff.affect(hero, Blindness.class, 10f);
+        Buff.affect(hero, Cocoon.class).set(10, Math.round(hero.HT*0.15f*implement.powerMultiplier(hero, this)));
 
         Sample.INSTANCE.play(Assets.Sounds.MISS);
-        CellEmitter.center(hero.pos).start( WebParticle.FACTORY, 0.05f, 8 );
+        CellEmitter.center(hero.pos).start( WebParticle.FACTORY, 0.05f, 4 );
         hero.spendAndNext(implement.delay(hero, this));
         onSpellCast(implement, hero);
     }
@@ -70,13 +72,14 @@ public class SpinCocoon extends Spell{
             else {
                 Buff.affect(target, Barrier.class).setShield(shield);
                 target.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING );
-                CellEmitter.center(target.pos).start( WebParticle.FACTORY, 0.05f, 8 );
+                CellEmitter.center(target.pos).start( WebParticle.FACTORY, 0.05f, 4 );
 
                 left--;
+
                 spend(TICK);
             }
 
-            return super.act();
+            return true;
         }
 
         @Override
@@ -91,6 +94,11 @@ public class SpinCocoon extends Spell{
             super.restoreFromBundle(bundle);
             shield = bundle.getInt(SHIELD);
             left = bundle.getInt(LEFT);
+        }
+
+        @Override
+        public int icon() {
+            return BuffIndicator.ARMOR;
         }
 
         @Override

@@ -23,6 +23,11 @@ public class AbsorbDamage extends TargetedSpell{
     }
 
     @Override
+    public int targetingFlags(){
+        return -1; //auto-targeting behaviour is often wrong, so we don't use it
+    }
+
+    @Override
     protected void onTargetSelected(Implement implement, Hero hero, Integer target){
         if (target == null){
             return;
@@ -91,6 +96,11 @@ public class AbsorbDamage extends TargetedSpell{
         @Override
         public float iconFadePercent() {
             return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+        }
+
+        @Override
+        public String desc() {
+            return Messages.get(this, "desc", Integer.toString((int)damage), dispTurns());
         }
     }
 }

@@ -104,6 +104,8 @@ public class Animate_Armor extends InventorySpell{
             immunities.add( AllyBuff.class );
 
             defenseSkill = 0;
+
+            state = WANDERING;
         }
 
         private int level = -1;
@@ -270,7 +272,7 @@ public class Animate_Armor extends InventorySpell{
             String s = Messages.get(Armor.PlaceHolder.class, "name");
             if (this.armor!=null) s = armor.name();
             s = Messages.get(this, "desc", s);
-            if (armor.cursed) s += "\n\n" + Messages.get(this, "curesd");
+            if (armor.cursed) s += "\n\n" + Messages.get(this, "cursed");
             return s;
         }
 
@@ -295,10 +297,14 @@ public class Animate_Armor extends InventorySpell{
     }
 
     public static class Animated_Armor_Sprite extends MobSprite{
-        protected int typeBias = 0;
+        public int typeBias() {
+            return 0;
+        }
 
         public Animated_Armor_Sprite() {
             super();
+
+            int typeBias = typeBias();
 
             texture( Assets.Sprites.ARMOR );
             TextureFilm film = new TextureFilm( texture, 16, 16 );
@@ -325,32 +331,37 @@ public class Animate_Armor extends InventorySpell{
     }
 
     public static class ClothArmorSprite extends Animated_Armor_Sprite{
-        {
-            typeBias = 0;
+        @Override
+        public int typeBias() {
+            return 0;
         }
     }
 
     public static class LeatherArmorSprite extends Animated_Armor_Sprite{
-        {
-            typeBias = 8;
+        @Override
+        public int typeBias() {
+            return 8;
         }
     }
 
     public static class MailArmorSprite extends Animated_Armor_Sprite{
-        {
-            typeBias = 16;
+        @Override
+        public int typeBias() {
+            return 16;
         }
     }
 
     public static class ScaleArmorSprite extends Animated_Armor_Sprite{
-        {
-            typeBias = 24;
+        @Override
+        public int typeBias() {
+            return 24;
         }
     }
 
     public static class PlateArmorSprite extends Animated_Armor_Sprite{
-        {
-            typeBias = 32;
+        @Override
+        public int typeBias() {
+            return 32;
         }
     }
 }

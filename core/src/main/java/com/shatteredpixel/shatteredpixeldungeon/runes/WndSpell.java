@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.BloodyRunes;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -156,7 +157,7 @@ public class WndSpell extends Window {
 
             if (!spell.canCast(implement, Dungeon.hero)){
                 icon.alpha(0.3f);
-            } else if (spell.overRunes(Dungeon.hero)==0){
+            } else if (spell.overRunes(Dungeon.hero)==0 && !(spell instanceof BloodyRunes)){
                 icon.brightness(3);
             }
 

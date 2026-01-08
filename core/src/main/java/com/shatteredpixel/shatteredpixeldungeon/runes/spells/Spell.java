@@ -209,8 +209,13 @@ public abstract class Spell {
                 spells.add(GuidingLight.INSTANCE);
                 spells.add(HolyIntuition.INSTANCE);
 //                spells.add(ShieldOfLight.INSTANCE);
+                spells.add(ReverseReaction.INSTANCE);
                 spells.add(Burning.INISTANCE);
+                spells.add(Blight.INSTANCE);
+                spells.add(ElectricTouch.INSTANCE);
+                spells.add(BloodyRunes.INSTANCE);
                 spells.add(Junior_Reshape.INSTANCE);
+                spells.add(ChaosOfLife.INSTANCE);
                 break;
             case 2:
                 spells.add(Eating.INSTANCE);
@@ -221,6 +226,11 @@ public abstract class Spell {
 //                spells.add(Sunray.INSTANCE);
 //                spells.add(AuraOfProtection.INSTANCE);
                 spells.add(Evaporating.INSTANCE);
+                spells.add(Grassyterrain.INSTANCE);
+                spells.add(FireRing.INSTANCE);
+                spells.add(Recover.INSTANCE);
+                spells.add(Suppress.INSTANCE);
+                spells.add(AnatomicalView.INSTANCE);
                 spells.add(Swap_Between.INSTANCE);
                 break;
             case 3:
@@ -230,15 +240,23 @@ public abstract class Spell {
                 spells.add(MnemonicPrayer.INSTANCE);
                 spells.add(WallOfLight.INSTANCE);
                 spells.add(Thunder_Sound.INSTANCE);
+                spells.add(SpinCocoon.INSTANCE);
+                spells.add(BeanSoldier.INSTANCE);
+                spells.add(LivingFire.INSTANCE);
+                spells.add(FastCharge.INSTANCE);
                 spells.add(Proofing.INSTANCE);
                 spells.add(Framing.INSTANCE);
                 spells.add(Senior_Reshape.INSTANCE);
+                spells.add(Ascending.INSTANCE);
                 break;
             case 4:
                 spells.add(RunicLance.INSTANCE);
 //                spells.add(BeamingRay.INSTANCE);
+                spells.add(HeavenEye.INSTANCE);
                 spells.add(Switch_Gravity.INSTANCE);
                 spells.add(Electric_Power.INSTANCE);
+                spells.add(AbsorbDamage.INSTANCE);
+                spells.add(PowerSwap.INSTANCE);
                 break;
         }
 
@@ -270,20 +288,38 @@ public abstract class Spell {
 //        spells.add(AuraOfProtection.INSTANCE);
         //BodyForm
 //        spells.add(BeamingRay.INSTANCE);
+        spells.add(HeavenEye.INSTANCE);
 
         spells.add(Evaporating.INSTANCE);
         spells.add(Thunder_Sound.INSTANCE);
         spells.add(Switch_Gravity.INSTANCE);
+        spells.add(ReverseReaction.INSTANCE);
+        spells.add(Grassyterrain.INSTANCE);
+        spells.add(SpinCocoon.INSTANCE);
+        spells.add(BeanSoldier.INSTANCE);
 
         spells.add(Burning.INISTANCE);
         spells.add(Electric_Power.INSTANCE);
+        spells.add(Blight.INSTANCE);
+        spells.add(ElectricTouch.INSTANCE);
+        spells.add(FireRing.INSTANCE);
+        spells.add(LivingFire.INSTANCE);
+        spells.add(FastCharge.INSTANCE);
 
         spells.add(Proofing.INSTANCE);
         spells.add(Framing.INSTANCE);
+        spells.add(BloodyRunes.INSTANCE);
+        spells.add(Recover.INSTANCE);
+        spells.add(Suppress.INSTANCE);
+        spells.add(AnatomicalView.INSTANCE);
+        spells.add(AbsorbDamage.INSTANCE);
 
         spells.add(Junior_Reshape.INSTANCE);
         spells.add(Senior_Reshape.INSTANCE);
         spells.add(Swap_Between.INSTANCE);
+        spells.add(ChaosOfLife.INSTANCE);
+        spells.add(Ascending.INSTANCE);
+        spells.add(PowerSwap.INSTANCE);
 
         return spells;
     }
@@ -320,6 +356,23 @@ public abstract class Spell {
         spells.add(Senior_Phantom.class);
         spells.add(RunicBoom.class);
         spells.add(Animate_Armor.class);
+        spells.add(HeavenEye.class);
+        spells.add(ReverseReaction.class);
+        spells.add(Grassyterrain.class);
+        spells.add(SpinCocoon.class);
+        spells.add(BeanSoldier.class);
+        spells.add(Blight.class);
+        spells.add(ElectricTouch.class);
+        spells.add(FireRing.class);
+        spells.add(LivingFire.class);
+        spells.add(FastCharge.class);
+        spells.add(BloodyRunes.class);
+        spells.add(Recover.class);
+        spells.add(Suppress.class);
+        spells.add(AnatomicalView.class);
+        spells.add(AbsorbDamage.class);
+        spells.add(ChaosOfLife.class);
+        spells.add(PowerSwap.class);
 
         return spells;
     }
@@ -332,7 +385,27 @@ public abstract class Spell {
             default:
                 break;
             case "0.4.7"://V0.4.7
-
+                spells.add(Junior_Phantom.class);
+                spells.add(Senior_Phantom.class);
+                spells.add(RunicBoom.class);
+                spells.add(Animate_Armor.class);
+                spells.add(HeavenEye.class);
+                spells.add(ReverseReaction.class);
+                spells.add(Grassyterrain.class);
+                spells.add(SpinCocoon.class);
+                spells.add(BeanSoldier.class);
+                spells.add(Blight.class);
+                spells.add(ElectricTouch.class);
+                spells.add(FireRing.class);
+                spells.add(LivingFire.class);
+                spells.add(FastCharge.class);
+                spells.add(BloodyRunes.class);
+                spells.add(Recover.class);
+                spells.add(Suppress.class);
+                spells.add(AnatomicalView.class);
+                spells.add(AbsorbDamage.class);
+                spells.add(ChaosOfLife.class);
+                spells.add(PowerSwap.class);
         }
 
         return spells;

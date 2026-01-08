@@ -177,8 +177,8 @@ public class HeavenEye extends TargetedSpell{
             texture( Assets.Sprites.HEAVEN_EYE );
             TextureFilm film = new TextureFilm( texture, 17, 20 );
 
-            idle = new Animation( 8, true );
-            idle.frames( film, 1, 0, 1, 1, 2, 3, 1 );
+            idle = new Animation( 5, true );
+            idle.frames( film, 1, 0, 0, 1, 1, 2, 3, 3, 2, 1 );
 
             die = new Animation( 20, false );
             die.frames( film, 4, 5, 6, 7, 8 );

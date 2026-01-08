@@ -15,6 +15,8 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
+import com.watabou.utils.PathFinder;
 
 public class Swap_Between extends Spell{
     public static Swap_Between INSTANCE = new Swap_Between();
@@ -38,11 +40,16 @@ public class Swap_Between extends Spell{
 
                         Char ch = Actor.findChar(cell);
                         if (ch == null || !Dungeon.level.heroFOV[cell]){
-                            GLog.w(Messages.get(this, "no_target"));
+                            GLog.w(Messages.get(Swap_Between.class, "no_target"));
                             return;
                         }
                         if (ch.properties().contains(Char.Property.IMMOVABLE)){
-                            GLog.w(Messages.get(this, "immovable"));
+                            GLog.w(Messages.get(Swap_Between.class, "immovable"));
+                            return;
+                        }
+                        PathFinder.buildDistanceMap(hero.buff(Swap_Target.class).getTarget().pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
+                        if (PathFinder.distance[ch.pos] == Integer.MAX_VALUE){
+                            GLog.w(Messages.get(Swap_Between.class, "cant_reach"));
                             return;
                         }
 
@@ -79,11 +86,11 @@ public class Swap_Between extends Spell{
 
                 Char ch = Actor.findChar(cell);
                 if (ch == null || !Dungeon.level.heroFOV[cell]) {
-                    GLog.w(Messages.get(this, "no_target"));
+                    GLog.w(Messages.get(Swap_Between.class, "no_target"));
                     return;
                 }
                 if (ch.properties().contains(Char.Property.IMMOVABLE)) {
-                    GLog.w(Messages.get(this, "immovable"));
+                    GLog.w(Messages.get(Swap_Between.class, "immovable"));
                     return;
                 }
 

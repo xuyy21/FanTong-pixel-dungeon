@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -86,51 +87,52 @@ public class FireRing extends Spell{
 
         @Override
         public boolean act() {
-            if (left<=0) {
-                detach();
-            } else {
-                Freezing freeze = (Freezing)Dungeon.level.blobs.get( Freezing.class );
+            Freezing freeze = (Freezing)Dungeon.level.blobs.get( Freezing.class );
 
-                for (int i: PathFinder.NEIGHBOURS8) {
-                    int c = target.pos + i;
-                    CellEmitter.get( c ).burst( FlameParticle.FACTORY, 6 );
+            for (int i: PathFinder.NEIGHBOURS8) {
+                int c = target.pos + i;
+                CellEmitter.get( c ).burst( FlameParticle.FACTORY, 6 );
 
-                    Char ch = Actor.findChar(c);
-                    if (ch!=null &&ch.alignment == Char.Alignment.ENEMY) {
-                        int damage = Random.NormalIntRange( 1, 3 + Dungeon.scalingDepth()/4 );
-                        ch.damage(damage, Burning.class);
-                        Buff.detach( ch, Chill.class);
-                    }
-
-                    if (freeze != null && freeze.volume > 0 && freeze.cur[c] > 0){
-                        freeze.clear(c);
-                    }
-
-                    Heap heap = Dungeon.level.heaps.get( c );
-                    if (heap != null) {
-                        heap.burn();
-                    }
-
-                    Plant plant = Dungeon.level.plants.get( c );
-                    if (plant != null){
-                        plant.wither();
-                    }
-
-                    if (Dungeon.level.flamable[c] && !Dungeon.level.solid[c] && Blob.volumeAt(c, Fire.class) == 0) {
-                        GameScene.add( Blob.seed( c, 2, Fire.class ) );
-                    }
+                Char ch = Actor.findChar(c);
+                if (ch!=null &&ch.alignment == Char.Alignment.ENEMY) {
+                    int damage = Random.NormalIntRange( 1, 3 + Dungeon.scalingDepth()/4 );
+                    ch.damage(damage, Burning.class);
+                    Buff.detach( ch, Chill.class);
                 }
 
-                Buff.detach( target, Chill.class);
-                if (freeze != null && freeze.volume > 0 && freeze.cur[target.pos] > 0){
-                    freeze.clear(target.pos);
+                if (freeze != null && freeze.volume > 0 && freeze.cur[c] > 0){
+                    freeze.clear(c);
                 }
-                Sample.INSTANCE.play( Assets.Sounds.BURNING );
-                left--;
-                spend(TICK);
+
+                Heap heap = Dungeon.level.heaps.get( c );
+                if (heap != null) {
+                    heap.burn();
+                }
+
+                Plant plant = Dungeon.level.plants.get( c );
+                if (plant != null){
+                    plant.wither();
+                }
+
+                if (Dungeon.level.flamable[c] && !Dungeon.level.solid[c] && Blob.volumeAt(c, Fire.class) == 0) {
+                    GameScene.add( Blob.seed( c, 2, Fire.class ) );
+                }
             }
 
-            return super.act();
+            Buff.detach( target, Chill.class);
+            if (freeze != null && freeze.volume > 0 && freeze.cur[target.pos] > 0){
+                freeze.clear(target.pos);
+            }
+            Sample.INSTANCE.play( Assets.Sounds.BURNING );
+
+            if (left>0) {
+                left--;
+                spend(TICK);
+            } else {
+                detach();
+            }
+
+            return true;
         }
 
         @Override

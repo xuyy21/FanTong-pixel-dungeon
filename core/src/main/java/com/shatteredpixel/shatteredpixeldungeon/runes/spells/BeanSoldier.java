@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
@@ -68,6 +69,8 @@ public class BeanSoldier extends InventorySpell{
             Soldier soldier = new Soldier();
             soldier.spawn(spawnPos, food.energy * implement.powerMultiplier(hero, this));
             food.detach(hero.belongings.backpack);
+            Bestiary.setSeen(Soldier.class);
+            Bestiary.countEncounter(Soldier.class);
 
             hero.sprite.operate(spawnPos);
             onSpellCast(implement, hero);

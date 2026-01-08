@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -81,6 +82,8 @@ public class Animate_Armor extends InventorySpell{
                 GLog.p(Messages.get(this, "succeed_not_cursed"));
             }
             armor.detach(hero.belongings.backpack);
+            Bestiary.setSeen(Animated_Armor.class);
+            Bestiary.countEncounter(Animated_Armor.class);
 
             hero.sprite.operate(spawnPos);
             onSpellCast(implement, hero);

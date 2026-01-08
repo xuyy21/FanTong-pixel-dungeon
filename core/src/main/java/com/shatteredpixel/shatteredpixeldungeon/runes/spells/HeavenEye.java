@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -66,6 +67,8 @@ public class HeavenEye extends TargetedSpell{
                 eye.initHT(Math.round((50 + 10*Dungeon.scalingDepth())*implement.powerMultiplier(hero, this)));
                 eye.pos = target;
                 GameScene.add(eye);
+                Bestiary.setSeen(Eye.class);
+                Bestiary.countEncounter(Eye.class);
             } else {
                 ((HeavenEyeSprite)eye.sprite).blink(target);
             }

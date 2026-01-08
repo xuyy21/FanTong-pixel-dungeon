@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
 public class FastCharge extends InventorySpell{
@@ -30,26 +31,23 @@ public class FastCharge extends InventorySpell{
 
         float charge = implement.powerMultiplier(hero, this);
 
-        for (Item i: hero.belongings.backpack.items) {
-            if (i == item) continue;
-
-            if (i instanceof Wand) {
-                ((Wand) i).gainCharge(charge, true);
-            } else if (i instanceof MagesStaff) {
-                ((MagesStaff) i).gainCharge(charge, true);
-            }
+        for (Wand i: hero.belongings.getAllItems(Wand.class)) {
+            i.gainCharge(charge, true);
+        }
+        for (MagesStaff i: hero.belongings.getAllItems(MagesStaff.class)) {
+            i.gainCharge(charge, true);
         }
 
         if (item instanceof Wand) {
-            ((Wand) item).gainCharge(2*charge, true);
+            ((Wand) item).gainCharge(charge, true);
         } else if (item instanceof MagesStaff) {
-            ((MagesStaff) item).gainCharge(2*charge, true);
+            ((MagesStaff) item).gainCharge(charge, true);
         }
 
         hero.busy();
         hero.sprite.operate(hero.pos);
         Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
         hero.spendAndNext( implement.delay(hero, this) );
-        onSpellCast(implement, hero);
+//        onSpellCast(implement, hero);
     }
 }

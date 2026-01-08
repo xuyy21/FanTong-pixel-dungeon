@@ -96,7 +96,7 @@ public class FireRing extends Spell{
                 Char ch = Actor.findChar(c);
                 if (ch!=null &&ch.alignment == Char.Alignment.ENEMY) {
                     int damage = Random.NormalIntRange( 1, 3 + Dungeon.scalingDepth()/4 );
-                    ch.damage(damage, Burning.class);
+                    ch.damage(damage, new Burning());
                     Buff.detach( ch, Chill.class);
                 }
 

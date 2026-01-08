@@ -61,7 +61,7 @@ public class ElectricTouch extends Spell{
         }
 
         public void affectChar(Char enemy) {
-            enemy.damage(damage, Electricity.class);
+            enemy.damage(damage, new Shocking());
             Buff.affect(enemy, Electric_Feel.class);
             detach();
         }

@@ -111,7 +111,7 @@ public abstract class Spell {
     public static final int SWAP_BETWEEN    = INVERSE_SPELLICON+2;
     public static final int CHAOS_LIVES     = INVERSE_SPELLICON+3;
     public static final int ASCENDING       = INVERSE_SPELLICON+4;
-    public static final int EXCHANGE_POWER  = INVERSE_SPELLICON+5;
+    public static final int SWAP_POWER      = INVERSE_SPELLICON+5;
 
     public Image icon() {
         return new RuneIcon(icon);

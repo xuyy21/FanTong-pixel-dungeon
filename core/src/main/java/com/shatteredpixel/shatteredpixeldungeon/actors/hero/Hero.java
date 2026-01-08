@@ -167,6 +167,7 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.AbsorbDamage;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.ElectricTouch;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.PowerSwap;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -630,6 +631,15 @@ public class Hero extends Char {
 
 	@Override
 	public int drRoll() {
+		if (buff(PowerSwap.PowerSwapBuff.class)!=null) {
+			if (buff(PowerSwap.ReturnDRTracker.class)!=null){
+				Buff.detach(this, PowerSwap.ReturnDRTracker.class);
+			} else {
+				Buff.affect(this, PowerSwap.ReturnAttackTracker.class);
+				return damageRoll();
+			}
+		}
+
 		int dr = super.drRoll();
 
 		if (belongings.armor() != null) {
@@ -656,6 +666,15 @@ public class Hero extends Char {
 	
 	@Override
 	public int damageRoll() {
+		if (buff(PowerSwap.PowerSwapBuff.class)!=null) {
+			if (buff(PowerSwap.ReturnAttackTracker.class)!=null){
+				Buff.detach(this, PowerSwap.ReturnAttackTracker.class);
+			} else {
+				Buff.affect(this, PowerSwap.ReturnDRTracker.class);
+				return drRoll();
+			}
+		}
+
 		KindOfWeapon wep = belongings.attackingWeapon();
 		int dmg;
 

@@ -47,13 +47,13 @@ public class FireRing extends Spell{
         hero.sprite.operate(hero.pos);
 
         if (hero.buff(FireRingBuff.class)==null) {
+            onSpellCast(implement, hero);
             Buff.affect(hero, FireRingBuff.class).setLeft(Math.round(10 * implement.powerMultiplier(hero, this)));
             hero.spendAndNext(implement.delay(hero, this));
-            onSpellCast(implement, hero);
         } else {
+            onSpellCast(implement, hero);
             Buff.detach(hero, FireRingBuff.class);
             hero.spendAndNext(0);
-            onSpellCast(implement, hero);
         }
     }
 

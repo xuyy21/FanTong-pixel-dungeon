@@ -35,9 +35,9 @@ public class PowerSwap extends Spell{
         hero.sprite.operate(hero.pos);
 
         if (hero.buff(PowerSwapBuff.class)==null) {
-            Buff.affect(hero, PowerSwapBuff.class, PowerSwapBuff.DURATION * implement.powerMultiplier(hero, this));
             hero.spendAndNext(implement.delay(hero, this));
             onSpellCast(implement, hero);
+            Buff.affect(hero, PowerSwapBuff.class, PowerSwapBuff.DURATION * implement.powerMultiplier(hero, this));
         } else {
             Buff.detach(hero, PowerSwapBuff.class);
             hero.spendAndNext(implement.delay(hero, this));

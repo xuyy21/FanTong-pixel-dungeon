@@ -92,6 +92,8 @@ public class BeanSoldier extends InventorySpell{
 
             HP = HT = (1 + Dungeon.scalingDepth()) * 6;
             defenseSkill = 2 + Dungeon.scalingDepth()/2;
+
+            state = WANDERING;
         }
 
         public void spawn(int pos, float energy) {
@@ -130,17 +132,19 @@ public class BeanSoldier extends InventorySpell{
             texture( Assets.Sprites.BEAN_SOLDIER );
             TextureFilm film = new TextureFilm( texture, 12, 16 );
 
-            idle = new Animation( 8, true );
-            idle.frames( film, 0, 0, 1 );
+            idle = new Animation( 4, true );
+            idle.frames( film, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1 );
 
             run = new Animation( 12, true );
             run.frames( film, 2, 3, 4, 5, 6, 7 );
 
-            attack = new Animation( 20, false );
-            attack.frames( film, 8, 9, 9, 10, 10, 0);
+            attack = new Animation( 12, false );
+            attack.frames( film, 8, 9, 10, 10, 0);
 
             die = new Animation( 10, false );
             die.frames( film, 8 );
+
+            play(idle);
         }
 
         @Override

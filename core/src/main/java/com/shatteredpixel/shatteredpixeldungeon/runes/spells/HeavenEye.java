@@ -62,6 +62,8 @@ public class HeavenEye extends TargetedSpell{
                 break;
             }
 
+            onSpellCast(implement, hero);
+
             if (eye == null) {
                 eye = new Eye();
                 eye.initHT(Math.round((50 + 10*Dungeon.scalingDepth())*implement.powerMultiplier(hero, this)));
@@ -74,7 +76,6 @@ public class HeavenEye extends TargetedSpell{
             }
 
             hero.sprite.operate(target);
-            onSpellCast(implement, hero);
             hero.spendAndNext(implement.delay(hero, this));
         }
     }

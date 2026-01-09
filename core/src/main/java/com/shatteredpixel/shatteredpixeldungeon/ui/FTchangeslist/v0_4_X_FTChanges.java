@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_8_Changes(changeInfos);
         add_v0_4_7_Changes(changeInfos);
         add_v0_4_6_Changes(changeInfos);
         add_v0_4_5_Changes(changeInfos);
@@ -229,5 +230,20 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_KAUNAN), "预知密卷增强",
                 "预知密卷用于试验符文组合时试验数量从4个增加为6个。"));
+    }
+
+    public static void add_v0_4_8_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.8", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了绝缘手套不会消耗的BUG。\n\n" +
+                        "修复了高能法环的文本问题。\n\n" +
+                        "修复了天堂之眼会移动的问题。\n\n" +
+                        "修复了活化护甲导致怪物图鉴闪退的问题。\n\n" +
+                        "修正了护体火环与电电触击的伤害类型。\n\n" +
+                        "现在交换位置不再可以交换至不可抵达的位置。\n\n" +
+                        "现在使用血祭符文会打断无敌状态，而且反转伤害不会削减和吸收血祭符文造成的伤害。"));
     }
 }

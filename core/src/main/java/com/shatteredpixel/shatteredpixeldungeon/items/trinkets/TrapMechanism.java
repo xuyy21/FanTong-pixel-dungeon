@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,16 +38,16 @@ public class TrapMechanism extends Trinket {
 
 	@Override
 	protected int upgradeEnergyCost() {
-		//6 -> 5(11) -> 7(18) -> 8(26)
-		return Math.round(5+1.67f*level());
+		//6 -> 8(14) -> 10(24) -> 12(36)
+		return 6+2*level();
 	}
 
 	@Override
 	public String statsDesc() {
 		if (isIdentified()){
-			return Messages.get(this, "stats_desc", (int)(100*overrideNormalLevelChance(buffedLvl())));
+			return Messages.get(this, "stats_desc", (int)(100*overrideNormalLevelChance(buffedLvl())), (int)(100*revealHiddenTrapChance(buffedLvl())));
 		} else {
-			return Messages.get(this, "typical_stats_desc", (int)(100*overrideNormalLevelChance(0)));
+			return Messages.get(this, "typical_stats_desc", (int)(100*overrideNormalLevelChance(0)), (int)(100*revealHiddenTrapChance(0)));
 		}
 	}
 
@@ -60,6 +60,18 @@ public class TrapMechanism extends Trinket {
 			return 0f;
 		} else {
 			return 0.25f + 0.25f*level;
+		}
+	}
+
+	public static float revealHiddenTrapChance(){
+		return revealHiddenTrapChance(trinketLevel(TrapMechanism.class));
+	}
+
+	public static float revealHiddenTrapChance( int level ){
+		if (level == -1){
+			return 0f;
+		} else {
+			return 0.1f + 0.1f*level;
 		}
 	}
 

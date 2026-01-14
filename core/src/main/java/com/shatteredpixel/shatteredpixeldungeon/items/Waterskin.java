@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 
 public class Waterskin extends Item {
 
-	protected static final int MAX_VOLUME	= 20;
+	private static final int MAX_VOLUME	= 20;
 
 	private static final String AC_DRINK	= "DRINK";
 
@@ -53,7 +54,7 @@ public class Waterskin extends Item {
 		unique = true;
 	}
 
-	protected int volume = 0;
+	private int volume = 0;
 
 	private static final String VOLUME	= "volume";
 
@@ -89,24 +90,33 @@ public class Waterskin extends Item {
 				
 				float missingHealthPercent = 1f - (hero.HP / (float)hero.HT);
 
+				//each drop is worth 5% of total health
+				float dropsNeeded = missingHealthPercent / 0.05f;
+
+				//we are getting extra heal value, scale back drops needed accordingly
+				if (dropsNeeded > 1.01f && VialOfBlood.delayBurstHealing()){
+					dropsNeeded /= VialOfBlood.totalHealMultiplier();
+				}
+
+				//add extra drops if we can gain shielding
 				int curShield = 0;
 				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
-//				int maxShield = Math.round(hero.HT *0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW));
-//				if (hero.hasTalent(Talent.SHIELDING_DEW)){
-//					float missingShieldPercent = 1f - (curShield / (float)maxShield);
-//					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
-//					if (missingShieldPercent > 0){
-//						missingHealthPercent += missingShieldPercent;
-//					}
-//				}
-				
-				//trimming off 0.01 drops helps with floating point errors
-				int dropsNeeded = (int)Math.ceil((missingHealthPercent / 0.05f) - 0.01f);
-				dropsNeeded = (int)GameMath.gate(1, dropsNeeded, volume);
+				int maxShield = Math.round(hero.HT *0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+				if (hero.hasTalent(Talent.SHIELDING_DEW)){
+					float missingShieldPercent = 1f - (curShield / (float)maxShield);
+					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
+					if (missingShieldPercent > 0){
+						dropsNeeded += missingShieldPercent / 0.05f;
+					}
+				}
 
-				if (Dewdrop.consumeDew(dropsNeeded, hero, true)){
-					volume -= dropsNeeded;
-					Catalog.countUses(Dewdrop.class, dropsNeeded);
+				//trimming off 0.01 drops helps with floating point errors
+				int dropsToConsume = (int)Math.ceil(dropsNeeded - 0.01f);
+				dropsToConsume = (int)GameMath.gate(1, dropsToConsume, volume);
+
+				if (Dewdrop.consumeDew(dropsToConsume, hero, true)){
+					volume -= dropsToConsume;
+					Catalog.countUses(Dewdrop.class, dropsToConsume);
 
 					hero.spend(TIME_TO_DRINK);
 					hero.busy();

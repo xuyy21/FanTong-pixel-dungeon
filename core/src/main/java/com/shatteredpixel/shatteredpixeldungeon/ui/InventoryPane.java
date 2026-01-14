@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.FoodBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
@@ -115,11 +114,8 @@ public class InventoryPane extends Component {
 	@Override
 	protected void createChildren() {
 
-		bg = Chrome.get(Chrome.Type.TOAST_TR);
+		bg = Chrome.get(Chrome.Type.TOAST_TR_HEAVY);
 		add(bg);
-
-		bg2 = Chrome.get(Chrome.Type.TOAST_TR);
-		add(bg2);
 
 		blocker = new PointerArea(0, 0, PixelScene.uiCamera.width, PixelScene.uiCamera.height){
 			@Override
@@ -144,8 +140,7 @@ public class InventoryPane extends Component {
 						&& KeyBindings.getActionForKey(keyEvent) != SPDAction.BAG_2
 						&& KeyBindings.getActionForKey(keyEvent) != SPDAction.BAG_3
 						&& KeyBindings.getActionForKey(keyEvent) != SPDAction.BAG_4
-						&& KeyBindings.getActionForKey(keyEvent) != SPDAction.BAG_5
-						&& KeyBindings.getActionForKey(keyEvent) != SPDAction.BAG_6){
+						&& KeyBindings.getActionForKey(keyEvent) != SPDAction.BAG_5){
 					//any windows opened as a consequence of this should be centered on the inventory
 					GameScene.centerNextWndOnInvPane();
 					selector.onSelect(null);
@@ -188,7 +183,7 @@ public class InventoryPane extends Component {
 		}
 
 		bags = new ArrayList<>();
-		for (int i = 0; i < 6; i++){
+		for (int i = 0; i < 5; i++){
 			BagButton btn = new BagButton(null, i+1);
 			bags.add(btn);
 			add(btn);
@@ -213,10 +208,9 @@ public class InventoryPane extends Component {
 		width = WIDTH;
 		height = HEIGHT;
 
-		bg.x = bg2.x = x;
-		bg.y = bg2.y = y;
+		bg.x = x;
+		bg.y = y;
 		bg.size(width, height);
-		bg2.size(width, height);
 
 		float left = x+4;
 		for (InventorySlot i : equipped){
@@ -246,7 +240,7 @@ public class InventoryPane extends Component {
 		energy.y = energyTxt.y;
 
 		for (BagButton b : bags){
-			b.setRect(left, y + 16, (float)Math.floor((SLOT_WIDTH*5f/6f)), 12);
+			b.setRect(left, y + 14, SLOT_WIDTH, 14);
 			left = b.right()+1;
 		}
 
@@ -266,7 +260,6 @@ public class InventoryPane extends Component {
 	
 	public void alpha( float value ){
 		bg.alpha( value );
-		bg2.alpha( value );
 		
 		for (InventorySlot slot : equipped){
 			slot.alpha( value );
@@ -486,8 +479,6 @@ public class InventoryPane extends Component {
 			return Icons.get( Icons.WAND_HOLSTER );
 		} else if (bag instanceof PotionBandolier) {
 			return Icons.get( Icons.POTION_BANDOLIER );
-		} else if (bag instanceof FoodBag) {
-			return Icons.get( Icons.FOODBAG );
 		} else {
 			return Icons.get( Icons.BACKPACK );
 		}
@@ -691,8 +682,6 @@ public class InventoryPane extends Component {
 					return SPDAction.BAG_4;
 				case 5:
 					return SPDAction.BAG_5;
-				case 6:
-					return SPDAction.BAG_6;
 			}
 		}
 

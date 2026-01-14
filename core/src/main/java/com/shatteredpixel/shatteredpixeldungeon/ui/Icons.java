@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,6 +62,7 @@ public enum Icons {
 	RIGHTARROW,
 	CALENDAR,
 	CHEVRON,
+	SHUFFLE,
 
 	//misc larger icons, mainly used for buttons, tabs, and journal, spacing for 16x16
 	TARGET,
@@ -123,7 +124,6 @@ public enum Icons {
 	SCROLL_HOLDER,
 	WAND_HOLSTER,
 	POTION_BANDOLIER,
-	FOODBAG,
 
 	//icons that appear in the about screen, variable spacing
 	LIBGDX,
@@ -224,6 +224,9 @@ public enum Icons {
 				break;
 			case CHEVRON:
 				icon.frame( icon.texture.uvRectBySize( 240, 16, 13, 10 ) );
+				break;
+			case SHUFFLE:
+				icon.frame(icon.texture.uvRectBySize( 240, 32, 15, 12 ) );
 				break;
 
 			case TARGET:
@@ -394,9 +397,6 @@ public enum Icons {
 			case POTION_BANDOLIER:
 				icon.frame( icon.texture.uvRectBySize( 216, 80, 10, 10 ) );
 				break;
-			case FOODBAG:
-				icon.frame( icon.texture.uvRectBySize( 226, 80, 10, 10 ) );
-				break;
 		
 			case LIBGDX:
 				icon.frame( icon.texture.uvRectBySize( 0, 96, 16, 13 ) );
@@ -464,6 +464,8 @@ public enum Icons {
 				return new ItemSprite(ItemSpriteSheet.SPIRIT_BOW);
 			case DUELIST:
 				return new ItemSprite(ItemSpriteSheet.RAPIER);
+			case CLERIC:
+				return new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME);
 			default:
 				return null;
 		}

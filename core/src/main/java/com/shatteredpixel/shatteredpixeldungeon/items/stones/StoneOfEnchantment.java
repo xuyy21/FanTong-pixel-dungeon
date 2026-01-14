@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.stones;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Enchanting;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -49,8 +50,11 @@ public class StoneOfEnchantment extends InventoryStone {
 	
 	@Override
 	protected void onItemSelected(Item item) {
-		curItem.detach( curUser.belongings.backpack );
-		Catalog.countUse(getClass());
+		if (!anonymous) {
+			curItem.detach(curUser.belongings.backpack);
+			Catalog.countUse(getClass());
+			Talent.onRunestoneUsed(curUser, curUser.pos, getClass());
+		}
 		
 		if (item instanceof Weapon) {
 			

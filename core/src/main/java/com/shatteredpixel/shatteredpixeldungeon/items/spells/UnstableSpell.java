@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
@@ -100,23 +99,22 @@ public class UnstableSpell extends Spell {
 
 		//reroll the scroll until it is relevant for the situation (whether there are visible enemies)
 		if (hero.visibleEnemies() == 0){
-			while (combatScrolls.contains(s.getClass())){
+			while (!nonCombatScrolls.contains(s.getClass())){
 				s = Reflection.newInstance(Random.chances(scrollChances));
 			}
 		} else {
-			while (nonCombatScrolls.contains(s.getClass())){
+			while (!combatScrolls.contains(s.getClass())){
 				s = Reflection.newInstance(Random.chances(scrollChances));
 			}
 		}
 
 		s.anonymize();
+		s.talentChance = s.talentFactor = 1;
 		curItem = s;
 		s.doRead();
 
 		Catalog.countUse(getClass());
-		if (Random.Float() < talentChance){
-			Talent.onScrollUsed(curUser, curUser.pos, talentFactor);
-		}
+		//don't trigger talents, as they'll be triggered by the scroll
 	}
 
 	//lower values, as it's cheaper to make

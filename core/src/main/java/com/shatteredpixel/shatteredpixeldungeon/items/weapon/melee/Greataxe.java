@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -96,7 +96,7 @@ public class Greataxe extends MeleeWeapon {
 				AttackIndicator.target(enemy);
 
 				//+(15+(2*lvl)) damage, roughly +60% base damage, +55% scaling
-				int dmgBoost = augment.damageFactor(15 + 2*abilityLvl());
+				int dmgBoost = augment.damageFactor(15 + 2*buffedLvl());
 
 				if (hero.attack(enemy, 1, dmgBoost, Char.INFINITE_ACCURACY)){
 					Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
@@ -116,7 +116,7 @@ public class Greataxe extends MeleeWeapon {
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 15 + 2*abilityLvl() : 15;
+		int dmgBoost = levelKnown ? 15 + 2*buffedLvl() : 15;
 		if (levelKnown){
 			return Messages.get(this, "ability_desc", augment.damageFactor(min()+dmgBoost), augment.damageFactor(max()+dmgBoost));
 		} else {

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,6 +58,7 @@ public class Assets {
 		public static final String PRISON_EXIT      = "environment/custom_tiles/prison_exit.png";
 		public static final String CAVES_QUEST      = "environment/custom_tiles/caves_quest.png";
 		public static final String CAVES_BOSS       = "environment/custom_tiles/caves_boss.png";
+		public static final String CITY_QUEST        = "environment/custom_tiles/city_quest.png";
 		public static final String CITY_BOSS        = "environment/custom_tiles/city_boss.png";
 		public static final String HALLS_SP         = "environment/custom_tiles/halls_special.png";
 	}
@@ -220,8 +221,6 @@ public class Assets {
 		public static final String SCAN     = "sounds/scan.mp3";
 		public static final String SHEEP    = "sounds/sheep.mp3";
 		public static final String MINE    = "sounds/mine.mp3";
-		public static final String SCREAM   = "sounds/scream.mp3";
-		public static final String FEAST   	= "sounds/feast.mp3";
 
 		public static final String[] all = new String[]{
 				CLICK, BADGE, GOLD,
@@ -234,7 +233,7 @@ public class Assets {
 				DESCEND, EAT, READ, LULLABY, DRINK, SHATTER, ZAP, LIGHTNING, LEVELUP, DEATH,
 				CHALLENGE, CURSED, TRAP, EVOKE, TOMB, ALERT, MELD, BOSS, BLAST, PLANT, RAY, BEACON,
 				TELEPORT, CHARMS, MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,
-				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP, MINE, SCREAM, FEAST
+				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP, MINE
 		};
 	}
 
@@ -244,12 +243,20 @@ public class Assets {
 		public static final String ROGUE    = "splashes/rogue.jpg";
 		public static final String HUNTRESS = "splashes/huntress.jpg";
 		public static final String DUELIST  = "splashes/duelist.jpg";
+		public static final String CLERIC   = "splashes/cleric.jpg";
 
 		public static final String SEWERS   = "splashes/sewers.jpg";
 		public static final String PRISON   = "splashes/prison.jpg";
 		public static final String CAVES    = "splashes/caves.jpg";
 		public static final String CITY     = "splashes/city.jpg";
 		public static final String HALLS    = "splashes/halls.jpg";
+
+		public static class Title {
+			public static final String ARCHS         = "splashes/title/archs.png";
+			public static final String BACK_CLUSTERS = "splashes/title/back_clusters.png";
+			public static final String MID_MIXED     = "splashes/title/mid_mixed.png";
+			public static final String FRONT_SMALL   = "splashes/title/front_small.png";
+		}
 	}
 
 	public static class Sprites {
@@ -261,6 +268,7 @@ public class Assets {
 		public static final String ROGUE    = "sprites/rogue.png";
 		public static final String HUNTRESS = "sprites/huntress.png";
 		public static final String DUELIST  = "sprites/duelist.png";
+		public static final String CLERIC   = "sprites/cleric.png";
 		public static final String AVATARS  = "sprites/avatars.png";
 		public static final String PET      = "sprites/pet.png";
 		public static final String AMULET   = "sprites/amulet.png";
@@ -279,21 +287,14 @@ public class Assets {
 		public static final String GOO      = "sprites/goo.png";
 		public static final String SWARM    = "sprites/swarm.png";
 		public static final String SKELETON = "sprites/skeleton.png";
-		public static final String ARMEDSKELETON = "sprites/armedskeleton.png";
 		public static final String SHAMAN   = "sprites/shaman.png";
 		public static final String THIEF    = "sprites/thief.png";
 		public static final String TENGU    = "sprites/tengu.png";
 		public static final String SHEEP    = "sprites/sheep.png";
 		public static final String KEEPER   = "sprites/shopkeeper.png";
-		public static final String XUYY		= "sprites/xuyy.png";
-		public static final String ZAKO		= "sprites/zako.png";
-		public static final String DOGE		= "sprites/doge.png";
-		public static final String LING		= "sprites/whiteling.png";
-		public static final String CYL		= "sprites/smallleaf.png";
 		public static final String BAT      = "sprites/bat.png";
 		public static final String ELEMENTAL= "sprites/elemental.png";
 		public static final String MONK     = "sprites/monk.png";
-		public static final String MUSHMEN  = "sprites/mushmen.png";
 		public static final String WARLOCK  = "sprites/warlock.png";
 		public static final String GOLEM    = "sprites/golem.png";
 		public static final String STATUE   = "sprites/statue.png";
@@ -336,8 +337,5 @@ public class Assets {
 		public static final String FUNGAL_SPINNER   = "sprites/fungal_spinner.png";
 		public static final String FUNGAL_SENTRY    = "sprites/fungal_sentry.png";
 		public static final String FUNGAL_CORE      = "sprites/fungal_core.png";
-		public static final String MANDRAKE	= "sprites/mandrake.png";
-		public static final String TREANTS  = "sprites/treants.png";
-		public static final String CHOMPER 	= "sprites/chomper.png";
 	}
 }

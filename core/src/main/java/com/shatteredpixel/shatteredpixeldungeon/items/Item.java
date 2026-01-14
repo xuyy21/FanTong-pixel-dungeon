@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,11 +24,13 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -95,6 +97,8 @@ public class Item implements Bundlable {
 
 	// whether an item can be included in heroes remains
 	public boolean bones = false;
+
+	public int customNoteID = -1;
 	
 	public static final Comparator<Item> itemComparator = new Comparator<Item>() {
 		@Override
@@ -123,7 +127,7 @@ public class Item implements Bundlable {
 			
 			GameScene.pickUp( this, pos );
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
-			hero.spendAndNext( TIME_TO_PICK_UP );
+			hero.spendAndNext( pickupDelay() );
 			return true;
 			
 		} else {
@@ -231,7 +235,10 @@ public class Item implements Bundlable {
 					if (Dungeon.hero != null && Dungeon.hero.isAlive()) {
 						Badges.validateItemLevelAquired( this );
 						Talent.onItemCollected(Dungeon.hero, item);
-						if (isIdentified()) Catalog.setSeen(getClass());
+						if (isIdentified()) {
+							Catalog.setSeen(getClass());
+							Statistics.itemTypesDiscovered.add(getClass());
+						}
 					}
 					if (TippedDart.lostDarts > 0){
 						Dart d = new Dart();
@@ -258,7 +265,10 @@ public class Item implements Bundlable {
 		if (Dungeon.hero != null && Dungeon.hero.isAlive()) {
 			Badges.validateItemLevelAquired( this );
 			Talent.onItemCollected( Dungeon.hero, this );
-			if (isIdentified()) Catalog.setSeen(getClass());
+			if (isIdentified()){
+				Catalog.setSeen(getClass());
+				Statistics.itemTypesDiscovered.add(getClass());
+			}
 		}
 
 		items.add( this );
@@ -452,7 +462,7 @@ public class Item implements Bundlable {
 
 		if (byHero && Dungeon.hero != null && Dungeon.hero.isAlive()){
 			Catalog.setSeen(getClass());
-			if (!isIdentified()) Talent.onItemIdentified(Dungeon.hero, this);
+			Statistics.itemTypesDiscovered.add(getClass());
 		}
 
 		levelKnown = true;
@@ -505,15 +515,16 @@ public class Item implements Bundlable {
 	public String info() {
 
 		if (Dungeon.hero != null) {
-			Notes.CustomRecord note;
-			if (this instanceof EquipableItem) {
-				note = Notes.findCustomRecord(((EquipableItem) this).customNoteID);
-			} else {
-				note = Notes.findCustomRecord(getClass());
-			}
-			if (note != null){
+			Notes.CustomRecord note = Notes.findCustomRecord(customNoteID);
+			if (note != null) {
 				//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
 				return Messages.get(this, "custom_note", note.title().replace('_', 'ˍ')) + "\n\n" + desc();
+			} else {
+				note = Notes.findCustomRecord(getClass());
+				if (note != null) {
+					//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
+					return Messages.get(this, "custom_note_type", note.title().replace('_', 'ˍ')) + "\n\n" + desc();
+				}
 			}
 		}
 
@@ -571,6 +582,7 @@ public class Item implements Bundlable {
 	private static final String CURSED_KNOWN	= "cursedKnown";
 	private static final String QUICKSLOT		= "quickslotpos";
 	private static final String KEPT_LOST       = "kept_lost";
+	private static final String CUSTOM_NOTE_ID = "custom_note_id";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -583,6 +595,7 @@ public class Item implements Bundlable {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
 		}
 		bundle.put( KEPT_LOST, keptThoughLostInvent );
+		if (customNoteID != -1)     bundle.put(CUSTOM_NOTE_ID, customNoteID);
 	}
 	
 	@Override
@@ -600,14 +613,15 @@ public class Item implements Bundlable {
 		
 		cursed	= bundle.getBoolean( CURSED );
 
-		//only want to populate slot on first load.
-		if (Dungeon.hero == null) {
+		//only want to populate slots when restoring belongings
+		if (Belongings.bundleRestoring) {
 			if (bundle.contains(QUICKSLOT)) {
 				Dungeon.quickslot.setSlot(bundle.getInt(QUICKSLOT), this);
 			}
 		}
 
 		keptThoughLostInvent = bundle.getBoolean( KEPT_LOST );
+		if (bundle.contains(CUSTOM_NOTE_ID))    customNoteID = bundle.getInt(CUSTOM_NOTE_ID);
 	}
 
 	public int targetingPos( Hero user, int dst ){
@@ -633,7 +647,7 @@ public class Item implements Bundlable {
 		Char enemy = Actor.findChar( cell );
 		QuickSlotButton.target(enemy);
 		
-		final float delay = castDelay(user, dst);
+		final float delay = castDelay(user, cell);
 
 		if (enemy != null) {
 			((MissileSprite) user.sprite.parent.recycle(MissileSprite.class)).
@@ -652,7 +666,7 @@ public class Item implements Bundlable {
 								if (enemy != null && enemy.alignment != curUser.alignment){
 									Sample.INSTANCE.play(Assets.Sounds.HIT);
 									Buff.affect(enemy, Blindness.class, 1f + curUser.pointsInTalent(Talent.IMPROVISED_PROJECTILES));
-									Buff.affect(curUser, Talent.ImprovisedProjectileCooldown.class, 50f-10f*curUser.pointsInTalent(Talent.IMPROVISED_PROJECTILES));
+									Buff.affect(curUser, Talent.ImprovisedProjectileCooldown.class, 50f);
 								}
 							}
 							if (user.buff(Talent.LethalMomentumTracker.class) != null){
@@ -681,12 +695,21 @@ public class Item implements Bundlable {
 		}
 	}
 	
-	public float castDelay( Char user, int dst ){
+	public float castDelay( Char user, int cell ){
 		return TIME_TO_THROW;
+	}
+
+	public float pickupDelay(){
+		return TIME_TO_PICK_UP;
 	}
 	
 	protected static Hero curUser = null;
 	protected static Item curItem = null;
+	public void setCurrent( Hero hero ){
+		curUser = hero;
+		curItem = this;
+	}
+
 	protected static CellSelector.Listener thrower = new CellSelector.Listener() {
 		@Override
 		public void onSelect( Integer target ) {

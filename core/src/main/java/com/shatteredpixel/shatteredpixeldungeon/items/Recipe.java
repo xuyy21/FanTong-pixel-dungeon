@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,33 +23,9 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.BBQ;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.BerryCake;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.BlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Cooked_larva;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Cookit;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Glandcandy;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Juice;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.MandrakeRoot;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Mandrake_liquor;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.MushroomSoup;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Salad;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -66,8 +42,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIc
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
-import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
-import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -194,7 +168,7 @@ public abstract class Recipe {
 	//*******
 
 	private static Recipe[] variableRecipes = new Recipe[]{
-			new LiquidMetal.Recipe()
+			//none for now
 	};
 	
 	private static Recipe[] oneIngredientRecipes = new Recipe[]{
@@ -202,6 +176,7 @@ public abstract class Recipe {
 		new ExoticPotion.PotionToExotic(),
 		new ExoticScroll.ScrollToExotic(),
 		new ArcaneResin.Recipe(),
+		new LiquidMetal.Recipe(),
 		new BlizzardBrew.Recipe(),
 		new InfernalBrew.Recipe(),
 		new AquaBrew.Recipe(),
@@ -219,13 +194,7 @@ public abstract class Recipe {
 		new SummonElemental.Recipe(),
 		new StewedMeat.oneMeat(),
 		new TrinketCatalyst.Recipe(),
-		new Trinket.UpgradeTrinket(),
-		new SmallRation.Recipe(),
-		new Juice.Recipe(),
-		new Tempura.Recipe(),
-		new ToastBat.Recipe(),
-		new ScorpioTempura.Recipe(),
-		new Honeypot.HalfPot.Recipe()
+		new Trinket.UpgradeTrinket()
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{
@@ -241,34 +210,13 @@ public abstract class Recipe {
 		new CurseInfusion.Recipe(),
 		new ReclaimTrap.Recipe(),
 		new WildEnergy.Recipe(),
-		new StewedMeat.twoMeat(),
-		new GooStylus.Recipe(),
-		new Pasty.Recipe(),
-		new Icecream.Recipe(),
-		new HoneyMeat.Recipe(),
-		new BoneSoup.Recipe(),
-		new Glandcandy.Recipe(),
-		new Cookit.Recipe(),
-		new Cookware.Recipe(),
-		new Sorbet.Recipe(),
-		new BerryCake.Recipe(),
-		new EyeCake.Recipe(),
-		new Cooked_larva.Recipe(),
-		new Mandrake_liquor.Recipe()
+		new StewedMeat.twoMeat()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new StewedMeat.threeMeat(),
-		new MeatPie.Recipe(),
-		new Salad.Recipe(),
-		new BBQ.Recipe(),
-		new GoldenPudding.Recipe(),
-		new Mushroom.MushroomToPotion(),
-		new Gland.GlandToPotion(),
-		new MushroomSoup.Recipe(),
-		new BlackPudding.Recipe(),
-		new MandrakeRoot.MandrakeToPotion()
+		new MeatPie.Recipe()
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){
@@ -307,13 +255,12 @@ public abstract class Recipe {
 	}
 	
 	public static boolean usableInRecipe(Item item){
+		//only upgradeable thrown weapons and wands allowed among equipment items
 		if (item instanceof EquipableItem){
-			//only thrown weapons and wands allowed among equipment items
-			return item.isIdentified() && !item.cursed && item instanceof MissileWeapon;
+			return item.cursedKnown && !item.cursed &&
+					item instanceof MissileWeapon && item.isUpgradable();
 		} else if (item instanceof Wand) {
-			return item.isIdentified() && !item.cursed;
-		} else if (item instanceof RecipeBook || item instanceof RecipeFolder) {
-			return false;
+			return item.cursedKnown && !item.cursed;
 		} else {
 			//other items can be unidentified, but not cursed
 			return !item.cursed;

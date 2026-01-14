@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,10 +81,10 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 		}
 	}
 
-	private void confirmCancelation( Window chooseWindow ) {
+	private void confirmCancelation( Window chooseWindow, boolean byID ) {
 		GameScene.show( new WndOptions(new ItemSprite(this),
 				Messages.titleCase(name()),
-				Messages.get(InventoryScroll.class, "warning"),
+				byID ? Messages.get(InventoryScroll.class, "warning") : Messages.get(ScrollOfMetamorphosis.class, "cancel_warn"),
 				Messages.get(InventoryScroll.class, "yes"),
 				Messages.get(InventoryScroll.class, "no") ) {
 			@Override
@@ -158,7 +158,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 		public void onBackPressed() {
 
 			if (identifiedByUse){
-				((ScrollOfMetamorphosis)curItem).confirmCancelation(this);
+				((ScrollOfMetamorphosis)curItem).confirmCancelation(this, true);
 			} else {
 				super.onBackPressed();
 			}
@@ -211,6 +211,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 			Set<Talent> curTalentsAtTier = Dungeon.hero.talents.get(tier-1).keySet();
 
 			for (HeroClass cls : HeroClass.values()){
+
 				ArrayList<LinkedHashMap<Talent, Integer>> clsTalents = new ArrayList<>();
 				Talent.initClassTalents(cls, clsTalents);
 
@@ -273,7 +274,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 		@Override
 		public void onBackPressed() {
 			if (curItem instanceof ScrollOfMetamorphosis) {
-				((ScrollOfMetamorphosis) curItem).confirmCancelation(this);
+				((ScrollOfMetamorphosis) curItem).confirmCancelation(this, false);
 			} else {
 				super.onBackPressed();
 			}

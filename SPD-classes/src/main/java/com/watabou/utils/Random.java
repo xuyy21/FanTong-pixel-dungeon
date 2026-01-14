@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,7 +75,12 @@ public class Random {
 
 	//returns a uniformly distributed float in the range [0, 1)
 	public static synchronized float Float() {
-		return generators.peek().nextFloat();
+		return Float(true);
+	}
+
+	public static synchronized float Float( boolean useGeneratorStack ) {
+		if (useGeneratorStack)  return generators.peekFirst().nextFloat();
+		else                    return generators.peekLast().nextFloat();
 	}
 
 	//returns a uniformly distributed float in the range [0, max)
@@ -95,12 +100,27 @@ public class Random {
 
 	//returns a uniformly distributed int in the range [-2^31, 2^31)
 	public static synchronized int Int() {
-		return generators.peek().nextInt();
+		return Int(true);
+	}
+
+	//returns a uniformly distributed int in the range [-2^31, 2^31)
+	//can either use the current generator in the stack, or force the first generator (pure random)
+	public static synchronized int Int( boolean useGeneratorStack ) {
+		if (useGeneratorStack)  return generators.peekFirst().nextInt();
+		else                    return generators.peekLast().nextInt();
 	}
 
 	//returns a uniformly distributed int in the range [0, max)
 	public static synchronized int Int( int max ) {
-		return max > 0 ? generators.peek().nextInt(max) : 0;
+		return Int(max, true);
+	}
+
+	//returns a uniformly distributed int in the range [0, max)
+	//can either use the current generator in the stack, or force the first generator (pure random)
+	public static synchronized int Int( int max, boolean useGeneratorStack ) {
+		if (max <= 0)                   return 0;
+		else if (useGeneratorStack)     return generators.peekFirst().nextInt(max);
+		else                            return generators.peekLast().nextInt(max);
 	}
 
 	//returns a uniformly distributed int in the range [min, max)
@@ -132,7 +152,14 @@ public class Random {
 
 	//returns a uniformly distributed long in the range [-2^63, 2^63)
 	public static synchronized long Long() {
-		return generators.peek().nextLong();
+		return Long(true);
+	}
+
+	//returns a uniformly distributed long in the range [-2^63, 2^63)
+	//can either use the current generator in the stack, or force the first generator (pure random)
+	public static synchronized long Long( boolean useGeneratorStack ) {
+		if (useGeneratorStack)  return generators.peekFirst().nextLong();
+		else                    return generators.peekLast().nextLong();
 	}
 
 	//returns a mostly uniformly distributed long in the range [0, max)
@@ -144,19 +171,24 @@ public class Random {
 	}
 
 	//returns an index from chances, the probability of each index is the weight values in changes
+	//negative values are treated as 0
 	public static int chances( float[] chances ) {
 		
 		int length = chances.length;
 		
 		float sum = 0;
 		for (int i=0; i < length; i++) {
-			sum += chances[i];
+			sum += Math.max(0, chances[i]);
+		}
+
+		if (sum <= 0){
+			return -1;
 		}
 		
 		float value = Float( sum );
 		sum = 0;
 		for (int i=0; i < length; i++) {
-			sum += chances[i];
+			sum += Math.max(0, chances[i]);
 			if (value < sum) {
 				return i;
 			}

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,7 +39,6 @@ public class FrozenCarpaccio extends Food {
 	{
 		image = ItemSpriteSheet.CARPACCIO;
 		energy = Hunger.HUNGRY/2f;
-		canFakeEat = true;
 	}
 	
 	@Override
@@ -52,8 +51,7 @@ public class FrozenCarpaccio extends Food {
 		return 10 * quantity;
 	}
 
-	@Override
-	public void effect(Hero hero){
+	public static void effect(Hero hero){
 		switch (Random.Int( 5 )) {
 			case 0:
 				GLog.i( Messages.get(FrozenCarpaccio.class, "invis") );

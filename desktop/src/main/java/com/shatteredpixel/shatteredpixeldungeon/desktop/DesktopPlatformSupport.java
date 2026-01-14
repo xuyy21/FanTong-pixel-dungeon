@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -149,17 +149,17 @@ public class DesktopPlatformSupport extends PlatformSupport {
 		}
 	}
 	
-	//splits on newlines, underscores, and chinese/japaneses characters
+	//splits on newline (for layout), chinese/japanese (for font choice), and '_'/'**' (for highlighting)
 	private Pattern regularsplitter = Pattern.compile(
-			"(?<=\n)|(?=\n)|(?<=_)|(?=_)|" +
+			"(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\*\\*)|(?=\\*\\*)|" +
 					"(?<=\\p{InHiragana})|(?=\\p{InHiragana})|" +
 					"(?<=\\p{InKatakana})|(?=\\p{InKatakana})|" +
 					"(?<=\\p{InCJK_Unified_Ideographs})|(?=\\p{InCJK_Unified_Ideographs})|" +
 					"(?<=\\p{InCJK_Symbols_and_Punctuation})|(?=\\p{InCJK_Symbols_and_Punctuation})");
 	
-	//additionally splits on words, so that each word can be arranged individually
+	//additionally splits on spaces, so that each word can be laid out individually
 	private Pattern regularsplitterMultiline = Pattern.compile(
-			"(?<= )|(?= )|(?<=\n)|(?=\n)|(?<=_)|(?=_)|" +
+			"(?<= )|(?= )|(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\*\\*)|(?=\\*\\*)|" +
 					"(?<=\\p{InHiragana})|(?=\\p{InHiragana})|" +
 					"(?<=\\p{InKatakana})|(?=\\p{InKatakana})|" +
 					"(?<=\\p{InCJK_Unified_Ideographs})|(?=\\p{InCJK_Unified_Ideographs})|" +

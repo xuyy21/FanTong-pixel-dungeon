@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BruteSprite;
@@ -51,8 +50,6 @@ public class Brute extends Mob {
 		
 		loot = Gold.class;
 		lootChance = 0.5f;
-		food = new Mushroom();
-		foodChance = 0.4f;
 	}
 	
 	protected boolean hasRaged = false;
@@ -83,21 +80,30 @@ public class Brute extends Mob {
 		}
 	}
 
+	//cache this buff to prevent having to call buff(...) a bunch in isAlive
+	private BruteRage rage;
+
 	@Override
-	public synchronized boolean isAlive() {
+	public boolean isAlive() {
 		if (super.isAlive()){
 			return true;
 		} else {
 			if (!hasRaged){
 				triggerEnrage();
 			}
-			return !buffs(BruteRage.class).isEmpty();
+			if (rage == null){
+				for (BruteRage b : buffs(BruteRage.class)){
+					rage = b;
+				}
+			}
+			return rage != null && rage.shielding() > 0;
 		}
 	}
 	
 	protected void triggerEnrage(){
-		Buff.affect(this, BruteRage.class).setShield(HT/2 + 4);
-		sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(HT/2 + 4), FloatingText.SHIELDING );
+		rage = Buff.affect(this, BruteRage.class);
+		rage.setShield(HT/2 + 4);
+		sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(HT/2), FloatingText.SHIELDING );
 		if (Dungeon.level.heroFOV[pos]) {
 			SpellSprite.show( this, SpellSprite.BERSERK);
 		}
@@ -144,6 +150,12 @@ public class Brute extends Mob {
 			return true;
 		}
 		
+		@Override
+		public void detach() {
+			super.detach();
+			decShield(shielding()); //clear shielding to track that this was detached
+		}
+
 		@Override
 		public int icon () {
 			return BuffIndicator.FURY;

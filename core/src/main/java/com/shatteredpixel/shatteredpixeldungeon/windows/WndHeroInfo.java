@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,6 +72,9 @@ public class WndHeroInfo extends WndTabbed {
 				break;
 			case DUELIST:
 				tabIcon = new ItemSprite(ItemSpriteSheet.RAPIER, null);
+				break;
+			case CLERIC:
+				tabIcon = new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME, null);
 				break;
 		}
 
@@ -198,6 +201,12 @@ public class WndHeroInfo extends WndTabbed {
 							new ItemSprite(ItemSpriteSheet.THROWING_SPIKE),
 							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
 					break;
+				case CLERIC:
+					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME),
+							Icons.TALENT.get(),
+							new ItemSprite(ItemSpriteSheet.CUDGEL),
+							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+					break;
 			}
 			for (Image im : icons) {
 				add(im);
@@ -219,6 +228,7 @@ public class WndHeroInfo extends WndTabbed {
 
 				icons[i].x = (20-icons[i].width())/2;
 				icons[i].y = info[i].top() + (info[i].height() - icons[i].height())/2;
+				PixelScene.align(icons[i]);
 
 				pos = info[i].bottom() + 4*MARGIN;
 			}

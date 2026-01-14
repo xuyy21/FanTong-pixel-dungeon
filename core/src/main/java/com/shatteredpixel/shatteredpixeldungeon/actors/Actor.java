@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -43,7 +44,7 @@ public abstract class Actor implements Bundlable {
 
 	//default priority values for general actor categories
 	//note that some specific actors pick more specific values
-	//e.g. a buff acting after all normal buffs might have priority BUFF_PRIO + 1
+	//e.g. a buff acting before all normal buffs might have priority BUFF_PRIO + 1
 	protected static final int VFX_PRIO    = 100;   //visual effects take priority
 	protected static final int HERO_PRIO   = 0;     //positive is before hero, negative after
 	protected static final int BLOB_PRIO   = -10;   //blobs act after hero, before mobs
@@ -91,7 +92,12 @@ public abstract class Actor implements Bundlable {
 	}
 
 	public void clearTime() {
-		time = 0;
+		spendConstant(-Actor.now());
+		if (this instanceof Char){
+			for (Buff b : ((Char) this).buffs()){
+				b.spendConstant(-Actor.now());
+			}
+		}
 	}
 
 	public void timeToNow() {
@@ -179,7 +185,7 @@ public abstract class Actor implements Bundlable {
 			a.time -= min;
 		}
 
-		if (Dungeon.hero != null && all.contains( Dungeon.hero )) {
+		if (Dungeon.hero != null && all.contains( Dungeon.hero ) && !(Dungeon.level instanceof VaultLevel)) {
 			Statistics.duration += min;
 		}
 		now -= min;

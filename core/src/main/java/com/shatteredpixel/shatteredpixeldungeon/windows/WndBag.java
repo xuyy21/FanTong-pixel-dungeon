@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.FoodBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
@@ -134,6 +133,9 @@ public class WndBag extends WndTabbed {
 				BagTab tab = new BagTab( b, i++ );
 				add( tab );
 				tab.select( b == bag );
+				if  (b == bag){
+					selected = tab;
+				}
 			}
 		}
 
@@ -408,8 +410,6 @@ public class WndBag extends WndTabbed {
 			return Icons.get( Icons.WAND_HOLSTER );
 		} else if (bag instanceof PotionBandolier) {
 			return Icons.get( Icons.POTION_BANDOLIER );
-		}else if (bag instanceof FoodBag) {
-			return Icons.get( Icons.FOODBAG );
 		} else {
 			return Icons.get( Icons.BACKPACK );
 		}
@@ -440,8 +440,6 @@ public class WndBag extends WndTabbed {
 					return SPDAction.BAG_4;
 				case 5:
 					return SPDAction.BAG_5;
-				case 6:
-					return SPDAction.BAG_6;
 			}
 		}
 

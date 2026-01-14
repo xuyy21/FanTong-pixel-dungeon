@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ public class RightClickMenu extends Component {
 	}
 
 	private void setup(Image icon, String title, String... options){
-		bg = Chrome.get(Chrome.Type.TOAST_TR);
+		bg = Chrome.get(Chrome.Type.TOAST_TR_HEAVY);
 		add(bg);
 
 		this.icon = icon;

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,7 +80,7 @@ public class SacrificialFire extends Blob {
 					volume += off[cell];
 
 					if (off[cell] > 0){
-						for (int k : PathFinder.NEIGHBOURS25){
+						for (int k : PathFinder.NEIGHBOURS9){
 							Char ch = Actor.findChar( cell+k );
 							if (ch != null){
 								if (Dungeon.level.heroFOV[cell+k] && ch.buff( Marked.class ) == null) {
@@ -148,7 +148,7 @@ public class SacrificialFire extends Blob {
 	public void sacrifice( Char ch ) {
 
 		int firePos = -1;
-		for (int i : PathFinder.NEIGHBOURS25){
+		for (int i : PathFinder.NEIGHBOURS9){
 			if (volume > 0 && cur[ch.pos+i] > 0){
 				firePos = ch.pos+i;
 				break;
@@ -192,7 +192,7 @@ public class SacrificialFire extends Blob {
 					clear(firePos);
 					if (volume <= 0) Notes.remove( landmark() );
 
-					for (int i : PathFinder.NEIGHBOURS25){
+					for (int i : PathFinder.NEIGHBOURS9){
 						CellEmitter.get(firePos+i).burst( SacrificialParticle.FACTORY, 20 );
 					}
 					Sample.INSTANCE.play(Assets.Sounds.BURNING );

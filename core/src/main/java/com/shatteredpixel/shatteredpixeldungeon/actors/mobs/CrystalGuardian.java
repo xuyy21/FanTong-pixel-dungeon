@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,10 +23,12 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
@@ -68,6 +70,9 @@ public class CrystalGuardian extends Mob{
 	@Override
 	protected boolean act() {
 		if (recovering){
+			if (buff(PinCushion.class) != null){
+				buff(PinCushion.class).detach();
+			}
 			throwItems();
 			HP = Math.min(HT, HP+5);
 			if (Dungeon.level.heroFOV[pos]) {
@@ -116,9 +121,27 @@ public class CrystalGuardian extends Mob{
 	}
 
 	@Override
+	public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
+		//if enemy is hero, and they aren't currently fighting the spire, -100 points
+		if (enemy == Dungeon.hero){
+			boolean spireNear = false;
+			for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])){
+				if (m instanceof CrystalSpire && m.HP != m.HT && Dungeon.level.distance(pos, m.pos) <= 8){
+					spireNear = true;
+				}
+			}
+			if (!spireNear){
+				Statistics.questScores[2] -= 100;
+			}
+		}
+		return super.attack(enemy, dmgMulti, dmgBonus, accMulti);
+	}
+
+	@Override
 	public int defenseProc(Char enemy, int damage) {
 		if (recovering){
-			sprite.showStatus(CharSprite.NEGATIVE, Integer.toString(damage));
+			//this triggers before blocking, so the dmg as block-bypassing
+			sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(damage), FloatingText.PHYS_DMG_NO_BLOCK);
 			HP = Math.max(1, HP-damage);
 			damage = -1;
 		}

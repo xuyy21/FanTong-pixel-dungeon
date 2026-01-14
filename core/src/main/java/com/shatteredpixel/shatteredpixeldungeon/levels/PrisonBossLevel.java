@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -210,6 +210,8 @@ public class PrisonBossLevel extends Level {
 			Painter.set(this, p, Terrain.WALL_DECO);
 		}
 
+		addCagesToCells();
+
 		//we set up the exit for consistently with other levels, even though it's in the walls
 		LevelTransition exit = new LevelTransition(this, pointToCell(levelExit), LevelTransition.Type.REGULAR_EXIT);
 		exit.right+=2;
@@ -232,6 +234,8 @@ public class PrisonBossLevel extends Level {
 		Painter.fill(this, entranceRoom, Terrain.WALL);
 		Painter.set(this, startHallway.left+1, startHallway.top, Terrain.EMPTY);
 		Painter.set(this, startHallway.left+1, startHallway.top+1, Terrain.DOOR);
+
+		addCagesToCells();
 
 	}
 	
@@ -313,13 +317,7 @@ public class PrisonBossLevel extends Level {
 			cell += width();
 		}
 
-		//pre-2.5.1 saves, if exit wasn't already added
-		if (exit() == entrance()) {
-			LevelTransition exit = new LevelTransition(this, pointToCell(levelExit), LevelTransition.Type.REGULAR_EXIT);
-			exit.right += 2;
-			exit.bottom += 3;
-			transitions.add(exit);
-		}
+		addCagesToCells();
 	}
 	
 	//keep track of removed items as the level is changed. Dump them back into the level at the end.
@@ -371,7 +369,7 @@ public class PrisonBossLevel extends Level {
 		addVisuals(); //this also resets existing visuals
 		traps.clear();
 
-		for (CustomTilemap t : customTiles){
+		for (CustomTilemap t : customTiles.toArray(new CustomTilemap[0])){
 			if (t instanceof FadingTraps){
 				((FadingTraps) t).remove();
 			}
@@ -379,6 +377,25 @@ public class PrisonBossLevel extends Level {
 		
 		GameScene.resetMap();
 		Dungeon.observe();
+	}
+
+	//randomly places up to 5 cages on tiles that are aside walls (but not torches or doors!)
+	public void addCagesToCells(){
+		Random.pushGenerator(Dungeon.seedCurDepth());
+			for (int i = 0; i < 5; i++){
+				int cell = randomPrisonCellPos();
+				boolean valid = false;
+				for (int j : PathFinder.NEIGHBOURS4){
+					if (map[cell+j] == Terrain.WALL){
+						valid = true;
+					}
+				}
+				if (valid){
+					Painter.set(this, cell, Terrain.REGION_DECO);
+				}
+			}
+
+		Random.popGenerator();
 	}
 	
 	@Override
@@ -423,8 +440,11 @@ public class PrisonBossLevel extends Level {
 				
 				tengu.state = tengu.HUNTING;
 				tengu.pos = tenguPos;
-				GameScene.add( tengu );
+				GameScene.add( tengu, 1 );
 				tengu.notice();
+
+				CellEmitter.get( tengu.pos ).burst( Speck.factory( Speck.WOOL ), 6 );
+				Sample.INSTANCE.play( Assets.Sounds.PUFF );
 				
 				state = State.FIGHT_START;
 
@@ -446,6 +466,7 @@ public class PrisonBossLevel extends Level {
 				Doom d = tengu.buff(Doom.class);
 				Actor.remove(tengu);
 				mobs.remove(tengu);
+				tengu.clearTime();
 				TargetHealthIndicator.instance.target(null);
 				tengu.sprite.kill();
 				if (d != null) tengu.add(d);
@@ -467,9 +488,10 @@ public class PrisonBossLevel extends Level {
 				
 				tengu.state = tengu.HUNTING;
 				tengu.pos = (arena.left + arena.width()/2) + width()*(arena.top+2);
-				GameScene.add(tengu);
-				tengu.timeToNow();
+				GameScene.add( tengu, 1 );
 				tengu.notice();
+
+				CellEmitter.get( tengu.pos ).burst( Speck.factory( Speck.WOOL ), 6 );
 				
 				GameScene.flash(0x80FFFFFF);
 				Sample.INSTANCE.play(Assets.Sounds.BLAST);
@@ -587,7 +609,11 @@ public class PrisonBossLevel extends Level {
 			}
 		Random.popGenerator();
 
-		drop(new IronKey(10), randomPrisonCellPos());
+		int pos;
+		do {
+			pos = randomPrisonCellPos();
+		} while (solid[pos]);
+		drop(new IronKey(10), pos);
 	}
 
 	@Override
@@ -623,7 +649,7 @@ public class PrisonBossLevel extends Level {
 		Painter.fill(this, tenguCell, 1, Terrain.EMPTY);
 		buildFlagMaps();
 
-		for (CustomTilemap vis : customTiles){
+		for (CustomTilemap vis : customTiles.toArray(new CustomTilemap[0])){
 			if (vis instanceof FadingTraps){
 				((FadingTraps) vis).remove();
 			}
@@ -717,6 +743,9 @@ public class PrisonBossLevel extends Level {
 		switch (tile) {
 			case Terrain.WATER:
 				return Messages.get(PrisonLevel.class, "water_name");
+			case Terrain.REGION_DECO:
+			case Terrain.REGION_DECO_ALT:
+				return Messages.get(PrisonLevel.class, "region_deco_name");
 			default:
 				return super.tileName( tile );
 		}
@@ -729,6 +758,9 @@ public class PrisonBossLevel extends Level {
 				return Messages.get(PrisonLevel.class, "empty_deco_desc");
 			case Terrain.BOOKSHELF:
 				return Messages.get(PrisonLevel.class, "bookshelf_desc");
+			case Terrain.REGION_DECO:
+			case Terrain.REGION_DECO_ALT:
+				return Messages.get(PrisonLevel.class, "region_deco_desc");
 			default:
 				return super.tileDesc( tile );
 		}

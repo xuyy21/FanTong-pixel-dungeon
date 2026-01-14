@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,11 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 
 //generic class for buffs which convert an enemy into an ally
 // There is a decent amount of logic that ties into this, which is why it has its own abstract class
-public abstract class AllyBuff extends Buff{
+public abstract class AllyBuff extends Buff {
+
+	{
+		revivePersists = true;
+	}
 
 	@Override
 	public boolean attachTo(Char target) {

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,8 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -58,8 +56,6 @@ public class Guard extends Mob {
 
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.2f; //by default, see lootChance()
-		food = new Mushroom();
-		foodChance = 0.4f;
 
 		properties.add(Property.UNDEAD);
 		
@@ -84,7 +80,9 @@ public class Guard extends Mob {
 		else {
 			int newPos = -1;
 			for (int i : chain.subPath(1, chain.dist)){
-				if (!Dungeon.level.solid[i] && Actor.findChar(i) == null){
+				//find the closest position to the guard that's open for the target
+				if (!Dungeon.level.solid[i] && Actor.findChar(i) == null
+						&& (Dungeon.level.openSpace[i] || !Char.hasProp(enemy, Property.LARGE))){
 					newPos = i;
 					break;
 				}
@@ -131,6 +129,8 @@ public class Guard extends Mob {
 			Dungeon.hero.interrupt();
 			Dungeon.observe();
 			GameScene.updateFog();
+		} else {
+			enemy.sprite.visible = Dungeon.level.heroFOV[pullPos];
 		}
 	}
 
@@ -181,8 +181,6 @@ public class Guard extends Mob {
 					&& !isCharmedBy( enemy )
 					&& !canAttack( enemy )
 					&& Dungeon.level.distance( pos, enemy.pos ) < 5
-
-					
 					&& chain(enemy.pos)){
 				return !(sprite.visible || enemy.sprite.visible);
 			} else {

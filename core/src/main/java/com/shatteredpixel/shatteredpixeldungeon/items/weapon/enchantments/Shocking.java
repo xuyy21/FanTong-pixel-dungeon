@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,10 +44,8 @@ public class Shocking extends Weapon.Enchantment {
 	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
 		int level = Math.max( 0, weapon.buffedLvl() );
 
-		// lvl 0 - 25%
-		// lvl 1 - 40%
-		// lvl 2 - 50%
-		float procChance = (level+1f)/(level+4f) * procChanceMultiplier(attacker);
+		// flat 33% proc chance, effect scales with level via damage dealt
+		float procChance = (1/3f) * procChanceMultiplier(attacker);
 		if (Random.Float() < procChance) {
 
 			float powerMulti = Math.max(1f, procChance);
@@ -60,7 +58,7 @@ public class Shocking extends Weapon.Enchantment {
 			affected.remove(defender); //defender isn't hurt by lightning
 			for (Char ch : affected) {
 				if (ch.alignment != attacker.alignment) {
-					ch.damage(Math.round(damage * 0.4f * powerMulti), this);
+					ch.damage(Math.round(damage * 0.5f * powerMulti), this);
 				}
 			}
 
@@ -83,21 +81,26 @@ public class Shocking extends Weapon.Enchantment {
 	private ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 	
 	public static void arc( Char attacker, Char defender, int dist, ArrayList<Char> affected, ArrayList<Lightning.Arc> arcs ) {
-		
-		affected.add(defender);
-		
+
 		defender.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 		defender.sprite.flash();
-		
+
+		ArrayList<Char> hitThisArc = new ArrayList<>();
 		PathFinder.buildDistanceMap( defender.pos, BArray.not( Dungeon.level.solid, null ), dist );
 		for (int i = 0; i < PathFinder.distance.length; i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				Char n = Actor.findChar(i);
 				if (n != null && n != attacker && !affected.contains(n)) {
-					arcs.add(new Lightning.Arc(defender.sprite.center(), n.sprite.center()));
-					arc(attacker, n, (Dungeon.level.water[n.pos] && !n.flying) ? 2 : 1, affected, arcs);
+					hitThisArc.add(n);
 				}
 			}
 		}
+
+		affected.addAll(hitThisArc);
+		for (Char hit : hitThisArc){
+			arcs.add(new Lightning.Arc(defender.sprite.center(), hit.sprite.center()));
+			arc(attacker, hit, (Dungeon.level.water[hit.pos] && !hit.flying) ? 2 : 1, affected, arcs);
+		}
+
 	}
 }

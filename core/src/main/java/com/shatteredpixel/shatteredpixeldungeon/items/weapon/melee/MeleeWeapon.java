@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.GreaterHaste;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
@@ -36,11 +35,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSkill;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -67,14 +66,15 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		if (ch instanceof Hero){
+		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.DUELIST){
 			Buff.affect(ch, Charger.class);
 		}
 	}
 
 	@Override
 	public String defaultAction() {
-		if (Dungeon.hero != null){
+		if (Dungeon.hero != null && (Dungeon.hero.heroClass == HeroClass.DUELIST
+			|| Dungeon.hero.hasTalent(Talent.SWIFT_EQUIP))){
 			return AC_ABILITY;
 		} else {
 			return super.defaultAction();
@@ -84,7 +84,7 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero) && !(this instanceof MagesStaff)){
+		if (isEquipped(hero) && hero.heroClass == HeroClass.DUELIST){
 			actions.add(AC_ABILITY);
 		}
 		return actions;
@@ -110,12 +110,14 @@ public class MeleeWeapon extends Weapon {
 					if (hero.buff(Talent.SwiftEquipCooldown.class) == null
 						|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
 						execute(hero, AC_EQUIP);
-					} else {
+					} else if (hero.heroClass == HeroClass.DUELIST) {
 						GLog.w(Messages.get(this, "ability_need_equip"));
 					}
-				} else {
+				} else if (hero.heroClass == HeroClass.DUELIST) {
 					GLog.w(Messages.get(this, "ability_need_equip"));
 				}
+			} else if (hero.heroClass != HeroClass.DUELIST){
+				//do nothing
 			} else if (STRReq() > hero.STR()){
 				GLog.w(Messages.get(this, "ability_low_str"));
 			} else if ((Buff.affect(hero, Charger.class).charges + Buff.affect(hero, Charger.class).partialCharge) < abilityChargeUse(hero, null)) {
@@ -224,9 +226,6 @@ public class MeleeWeapon extends Weapon {
 			charger.gainCharge(hero.pointsInTalent(Talent.COUNTER_ABILITY)*0.375f);
 			hero.buff(Talent.CounterAbilityTacker.class).detach();
 		}
-		if (hero.hasTalent(Talent.HOLD_FAST) && (hero.pointsInTalent(Talent.HOLD_FAST) >= 2)){
-			Buff.affect(hero, HoldFast.class).pos = hero.pos;
-		}
 	}
 
 	public static void onAbilityKill( Hero hero, Char killed ){
@@ -290,13 +289,6 @@ public class MeleeWeapon extends Weapon {
 		return super.buffedLvl();
 	}
 
-	public int abilityLvl() {
-		if (Dungeon.hero != null && isEquipped(Dungeon.hero)){
-			return buffedLvl() + RingOfSkill.weaponSkillBonus(Dungeon.hero);
-		}
-		else return buffedLvl();
-	}
-
 	@Override
 	public int damageRoll(Char owner) {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
@@ -344,7 +336,11 @@ public class MeleeWeapon extends Weapon {
 			case NONE:
 		}
 
-		if (enchantment != null && (cursedKnown || !enchantment.curse())){
+		if (isEquipped(Dungeon.hero) && !hasCurseEnchant() && Dungeon.hero.buff(HolyWeapon.HolyWepBuff.class) != null
+				&& (Dungeon.hero.subClass != HeroSubClass.PALADIN || enchantment == null)){
+			info += "\n\n" + Messages.capitalize(Messages.get(Weapon.class, "enchanted", Messages.get(HolyWeapon.class, "ench_name", Messages.get(Enchantment.class, "enchant"))));
+			info += " " + Messages.get(HolyWeapon.class, "ench_desc");
+		} else if (enchantment != null && (cursedKnown || !enchantment.curse())){
 			info += "\n\n" + Messages.capitalize(Messages.get(Weapon.class, "enchanted", enchantment.name()));
 			if (enchantHardened) info += " " + Messages.get(Weapon.class, "enchant_hardened");
 			info += " " + enchantment.desc();
@@ -365,7 +361,7 @@ public class MeleeWeapon extends Weapon {
 		}
 
 		//the mage's staff has no ability as it can only be gained by the mage
-		if (!(this instanceof MagesStaff)){
+		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST && !(this instanceof MagesStaff)){
 			info += "\n\n" + abilityInfo();
 		}
 		
@@ -387,8 +383,7 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public String status() {
 		if (isEquipped(Dungeon.hero)
-				&& Dungeon.hero.buff(Charger.class) != null
-				&& !(this instanceof MagesStaff)) {
+				&& Dungeon.hero.buff(Charger.class) != null) {
 			Charger buff = Dungeon.hero.buff(Charger.class);
 			return buff.charges + "/" + buff.chargeCap();
 		} else {
@@ -416,6 +411,11 @@ public class MeleeWeapon extends Weapon {
 
 	public static class Charger extends Buff implements ActionIndicator.Action {
 
+		{
+			//so that duelist keeps weapon charge on ankh revive
+			revivePersists = true;
+		}
+
 		public int charges = 2;
 		public float partialCharge;
 
@@ -431,16 +431,10 @@ public class MeleeWeapon extends Weapon {
 						chargeToGain *= 1.5f;
 					}
 
-					if (Dungeon.hero.heroClass != HeroClass.DUELIST) {
-						chargeToGain *= 0.75f;
-					}
-
 					//50% slower charge gain with brawler's stance enabled, even if buff is inactive
 					if (Dungeon.hero.buff(RingOfForce.BrawlersStance.class) != null){
 						chargeToGain *= 0.50f;
 					}
-
-					chargeToGain *= RingOfSkill.weaponChargeMultiplier(target);
 
 					partialCharge += chargeToGain;
 				}
@@ -485,12 +479,8 @@ public class MeleeWeapon extends Weapon {
 			//caps at level 19 with 8 or 10 charges
 			if (Dungeon.hero.subClass == HeroSubClass.CHAMPION){
 				return Math.min(10, 4 + (Dungeon.hero.lvl - 1) / 3);
-			} else if (Dungeon.hero.heroClass == HeroClass.DUELIST) {
-				return Math.min(8, 2 + (Dungeon.hero.lvl - 1) / 3);
-			} else if (Dungeon.hero.heroClass == HeroClass.WARRIOR) {
-				return Math.min(6, 2 + (Dungeon.hero.lvl - 1) / 4);
 			} else {
-				return 2;
+				return Math.min(8, 2 + (Dungeon.hero.lvl - 1) / 3);
 			}
 		}
 

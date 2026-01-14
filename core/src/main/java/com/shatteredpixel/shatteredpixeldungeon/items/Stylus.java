@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,7 +86,7 @@ public class Stylus extends Item {
 	
 	private void inscribe( Armor armor ) {
 
-		if (!armor.isIdentified() ){
+		if (!armor.cursedKnown){
 			GLog.w( Messages.get(this, "identify"));
 			return;
 		} else if (armor.cursed || armor.hasCurseGlyph()){
@@ -113,11 +113,6 @@ public class Stylus extends Item {
 	@Override
 	public int value() {
 		return 30 * quantity;
-	}
-
-	@Override
-	public int energyVal() {
-		return 3 * quantity;
 	}
 
 	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {

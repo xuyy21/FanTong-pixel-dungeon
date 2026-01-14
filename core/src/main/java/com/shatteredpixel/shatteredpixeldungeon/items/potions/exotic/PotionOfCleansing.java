@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Addiction;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
@@ -83,11 +82,8 @@ public class PotionOfCleansing extends ExoticPotion {
 			if (b instanceof Hunger){
 				((Hunger) b).satisfy(Hunger.STARVING);
 			}
-			if (b instanceof Addiction){
-				((Addiction) b).reduce(5);
-			}
 		}
-		Buff.affect(ch, Cleanse.class, duration);
+		Buff.prolong(ch, Cleanse.class, duration);
 	}
 
 	public static class Cleanse extends FlavourBuff {

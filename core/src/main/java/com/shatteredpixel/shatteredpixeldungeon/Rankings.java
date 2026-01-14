@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -180,6 +181,7 @@ public enum Rankings {
 					Statistics.heldItemValue += i.value();
 					if (i instanceof CorpseDust && Statistics.deepestFloor >= 10){
 						// in case player kept the corpse dust, for a necromancer run
+						//we also override the score here, ignoring penalties
 						Statistics.questScores[1] = 2000;
 					}
 				}
@@ -189,8 +191,8 @@ public enum Rankings {
 
 			Statistics.exploreScore = 0;
 			int scorePerFloor = Statistics.floorsExplored.size * 50;
-			for (Boolean b : Statistics.floorsExplored.valueList()){
-				if (b) Statistics.exploreScore += scorePerFloor;
+			for (float percentExplored : Statistics.floorsExplored.valueList()){
+				Statistics.exploreScore += Math.round(percentExplored*scorePerFloor);
 			}
 
 			Statistics.totalBossScore = 0;
@@ -271,7 +273,10 @@ public enum Rankings {
 
 		//remove all buffs (ones tied to equipment will be re-applied)
 		for(Buff b : Dungeon.hero.buffs()){
-			Dungeon.hero.remove(b);
+			//except Duelist's melee weapon charge buff
+			if (!(b instanceof MeleeWeapon.Charger)) {
+				Dungeon.hero.remove(b);
+			}
 		}
 
 		rec.gameData.put( HERO, Dungeon.hero );

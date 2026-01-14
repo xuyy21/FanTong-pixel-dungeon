@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.WallOfLight;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
@@ -372,26 +373,31 @@ public class DM300 extends Mob {
 	public void ventGas( Char target ){
 		Dungeon.hero.interrupt();
 
-		int gasVented = 0;
-
 		Ballistica trajectory = new Ballistica(pos, target.pos, Ballistica.STOP_TARGET);
 
 		int gasMulti = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2 : 1;
 
-		for (int i : trajectory.subPath(0, trajectory.dist)){
-			GameScene.add(Blob.seed(i, 20*gasMulti, ToxicGas.class));
-			gasVented += 20*gasMulti;
-		}
-
-		GameScene.add(Blob.seed(trajectory.collisionPos, 100*gasMulti, ToxicGas.class));
-
-		if (gasVented < 250*gasMulti){
-			int toVentAround = (int)Math.ceil(((250*gasMulti) - gasVented)/8f);
-			for (int i : PathFinder.NEIGHBOURS8){
-				GameScene.add(Blob.seed(pos+i, toVentAround, ToxicGas.class));
+		//we delay the gas generation to just before the target acts, to prevent cases where partial turns can result in instant gas damage
+		Actor.addDelayed(new Actor() {
+			{ actPriority = VFX_PRIO; } //add the gas before any other actor at that time
+			@Override
+			protected boolean act() {
+				int gasVented = 0;
+				GameScene.add(Blob.seed(trajectory.collisionPos, 100*gasMulti, ToxicGas.class));
+				for (int i : trajectory.subPath(0, trajectory.dist)){
+					GameScene.add(Blob.seed(i, 20*gasMulti, ToxicGas.class));
+					gasVented += 20*gasMulti;
+				}
+				if (gasVented < 250*gasMulti){
+					int toVentAround = (int)Math.ceil(((250*gasMulti) - gasVented)/8f);
+					for (int i : PathFinder.NEIGHBOURS8){
+						GameScene.add(Blob.seed(pos+i, toVentAround, ToxicGas.class));
+					}
+				}
+				Actor.remove(this);
+				return true;
 			}
-
-		}
+		}, target.cooldown());
 
 	}
 
@@ -535,6 +541,9 @@ public class DM300 extends Mob {
 		supercharged = false;
 		((DM300Sprite)sprite).updateChargeState(false);
 
+		//adjust turns since last ability to prevent DM immediately using an ability when charge ends
+		turnsSinceLastAbility = Math.min(turnsSinceLastAbility, MIN_COOLDOWN-3);
+
 		if (pylonsActivated < totalPylonsToActivate()){
 			yell(Messages.get(this, "charge_lost"));
 		} else {
@@ -624,6 +633,9 @@ public class DM300 extends Mob {
 						Level.set(pos+i, Terrain.EMPTY_DECO);
 						GameScene.updateMap(pos+i);
 					}
+					if (Dungeon.level.blobs.get(WallOfLight.LightWall.class) != null){
+						Dungeon.level.blobs.get(WallOfLight.LightWall.class).clear(pos+i);
+					}
 				}
 				Dungeon.level.cleanWalls();
 				Dungeon.observe();
@@ -675,10 +687,17 @@ public class DM300 extends Mob {
 
 		@Override
 		public void affectChar(Char ch) {
-			if (!(ch instanceof DM300)){
-				Buff.prolong(ch, Paralysis.class, Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 5 : 3);
-				if (ch == Dungeon.hero) {
-					Statistics.bossScores[2] -= 100;
+			if (!(ch instanceof DM300 || ch instanceof Pylon)){
+				if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
+					ch.damage(Random.NormalIntRange(10, 20), this);
+				} else {
+					ch.damage(Random.NormalIntRange(6, 12), this);
+				}
+				if (ch.isAlive()) {
+					Buff.prolong(ch, Paralysis.class, Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 5 : 3);
+				} else if (ch == Dungeon.hero){
+					Dungeon.fail( target );
+					GLog.n( Messages.get( GnollGeomancer.class, "rockfall_kill") );
 				}
 			}
 		}

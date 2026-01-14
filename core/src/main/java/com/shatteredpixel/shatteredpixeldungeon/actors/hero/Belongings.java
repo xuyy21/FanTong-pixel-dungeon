@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,8 +35,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -180,9 +184,11 @@ public class Belongings implements Iterable<Item> {
 		bundle.put( RING, ring );
 		bundle.put( SECOND_WEP, secondWep );
 	}
+
+	public static boolean bundleRestoring = false;
 	
 	public void restoreFromBundle( Bundle bundle ) {
-		
+		bundleRestoring = true;
 		backpack.clear();
 		backpack.restoreFromBundle( bundle );
 		
@@ -203,6 +209,17 @@ public class Belongings implements Iterable<Item> {
 
 		secondWep = (KindOfWeapon) bundle.get(SECOND_WEP);
 		if (secondWep() != null)    secondWep().activate(owner);
+
+		bundleRestoring = false;
+	}
+
+	public void clear(){
+		backpack.clear();
+		weapon = secondWep = null;
+		armor = null;
+		artifact = null;
+		misc = null;
+		ring = null;
 	}
 	
 	public static void preview( GamesInProgress.Info info, Bundle bundle ) {
@@ -320,28 +337,52 @@ public class Belongings implements Iterable<Item> {
 	
 	public void observe() {
 		if (weapon() != null) {
-			weapon().identify();
-			Badges.validateItemLevelAquired(weapon());
+			if (ShardOfOblivion.passiveIDDisabled() && weapon() instanceof Weapon){
+				((Weapon) weapon()).setIDReady();
+			} else {
+				weapon().identify();
+				Badges.validateItemLevelAquired(weapon());
+			}
+		}
+		if (secondWep() != null){
+			if (ShardOfOblivion.passiveIDDisabled() && secondWep() instanceof Weapon){
+				((Weapon) secondWep()).setIDReady();
+			} else {
+				secondWep().identify();
+				Badges.validateItemLevelAquired(secondWep());
+			}
 		}
 		if (armor() != null) {
-			armor().identify();
-			Badges.validateItemLevelAquired(armor());
+			if (ShardOfOblivion.passiveIDDisabled()){
+				armor().setIDReady();
+			} else {
+				armor().identify();
+				Badges.validateItemLevelAquired(armor());
+			}
 		}
 		if (artifact() != null) {
+			//oblivion shard does not prevent artifact IDing
 			artifact().identify();
 			Badges.validateItemLevelAquired(artifact());
 		}
 		if (misc() != null) {
-			misc().identify();
-			Badges.validateItemLevelAquired(misc());
+			if (ShardOfOblivion.passiveIDDisabled() && misc() instanceof Ring){
+				((Ring) misc()).setIDReady();
+			} else {
+				misc().identify();
+				Badges.validateItemLevelAquired(misc());
+			}
 		}
 		if (ring() != null) {
-			ring().identify();
-			Badges.validateItemLevelAquired(ring());
+			if (ShardOfOblivion.passiveIDDisabled()){
+				ring().setIDReady();
+			} else {
+				ring().identify();
+				Badges.validateItemLevelAquired(ring());
+			}
 		}
-		if (secondWep() != null){
-			secondWep().identify();
-			Badges.validateItemLevelAquired(secondWep());
+		if (ShardOfOblivion.passiveIDDisabled()){
+			GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready_worn"));
 		}
 		for (Item item : backpack) {
 			if (item instanceof EquipableItem || item instanceof Wand) {

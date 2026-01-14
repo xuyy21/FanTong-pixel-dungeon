@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.Hulu;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class PotionBandolier extends Bag {
@@ -40,32 +39,6 @@ public class PotionBandolier extends Bag {
 			return super.canHold(item);
 		} else {
 			return false;
-		}
-	}
-
-	@Override
-	public boolean collect( Bag container ) {
-		if (super.collect( container )) {
-			if (owner != null) {
-				for (Item item : items) {
-					if (item instanceof Hulu) {
-						((Hulu) item).charge(owner);
-					}
-				}
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public void onDetach( ){
-		super.onDetach();
-		for (Item item : items){
-			if (item instanceof Hulu) {
-				((Hulu) item).stopCharging();
-			}
 		}
 	}
 

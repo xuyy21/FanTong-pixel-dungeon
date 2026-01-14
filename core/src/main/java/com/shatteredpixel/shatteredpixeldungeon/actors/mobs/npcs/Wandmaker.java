@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndWandmaker;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Point;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -171,6 +171,9 @@ public class Wandmaker extends NPC {
 					break;
 				case DUELIST:
 					msg1 += Messages.get(this, "intro_duelist");
+					break;
+				case CLERIC:
+					msg1 += Messages.get(this, "intro_cleric");
 					break;
 			}
 
@@ -299,14 +302,20 @@ public class Wandmaker extends NPC {
 				Wandmaker npc = new Wandmaker();
 				boolean validPos;
 				//Do not spawn wandmaker on the entrance, in front of a door, or on bad terrain.
+				int tries = 0;
+				int dist = 2;
 				do {
 					validPos = true;
-					npc.pos = level.pointToCell(room.random((room.width() > 6 && room.height() > 6) ? 2 : 1));
-					if (npc.pos == level.entrance()){
+					if (tries > 30 && dist > 0){
+						tries = 0;
+						dist--;
+					}
+					npc.pos = level.pointToCell(room.random(dist));
+					if (npc.pos == level.entrance() || level.solid[npc.pos]){
 						validPos = false;
 					}
-					for (Point door : room.connected.values()){
-						if (level.trueDistance( npc.pos, level.pointToCell( door ) ) <= 1){
+					for (int i : PathFinder.NEIGHBOURS4){
+						if (level.map[npc.pos+i] == Terrain.DOOR){
 							validPos = false;
 						}
 					}
@@ -315,6 +324,7 @@ public class Wandmaker extends NPC {
 							|| level.map[npc.pos] == Terrain.EMPTY_SP){
 						validPos = false;
 					}
+					tries++;
 				} while (!validPos);
 				level.mobs.add( npc );
 
@@ -443,7 +453,10 @@ public class Wandmaker extends NPC {
 			wand2 = null;
 			
 			Notes.remove( Notes.Landmark.WANDMAKER );
-			Statistics.questScores[1] = 2000;
+			//other quests award score when their boss is defeated
+			if (Quest.type == 1) {
+				Statistics.questScores[1] += 2000;
+			}
 		}
 	}
 }

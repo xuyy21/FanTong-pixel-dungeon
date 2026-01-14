@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
-import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -58,9 +57,6 @@ public class RipperDemon extends Mob {
 		HUNTING = new Hunting();
 
 		baseSpeed = 1f;
-
-		food = new MysteryBone();
-		foodChance = 0.1f;
 
 		properties.add(Property.DEMONIC);
 		properties.add(Property.UNDEAD);
@@ -222,6 +218,8 @@ public class RipperDemon extends Mob {
 			enemySeen = enemyInFOV;
 			if (enemyInFOV && !isCharmedBy( enemy ) && canAttack( enemy )) {
 
+				recentlyAttackedBy.clear();
+				target = enemy.pos;
 				return doAttack( enemy );
 
 			} else {

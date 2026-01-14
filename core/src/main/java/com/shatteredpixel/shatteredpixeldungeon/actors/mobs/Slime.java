@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.SlimeBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
 import com.watabou.utils.Random;
@@ -43,14 +42,6 @@ public class Slime extends Mob {
 		maxLvl = 9;
 		
 		lootChance = 0.2f; //by default, see lootChance()
-
-		food = new SlimeBlob();
-		foodChance = 0f;
-	}
-
-	@Override
-	public float foodChance() {
-		return 0.5f;
 	}
 	
 	@Override

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,9 +49,8 @@ public class SPDSettings extends GameSettings {
 	
 	//Display
 	
-	public static final String KEY_FULLSCREEN	= "fullscreen";
-	public static final String KEY_LANDSCAPE	= "landscape";
-	public static final String KEY_POWER_SAVER 	= "power_saver";
+	public static final String KEY_FULLSCREEN	= "fullscreen"; //used to hide navbars on mobile
+	public static final String KEY_LANDSCAPE	= "force_landscape";
 	public static final String KEY_ZOOM			= "zoom";
 	public static final String KEY_BRIGHTNESS	= "brightness";
 	public static final String KEY_GRID 	    = "visual_grid";
@@ -65,31 +64,16 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static boolean fullscreen() {
-		return getBoolean( KEY_FULLSCREEN, DeviceCompat.isDesktop() );
+		return getBoolean( KEY_FULLSCREEN, true );
 	}
-	
+
 	public static void landscape( boolean value ){
 		put( KEY_LANDSCAPE, value );
 		((ShatteredPixelDungeon)ShatteredPixelDungeon.instance).updateDisplaySize();
 	}
-	
-	//can return null because we need to directly handle the case of landscape not being set
-	// as there are different defaults for different devices
-	public static Boolean landscape(){
-		if (contains(KEY_LANDSCAPE)){
-			return getBoolean(KEY_LANDSCAPE, false);
-		} else {
-			return null;
-		}
-	}
-	
-	public static void powerSaver( boolean value ){
-		put( KEY_POWER_SAVER, value );
-		((ShatteredPixelDungeon)ShatteredPixelDungeon.instance).updateDisplaySize();
-	}
-	
-	public static boolean powerSaver(){
-		return getBoolean( KEY_POWER_SAVER, false );
+
+	public static boolean landscape(){
+		return getBoolean(KEY_LANDSCAPE, false);
 	}
 	
 	public static void zoom( int value ) {
@@ -145,6 +129,8 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_SLOTWATERSKIN= "quickslot_waterskin";
 	public static final String KEY_SYSTEMFONT	= "system_font";
 	public static final String KEY_VIBRATION    = "vibration";
+
+	public static final String KEY_GAMES_SORT    = "games_sort";
 
 	//0 = mobile, 1 = mixed (large without inventory in main UI), 2 = large
 	public static void interfaceSize( int value ){
@@ -210,7 +196,8 @@ public class SPDSettings extends GameSettings {
 
 	public static boolean systemFont(){
 		return getBoolean(KEY_SYSTEMFONT,
-				(language() == Languages.KOREAN || language() == Languages.CHINESE || language() == Languages.JAPANESE));
+				(language() == Languages.CHI_SMPL || language() == Languages.CHI_TRAD
+						|| language() == Languages.KOREAN || language() == Languages.JAPANESE));
 	}
 
 	public static void vibration(boolean value){
@@ -221,13 +208,20 @@ public class SPDSettings extends GameSettings {
 		return getBoolean(KEY_VIBRATION, true);
 	}
 
+	public static String gamesInProgressSort(){
+		return getString(KEY_GAMES_SORT, "level");
+	}
+
+	public static void gamesInProgressSort(String value){
+		put(KEY_GAMES_SORT, value);
+	}
+
 	//Game State
 	
 	public static final String KEY_LAST_CLASS	= "last_class";
 	public static final String KEY_CHALLENGES	= "challenges";
 	public static final String KEY_CUSTOM_SEED	= "custom_seed";
 	public static final String KEY_LAST_DAILY	= "last_daily";
-	public static final String KEY_TESTING = "testing";
 	public static final String KEY_INTRO		= "intro";
 
 	public static final String KEY_SUPPORT_NAGGED= "support_nagged";
@@ -273,14 +267,6 @@ public class SPDSettings extends GameSettings {
 		return getLong( KEY_LAST_DAILY, 0);
 	}
 
-	public static void testing( boolean value ){
-		put( KEY_TESTING, value );
-	}
-
-	public static boolean testing() {
-		return getBoolean( KEY_TESTING, false);
-	}
-
 	public static void supportNagged( boolean value ) {
 		put( KEY_SUPPORT_NAGGED, value );
 	}
@@ -294,8 +280,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean victoryNagged() {
-		return true;
-//		return getBoolean(KEY_VICTORY_NAGGED, false);
+		return getBoolean(KEY_VICTORY_NAGGED, false);
 	}
 
 	//Input
@@ -333,8 +318,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean news(){
-//		return getBoolean(KEY_NEWS, true);
-		return false;
+		return getBoolean(KEY_NEWS, true);
 	}
 
 	public static void updates(boolean value){

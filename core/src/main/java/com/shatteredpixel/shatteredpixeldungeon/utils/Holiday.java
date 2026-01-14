@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,11 +80,11 @@ public enum Holiday {
 			return EASTER;
 		}
 
-//		//Pride
-//		if (cal.get(Calendar.MONTH) == Calendar.JUNE
-//				&& cal.get(Calendar.DAY_OF_MONTH) >= 24){
-//			return PRIDE;
-//		}
+		//Pride
+		if (cal.get(Calendar.MONTH) == Calendar.JUNE
+				&& cal.get(Calendar.DAY_OF_MONTH) >= 24){
+			return PRIDE;
+		}
 
 		//Shattered's Birthday
 		if (cal.get(Calendar.MONTH) == Calendar.AUGUST

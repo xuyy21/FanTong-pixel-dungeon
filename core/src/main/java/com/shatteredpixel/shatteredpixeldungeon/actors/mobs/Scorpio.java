@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,11 +26,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Mushroom;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTail;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
@@ -53,15 +50,8 @@ public class Scorpio extends Mob {
 		
 		loot = Generator.Category.POTION;
 		lootChance = 0.5f;
-		food = new ScorpioTail();
-		foodChance = 0;
 
 		properties.add(Property.DEMONIC);
-	}
-
-	@Override
-	public float foodChance() {
-		return 0.5f;
 	}
 	
 	@Override
@@ -107,7 +97,9 @@ public class Scorpio extends Mob {
 	@Override
 	public void aggro(Char ch) {
 		//cannot be aggroed to something it can't see
-		if (ch == null || fieldOfView == null || fieldOfView[ch.pos]) {
+		//skip this check if FOV isn't initialized
+		if (ch == null || fieldOfView == null
+				|| fieldOfView.length != Dungeon.level.length() || fieldOfView[ch.pos]) {
 			super.aggro(ch);
 		}
 	}

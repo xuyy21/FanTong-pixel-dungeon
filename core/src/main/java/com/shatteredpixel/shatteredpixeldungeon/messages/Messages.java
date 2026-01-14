@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -77,6 +76,7 @@ public class Messages {
 	};
 
 	static{
+		formatters = new HashMap<>();
 		setup(SPDSettings.language());
 	}
 
@@ -86,17 +86,25 @@ public class Messages {
 
 		//store language and locale info for various string logic
 		Messages.lang = lang;
+		Locale bundleLocal;
 		if (lang == Languages.ENGLISH){
 			locale = Locale.ENGLISH;
+			bundleLocal = Locale.ROOT; //english is source, uses root locale for fetching bundle
 		} else {
 			locale = new Locale(lang.code());
+			bundleLocal = locale;
 		}
+		formatters.clear();
 
-		//strictly match the language code when fetching bundles however
 		bundles = new ArrayList<>();
-		Locale bundleLocal = new Locale(lang.code());
 		for (String file : prop_files) {
-			bundles.add(I18NBundle.createBundle(Gdx.files.internal(file), bundleLocal));
+			if (bundleLocal.getLanguage().equals("id")){
+				//This is a really silly hack to fix some platforms using "id" for indonesian and some using "in" (Android 14- mostly).
+				//So if we detect "id" then we treat "###_in" as the base bundle so that it gets loaded instead of English.
+				bundles.add(I18NBundle.createBundle(Gdx.files.internal(file + "_in"), bundleLocal));
+			} else {
+				bundles.add(I18NBundle.createBundle(Gdx.files.internal(file), bundleLocal));
+			}
 		}
 	}
 
@@ -133,11 +141,6 @@ public class Messages {
 			if (c != null && c.getSuperclass() != null){
 				return get(c.getSuperclass(), k, args);
 			} else {
-				if (key != null && !key.contains(".meta_desc")) {
-					String name = "Ms:" + key;
-					GLog.w(name);
-					return name;
-				}
 				return NO_TEXT_FOUND;
 			}
 		}
@@ -163,18 +166,18 @@ public class Messages {
 
 	public static String format( String format, Object...args ) {
 		try {
-			return String.format(Locale.ENGLISH, format, args);
+			return String.format(locale(), format, args);
 		} catch (IllegalFormatException e) {
 			ShatteredPixelDungeon.reportException( new Exception("formatting error for the string: " + format, e) );
 			return format;
 		}
 	}
 
-	private static HashMap<String, DecimalFormat> formatters = new HashMap<>();
+	private static HashMap<String, DecimalFormat> formatters;
 
 	public static String decimalFormat( String format, double number ){
 		if (!formatters.containsKey(format)){
-			formatters.put(format, new DecimalFormat(format, DecimalFormatSymbols.getInstance(Locale.ENGLISH)));
+			formatters.put(format, new DecimalFormat(format, DecimalFormatSymbols.getInstance(locale())));
 		}
 		return formatters.get(format).format(number);
 	}

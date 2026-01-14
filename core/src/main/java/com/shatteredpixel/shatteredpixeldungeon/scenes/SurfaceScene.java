@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,12 +22,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -39,7 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.EarthGuardianSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WardSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.watabou.gltextures.SmartTexture;
 import com.watabou.gltextures.TextureCache;
@@ -59,6 +56,7 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Point;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
+import com.watabou.utils.RectF;
 
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
@@ -98,14 +96,17 @@ public class SurfaceScene extends PixelScene {
 		
 		int w = Camera.main.width;
 		int h = Camera.main.height;
-		
-		Archs archs = new Archs();
-		archs.reversed = true;
-		archs.setSize( w, h );
-		add( archs );
 
-		float vx = align((w - SKY_WIDTH) / 2f);
-		float vy = align((h - SKY_HEIGHT - BUTTON_HEIGHT) / 2f);
+		RectF insets = getCommonInsets();
+
+		TitleBackground BG = new TitleBackground(w, h);
+		add( BG );
+
+		w -= insets.left + insets.right;
+		h -= insets.top + insets.bottom;
+
+		float vx = align(insets.left + (w - SKY_WIDTH) / 2f);
+		float vy = align(insets.top + (h - SKY_HEIGHT - BUTTON_HEIGHT) / 2f);
 
 		Point s = Camera.main.cameraToScreen( vx, vy );
 		viewport = new Camera( s.x, s.y, SKY_WIDTH, SKY_HEIGHT, defaultZoom );
@@ -266,11 +267,6 @@ public class SurfaceScene extends PixelScene {
 		gameOver.setSize( SKY_WIDTH - FRAME_MARGIN_X * 2, BUTTON_HEIGHT );
 		gameOver.setPos( frame.x + FRAME_MARGIN_X * 2, frame.y + frame.height + 4 );
 		add( gameOver );
-
-		Badges.validateHappyEnd();
-		Dungeon.win( Amulet.class );
-		Dungeon.deleteGame( GamesInProgress.curSlot, true );
-		Badges.saveGlobal();
 		
 		fadeIn();
 	}

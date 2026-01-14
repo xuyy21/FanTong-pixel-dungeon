@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,9 +23,14 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -133,6 +138,37 @@ public class Artifact extends KindofMisc {
 	//transfers upgrades from another artifact, transfer level will equal the displayed level
 	public void transferUpgrade(int transferLvl) {
 		upgrade(Math.round((transferLvl*levelCap)/10f));
+	}
+
+	public void resetForTrinity(int visibleLevel){
+		level(Math.round((visibleLevel*levelCap)/10f));
+		exp = Integer.MIN_VALUE; //ensures no levelling
+		charge = chargeCap;
+		cooldown = 0;
+	}
+
+	public static void artifactProc(Char target, int artifLevel, int chargesUsed){
+		if (Dungeon.hero.subClass == HeroSubClass.PRIEST && target.buff(GuidingLight.Illuminated.class) != null) {
+			target.buff(GuidingLight.Illuminated.class).detach();
+			target.damage(5+Dungeon.hero.lvl, GuidingLight.INSTANCE);
+		}
+
+		if (target.alignment != Char.Alignment.ALLY
+				&& Dungeon.hero.heroClass != HeroClass.CLERIC
+				&& Dungeon.hero.hasTalent(Talent.SEARING_LIGHT)
+				&& Dungeon.hero.buff(Talent.SearingLightCooldown.class) == null){
+			Buff.affect(target, GuidingLight.Illuminated.class);
+			Buff.affect(Dungeon.hero, Talent.SearingLightCooldown.class, 20f);
+		}
+
+		if (target.alignment != Char.Alignment.ALLY
+				&& Dungeon.hero.heroClass != HeroClass.CLERIC
+				&& Dungeon.hero.hasTalent(Talent.SUNRAY)){
+			// 15/25% chance
+			if (Random.Int(20) < 1 + 2*Dungeon.hero.pointsInTalent(Talent.SUNRAY)){
+				Buff.prolong(target, Blindness.class, 4f);
+			}
+		}
 	}
 
 	@Override

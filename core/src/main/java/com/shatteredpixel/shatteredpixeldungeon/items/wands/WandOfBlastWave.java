@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,20 +26,22 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Elastic;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TenguDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
@@ -85,9 +87,11 @@ public class WandOfBlastWave extends DamageWand {
 				wandProc(ch, chargesPerCast());
 				if (ch.alignment != Char.Alignment.ALLY) ch.damage(damageRoll(), this);
 
-				if (ch.pos == bolt.collisionPos + i) {
+				//do not push chars that are dieing over a pit, or that move due to the damage
+				if ((ch.isAlive() || ch.flying || !Dungeon.level.pit[ch.pos])
+						&& ch.pos == bolt.collisionPos + i) {
 					Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT);
-					int strength = 1 + Math.round(buffedLvl() / 2f);
+					int strength = Math.round(1.5f + buffedLvl() / 2f);
 					throwChar(ch, trajectory, strength, false, true, this);
 				}
 
@@ -100,7 +104,9 @@ public class WandOfBlastWave extends DamageWand {
 			wandProc(ch, chargesPerCast());
 			ch.damage(damageRoll(), this);
 
-			if (bolt.path.size() > bolt.dist+1 && ch.pos == bolt.collisionPos) {
+			//do not push chars that are dieing over a pit, or that move due to the damage
+			if ((ch.isAlive() || ch.flying || !Dungeon.level.pit[ch.pos])
+					&& bolt.path.size() > bolt.dist+1 && ch.pos == bolt.collisionPos) {
 				Ballistica trajectory = new Ballistica(ch.pos, bolt.path.get(bolt.dist + 1), Ballistica.MAGIC_BOLT);
 				int strength = buffedLvl() + 3;
 				throwChar(ch, trajectory, strength, false, true, this);
@@ -166,6 +172,7 @@ public class WandOfBlastWave extends DamageWand {
 						if (cause instanceof WandOfBlastWave){
 							Badges.validateDeathFromFriendlyMagic();
 						}
+						GLog.n(Messages.get(WandOfBlastWave.class, "knockback_ondeath"));
 						Dungeon.fail(cause);
 					}
 				}
@@ -176,6 +183,8 @@ public class WandOfBlastWave extends DamageWand {
 				if (ch == Dungeon.hero){
 					Dungeon.observe();
 					GameScene.updateFog();
+				} else if (Dungeon.level.heroFOV[initialpos] != Dungeon.level.heroFOV[newPos]){
+					Dungeon.observe();
 				}
 			}
 		}));
@@ -186,38 +195,19 @@ public class WandOfBlastWave extends DamageWand {
 	@Override
 	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
 
-		Talent.EmpoweredStrikeTracker tracker = attacker.buff(Talent.EmpoweredStrikeTracker.class);
+		if (defender.buff(Paralysis.class) != null && defender.buff(BWaveOnHitTracker.class) == null){
+			defender.buff(Paralysis.class).detach();
+			int dmg = Random.NormalIntRange(8+2*buffedLvl(), 12+3*buffedLvl());
+			defender.damage(Math.round(procChanceMultiplier(attacker) * dmg), this);
+			BlastWave.blast(defender.pos);
+			Sample.INSTANCE.play( Assets.Sounds.BLAST );
 
-		if (tracker != null){
-			tracker.delayedDetach = true;
-		}
-
-		//acts like elastic enchantment
-		//we delay this with an actor to prevent conflicts with regular elastic
-		//so elastic always fully resolves first, then this effect activates
-		Actor.add(new Actor() {
-			{
-				actPriority = VFX_PRIO+9; //act after pushing effects
-			}
-
-			@Override
-			protected boolean act() {
-				Actor.remove(this);
-				if (defender.isAlive()) {
-					new BlastWaveOnHit().proc(staff, attacker, defender, damage);
-				}
-				if (tracker != null) tracker.detach();
-				return true;
-			}
-		});
-	}
-
-	private static class BlastWaveOnHit extends Elastic{
-		@Override
-		protected float procChanceMultiplier(Char attacker) {
-			return Wand.procChanceMultiplier(attacker);
+			//brief immunity, to prevent stacking absurd damage with it with things like para gas
+			Buff.prolong(defender, BWaveOnHitTracker.class, 3f);
 		}
 	}
+
+	public static class BWaveOnHitTracker extends FlavourBuff{}
 
 	@Override
 	public String upgradeStat2(int level) {

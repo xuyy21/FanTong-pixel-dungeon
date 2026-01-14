@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -35,9 +34,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbili
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -167,7 +165,7 @@ public class ShadowClone extends ArmorAbility {
 				HT += hpBonus;
 				HP += hpBonus;
 			}
-			defenseSkill = heroLevel + 5; //equal to base hero defense skill
+			defenseSkill = heroLevel + 4; //equal to base hero defense skill
 		}
 
 		@Override
@@ -239,14 +237,12 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public boolean isImmune(Class effect) {
-			if (effect == Burning.class
-					&& Random.Int(4) < Dungeon.hero.pointsInTalent(Talent.CLONED_ARMOR)
-					&& Dungeon.hero.belongings.armor() != null
-					&& Dungeon.hero.belongings.armor().hasGlyph(Brimstone.class, this)){
-				return true;
+		public int glyphLevel(Class<? extends Armor.Glyph> cls) {
+			if (Dungeon.hero != null && Random.Int(4) < Dungeon.hero.pointsInTalent(Talent.CLONED_ARMOR)){
+				return Math.max(super.glyphLevel(cls), Dungeon.hero.glyphLevel(cls));
+			} else {
+				return super.glyphLevel(cls);
 			}
-			return super.isImmune(effect);
 		}
 
 		@Override
@@ -258,21 +254,6 @@ public class ShadowClone extends ArmorAbility {
 			} else {
 				return damage;
 			}
-		}
-
-		@Override
-		public void damage(int dmg, Object src) {
-
-			//TODO improve this when I have proper damage source logic
-			if (Random.Int(4) < Dungeon.hero.pointsInTalent(Talent.CLONED_ARMOR)
-					&& Dungeon.hero.belongings.armor() != null
-					&& Dungeon.hero.belongings.armor().hasGlyph(AntiMagic.class, this)
-					&& AntiMagic.RESISTS.contains(src.getClass())){
-				dmg -= AntiMagic.drRoll(Dungeon.hero, Dungeon.hero.belongings.armor().buffedLvl());
-				dmg = Math.max(dmg, 0);
-			}
-
-			super.damage(dmg, src);
 		}
 
 		@Override

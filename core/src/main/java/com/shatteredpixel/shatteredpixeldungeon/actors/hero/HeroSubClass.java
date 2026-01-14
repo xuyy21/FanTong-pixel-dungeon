@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,11 +34,9 @@ public enum HeroSubClass {
 
 	BERSERKER(HeroIcon.BERSERKER),
 	GLADIATOR(HeroIcon.GLADIATOR),
-	CHIEF(HeroIcon.CHIEF),
 
 	BATTLEMAGE(HeroIcon.BATTLEMAGE),
 	WARLOCK(HeroIcon.WARLOCK),
-	MAGICIAN(HeroIcon.MAGICIAN),
 	
 	ASSASSIN(HeroIcon.ASSASSIN),
 	FREERUNNER(HeroIcon.FREERUNNER),
@@ -47,7 +45,10 @@ public enum HeroSubClass {
 	WARDEN(HeroIcon.WARDEN),
 
 	CHAMPION(HeroIcon.CHAMPION),
-	MONK(HeroIcon.MONK);
+	MONK(HeroIcon.MONK),
+
+	PRIEST(HeroIcon.PRIEST),
+	PALADIN(HeroIcon.PALADIN);
 
 	int icon;
 

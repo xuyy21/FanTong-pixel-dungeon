@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.painters;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrapMechanism;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Patch;
@@ -257,16 +258,17 @@ public abstract class RegularPainter extends Painter {
 						d.type = Room.Door.Type.UNLOCKED;
 					}
 
-					//entrance doors on floor 1 are hidden during tutorial
-					//entrance doors on floor 2 are hidden if the player hasn't picked up 2nd guidebook page
-					if (r.isEntrance() || n.isEntrance()){
-						if ((Dungeon.depth == 1 && SPDSettings.intro())
+				}
+
+				//unlocked entrance doors on floor 1 are hidden during tutorial
+				//unlocked entrance doors on floor 2 are hidden if the player hasn't picked up 2nd guidebook page
+				if (d.type == Room.Door.Type.UNLOCKED && (r.isEntrance() || n.isEntrance())){
+					if ((Dungeon.depth == 1 && SPDSettings.intro())
 							|| (Dungeon.depth == 2 && !Document.ADVENTURERS_GUIDE.isPageFound(Document.GUIDE_SEARCHING))) {
-							d.type = Room.Door.Type.HIDDEN;
-						}
+						d.type = Room.Door.Type.HIDDEN;
 					}
 				}
-				
+
 				switch (d.type) {
 					case EMPTY:
 						l.map[door] = Terrain.EMPTY;
@@ -460,6 +462,9 @@ public abstract class RegularPainter extends Painter {
 		//no more than one trap every 5 valid tiles.
 		nTraps = Math.min(nTraps, validCells.size()/5);
 
+		float revealedChance = TrapMechanism.revealHiddenTrapChance();
+		float revealInc = 0;
+
 		//5x traps on traps level feeling, but the extra traps are all visible
 		for (int i = 0; i < (l.feeling == Level.Feeling.TRAPS ? 5*nTraps : nTraps); i++) {
 
@@ -475,8 +480,13 @@ public abstract class RegularPainter extends Painter {
 			validCells.remove(trapPos);
 			validNonHallways.remove(trapPos);
 
-			if (i < nTraps) trap.hide();
-			else            trap.reveal();
+			revealInc += revealedChance;
+			if (i >= nTraps || revealInc >= 1) {
+				trap.reveal();
+				revealInc--;
+			} else {
+				trap.hide();
+			}
 
 			l.setTrap( trap, trapPos );
 			//some traps will not be hidden

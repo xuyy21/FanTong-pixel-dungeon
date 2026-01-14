@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,15 +32,16 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BadgesGrid;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BadgesList;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Button;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ChallengesPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.CheckBox;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
@@ -65,7 +66,7 @@ import java.util.Locale;
 public class WndRanking extends WndTabbed {
 	
 	private static final int WIDTH			= 115;
-	private static final int HEIGHT			= 160; //160
+	private static final int HEIGHT			= 144;
 	
 	private static WndRanking INSTANCE;
 	
@@ -191,7 +192,7 @@ public class WndRanking extends WndTabbed {
 
 			pos = date.bottom()+5;
 
-			NumberFormat num = NumberFormat.getInstance(Locale.US);
+			NumberFormat num = NumberFormat.getInstance(Messages.locale());
 
 			if (Dungeon.hero == null){
 				pos = statSlot( this, Messages.get(this, "score"), num.format( record.score ), pos );
@@ -296,13 +297,23 @@ public class WndRanking extends WndTabbed {
 		}
 		
 		private float statSlot( Group parent, String label, String value, float pos ) {
-			
-			RenderedTextBlock txt = PixelScene.renderTextBlock( label, 7 );
-			txt.setPos(0, pos);
+
+			int size = 7;
+			RenderedTextBlock txt;
+			do {
+				txt = PixelScene.renderTextBlock( label, size );
+				size--;
+			} while (txt.width() >= WIDTH * 0.55f);
+			txt.setPos(0, pos + (6 - txt.height())/2);
+			PixelScene.align(txt);
 			parent.add( txt );
-			
-			txt = PixelScene.renderTextBlock( value, 7 );
-			txt.setPos(WIDTH * 0.6f, pos);
+
+			size = 7;
+			do {
+				txt = PixelScene.renderTextBlock( value, size );
+				size--;
+			} while (txt.width() >= WIDTH * 0.45f);
+			txt.setPos(WIDTH * 0.55f, pos + (6 - txt.height())/2);
 			PixelScene.align(txt);
 			parent.add( txt );
 			
@@ -385,7 +396,7 @@ public class WndRanking extends WndTabbed {
 				if (item != null){
 					QuickSlotButton slot = new QuickSlotButton(item);
 
-					slot.setRect( pos, 136, slotWidth, 23 ); // 120
+					slot.setRect( pos, 120, slotWidth, 23 );
 					PixelScene.align(slot);
 
 					add(slot);
@@ -429,11 +440,6 @@ public class WndRanking extends WndTabbed {
 			super();
 
 			camera = WndRanking.this.camera;
-
-//			Component pane = new ChallengesPane();
-//			add(pane);
-//			pane.setPos(0, 0);
-//			pane.setSize( WIDTH, HEIGHT );
 
 			float pos = 0;
 
@@ -488,11 +494,17 @@ public class WndRanking extends WndTabbed {
 			
 			slot.item( item );
 			if (item.cursed && item.cursedKnown) {
-				bg.ra = +0.2f;
-				bg.ga = -0.1f;
+				bg.ra = +0.3f;
+				bg.ga = -0.15f;
+				bg.ba = -0.15f;
 			} else if (!item.isIdentified()) {
-				bg.ra = 0.1f;
-				bg.ba = 0.1f;
+				if ((item instanceof EquipableItem || item instanceof Wand) && item.cursedKnown){
+					bg.ba = +0.3f;
+					bg.ra = -0.1f;
+				} else {
+					bg.ra = +0.35f;
+					bg.ba = +0.35f;
+				}
 			}
 		}
 		

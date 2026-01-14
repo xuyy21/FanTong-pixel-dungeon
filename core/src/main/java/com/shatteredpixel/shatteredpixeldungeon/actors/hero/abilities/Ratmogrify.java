@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,18 +29,18 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
@@ -140,28 +140,20 @@ public class Ratmogrify extends ArmorAbility {
 			rat.setup((Mob)ch);
 			rat.pos = ch.pos;
 
-			//preserve champion enemy buffs
-			HashSet<ChampionEnemy> champBuffs = ch.buffs(ChampionEnemy.class);
-			for (ChampionEnemy champ : champBuffs){
-				if (ch.remove(champ)) {
-					ch.sprite.clearAura();
+			//preserve some buffs
+			HashSet<Buff> persistentBuffs = new HashSet<>();
+			for (Buff b : ch.buffs()){
+				if (b.revivePersists){
+					persistentBuffs.add(b);
 				}
-			}
-
-			MasterThievesArmband.StolenTracker stealTracker = ch.buff(MasterThievesArmband.StolenTracker.class);
-			if (stealTracker != null){
-				ch.remove(stealTracker);
 			}
 
 			Actor.remove( ch );
 			ch.sprite.killAndErase();
 			Dungeon.level.mobs.remove(ch);
 
-			for (ChampionEnemy champ : champBuffs){
-				ch.add(champ);
-			}
-			if (stealTracker != null) {
-				ch.add(stealTracker);
+			for (Buff b : persistentBuffs){
+				ch.add(b);
 			}
 
 			GameScene.add(rat);
@@ -209,6 +201,7 @@ public class Ratmogrify extends ArmorAbility {
 
 		public void setup(Mob original) {
 			this.original = original;
+			original.clearTime();
 
 			HP = original.HP;
 			HT = original.HT;
@@ -243,7 +236,6 @@ public class Ratmogrify extends ArmorAbility {
 			if (timeLeft <= 0){
 				Mob original = getOriginal();
 				this.original = null;
-				original.clearTime();
 				GameScene.add(original);
 
 				EXP = 0;
@@ -305,6 +297,9 @@ public class Ratmogrify extends ArmorAbility {
 			if (alignment == Alignment.ENEMY && original != null) {
 				Bestiary.setSeen(original.getClass());
 				Bestiary.countEncounter(original.getClass());
+			}
+			if (original instanceof Statue){
+				Notes.remove( original.landmark() );
 			}
 		}
 

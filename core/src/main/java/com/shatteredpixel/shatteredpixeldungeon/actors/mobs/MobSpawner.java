@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -108,37 +108,33 @@ public class MobSpawner extends Actor {
 						DM100.class,
 						Guard.class));
 			case 8:
-				//2x skeleton, 1x thief, 2x DM-100, 2x guard, 1x necromancer, 1xmandrake
+				//2x skeleton, 1x thief, 2x DM-100, 2x guard, 1x necromancer
 				return new ArrayList<>(Arrays.asList(Skeleton.class, Skeleton.class,
 						Thief.class,
 						DM100.class, DM100.class,
 						Guard.class, Guard.class,
-						Necromancer.class,
-						Mandrake.class));
+						Necromancer.class));
 			case 9: case 10:
-				//1x skeleton, 1x thief, 2x DM-100, 2x guard, 2x necromancer, , 1xmandrake
+				//1x skeleton, 1x thief, 2x DM-100, 2x guard, 2x necromancer
 				return new ArrayList<>(Arrays.asList(Skeleton.class,
 						Thief.class,
 						DM100.class, DM100.class,
 						Guard.class, Guard.class,
-						Necromancer.class, Necromancer.class,
-						Mandrake.class));
+						Necromancer.class, Necromancer.class));
 
 			// Caves
 			case 11:
-				//3x bat, 1x brute, 1x shaman, 1x treants
+				//3x bat, 1x brute, 1x shaman
 				return new ArrayList<>(Arrays.asList(
 						Bat.class, Bat.class, Bat.class,
 						Brute.class,
-						Treants.class,
 						Shaman.random()));
 			case 12:
-				//2x bat, 2x brute, 1x shaman, 1x spinner, 1x treants
+				//2x bat, 2x brute, 1x shaman, 1x spinner
 				return new ArrayList<>(Arrays.asList(
 						Bat.class, Bat.class,
 						Brute.class, Brute.class,
 						Shaman.random(),
-						Treants.class,
 						Spinner.class));
 			case 13:
 				//1x bat, 2x brute, 2x shaman, 2x spinner, 1x DM-200
@@ -159,32 +155,29 @@ public class MobSpawner extends Actor {
 
 			// City
 			case 16:
-				//3x ghoul, 1x mushmen, 1x elemental, 1x warlock
+				//3x ghoul, 1x elemental, 1x warlock
 				return new ArrayList<>(Arrays.asList(
 						Ghoul.class, Ghoul.class, Ghoul.class,
-						MushMen.class,
 						Elemental.random(),
 						Warlock.class));
 			case 17:
-				//1x ghoul, 1x mushmen, 2x elemental, 1x warlock, 1x monk
+				//1x ghoul, 2x elemental, 1x warlock, 1x monk
 				return new ArrayList<>(Arrays.asList(
-						Ghoul.class, MushMen.class,
+						Ghoul.class,
 						Elemental.random(), Elemental.random(),
 						Warlock.class,
 						Monk.class));
 			case 18:
-				//1x ghoul, 1x mushmen, 1x elemental, 2x warlock, 2x monk, 1x golem
+				//1x ghoul, 1x elemental, 2x warlock, 2x monk, 1x golem
 				return new ArrayList<>(Arrays.asList(
 						Ghoul.class,
-						MushMen.class,
 						Elemental.random(),
 						Warlock.class, Warlock.class,
 						Monk.class, Monk.class,
 						Golem.class));
 			case 19: case 20:
-				//1x elemental, 2x warlock, 2x monk, 3x golem, 1x mushmen
+				//1x elemental, 2x warlock, 2x monk, 3x golem
 				return new ArrayList<>(Arrays.asList(
-						MushMen.class,
 						Elemental.random(),
 						Warlock.class, Warlock.class,
 						Monk.class, Monk.class,
@@ -202,17 +195,17 @@ public class MobSpawner extends Actor {
 						Succubus.class,
 						Eye.class));
 			case 23:
-				//1x succubus, 2x evil eye, 1x scorpio, 1x armedskeleton
+				//1x succubus, 2x evil eye, 1x scorpio
 				return new ArrayList<>(Arrays.asList(
 						Succubus.class,
 						Eye.class, Eye.class,
-						Scorpio.class, ArmedSkeleton.class));
+						Scorpio.class));
 			case 24: case 25: case 26:
-				//1x succubus, 2x evil eye, 2x scorpio, 1x armedskeleton
+				//1x succubus, 2x evil eye, 3x scorpio
 				return new ArrayList<>(Arrays.asList(
 						Succubus.class,
 						Eye.class, Eye.class,
-						Scorpio.class, Scorpio.class, ArmedSkeleton.class));
+						Scorpio.class, Scorpio.class, Scorpio.class));
 		}
 
 	}
@@ -252,23 +245,22 @@ public class MobSpawner extends Actor {
 		for (int i = 0; i < rotation.size(); i++) {
 			if (Random.Float() < altChance) {
 				Class<? extends Mob> cl = rotation.get(i);
-				if (cl == Rat.class) {
-					cl = Albino.class;
-				} else if (cl == Slime.class) {
-					cl = CausticSlime.class;
-				} else if (cl == Thief.class) {
-					cl = Bandit.class;
-				} else if (cl == Necromancer.class) {
-					cl = SpectralNecromancer.class;
-				} else if (cl == Brute.class) {
-					cl = ArmoredBrute.class;
-				} else if (cl == DM200.class) {
-					cl = DM201.class;
-				} else if (cl == Monk.class) {
-					cl = Senior.class;
-				} else if (cl == Scorpio.class) {
-					cl = Acidic.class;
-				}
+				if (cl == Rat.class)                cl = Albino.class;
+				else if (cl == Gnoll.class)         cl = GnollExile.class;
+				else if (cl == Crab.class)          cl = HermitCrab.class;
+				else if (cl == Slime.class)         cl = CausticSlime.class;
+
+				else if (cl == Thief.class)         cl = Bandit.class;
+				else if (cl == Necromancer.class)   cl = SpectralNecromancer.class;
+
+				else if (cl == Brute.class)         cl = ArmoredBrute.class;
+				else if (cl == DM200.class)         cl = DM201.class;
+
+				else if (cl == Monk.class)          cl = Senior.class;
+				//chaos elemental spawning happens in Elemental.Random
+
+				else if (cl == Scorpio.class)       cl = Acidic.class;
+
 				rotation.set(i, cl);
 			}
 		}

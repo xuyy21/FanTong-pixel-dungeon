@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.RatTail;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -38,15 +37,15 @@ public class Rat extends Mob {
 		defenseSkill = 2;
 
 		maxLvl = 5;
-
-		food = new RatTail();
-		foodChance = 1f;
 	}
 
 	@Override
 	protected boolean act() {
-		if (Dungeon.level.heroFOV[pos] && Dungeon.hero.armorAbility instanceof Ratmogrify){
-			alignment = Alignment.ALLY;
+		if (alignment != Alignment.ALLY
+				&& Dungeon.level.heroFOV[pos]
+				&& Dungeon.hero.armorAbility instanceof Ratmogrify){
+			alignment = Alignment.NEUTRAL;
+			if (enemy == Dungeon.hero) enemy = null;
 			if (state == SLEEPING) state = WANDERING;
 		}
 		return super.act();

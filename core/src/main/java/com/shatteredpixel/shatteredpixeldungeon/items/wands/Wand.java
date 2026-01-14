@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,13 +27,12 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FoodEmpower;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Magic_mark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
@@ -43,6 +42,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -217,6 +219,28 @@ public abstract class Wand extends Item {
 				Random.Float() > (Math.pow(0.92f, (wandLevel*chargesUsed)+1) - 0.07f)){
 			SoulMark.prolong(target, SoulMark.class, SoulMark.DURATION + wandLevel);
 		}
+
+		if (Dungeon.hero.subClass == HeroSubClass.PRIEST && target.buff(GuidingLight.Illuminated.class) != null) {
+			target.buff(GuidingLight.Illuminated.class).detach();
+			target.damage(Dungeon.hero.lvl+5, GuidingLight.INSTANCE);
+		}
+
+		if (target.alignment != Char.Alignment.ALLY
+				&& Dungeon.hero.heroClass != HeroClass.CLERIC
+				&& Dungeon.hero.hasTalent(Talent.SEARING_LIGHT)
+				&& Dungeon.hero.buff(Talent.SearingLightCooldown.class) == null){
+			Buff.affect(target, GuidingLight.Illuminated.class);
+			Buff.affect(Dungeon.hero, Talent.SearingLightCooldown.class, 20f);
+		}
+
+		if (target.alignment != Char.Alignment.ALLY
+				&& Dungeon.hero.heroClass != HeroClass.CLERIC
+				&& Dungeon.hero.hasTalent(Talent.SUNRAY)){
+			// 15/25% chance
+			if (Random.Int(20) < 1 + 2*Dungeon.hero.pointsInTalent(Talent.SUNRAY)){
+				Buff.prolong(target, Blindness.class, 4f);
+			}
+		}
 	}
 
 	@Override
@@ -245,6 +269,10 @@ public abstract class Wand extends Item {
 		updateQuickslot();
 		
 		return this;
+	}
+
+	public void setIDReady(){
+		usesLeftToID = -1;
 	}
 
 	public boolean readyToIdentify(){
@@ -373,14 +401,6 @@ public abstract class Wand extends Item {
 				lvl += 2;
 			}
 
-			if (charger.target.buff(FoodEmpower.class) != null) {
-				lvl += 1;
-			}
-
-			if (charger.target.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class) != null) {
-				lvl += charger.target.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class).getLevel();
-			}
-
 			if (curCharges == 1 && charger.target instanceof Hero && ((Hero)charger.target).hasTalent(Talent.DESPERATE_POWER)){
 				lvl += ((Hero)charger.target).pointsInTalent(Talent.DESPERATE_POWER);
 			}
@@ -434,7 +454,7 @@ public abstract class Wand extends Item {
 		particle.radiateXY(0.5f);
 	}
 
-	protected void wandUsed() {
+	public void wandUsed() {
 		if (!isIdentified()) {
 			float uses = Math.min( availableUsesToID, Talent.itemIDSpeedFactor(Dungeon.hero, this) );
 			availableUsesToID -= uses;
@@ -444,7 +464,7 @@ public abstract class Wand extends Item {
 					if (usesLeftToID > -1){
 						GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), name());
 					}
-					usesLeftToID = -1;
+					setIDReady();
 				} else {
 					identify();
 					GLog.p(Messages.get(Wand.class, "identify"));
@@ -480,14 +500,6 @@ public abstract class Wand extends Item {
 			if (empower != null){
 				empower.use();
 			}
-			FoodEmpower empower2 = curUser.buff(FoodEmpower.class);
-			if (empower2 != null){
-				empower2.use();
-			}
-			Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff empower3 = curUser.buff(Magic_mark.MagicianAbility.Wand_Empower.WandEmpowerBuff.class);
-			if (empower3 != null){
-				empower3.use();
-			}
 		}
 
 		//If hero owns wand but it isn't in belongings it must be in the staff
@@ -504,23 +516,30 @@ public abstract class Wand extends Item {
 			Buff.prolong(Dungeon.hero, Talent.LingeringMagicTracker.class, 5f);
 		}
 
-		if (Dungeon.hero.hasTalent(Talent.HOLD_FAST) && (Dungeon.hero.pointsInTalent(Talent.HOLD_FAST) >= 3)){
-			Buff.affect(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
+		if (Dungeon.hero.heroClass != HeroClass.CLERIC
+				&& Dungeon.hero.hasTalent(Talent.DIVINE_SENSE)){
+			Buff.prolong(Dungeon.hero, DivineSense.DivineSenseTracker.class, Dungeon.hero.cooldown()+1);
+		}
+
+		// 10/20/30%
+		if (Dungeon.hero.heroClass != HeroClass.CLERIC
+				&& Dungeon.hero.hasTalent(Talent.CLEANSE)
+				&& Random.Int(10) < Dungeon.hero.pointsInTalent(Talent.CLEANSE)){
+			boolean removed = false;
+			for (Buff b : Dungeon.hero.buffs()) {
+				if (b.type == Buff.buffType.NEGATIVE
+						&& !(b instanceof LostInventory)) {
+					b.detach();
+					removed = true;
+				}
+			}
+			if (removed) new Flare( 6, 32 ).color(0xFF4CD2, true).show( Dungeon.hero.sprite, 2f );
 		}
 
 		Invisibility.dispel();
 		updateQuickslot();
 
-		if(Dungeon.hero==curUser && Dungeon.hero.subClass==HeroSubClass.MAGICIAN){
-			Buff.affect(Dungeon.hero, Magic_mark.class).gainmark(1 + Math.min(1, 0.1f*Dungeon.hero.pointsInTalent(Talent.BASIC_MAGIC)*level()));
-		}
-
-		if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
-			curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).used();
-			curUser.spendAndNext(0);
-		} else {
-			curUser.spendAndNext(TIME_TO_ZAP);
-		}
+		curUser.spendAndNext( TIME_TO_ZAP );
 	}
 	
 	@Override
@@ -672,10 +691,6 @@ public abstract class Wand extends Item {
 							return;
 						}
 
-						if(Dungeon.hero==curUser && Dungeon.hero.subClass==HeroSubClass.MAGICIAN){
-							Buff.affect(Dungeon.hero, Magic_mark.class).gainmark(1 + Math.min(1, 0.1f*Dungeon.hero.pointsInTalent(Talent.BASIC_MAGIC)* curWand.level()));
-						}
-
 						float shield = curUser.HT * (0.04f*curWand.curCharges);
 						if (curUser.pointsInTalent(Talent.SHIELD_BATTERY) == 2) shield *= 1.5f;
 						Buff.affect(curUser, Barrier.class).setShield(Math.round(shield));
@@ -685,12 +700,7 @@ public abstract class Wand extends Item {
 						Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						ScrollOfRecharging.charge(curUser);
 						updateQuickslot();
-						if (curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class)!=null){
-							curUser.buff(Magic_mark.MagicianAbility.Quick_Zap.QuickZapBuff.class).used();
-							curUser.spendAndNext(0);
-						} else {
-							curUser.spendAndNext(TIME_TO_ZAP);
-						}
+						curUser.spendAndNext(Actor.TICK);
 						return;
 					}
 					GLog.i( Messages.get(Wand.class, "self_target") );

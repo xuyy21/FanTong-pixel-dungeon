@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -135,7 +135,6 @@ public class ScrollOfUpgrade extends InventoryScroll {
 		Badges.validateMageUnlock();
 
 		Catalog.countUse(item.getClass());
-		Catalog.countUse(ScrollOfUpgrade.class);
 
 		return item;
 	}
@@ -152,6 +151,7 @@ public class ScrollOfUpgrade extends InventoryScroll {
 	public static void removeCurse( Hero hero ){
 		GLog.p( Messages.get(ScrollOfUpgrade.class, "remove_curse") );
 		hero.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10 );
+		Badges.validateClericUnlock();
 	}
 	
 	@Override

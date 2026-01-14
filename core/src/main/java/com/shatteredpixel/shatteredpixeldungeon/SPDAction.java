@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@ import com.badlogic.gdx.Input;
 import com.watabou.input.ControllerHandler;
 import com.watabou.input.GameAction;
 import com.watabou.input.KeyBindings;
+import com.watabou.input.KeyEvent;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.FileUtils;
 
@@ -71,7 +72,6 @@ public class SPDAction extends GameAction {
 	public static final GameAction BAG_3        = new SPDAction("bag_3");
 	public static final GameAction BAG_4        = new SPDAction("bag_4");
 	public static final GameAction BAG_5        = new SPDAction("bag_5");
-	public static final GameAction BAG_6        = new SPDAction("bag_6");
 
 	public static final GameAction EXAMINE      = new SPDAction("examine");
 	public static final GameAction WAIT         = new SPDAction("wait");
@@ -130,7 +130,6 @@ public class SPDAction extends GameAction {
 		defaultBindings.put( Input.Keys.F3,             SPDAction.BAG_3 );
 		defaultBindings.put( Input.Keys.F4,             SPDAction.BAG_4 );
 		defaultBindings.put( Input.Keys.F5,             SPDAction.BAG_5 );
-		defaultBindings.put( Input.Keys.F6,             SPDAction.BAG_6 );
 
 		defaultBindings.put( Input.Keys.E,              SPDAction.EXAMINE );
 		defaultBindings.put( Input.Keys.Z,              SPDAction.REST );
@@ -215,7 +214,7 @@ public class SPDAction extends GameAction {
 			LinkedHashMap<Integer, GameAction> merged = new LinkedHashMap<>();
 
 			for (GameAction a : allActions()) {
-				if (firstKeys.contains(a.name()) && !ControllerHandler.icControllerKey(firstKeys.getInt(a.name()))) {
+				if (firstKeys.contains(a.name()) && KeyEvent.isKeyboardKey(firstKeys.getInt(a.name()))) {
 					if (firstKeys.getInt(a.name()) == 0){
 						continue; //we have no keys assigned to this action, move to the next one
 					} else {
@@ -238,7 +237,7 @@ public class SPDAction extends GameAction {
 					}
 				}
 
-				if (secondKeys.contains(a.name()) && !ControllerHandler.icControllerKey(secondKeys.getInt(a.name()))) {
+				if (secondKeys.contains(a.name()) && KeyEvent.isKeyboardKey(secondKeys.getInt(a.name()))) {
 					if (secondKeys.getInt(a.name()) == 0){
 						continue; //we have no more keys assigned to this action, move to the next one
 					} else {
@@ -261,7 +260,7 @@ public class SPDAction extends GameAction {
 					}
 				}
 
-				if (thirdKeys.contains(a.name()) && !ControllerHandler.icControllerKey(thirdKeys.getInt(a.name()))) {
+				if (thirdKeys.contains(a.name()) && KeyEvent.isKeyboardKey(thirdKeys.getInt(a.name()))) {
 					if (thirdKeys.getInt(a.name()) == 0){
 						continue; //we have no more keys assigned to this action, move to the next one
 					} else {

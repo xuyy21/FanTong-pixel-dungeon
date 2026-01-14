@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,12 +47,8 @@ public class Food extends Item {
 	public static final float TIME_TO_EAT	= 3f;
 	
 	public static final String AC_EAT	= "EAT";
-
-	public static final String AC_IMAGINE = "IMAGINE";
 	
 	public float energy = Hunger.HUNGRY;
-
-	public boolean canFakeEat = false;
 	
 	{
 		stackable = true;
@@ -67,12 +63,7 @@ public class Food extends Item {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		actions.add( AC_EAT );
-		if (hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) actions.add( AC_IMAGINE );
 		return actions;
-	}
-
-	public void effect(Hero hero) {
-		//do nothing by default
 	}
 	
 	@Override
@@ -92,33 +83,14 @@ public class Food extends Item {
 			hero.busy();
 			SpellSprite.show( hero, SpellSprite.FOOD );
 			eatSFX();
-
+			
 			hero.spend( eatingTime() );
 
-//			Talent.onFoodEaten(hero, energy * (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f, this);
 			Talent.onFoodEaten(hero, energy, this);
 			
 			Statistics.foodEaten++;
 			Badges.validateFoodEaten();
 			
-		}
-		if (action.equals( AC_IMAGINE )) {
-
-			float foodVal = energy;
-			if (Dungeon.isChallenged(Challenges.NO_FOOD)){
-				foodVal /= 3f;
-			}
-			foodVal *=  (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
-			hero.buff(Hunger.class).affectHunger(-foodVal);
-
-			hero.sprite.operate( hero.pos );
-			hero.busy();
-			SpellSprite.show( hero, SpellSprite.FOOD );
-			eatSFX();
-
-			hero.spend( eatingTime() );
-
-			effect(hero);
 		}
 	}
 
@@ -131,7 +103,8 @@ public class Food extends Item {
 			|| Dungeon.hero.hasTalent(Talent.ENERGIZING_MEAL)
 			|| Dungeon.hero.hasTalent(Talent.MYSTICAL_MEAL)
 			|| Dungeon.hero.hasTalent(Talent.INVIGORATING_MEAL)
-			|| Dungeon.hero.hasTalent(Talent.FOCUSED_MEAL)){
+			|| Dungeon.hero.hasTalent(Talent.FOCUSED_MEAL)
+			|| Dungeon.hero.hasTalent(Talent.ENLIGHTENING_MEAL)){
 			return TIME_TO_EAT - 2;
 		} else {
 			return TIME_TO_EAT;
@@ -150,8 +123,6 @@ public class Food extends Item {
 			GLog.n( Messages.get(Hunger.class, "cursedhorn") );
 		}
 
-//		foodVal *= (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f;
-
 		Buff.affect(hero, Hunger.class).satisfy(foodVal);
 	}
 	
@@ -168,20 +139,5 @@ public class Food extends Item {
 	@Override
 	public int value() {
 		return 10 * quantity;
-	}
-
-	@Override
-	public String desc() {
-		String desc = super.desc();
-		float foodVal = energy;
-		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
-			foodVal /= 3f;
-		}
-		desc += "\n\n" + Messages.get(Food.class, "energy", (int)foodVal);
-		if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) {
-			foodVal *= (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
-			desc += Messages.get(Food.class, "imagine_energy", (int)foodVal);
-		}
-		return desc;
 	}
 }

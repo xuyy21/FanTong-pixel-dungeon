@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,11 +90,6 @@ public class ArcaneResin extends Item {
 		return 30*quantity();
 	}
 
-	@Override
-	public int energyVal() {
-		return 5*quantity();
-	}
-
 	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 
 		@Override
@@ -158,7 +153,7 @@ public class ArcaneResin extends Item {
 		public boolean testIngredients(ArrayList<Item> ingredients) {
 			return ingredients.size() == 1
 					&& ingredients.get(0) instanceof Wand
-					&& ingredients.get(0).isIdentified()
+					&& ingredients.get(0).cursedKnown
 					&& !ingredients.get(0).cursed;
 		}
 
@@ -170,8 +165,12 @@ public class ArcaneResin extends Item {
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			Item result = sampleOutput(ingredients);
+			Wand w = (Wand)ingredients.get(0);
 
-			ingredients.get(0).quantity(0);
+			if (!w.levelKnown){
+				result.quantity(resinQuantity(w));
+			}
+			w.quantity(0);
 
 			return result;
 		}
@@ -179,19 +178,22 @@ public class ArcaneResin extends Item {
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
 			Wand w = (Wand)ingredients.get(0);
-			int level = w.level() - w.resinBonus;
 
-			Item output = new ArcaneResin().quantity(2*(level+1));
+			if (w.levelKnown){
+				return new ArcaneResin().quantity(resinQuantity(w));
+			} else {
+				return new ArcaneResin();
+			}
+		}
+
+		private int resinQuantity(Wand w){
+			int level = w.level() - w.resinBonus;
+			int quantity = 2*(level+1);
 
 			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.hasTalent(Talent.WAND_PRESERVATION)){
-				output.quantity(output.quantity() + Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION));
+				quantity += Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION);
 			}
-
-//			if (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=3){
-//				output.quantity(output.quantity()+1);
-//			}
-
-			return output;
+			return quantity;
 		}
 	}
 

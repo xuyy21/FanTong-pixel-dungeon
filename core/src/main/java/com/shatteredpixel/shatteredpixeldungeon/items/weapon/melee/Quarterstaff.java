@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ public class Quarterstaff extends MeleeWeapon {
 	protected void duelistAbility(Hero hero, Integer target) {
 		beforeAbilityUsed(hero, null);
 		//1 turn less as using the ability is instant
-		Buff.prolong(hero, DefensiveStance.class, 3 + abilityLvl());
+		Buff.prolong(hero, DefensiveStance.class, 3 + buffedLvl());
 		hero.sprite.operate(hero.pos);
 		hero.next();
 		afterAbilityUsed(hero);
@@ -64,7 +64,7 @@ public class Quarterstaff extends MeleeWeapon {
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", 4+abilityLvl());
+			return Messages.get(this, "ability_desc", 4+buffedLvl());
 		} else {
 			return Messages.get(this, "typical_ability_desc", 4);
 		}

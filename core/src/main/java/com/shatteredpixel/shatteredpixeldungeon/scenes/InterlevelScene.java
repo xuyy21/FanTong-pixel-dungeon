@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.ShadowBox;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LostBackpack;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
@@ -43,6 +45,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndError;
@@ -55,7 +58,9 @@ import com.watabou.noosa.tweeners.Tweener;
 import com.watabou.utils.BArray;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.GameMath;
+import com.watabou.utils.PlatformSupport;
 import com.watabou.utils.Random;
+import com.watabou.utils.RectF;
 import com.watabou.utils.Signal;
 
 import java.io.FileNotFoundException;
@@ -105,6 +110,8 @@ public class InterlevelScene extends PixelScene {
 	private float waitingTime;
 
 	public static int lastRegion = -1;
+
+	private RectF insets;
 
 	{
 		inGameScene = true;
@@ -159,6 +166,7 @@ public class InterlevelScene extends PixelScene {
 		int region = (int)Math.ceil(loadingDepth / 5f);
 		if (region != lastRegion){
 			TextureCache.clear();
+			TitleBackground.reset();
 			lastRegion = region;
 		}
 
@@ -209,6 +217,11 @@ public class InterlevelScene extends PixelScene {
 			fadeTime = 0f;
 		}
 
+		insets = Game.platform.getSafeInsets(PlatformSupport.INSET_BLK).scale(1f/defaultZoom);
+
+		int w = (int)(Camera.main.width - insets.left - insets.right);
+		int h = (int)(Camera.main.height - insets.top - insets.bottom);
+
 		background = new Image(loadingAsset);
 		background.scale.set(Camera.main.height/background.height);
 
@@ -247,17 +260,17 @@ public class InterlevelScene extends PixelScene {
 			}
 		};
 		im.angle = 90;
-		im.x = Camera.main.width;
-		im.scale.x = Camera.main.height/5f;
-		im.scale.y = Camera.main.width;
+		im.x = insets.left + w;
+		im.scale.x = h/5f;
+		im.scale.y = w;
 		add(im);
 
 		String text = Messages.get(Mode.class, mode.name());
 		
 		loadingText = PixelScene.renderTextBlock( text, 9 );
 		loadingText.setPos(
-				(Camera.main.width - loadingText.width() - 8),
-				(Camera.main.height - loadingText.height() - 6)
+				insets.left + w - loadingText.width() - 12,
+				insets.top + h - loadingText.height() - 6
 		);
 		align(loadingText);
 		add(loadingText);
@@ -266,7 +279,7 @@ public class InterlevelScene extends PixelScene {
 			if (Dungeon.hero == null || (loadingDepth > Statistics.deepestFloor && loadingDepth % 5 == 1)){
 					storyMessage = PixelScene.renderTextBlock(Document.INTROS.pageBody(region), 6);
 					storyMessage.maxWidth( PixelScene.landscape() ? 180 : 125);
-					storyMessage.setPos((Camera.main.width-storyMessage.width())/2f, (Camera.main.height-storyMessage.height())/2f);
+					storyMessage.setPos(insets.left+(w-storyMessage.width())/2f, insets.top+(h-storyMessage.height())/2f);
 
 					storyBG = new ShadowBox();
 					storyBG.boxRect(storyMessage.left()-10, storyMessage.top()-10, storyMessage.width()+20, storyMessage.height()+20);
@@ -321,7 +334,7 @@ public class InterlevelScene extends PixelScene {
 						}
 					});
 
-					btnContinue.setPos((Camera.main.width - btnContinue.width())/2f, storyMessage.bottom()+10);
+					btnContinue.setPos(insets.left + (w - btnContinue.width())/2f, storyMessage.bottom()+10);
 					add(btnContinue);
 
 					btnHideStory = new IconButton(Icons.CHEVRON.get()){
@@ -473,6 +486,9 @@ public class InterlevelScene extends PixelScene {
 					break;
 			}
 		}
+
+		int w = (int)(Camera.main.width - insets.left - insets.right);
+		int h = (int)(Camera.main.height - insets.top - insets.bottom);
 		
 		switch (phase) {
 		
@@ -527,12 +543,13 @@ public class InterlevelScene extends PixelScene {
 			//slowly pan the background side to side in portait mode, if story text is displayed
 			if (btnContinue != null && !textFadingIn && Game.width < Game.height){
 				if (background.speed.isZero() && background.acc.isZero()){
-					background.acc.x = background.center().x >= Camera.main.width ? -1f : 1f;
+					background.acc.x = background.center().x >= (w+ insets.left) ? -1f : 1f;
 				} else {
+					float margin = 25 - insets.left;
 					background.speed.x = GameMath.gate(-10, background.speed.x, 10);
-					if (background.acc.x > 0 && background.x >= -25){
+					if (background.acc.x > 0 && background.x >= -margin){
 						background.acc.x = -2.5f;
-					} else if (background.acc.x < 0 && background.x + background.width() <= Camera.main.width+25){
+					} else if (background.acc.x < 0 && background.x + background.width() <= w+margin){
 						background.acc.x = 2.5f;
 					}
 				}
@@ -577,8 +594,11 @@ public class InterlevelScene extends PixelScene {
 
 		if (mode == Mode.FALL) {
 			loadingText.setPos(
-					(Camera.main.width - loadingText.width() - 4) + Random.NormalFloat(-2, 2),
-					(Camera.main.height - loadingText.height() - 6) + Random.NormalFloat(-2, 2)
+					//the randomization is effectively -2 to +2
+					// we don't use the generator stack as levelgen may be occurring
+					// and we don't want to accidentally use a seeded generator
+					(w + insets.left - loadingText.width() - 4) + 4*(Random.Float(false)-0.5f),
+					(h + insets.top - loadingText.height() - 6) + 4*(Random.Float(false)-0.5f)
 			);
 			align(loadingText);
 		}
@@ -626,7 +646,12 @@ public class InterlevelScene extends PixelScene {
 			Level level = Dungeon.newLevel();
 			Dungeon.switchLevel( level, -1 );
 		} else {
-			Mob.holdAllies( Dungeon.level );
+			if (curTransition.destBranch != Dungeon.branch && Dungeon.depth >= 16 && Dungeon.depth <= 20) {
+				//FIXME avoids holding allies when entering city quest area, this is very sloppy though
+				// perhaps holding allies could be a property of the transition?
+			} else {
+				Mob.holdAllies(Dungeon.level);
+			}
 			Dungeon.saveAll();
 
 			Level level;
@@ -665,7 +690,12 @@ public class InterlevelScene extends PixelScene {
 	}
 
 	private void ascend() throws IOException {
-		Mob.holdAllies( Dungeon.level );
+		if (curTransition.destBranch != Dungeon.branch && Dungeon.depth >= 16 && Dungeon.depth <= 20) {
+			//FIXME avoids holding allies when entering city quest area, this is very sloppy though
+			// perhaps holding allies could be a property of the transition?
+		} else {
+			Mob.holdAllies(Dungeon.level);
+		}
 		Dungeon.saveAll();
 
 		Level level;
@@ -737,6 +767,11 @@ public class InterlevelScene extends PixelScene {
 			if (pos == -1) pos = level.entrance();
 			level.drop(new LostBackpack(), pos);
 
+			//need to reset key replacement tracking as well
+			if (Dungeon.hero.buff(SkeletonKey.KeyReplacementTracker.class) != null){
+				Dungeon.hero.buff(SkeletonKey.KeyReplacementTracker.class).clearDepth();
+			}
+
 		} else {
 			level = Dungeon.level;
 			BArray.setFalse(level.heroFOV);
@@ -760,6 +795,8 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.hero.resurrect();
 			level.drop(new LostBackpack(), invPos);
 		}
+
+		Notes.add(Notes.Landmark.LOST_PACK);
 
 		Dungeon.switchLevel( level, Dungeon.hero.pos );
 	}

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,10 +22,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Chomper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.HallsPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -123,42 +121,7 @@ public class HallsLevel extends RegularLevel {
 		addItemToSpawn( new Torch() );
 		super.create();
 	}
-
-	@Override
-	protected void createMobs(){
-		super.createMobs();
-
-		int chompertospawn = Random.chances(new float[]{0.2f, 0.7f, 0.1f})+2;
-		if (Dungeon.isChallenged(Challenges.CRAZY_PLANT)) chompertospawn *= 2;
-		ArrayList<Integer> candidateCells = new ArrayList<>();
-		for (int i = 0; i < length(); i++) {
-			if ((map[i] == Terrain.DOOR) && findMob(i) == null) {
-				candidateCells.add(i);
-			}
-		}
-		Random.shuffle(candidateCells);
-		int pos = candidateCells.remove(0);
-		mobs.add(Chomper.spawnAt(pos));
-		chompertospawn--;
-		while(!candidateCells.isEmpty() && chompertospawn>0 && Random.Int(32)<=chompertospawn*chompertospawn){
-			pos = candidateCells.remove(0);
-			mobs.add(Chomper.spawnAt(pos));
-			chompertospawn--;
-		}
-		candidateCells.clear();
-		for (int i = 0; i < length(); i++) {
-			if ((map[i] == Terrain.DOOR || map[i] == Terrain.HIGH_GRASS) && !roomEntrance.inside(cellToPoint(i)) && findMob(i) == null) {
-				candidateCells.add(i);
-			}
-		}
-		Random.shuffle(candidateCells);
-		while (!candidateCells.isEmpty() && chompertospawn>0) {
-			pos = candidateCells.remove(0);
-			mobs.add(Chomper.spawnAt(pos));
-			chompertospawn--;
-		}
-	}
-
+	
 	@Override
 	public String tilesTex() {
 		return Assets.Environment.TILES_HALLS;
@@ -197,6 +160,9 @@ public class HallsLevel extends RegularLevel {
 			case Terrain.STATUE:
 			case Terrain.STATUE_SP:
 				return Messages.get(HallsLevel.class, "statue_name");
+			case Terrain.REGION_DECO:
+			case Terrain.REGION_DECO_ALT:
+				return Messages.get(HallsLevel.class, "region_deco_name");
 			default:
 				return super.tileName( tile );
 		}
@@ -212,6 +178,9 @@ public class HallsLevel extends RegularLevel {
 				return Messages.get(HallsLevel.class, "statue_desc");
 			case Terrain.BOOKSHELF:
 				return Messages.get(HallsLevel.class, "bookshelf_desc");
+			case Terrain.REGION_DECO:
+			case Terrain.REGION_DECO_ALT:
+				return Messages.get(HallsLevel.class, "region_deco_desc");
 			default:
 				return super.tileDesc( tile );
 		}

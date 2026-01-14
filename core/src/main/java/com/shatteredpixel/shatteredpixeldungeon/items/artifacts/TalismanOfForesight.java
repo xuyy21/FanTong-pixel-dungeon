@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2024 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
@@ -135,7 +136,7 @@ public class TalismanOfForesight extends Artifact {
 		return Math.min(5 + 2*level(), (charge-3)/1.08f);
 	}
 
-	private CellSelector.Listener scry = new CellSelector.Listener(){
+	public CellSelector.Listener scry = new CellSelector.Listener(){
 
 		@Override
 		public void onSelect(Integer target) {
@@ -187,8 +188,12 @@ public class TalismanOfForesight extends Artifact {
 					}
 
 					Char ch = Actor.findChar(cell);
-					if (ch != null && ch.alignment != Char.Alignment.NEUTRAL && ch.alignment != curUser.alignment){
+					if (ch != null
+							&& (ch.alignment != Char.Alignment.NEUTRAL || ch instanceof Mimic)
+							&& ch.alignment != curUser.alignment){
 						Buff.append(curUser, CharAwareness.class, 5 + 2*level()).charID = ch.id();
+
+						artifactProc(ch, visiblyUpgraded(), (int)(3 + dist*1.08f));
 
 						if (!curUser.fieldOfView[ch.pos]){
 							earnedExp += 10;

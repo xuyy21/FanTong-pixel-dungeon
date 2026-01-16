@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_9_Changes(changeInfos);
         add_v0_4_8_Changes(changeInfos);
         add_v0_4_7_Changes(changeInfos);
         add_v0_4_6_Changes(changeInfos);
@@ -245,5 +246,18 @@ public class v0_4_X_FTChanges {
                         "修正了护体火环与电电触击的伤害类型。\n\n" +
                         "现在交换位置不再可以交换至不可抵达的位置。\n\n" +
                         "现在使用血祭符文会打断无敌状态，而且反转伤害不会削减和吸收血祭符文造成的伤害。"));
+    }
+
+    public static void add_v0_4_9_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.9", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Overview and ETA",
+                "底层从破碎地牢2.5.0同步至破碎地牢3.3.3，改动详情请到破碎地牢改动页面查看。\n\n但是可以会导致BUG，目前尚未完全排查，请谨慎游玩，并即时汇报BUG。"));
+
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了天堂之眼积累的过载回合不正确的BUG。"));
     }
 }

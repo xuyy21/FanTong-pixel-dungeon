@@ -18,7 +18,7 @@
 
 	<application
 		android:icon="@mipmap/ic_launcher"
-		android:label="${appName}"
+		android:label="饭桶地牢-内测版"
 		android:theme="@style/GameTheme"
 		android:appCategory="game"
 		android:isGame="true"

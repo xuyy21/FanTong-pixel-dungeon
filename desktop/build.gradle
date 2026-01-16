@@ -21,7 +21,7 @@ tasks.register('debug', JavaExec) {
     mainClass = appMainClass
     systemProperty 'Specification-Title', appName
     systemProperty 'Implementation-Title', appPackageName
-    systemProperty 'Specification-Version', appVersionName + "-INDEV"
+    systemProperty 'Specification-Version', appVersionName
     systemProperty 'Implementation-Version', appVersionCode
 
     if (osName.contains('mac')) {

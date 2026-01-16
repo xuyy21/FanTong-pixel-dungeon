@@ -34,10 +34,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.AuraOfProtection;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.LifeLinkSpell;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
@@ -410,9 +412,14 @@ public class Armor extends EquipableItem {
 			return lvl;
 		}
 	}
-	
+
+	//This exists so we can test what a char's base evasion would be without armor affecting it
+	//more ugly static vars yaaay~
+	public static boolean testingNoArmDefSkill = false;
+
 	public float evasionFactor( Char owner, float evasion ){
-		
+		if (testingNoArmDefSkill) return evasion;
+
 		if (hasGlyph(Stone.class, owner) && !Stone.testingEvasion()){
 			return 0;
 		}
@@ -436,11 +443,11 @@ public class Armor extends EquipableItem {
 			int aEnc = STRReq() - ((Hero) owner).STR();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
 		}
-		
+
 		return speed;
 		
 	}
-	
+
 	@Override
 	public int level() {
 		int level = super.level();
@@ -506,12 +513,14 @@ public class Armor extends EquipableItem {
 
 		if (defender.buff(MagicImmune.class) == null) {
 			Glyph trinityGlyph = null;
-			if (Dungeon.hero.buff(BodyForm.BodyFormBuff.class) != null){
-				trinityGlyph = Dungeon.hero.buff(BodyForm.BodyFormBuff.class).glyph();
-				if (glyph != null && trinityGlyph != null && trinityGlyph.getClass() == glyph.getClass()){
-					trinityGlyph = null;
-				}
-			}
+            //only when it's the hero or a char that uses the hero's armor
+            if (Dungeon.hero.buff(BodyForm.BodyFormBuff.class) != null
+                    && (defender == Dungeon.hero || defender instanceof PrismaticImage || defender instanceof ShadowClone.ShadowAlly)){
+                trinityGlyph = Dungeon.hero.buff(BodyForm.BodyFormBuff.class).glyph();
+                if (glyph != null && trinityGlyph != null && trinityGlyph.getClass() == glyph.getClass()){
+                    trinityGlyph = null;
+                }
+            }
 
 			if (defender instanceof Hero && isEquipped((Hero) defender)
 					&& defender.buff(HolyWard.HolyArmBuff.class) != null){
@@ -641,7 +650,7 @@ public class Armor extends EquipableItem {
 		if (seal != null) {
 			info += "\n\n" + Messages.get(Armor.class, "seal_attached", seal.maxShield(tier, level()));
 		}
-		
+
 		return info;
 	}
 
@@ -739,7 +748,6 @@ public class Armor extends EquipableItem {
 		if (glyph != null && isIdentified() && Dungeon.hero != null
 				&& Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(this)){
 			Catalog.setSeen(glyph.getClass());
-			Statistics.itemTypesDiscovered.add(glyph.getClass());
 		}
 		return this;
 	}
@@ -820,7 +828,7 @@ public class Armor extends EquipableItem {
 		public static final Class<?>[] ex = new Class<?>[]{
 				GoldenKing.class, LivingVines.class, Magic_Rolling.class, Magic_Steps.class, WaterMoon.class
 		};
-		
+
 		public abstract int proc( Armor armor, Char attacker, Char defender, int damage );
 
 		protected float procChanceMultiplier( Char defender ){

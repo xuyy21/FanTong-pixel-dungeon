@@ -22,8 +22,6 @@ public class YinYang extends Weapon.Enchantment {
 
             if (attacker.distance(defender)==1
                     && Random.Float()<(5f+level)/(20f+level)*procChanceMultiplier(attacker)){
-                if (attacker.buff(MissileWeapon.ThrowingTracker.class)!=null)
-                    return damage;
                 Buff.prolong(defender, Terror.class, 15f);
             } else if (attacker.distance(defender)==weapon.reachFactor(attacker)
                     && Random.Float()<(5f+level)/(20f+level)*procChanceMultiplier(attacker)) {

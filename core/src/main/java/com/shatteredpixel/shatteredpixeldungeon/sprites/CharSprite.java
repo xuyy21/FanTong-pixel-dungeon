@@ -201,8 +201,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 			}
 			float x = destinationCenter().x;
 			float y = destinationCenter().y - height()/2f;
+			int pos = DungeonTilemap.worldToTile(x, y + height(), Dungeon.level.width());
 			if (ch != null) {
-				FloatingText.show( x, y, ch.pos, text, color, icon, true );
+				FloatingText.show( x, y, pos, text, color, icon, true );
 			} else {
 				FloatingText.show( x, y, -1, text, color, icon, true );
 			}
@@ -216,7 +217,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void run() {
 		play(run);
 	}
-	
+
 	public void move( int from, int to ) {
 		turnTo( from , to );
 

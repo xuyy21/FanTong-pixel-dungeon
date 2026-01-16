@@ -397,32 +397,34 @@ public class Tengu extends Mob {
 				recentlyAttackedBy.clear();
 				target = enemy.pos;
 				return doAttack( enemy );
-				
+
 			} else {
 
-				//Try to switch targets to another enemy that is closer
-				//unless we have already done that and still can't attack them, then move on.
-				if (!recursing) {
-					Char oldEnemy = enemy;
-					enemy = null;
-					enemy = chooseEnemy();
-					if (enemy != null && enemy != oldEnemy) {
-						recursing = true;
-						boolean result = act(enemyInFOV, justAlerted);
-						recursing = false;
-						return result;
-					}
-				}
-				
-				//attempt to use an ability, even if enemy can't be decided
-				if (canUseAbility()){
-					return useAbility();
-				}
-				
-				spend( TICK );
-				return true;
-				
+				return handleUnreachableTarget(enemyInFOV, justAlerted);
 			}
+		}
+
+		@Override
+		protected boolean handleUnreachableTarget(boolean enemyInFOV, boolean justAlerted) {
+			Char oldEnemy = enemy;
+			enemy = null;
+			enemy = chooseEnemy();
+			if (enemy != null && enemy != oldEnemy) {
+				recursing = true;
+				boolean result = act(enemyInFOV, justAlerted);
+				recursing = false;
+				return result;
+			}
+
+			//attempt to use an ability, even if enemy can't be decided
+			//Tengu is always hunting, so we don't lose enemy in this case
+			if (canUseAbility()){
+				return useAbility();
+			}
+
+			spend( TICK );
+			return true;
+
 		}
 	}
 	
@@ -504,7 +506,7 @@ public class Tengu extends Mob {
 			}
 
 			//all abilities always target the hero, even if something else is taking Tengu's normal attacks
-			
+
 			//If we roll the same ability as last time, 9/10 chance to reroll
 			if (abilityToUse != lastAbility || Random.Int(10) == 0){
 				switch (abilityToUse){

@@ -207,7 +207,6 @@ public abstract class Recipe {
 	//*******
 
 	private static Recipe[] variableRecipes = new Recipe[]{
-			new LiquidMetal.Recipe(),
 			new RunicAsh.Recipe()
 	};
 	
@@ -216,6 +215,7 @@ public abstract class Recipe {
 		new ExoticPotion.PotionToExotic(),
 		new ExoticScroll.ScrollToExotic(),
 		new ArcaneResin.Recipe(),
+		new LiquidMetal.Recipe(),
 		new BlizzardBrew.Recipe(),
 		new InfernalBrew.Recipe(),
 		new AquaBrew.Recipe(),
@@ -330,12 +330,14 @@ public abstract class Recipe {
 	}
 	
 	public static boolean usableInRecipe(Item item){
+		//only upgradeable thrown weapons and wands allowed among equipment items
 		if (item instanceof EquipableItem){
-			return item.isIdentified() && !item.cursed && !item.isEquipped(Dungeon.hero)
+			return item.cursedKnown && !item.cursed && !item.isEquipped(Dungeon.hero)
 					&& (item instanceof MissileWeapon || item instanceof MeleeWeapon || item instanceof Armor)
-					&& !(item instanceof MagesStaff);
+					&& !(item instanceof MagesStaff)
+                    && item.isUpgradable();
 		} else if (item instanceof Wand) {
-			return item.isIdentified() && !item.cursed;
+			return item.cursedKnown && !item.cursed;
 		} else if (item instanceof RecipeBook || item instanceof RecipeFolder) {
 			return false;
 		} else {

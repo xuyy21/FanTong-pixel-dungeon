@@ -158,7 +158,7 @@ public class ArcaneResin extends Item {
 		public boolean testIngredients(ArrayList<Item> ingredients) {
 			return ingredients.size() == 1
 					&& ingredients.get(0) instanceof Wand
-					&& ingredients.get(0).isIdentified()
+					&& ingredients.get(0).cursedKnown
 					&& !ingredients.get(0).cursed;
 		}
 
@@ -170,8 +170,12 @@ public class ArcaneResin extends Item {
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			Item result = sampleOutput(ingredients);
+			Wand w = (Wand)ingredients.get(0);
 
-			ingredients.get(0).quantity(0);
+			if (!w.levelKnown){
+				result.quantity(resinQuantity(w));
+			}
+			w.quantity(0);
 
 			return result;
 		}
@@ -179,19 +183,22 @@ public class ArcaneResin extends Item {
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
 			Wand w = (Wand)ingredients.get(0);
-			int level = w.level() - w.resinBonus;
 
-			Item output = new ArcaneResin().quantity(2*(level+1));
+			if (w.levelKnown){
+				return new ArcaneResin().quantity(resinQuantity(w));
+			} else {
+				return new ArcaneResin();
+			}
+		}
+
+		private int resinQuantity(Wand w){
+			int level = w.level() - w.resinBonus;
+			int quantity = 2*(level+1);
 
 			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.hasTalent(Talent.WAND_PRESERVATION)){
-				output.quantity(output.quantity() + Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION));
+				quantity += Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION);
 			}
-
-//			if (Dungeon.hero.pointsInTalent(Talent.EMPOWERED_MAGIC)>=3){
-//				output.quantity(output.quantity()+1);
-//			}
-
-			return output;
+			return quantity;
 		}
 	}
 

@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Explosive;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
@@ -177,6 +178,7 @@ public class Badges {
 		ITEM_LEVEL_5                ( 97 ),
 		LEVEL_REACHED_5             ( 98 ),
 		HAPPY_END                   ( 99 ),
+		VICTORY_RANDOM              ( 112 ),
 		HAPPY_END_REMAINS           ( 100 ),
 		RODNEY                      ( 101, BadgeType.JOURNAL ),
 		ALL_WEAPONS_IDENTIFIED      , //still exists internally for pre-2.5 saves
@@ -549,7 +551,7 @@ public class Badges {
 			displayBadge( Badge.ENEMY_HAZARDS );
 		}
 	}
-	
+
 	public static void validatePiranhasKilled() {
 		Badge badge = null;
 		
@@ -1057,7 +1059,7 @@ public class Badges {
 			displayBadge( Badge.UNLOCK_CLERIC );
 		}
 	}
-	
+
 	public static void validateMasteryCombo( int n ) {
 		if (!local.contains( Badge.MASTERY_COMBO ) && n == 10) {
 			Badge badge = Badge.MASTERY_COMBO;
@@ -1071,6 +1073,15 @@ public class Badges {
 		Badge badge = Badge.VICTORY;
 		local.add( badge );
 		displayBadge( badge );
+
+		//technically player can also not spend talent points if they want for some reason
+		if (Statistics.qualifiedForRandomVictoryBadge
+				&& Dungeon.hero.subClass != null
+				&& Dungeon.hero.armorAbility != null){
+			badge = Badge.VICTORY_RANDOM;
+			local.add( badge );
+			displayBadge( badge );
+		}
 
 		badge = victoryClassBadges.get(Dungeon.hero.heroClass);
 		if (badge == null) return;
@@ -1091,8 +1102,8 @@ public class Badges {
 	}
 
 	public static void validateTakingTheMick(Object cause){
-		if (cause == Dungeon.hero &&
-				Dungeon.hero.belongings.attackingWeapon() instanceof Pickaxe
+		if ((cause == Dungeon.hero || cause instanceof Explosive.ExplosiveCurseBomb)
+				&& Dungeon.hero.belongings.attackingWeapon() instanceof Pickaxe
 				&& Dungeon.hero.belongings.attackingWeapon().level() >= 20){
 			local.add( Badge.TAKING_THE_MICK );
 			displayBadge(Badge.TAKING_THE_MICK);
@@ -1123,7 +1134,7 @@ public class Badges {
 			displayBadge( badge );
 		}
 	}
-	
+
 	public static void validateGamesPlayed() {
 		Badge badge = null;
 		if (Rankings.INSTANCE.totalNumber >= 10 || Rankings.INSTANCE.wonNumber >= 1) {

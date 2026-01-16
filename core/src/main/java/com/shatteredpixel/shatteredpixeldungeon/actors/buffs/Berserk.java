@@ -42,6 +42,7 @@ import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
+import com.watabou.utils.Random;
 
 public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 
@@ -102,9 +103,12 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 		if (state == State.BERSERK){
 			if (target.shielding() > 0) {
 				//lose 2.5% of shielding per turn, but no less than 1
-				int dmg = (int)Math.ceil(target.shielding() * 0.025f);
+				float dmg = (float)Math.ceil(target.shielding() * 0.025f) * HoldFast.buffDecayFactor(target);
+				if (Random.Float() < dmg % 1){
+					dmg++;
+				}
 
-				dmg = ShieldBuff.processDamage(target, dmg, this);
+				ShieldBuff.processDamage(target, (int)dmg, this);
 
 				if (target.shielding() <= 0){
 					state = State.RECOVERING;
@@ -134,7 +138,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 			if (powerLossBuffer > 0){
 				powerLossBuffer--;
 			} else {
-				power -= GameMath.gate(0.1f, power, 1f) * 0.067f * Math.pow((target.HP / (float) target.HT), 2);
+				power -= GameMath.gate(0.1f, power, 1f) * 0.05f * Math.pow((target.HP / (float) target.HT), 2);
 
 				if (power < 1f){
 					ActionIndicator.clearAction(this);
@@ -164,6 +168,9 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	@Override
 	public void detach() {
 		super.detach();
+		if (state == State.BERSERK) {
+			state = State.RECOVERING;
+		}
 		ActionIndicator.clearAction(this);
 	}
 
@@ -331,7 +338,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 				if (levelRecovery > 0) {
 					return 1f - levelRecovery/LEVEL_RECOVER_START;
 				} else {
-					return turnRecovery/(float)TURN_RECOVERY_START;
+					return 1f - turnRecovery/(float)TURN_RECOVERY_START;
 				}
 		}
 	}

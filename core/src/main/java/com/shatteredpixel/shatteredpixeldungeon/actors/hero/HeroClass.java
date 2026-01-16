@@ -405,7 +405,7 @@ public enum HeroClass {
 		(hero.belongings.weapon = new WornShortsword()).identify();
 		hero.belongings.weapon.activate(hero);
 		ThrowingStone stones = new ThrowingStone();
-		stones.quantity(3).collect();
+		stones.identify().collect();
 
 		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
 		Dungeon.quickslot.setSlot(1, stones);
@@ -443,7 +443,7 @@ public enum HeroClass {
 		hero.belongings.artifact.activate( hero );
 
 		ThrowingKnife knives = new ThrowingKnife();
-		knives.quantity(3).collect();
+		knives.identify().collect();
 
 		Dungeon.quickslot.setSlot(0, cloak);
 		Dungeon.quickslot.setSlot(1, hero.belongings.weapon);
@@ -476,7 +476,7 @@ public enum HeroClass {
 		new Dagger().identify().collect();
 
 		ThrowingSpike spikes = new ThrowingSpike();
-		spikes.quantity(2).collect();
+		spikes.quantity(2).identify().collect(); //set quantity is 3, but Duelist starts with 2
 
 		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
 		Dungeon.quickslot.setSlot(1, spikes);

@@ -130,7 +130,6 @@ public class ThrowingStone extends MissileWeapon {
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage) {
-		Buff.affect(attacker, ThrowingTracker.class);
 
 		if (sling != null && !processingChargedShot){
 			damage = sling.proc(attacker, defender, damage);
@@ -191,6 +190,6 @@ public class ThrowingStone extends MissileWeapon {
 	
 	@Override
 	public int value() {
-		return super.value()/2; //half normal value
+		return Math.round(super.value()/2f); //half normal value
 	}
 }

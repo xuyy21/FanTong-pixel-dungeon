@@ -66,7 +66,7 @@ public class Extinctioner extends MeleeWeapon{
     public int damageRoll(Char owner) {
         if (owner instanceof Hero) {
             Hero hero = (Hero)owner;
-            Char enemy = hero.enemy();
+            Char enemy = hero.attackTarget();
             if (enemy!=null && enemy.getClass() == mobScaned) return max();
         }
         return super.damageRoll(owner);

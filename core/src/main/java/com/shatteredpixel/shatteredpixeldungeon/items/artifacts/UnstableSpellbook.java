@@ -152,12 +152,13 @@ public class UnstableSpellbook extends Artifact {
 				|| (scroll instanceof ScrollOfTransmutation));
 
 		scroll.anonymize();
+        scroll.talentChance = 0;
 		curItem = scroll;
 		curUser = hero;
 
-				//if there are charges left and the scroll has been given to the book
-				if (!scrolls.contains(scroll.getClass())) {
-					final Scroll fScroll = scroll;
+		//if there are charges left and the scroll has been given to the book
+		if (charge > 0 && !scrolls.contains(scroll.getClass())) {
+			final Scroll fScroll = scroll;
 
 			final ExploitHandler handler = Buff.affect(hero, ExploitHandler.class);
 			handler.scroll = scroll;
@@ -177,9 +178,12 @@ public class UnstableSpellbook extends Artifact {
 									curItem = scroll;
 									charge--;
 									scroll.anonymize();
+                                    scroll.talentChance = 0;
+                                    checkForArtifactProc(curUser, scroll);
 									scroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
 								} else if (index == 0) {
+                                    checkForArtifactProc(curUser, fScroll);
 									fScroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
 								} else {
@@ -196,6 +200,8 @@ public class UnstableSpellbook extends Artifact {
 											|| (scroll.isSimilar(fScroll)));
 									curItem = scroll;
 									scroll.anonymize();
+                                    scroll.talentChance = 0;
+                                    checkForArtifactProc(curUser, scroll);
 									scroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
 								}
@@ -230,9 +236,12 @@ public class UnstableSpellbook extends Artifact {
 											|| (scroll.isSimilar(fScroll)));
 									curItem = scroll;
 									scroll.anonymize();
+                                    scroll.talentChance = 0;
+                                    checkForArtifactProc(curUser, scroll);
 									scroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
 								} else {
+                                    checkForArtifactProc(curUser, fScroll);
 									fScroll.doRead();
 									Talent.onArtifactUsed(Dungeon.hero);
 								}
@@ -246,6 +255,7 @@ public class UnstableSpellbook extends Artifact {
 						});
 					}
 				} else {
+                    checkForArtifactProc(curUser, scroll);
 					scroll.doRead();
 					Talent.onArtifactUsed(Dungeon.hero);
 				}
@@ -280,6 +290,7 @@ public class UnstableSpellbook extends Artifact {
 			curUser = Dungeon.hero;
 			curItem = scroll;
 			scroll.anonymize();
+			scroll.talentChance = 0;
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {

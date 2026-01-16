@@ -32,8 +32,7 @@ public class UpdateImpl {
 	}
 
 	public static boolean supportsUpdates(){
-//		return Game.version.contains("INDEV");
-		return true;
+		return Game.version.contains("INDEV");
 	}
 
 }

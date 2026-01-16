@@ -55,7 +55,7 @@ public class Dewdrop extends Item {
 		Waterskin flask = hero.belongings.getItem( Waterskin.class );
 		Catalog.setSeen(getClass());
 		Statistics.itemTypesDiscovered.add(getClass());
-		
+
 		if (flask != null && !flask.isFull()){
 
 			flask.collectDew( this );
@@ -74,7 +74,7 @@ public class Dewdrop extends Item {
 		}
 		
 		Sample.INSTANCE.play( Assets.Sounds.DEWDROP );
-		hero.spendAndNext( TIME_TO_PICK_UP );
+		hero.spendAndNext( pickupDelay() );
 		
 		return true;
 	}
@@ -101,32 +101,35 @@ public class Dewdrop extends Item {
 //			if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
 //			shield = Math.min(shield, maxShield-curShield);
 //		}
+		if (effect > 0 || shield > 0) {
 
-		if (heal > 0 || shield > 0) {
+			if (heal > 0 || shield > 0) {
 
-			if (heal > 0 && quantity > 1 && VialOfBlood.delayBurstHealing()){
-				Healing healing = Buff.affect(hero, Healing.class);
-				healing.setHeal(heal, 0, VialOfBlood.maxHealPerTurn());
-				healing.applyVialEffect();
-			} else {
-				hero.HP += heal;
-				if (heal > 0){
-					hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(heal), FloatingText.HEALING);
+				if (heal > 0 && quantity > 1 && VialOfBlood.delayBurstHealing()) {
+					Healing healing = Buff.affect(hero, Healing.class);
+					healing.setHeal(heal, 0, VialOfBlood.maxHealPerTurn());
+					healing.applyVialEffect();
+				} else {
+					hero.HP += heal;
+					if (heal > 0) {
+						hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(heal), FloatingText.HEALING);
+					}
 				}
-			}
 
-			if (shield > 0) {
-				Buff.affect(hero, Barrier.class).incShield(shield);
-				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING );
-			}
+				if (shield > 0) {
+					Buff.affect(hero, Barrier.class).incShield(shield);
+					hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING);
+				}
 
-		} else if (!force) {
-			GLog.i( Messages.get(Dewdrop.class, "already_full") );
-			return false;
+			} else if (!force) {
+				GLog.i(Messages.get(Dewdrop.class, "already_full"));
+				return false;
+			}
 		}
 
 		return true;
 	}
+
 
 	@Override
 	public boolean isUpgradable() {

@@ -55,6 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
+import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -188,7 +189,12 @@ public class HighGrass {
 					&& Random.Int(3) != 0){
 				naturalismLevel = -1;
 			}
-			
+
+			//grass gives no loot in vault tester area
+			if (Dungeon.level instanceof VaultLevel){
+				naturalismLevel = -1;
+			}
+
 			if (naturalismLevel >= 0) {
 				// Seed, scales from 1/25 to 1/9
 				float lootChance = 1/(25f - naturalismLevel*4f);

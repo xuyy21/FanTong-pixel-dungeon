@@ -613,7 +613,6 @@ public abstract class Char extends Actor {
 			
 		} else {
 
-			enemy.sprite.showStatus( CharSprite.NEUTRAL, enemy.defenseVerb() );
 			if (enemy.sprite != null){
 				if (hitMissIcon != -1){
 					//dooking is a playful sound Ferrets can make, like low pitched chirping

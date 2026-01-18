@@ -23,6 +23,7 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Runes {
 
@@ -53,6 +54,18 @@ public class Runes {
         if (handler !=null) {
             handler.setKnown(i, j, k, value);
         }
+    }
+
+    public static ArrayList<Integer> getAllKnown() {
+        if (handler == null)
+            return null;
+        return handler.getAllKnown();
+    }
+
+    public static ArrayList<Integer> getAllUnKnown() {
+        if (handler == null)
+            return null;
+        return handler.getAllUnKnown();
     }
 
     public static boolean getKnown(int index){
@@ -155,6 +168,26 @@ public class Runes {
             setKnown(RUNES_NUM*RUNES_NUM*i + RUNES_NUM*j + k, value);
         }
 
+        public ArrayList<Integer> getAllKnown() {
+            ArrayList<Integer> allKnown = new ArrayList<>();
+
+            for (int k=0; k<known.length; k++) {
+                if (known[k]) allKnown.add(k);
+            }
+
+            return allKnown;
+        }
+
+        public ArrayList<Integer> getAllUnKnown() {
+            ArrayList<Integer> allKnown = new ArrayList<>();
+
+            for (int k=0; k<known.length; k++) {
+                if (!known[k]) allKnown.add(k);
+            }
+
+            return allKnown;
+        }
+
         public boolean getKnown(int index) {
             if (index<0 || index>=RUNES_NUM*RUNES_NUM*RUNES_NUM)
                 return false;
@@ -255,6 +288,7 @@ public class Runes {
         private static final int BTN_GAP	= 5;
         private static final int GAP		= 2;
         private static TestButton testButton;
+        private static RandomTestButton randomTestButton;
 
         public WndRunes() {
             super();
@@ -262,7 +296,7 @@ public class Runes {
             IconTitle titlebar = new IconTitle();
             titlebar.icon(new ItemSprite(new HolyTome()));
             titlebar.label(Messages.get(Runes.class, "wndlabel"));
-            RenderedTextBlock message = PixelScene.renderTextBlock(Messages.get(Runes.class, "wndtitle"), 6);
+            RenderedTextBlock message = PixelScene.renderTextBlock(Messages.get(Runes.class, "wndtitle", Objects.requireNonNull(Runes.getAllKnown()).size(), RUNES_NUM*RUNES_NUM*RUNES_NUM), 6);
 
             titlebar.setRect( 0, 0, WIDTH, 0 );
             add( titlebar );
@@ -288,7 +322,11 @@ public class Runes {
             testButton.setRect((WIDTH - BTN_GAP) / 3 - BTN_SIZE, rune3.bottom() + GAP, 3*BTN_SIZE+2*BTN_GAP, BTN_SIZE);
             add(testButton);
 
-            resize(WIDTH, (int)testButton.bottom() + GAP);
+            randomTestButton = new RandomTestButton(Messages.get(Runes.class, "randomtest"), this);
+            randomTestButton.setRect(testButton.left(), testButton.bottom() + GAP, 3*BTN_SIZE+2*BTN_GAP, BTN_SIZE);
+            add(randomTestButton);
+
+            resize(WIDTH, (int)randomTestButton.bottom() + GAP);
         }
 
         public static class RuneButton extends IconButton{
@@ -370,6 +408,46 @@ public class Runes {
 
                 Dungeon.hero.belongings.getItem(RunicAsh.class).detach(Dungeon.hero.belongings.backpack);
                 Catalog.countUse(RunicAsh.class);
+
+                window.hide();
+            }
+        }
+
+        public static class RandomTestButton extends RedButton {
+            protected WndRunes window;
+
+            public RandomTestButton(String label, WndRunes window) {
+                super(label, 6);
+                this.window = window;
+            }
+
+            @Override
+            protected void onClick() {
+                super.onClick();
+
+                ArrayList<Integer> allUnknown = Runes.getAllUnKnown();
+                if (allUnknown == null || allUnknown.isEmpty()) {
+                    GLog.w(Messages.get(Runes.class, "allknown"));
+                } else {
+                    Random.shuffle(allUnknown);
+                    int index = allUnknown.remove(0);
+
+                    setKnown(index, true);
+
+                    if (getSpell(index)!=null){
+                        GLog.p(Messages.get(Runes.class, "test_success", Messages.get(getSpell(index), "name")));
+                        Sample.INSTANCE.play( Assets.Sounds.SECRET );
+                        Spell spell = (Spell) Reflection.newInstance(getSpell(index));
+                        GameScene.show(new WndTitledMessage(spell.icon(), Messages.titleCase(spell.name()), spell.desc()));
+
+                    } else {
+                        GLog.i(Messages.get(Runes.class, "test_fall"));
+                        Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
+                    }
+
+                    Dungeon.hero.belongings.getItem(RunicAsh.class).detach(Dungeon.hero.belongings.backpack);
+                    Catalog.countUse(RunicAsh.class);
+                }
 
                 window.hide();
             }

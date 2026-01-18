@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.runes.spells;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
@@ -11,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
 
@@ -53,5 +55,11 @@ public class Cleanse extends Spell{
             Buff.affect(ch, Barrier.class).setShield(Math.round(10 * implement.powerMultiplier(hero, this)));
             new Flare( 6, 32 ).color(0xFF4CD2, true).show( ch.sprite, 2f );
         }
+
+        hero.busy();
+        hero.sprite.operate(hero.pos);
+        Sample.INSTANCE.play(Assets.Sounds.READ);
+        hero.spendAndNext(implement.delay(hero, this));
+        onSpellCast(implement, hero);
     }
 }

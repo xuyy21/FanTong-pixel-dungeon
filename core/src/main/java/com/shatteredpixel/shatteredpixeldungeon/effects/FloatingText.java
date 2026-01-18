@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmedSkeleton;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmoredStatue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
@@ -48,6 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Quarterstaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Scimitar;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
@@ -439,12 +441,14 @@ public class FloatingText extends RenderedTextBlock {
 		if (attacker instanceof MirrorImage) wep = Dungeon.hero.belongings.weapon();
 		if (attacker instanceof Statue) wep = ((Statue)attacker).weapon();
 		if (attacker instanceof DriedRose.GhostHero) wep = ((DriedRose.GhostHero)attacker).weapon();
+		if (attacker instanceof ArmedSkeleton) wep = ((ArmedSkeleton) attacker).weapon();
 
 		Armor arm = null;
 		if (defender instanceof Hero) arm = ((Hero) defender).belongings.armor();
 		if (defender instanceof PrismaticImage) arm = Dungeon.hero.belongings.armor();
 		if (defender instanceof ArmoredStatue) arm = ((ArmoredStatue)defender).armor();
 		if (defender instanceof DriedRose.GhostHero) arm = ((DriedRose.GhostHero)defender).armor();
+		if (defender instanceof Animate_Armor.Animated_Armor) arm = ((Animate_Armor.Animated_Armor) defender).armor();
 
 		//evasion boosts (always > 1)
 		float blessBoost = 1; //a few different sources contribute to this icon

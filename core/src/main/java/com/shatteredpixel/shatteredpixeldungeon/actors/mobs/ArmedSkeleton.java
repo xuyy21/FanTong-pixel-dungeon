@@ -223,4 +223,8 @@ public class ArmedSkeleton extends Mob implements Callback {
         Dungeon.level.drop( weapon, pos ).sprite.drop();
         super.die( cause );
     }
+
+    public Weapon weapon() {
+        return weapon;
+    }
 }

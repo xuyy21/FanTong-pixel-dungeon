@@ -134,6 +134,10 @@ public class Animate_Armor extends InventorySpell{
 //            originPos = bundle.getInt( ORIGINPOS );
         }
 
+        public Armor armor() {
+            return armor;
+        }
+
         @Override
         public void die(Object cause) {
             Dungeon.level.drop( armor, pos ).sprite.drop();

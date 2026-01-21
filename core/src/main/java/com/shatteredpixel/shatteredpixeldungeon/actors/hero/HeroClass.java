@@ -327,7 +327,7 @@ public enum HeroClass {
 			new SlimeBlob().collect();
 			new MandrakeRoot().quantity(10).collect();
 			new Crystal_Heart().quantity(10).collect();
-			new Xuanmi().quantity(10).collect();
+			new Xuanmi().collect();
 			new Larva().quantity(10).collect();
 //			new Cookware().quantity(10).collect();
 

@@ -17,7 +17,7 @@ public class Xuanmi extends MissileWeapon{
 
         tier = 4;
 
-        baseUses = 3;
+        baseUses = 1;
     }
 
     @Override

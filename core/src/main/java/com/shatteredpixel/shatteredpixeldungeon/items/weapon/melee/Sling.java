@@ -52,7 +52,14 @@ public class Sling extends MeleeWeapon{
         Buff.affect(hero, ChargedShot.class);
         hero.sprite.operate(hero.pos);
         if (hero.belongings.getItem(ThrowingStone.class)==null) {
-            if (!new SlingsStone().collect()) {
+            SlingsStone stone = new SlingsStone();
+            stone.cursed = false;
+            stone.cursedKnown = true;
+            stone.level(0);
+            stone.levelKnown = true;
+            stone.enchant(null);
+
+            if (!stone.collect()) {
                 GLog.w(Messages.get(this, "bag_no_space"));
             } else {
                 Sample.INSTANCE.play( Assets.Sounds.ITEM );

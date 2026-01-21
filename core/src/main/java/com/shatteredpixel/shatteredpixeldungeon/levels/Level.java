@@ -1499,7 +1499,11 @@ public abstract class Level implements Bundlable {
 
 			for (WandOfWind.WindRevealedArea a : c.buffs(WandOfWind.WindRevealedArea.class)){
 				if (Dungeon.depth != a.depth || Dungeon.branch != a.branch) continue;
-				for (int i : PathFinder.NEIGHBOURS25) heroMindFov[a.pos+i] = true;
+				for (int i : PathFinder.NEIGHBOURS25) {
+					if (a.pos + i < Dungeon.level.length()) {
+						heroMindFov[a.pos + i] = true;
+					}
+				}
 			}
 
 			//set mind vision chars

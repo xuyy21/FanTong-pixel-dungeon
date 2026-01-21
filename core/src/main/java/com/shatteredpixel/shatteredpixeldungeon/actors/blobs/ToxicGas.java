@@ -73,7 +73,12 @@ public class ToxicGas extends Blob implements Hero.Doom {
 		
 		Badges.validateDeathFromGas();
 
-		if (Dungeon.hero!=null && Dungeon.hero.buff(Paralysis.class)!=null)
+		boolean paralysis = Dungeon.hero.buff(Paralysis.class)!=null;
+		ParalyticGas paralyticGas = (ParalyticGas) Dungeon.level.blobs.get(ParalyticGas.class);
+		if (paralyticGas != null && paralyticGas.volume>0 && paralyticGas.cur[Dungeon.hero.pos]>0)
+			paralysis = true;
+
+		if (Dungeon.hero!=null && paralysis)
 			Badges.validateDeathFromMixGas();
 		
 		Dungeon.fail( this );

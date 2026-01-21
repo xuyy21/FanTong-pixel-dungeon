@@ -1,7 +1,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.effects.BadgeBanner;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfDivination;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
@@ -264,5 +266,8 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.IMPLEMENT_BOOK), "符文与符术调整",
                 "法器的试验界面添加随机试验功能，点击即可随机选择一个符文组合进行试验。"));
+
+        changes.addButton(new ChangeButton(BadgeBanner.show(Badges.Badge.DEATH_FROM_MIX_GAS.image), "混合毒气徽章",
+                "调整混合毒气徽章的获取逻辑，此前的判断逻辑过于严苛导致一些本该获得徽章的情况未能获得徽章。"));
     }
 }

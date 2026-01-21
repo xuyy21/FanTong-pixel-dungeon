@@ -1566,9 +1566,10 @@ public class Hero extends Char {
 					protected boolean act() {
 						if (enemy.isAlive()) {
 							if (hasTalent(Talent.SHARED_UPGRADES)){
-								int levelBonus = Math.min( 2*pointsInTalent(Talent.SHARED_UPGRADES), wep.buffedLvl() );
-								// bonus dmg is 16.67% x weapon level, max of 2/4/6
-								float bonusDmg = levelBonus/6f;
+								int levelBonus = wep.buffedLvl();
+								// bonus dmg is 4% x weapon tier x weapon level, but the tier is considered not more than 3/4/5. meaning that max for 12/16/20% x weapon level
+								float bonusDmg = levelBonus * 0.04f * Math.min(((MissileWeapon) wep).tier, 2+pointsInTalent(Talent.SHARED_UPGRADES));
+								bonusDmg = Math.max(bonusDmg, 0f);
 								Buff.prolong(Hero.this, SnipersMark.class, SnipersMark.DURATION + levelBonus).set(enemy.id(), bonusDmg);
 							} else {
 								Buff.prolong(Hero.this, SnipersMark.class, SnipersMark.DURATION).set(enemy.id(), 0);

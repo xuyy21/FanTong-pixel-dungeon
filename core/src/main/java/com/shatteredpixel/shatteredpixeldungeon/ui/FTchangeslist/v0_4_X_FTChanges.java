@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BadgeBanner;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfDivination;
@@ -22,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.VendingMachineSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
@@ -273,5 +275,12 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.REMOVE_MISSILES_CURSE), "投武驱邪菱晶",
                 "加入一种用驱邪卷轴制作的菱晶，它只能对投武生效，但是产量为3。我希望它可以帮助玩家减轻投武系统改革后大多投武需要驱邪的压力。"));
+
+        changes.addButton(new ChangeButton(new TalentIcon(Talent.SHARED_UPGRADES), "联动升级",
+                "调整狙击手的天赋_联动升级_的效果。\n\n" +
+                        "当狙击手以一件已升级的投掷武器攻击时，其每级升级都会延长_1回合_狙击标记持续时间并增加_阶数*4%_特殊攻击伤害。\n\n" +
+                        "_+1：_该天赋生效时，最多按照_3阶_投掷武器计算。\n\n" +
+                        "_+2：_该天赋生效时，最多按照_4阶_投掷武器计算。\n\n" +
+                        "_+3：_该天赋生效时，最多按照_5阶_投掷武器计算。"));
     }
 }

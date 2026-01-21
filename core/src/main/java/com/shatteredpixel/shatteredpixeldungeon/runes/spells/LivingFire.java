@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogFist;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -99,7 +100,7 @@ public class LivingFire extends TargetedSpell{
                     if (mob != target
                             && mob.alignment == Char.Alignment.ENEMY
                             && Dungeon.level.distance(mob.pos, target.pos) <= DIST
-                            && !mob.isImmune(Burning.class)) {
+                            && !(mob.isImmune(Burning.class) || mob instanceof YogFist.SoiledFist)) {
                         if (closest == null || Dungeon.level.distance(closest.pos, target.pos) > Dungeon.level.distance(mob.pos, target.pos)){
                             closest = mob;
                         }

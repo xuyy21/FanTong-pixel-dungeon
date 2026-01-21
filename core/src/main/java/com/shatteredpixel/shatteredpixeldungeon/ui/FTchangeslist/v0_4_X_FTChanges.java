@@ -254,10 +254,15 @@ public class v0_4_X_FTChanges {
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "同步破碎的像素地牢",
-                "底层从破碎地牢3.1.0同步至破碎地牢3.3.3，改动详情请到破碎地牢改动页面查看。\n\n但是可以会导致BUG，目前尚未完全排查，请谨慎游玩，并即时汇报BUG。"));
+                "底层从破碎地牢3.1.0同步至破碎地牢3.3.3，改动详情请到破碎地牢改动页面查看。\n\n但是可以会导致BUG，目前尚未完全排查，请谨慎游玩，并即时汇报BUG。可以到QQ群1005329949（饭桶地牢交流群）或者870181168（萝卜地牢交流群）找“彦木”。"));
 
 
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
-                "修复了天堂之眼积累的过载回合不正确的BUG。"));
+                "修复了天堂之眼积累的过载回合不正确的BUG。\n\n" +
+                        "修复了符术神圣净化不积累过载的BUG。\n\n" +
+                        "修复了由于大地之拳特判不受燃烧伤害但是不免疫燃烧而导致三相之力与活火判定错误的BUG。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.IMPLEMENT_BOOK), "符文与符术调整",
+                "法器的试验界面添加随机试验功能，点击即可随机选择一个符文组合进行试验。"));
     }
 }

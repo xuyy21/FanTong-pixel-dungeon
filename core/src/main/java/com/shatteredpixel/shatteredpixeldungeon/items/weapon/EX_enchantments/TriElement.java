@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Elemental;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogFist;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
@@ -33,7 +34,7 @@ public class TriElement extends Weapon.Enchantment{
             defender.damage(dmg, new Chill());
         } else if (defender.resist(Electricity.class)>=1f && !defender.isImmune(Electricity.class)) {
             defender.damage(dmg, new Electricity());
-        } else if (!defender.isImmune(Burning.class)) {
+        } else if (!defender.isImmune(Burning.class) && !(defender instanceof YogFist.SoiledFist)) {
             defender.damage(dmg, new Burning());
         } else if (!defender.isImmune(Chill.class)) {
             defender.damage(dmg, new Chill());

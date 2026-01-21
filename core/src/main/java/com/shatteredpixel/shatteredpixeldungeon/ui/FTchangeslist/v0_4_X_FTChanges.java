@@ -265,7 +265,8 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "修复了天堂之眼积累的过载回合不正确的BUG。\n\n" +
                         "修复了符术神圣净化不积累过载的BUG。\n\n" +
-                        "修复了由于大地之拳特判不受燃烧伤害但是不免疫燃烧而导致三相之力与活火判定错误的BUG。"));
+                        "修复了由于大地之拳特判不受燃烧伤害但是不免疫燃烧而导致三相之力与活火判定错误的BUG。\n\n" +
+                        "修复了风语法杖在地图边缘使用可能导致溢出错误的BUG。"));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.IMPLEMENT_BOOK), "符文与符术调整",
                 "法器的试验界面添加随机试验功能，点击即可随机选择一个符文组合进行试验。"));

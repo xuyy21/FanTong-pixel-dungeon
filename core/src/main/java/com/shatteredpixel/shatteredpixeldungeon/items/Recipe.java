@@ -87,6 +87,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.PhaseShift;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Recycle;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.Remove_Missiles_Curse;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
@@ -242,7 +243,8 @@ public abstract class Recipe {
 		new ScorpioTempura.Recipe(),
 		new Honeypot.HalfPot.Recipe(),
 		new Digestion_pill.Recipe(),
-		new SupplyRation.Recipe()
+		new SupplyRation.Recipe(),
+		new Remove_Missiles_Curse.Recipe()
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{

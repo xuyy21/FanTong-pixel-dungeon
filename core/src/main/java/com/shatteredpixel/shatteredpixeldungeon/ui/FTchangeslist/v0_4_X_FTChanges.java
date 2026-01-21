@@ -254,7 +254,7 @@ public class v0_4_X_FTChanges {
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Overview and ETA",
-                "底层从破碎地牢2.5.0同步至破碎地牢3.3.3，改动详情请到破碎地牢改动页面查看。\n\n但是可以会导致BUG，目前尚未完全排查，请谨慎游玩，并即时汇报BUG。"));
+                "底层从破碎地牢3.1.0同步至破碎地牢3.3.3，改动详情请到破碎地牢改动页面查看。\n\n但是可以会导致BUG，目前尚未完全排查，请谨慎游玩，并即时汇报BUG。"));
 
 
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),

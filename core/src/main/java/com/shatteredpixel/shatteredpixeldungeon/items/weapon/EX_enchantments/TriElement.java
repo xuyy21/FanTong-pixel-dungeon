@@ -28,7 +28,7 @@ public class TriElement extends Weapon.Enchantment{
             defender.damage( Random.NormalIntRange( defender.HT/2, defender.HT * 3/5 ), new Chill() );
         } else if (defender instanceof Elemental.FrostElemental) {
             defender.damage( Random.NormalIntRange( defender.HT/2, defender.HT * 3/5 ), new Burning() );
-        } else if (defender.resist(Burning.class)>=1f && !defender.isImmune(Burning.class)) {
+        } else if (defender.resist(Burning.class)>=1f && !(defender.isImmune(Burning.class)||defender instanceof YogFist.SoiledFist)) {
             defender.damage(dmg, new Burning());
         } else if (defender.resist(Chill.class)>=1f && !defender.isImmune(Chill.class)) {
             defender.damage(dmg, new Chill());

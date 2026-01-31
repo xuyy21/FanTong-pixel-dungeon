@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 public class v0_4_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_4_10_Changes(changeInfos);
         add_v0_4_9_Changes(changeInfos);
         add_v0_4_8_Changes(changeInfos);
         add_v0_4_7_Changes(changeInfos);
@@ -265,7 +266,7 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "修复了天堂之眼积累的过载回合不正确的BUG。\n\n" +
                         "修复了符术神圣净化不积累过载的BUG。\n\n" +
-                        "修复了由于大地之拳特判不受燃烧伤害但是不免疫燃烧而导致三相之力与活火判定错误的BUG。\n\n" +
+                        "修复了由于大地之拳特判不受燃烧伤害但是不免疫燃烧而导致活火判定错误的BUG。\n\n" +
                         "修复了风语法杖在地图边缘使用可能导致溢出错误的BUG。"));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.IMPLEMENT_BOOK), "符文与符术调整",
@@ -283,5 +284,15 @@ public class v0_4_X_FTChanges {
                         "_+1：_该天赋生效时，最多按照_3阶_投掷武器计算。\n\n" +
                         "_+2：_该天赋生效时，最多按照_4阶_投掷武器计算。\n\n" +
                         "_+3：_该天赋生效时，最多按照_5阶_投掷武器计算。"));
+    }
+
+    public static void add_v0_4_10_Changes(ArrayList<ChangeInfo> changeInfos ){
+        ChangeInfo changes = new ChangeInfo("v0.4.10", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了由于大地之拳特判不受燃烧伤害但是不免疫燃烧而导致三相之力判定错误的BUG。\n\n" +
+                        "修正了丰盛一餐的文本。实际上从V0.4.9开始就是回复4/6HP。"));
     }
 }

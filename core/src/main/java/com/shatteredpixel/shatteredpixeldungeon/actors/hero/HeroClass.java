@@ -289,6 +289,7 @@ public enum HeroClass {
 			new PiranhaPot().collect();
 			new Implement().collect();
 			new RunicAsh().quantity(100).collect();
+			new PawWithRings().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

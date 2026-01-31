@@ -274,43 +274,46 @@ public class PawWithRings extends Artifact{
 
         @Override
         protected void fx(Ballistica bolt, Callback callback) {
-            // zap three times but spend 1 turn only
-            Dungeon.hero.spend(-2);
+            Dungeon.hero.busy();
+            Sample.INSTANCE.play( Assets.Sounds.ZAP );
+
             // first zap
             CursedWand.CursedEffect effect1 = CursedWand.randomValidEffect(this, curUser, bolt, true);
             effect1.FX(this, curUser, bolt, new Callback() {
                 @Override
                 public void call() {
                     effect1.effect(null, curUser, bolt, true);
-                    callback.call();
+
+                    // second zap
+                    CursedWand.CursedEffect effect2 = CursedWand.randomValidEffect(PawSpell.this, curUser, bolt, true);
+                    effect2.FX(PawSpell.this, curUser, bolt, new Callback() {
+                        @Override
+                        public void call() {
+                            effect2.effect(null, curUser, bolt, true);
+
+                            // third zap
+                            CursedWand.CursedEffect effect3 = CursedWand.randomValidEffect(PawSpell.this, curUser, bolt, true);
+                            effect3.FX(PawSpell.this, curUser, bolt, new Callback() {
+                                @Override
+                                public void call() {
+                                    effect3.effect(null, curUser, bolt, true);
+                                }
+                            });
+                        }
+                    });
                 }
             });
-            // second zap
-            CursedWand.CursedEffect effect2 = CursedWand.randomValidEffect(this, curUser, bolt, true);
-            effect2.FX(this, curUser, bolt, new Callback() {
-                @Override
-                public void call() {
-                    effect2.effect(null, curUser, bolt, true);
-                    callback.call();
-                }
-            });
-            // third zap
-            CursedWand.CursedEffect effect3 = CursedWand.randomValidEffect(this, curUser, bolt, true);
-            effect3.FX(this, curUser, bolt, new Callback() {
-                @Override
-                public void call() {
-                    effect3.effect(null, curUser, bolt, true);
-                    callback.call();
-                }
-            });
-            // decharge in spell so we can cancle it
-            pawRecharge decharger = curUser.buff(pawRecharge.class);
-            if (decharger != null) decharger.decharge(1);
+
+            callback.call();
         }
 
         @Override
         protected void affectTarget(Ballistica bolt, final Hero hero) {
-            Sample.INSTANCE.play( Assets.Sounds.ZAP );
+            // decharge in spell so we can cancle it
+            pawRecharge decharger = curUser.buff(pawRecharge.class);
+            if (decharger != null) decharger.decharge(1);
+
+            Dungeon.hero.spendAndNext(Actor.TICK);
         }
     }
 

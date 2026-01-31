@@ -294,5 +294,8 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "修复了由于大地之拳特判不受燃烧伤害但是不免疫燃烧而导致三相之力判定错误的BUG。\n\n" +
                         "修正了丰盛一餐的文本。实际上从V0.4.9开始就是回复4/6HP。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_PAW), "魔戒怪爪",
+                "修复与优化了魔戒怪爪施法功能的代码。"));
     }
 }

@@ -291,6 +291,9 @@ public class v0_4_X_FTChanges {
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
+        changes.addButton( new ChangeButton(Icons.get(Icons.LANGS), "",
+                "饭桶地牢跟进了繁体中文。\n\nEvan在破碎地牢V3.3.3中添加了繁体中文语言选项。虽然我目前不打算维护中文以外的语言选项，但是繁体中文也是中文。所以我将饭桶地牢新增的文本内容转译为繁体也添加上去了。\n\n不过因为没有经过仔细的校对，可能存在部分用语与破碎地牢繁中用语或者繁中语言习惯不符的情况。"));
+
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "修复了由于大地之拳特判不受燃烧伤害但是不免疫燃烧而导致三相之力判定错误的BUG。\n\n" +
                         "修正了丰盛一餐的文本。实际上从V0.4.9开始就是回复4/6HP。"));

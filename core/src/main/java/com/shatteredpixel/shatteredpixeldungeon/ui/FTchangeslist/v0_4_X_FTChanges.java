@@ -302,5 +302,8 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_PAW), "魔戒怪爪",
                 "修复与优化了魔戒怪爪施法功能的代码。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.COOKED_LARVA), "风味炸虫",
+                "风味炸虫的效果被修改为10回合内提高1点力量。"));
     }
 }

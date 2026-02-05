@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
@@ -52,7 +53,7 @@ public class Cooked_larva extends Food{
     @Override
     public void effect(Hero hero){
         GLog.i( Messages.get(Cooked_larva.class, "effect") );
-        Buff.affect( hero, Bless.class, 10f );
+        Buff.affect( hero, AdrenalineSurge.class ).reset(1, 10f);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

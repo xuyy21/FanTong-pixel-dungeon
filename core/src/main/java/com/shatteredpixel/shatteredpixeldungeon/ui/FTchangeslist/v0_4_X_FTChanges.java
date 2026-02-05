@@ -305,5 +305,11 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.COOKED_LARVA), "风味炸虫",
                 "风味炸虫的效果被修改为10回合内提高1点力量。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ALCH_PAGE), "食谱调整",
+                "降低了以下食谱的制作能量需求：\n\n" +
+                        "解毒糖丸 5->1\n\n" +
+                        "曼德拉药酒 3->1\n\n" +
+                        "地牢凉拌 3->0"));
     }
 }

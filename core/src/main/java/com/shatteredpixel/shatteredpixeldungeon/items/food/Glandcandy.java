@@ -65,7 +65,7 @@ public class Glandcandy extends Food{
 
         @Override
         public int cost(ArrayList<Item> ingredients) {
-            return 5;
+            return 1;
         }
 
         @Override

@@ -87,7 +87,7 @@ public class Salad extends Food{
 
         @Override
         public int cost(ArrayList<Item> ingredients) {
-            return 3;
+            return 0;
         }
 
         @Override

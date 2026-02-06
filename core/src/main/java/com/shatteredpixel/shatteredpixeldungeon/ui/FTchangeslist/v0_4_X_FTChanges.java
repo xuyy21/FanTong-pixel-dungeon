@@ -326,7 +326,8 @@ public class v0_4_X_FTChanges {
                         "曼德拉药酒 3->1\n\n" +
                         "地牢凉拌 3->0\n\n" +
                         "水果蛋糕 3->0\n\n" +
-                        "蝎尾天妇罗 3->1"));
+                        "蝎尾天妇罗 3->1\n\n" +
+                        "仰望地牢 3->1"));
 
         changes.addButton(new ChangeButton(new TalentIcon(Talent.FAKE_EATING), "望梅止渴",
                 "优化了美食家的天赋_望梅止渴_的代码。\n\n" +

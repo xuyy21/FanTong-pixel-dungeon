@@ -93,7 +93,11 @@ public class MnemonicPrayer extends TargetedSpell{
         onSpellCast(implement, hero);
     }
 
-    private void affectChar( Char ch, float extension ){
+    public void affectChar( Char ch, float extension ) {
+        affectChar(ch, extension, false);
+    }
+
+    public void affectChar( Char ch, float extension, boolean avoidHealing ){
         if (ch.alignment == Char.Alignment.ALLY){
 
             Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
@@ -120,15 +124,15 @@ public class MnemonicPrayer extends TargetedSpell{
                 else if (b instanceof Barkskin)         ((Barkskin) b).delay(extension);
                 else if (b instanceof FireImbue)        ((FireImbue) b).extend(extension);
                 else if (b instanceof GreaterHaste)     ((GreaterHaste) b).extend(extension);
-                else if (b instanceof Healing)          ((Healing) b).increaseHeal((int)extension);
+                else if (b instanceof Healing && !avoidHealing)          ((Healing) b).increaseHeal((int)extension);
                 else if (b instanceof ToxicImbue)       ((ToxicImbue) b).extend(extension);
                 else if (b instanceof ElectricImbue)       ((ElectricImbue) b).extend(extension);
-                else if (b instanceof WellFed)          ((WellFed) b).extend(extension);
+                else if (b instanceof WellFed && !avoidHealing)          ((WellFed) b).extend(extension);
                 else if (b instanceof ElixirOfAquaticRejuvenation.AquaHealing)  ((ElixirOfAquaticRejuvenation.AquaHealing) b).extend(extension);
                 else if (b instanceof ScrollOfChallenge.ChallengeArena)         ((ScrollOfChallenge.ChallengeArena) b).extend(extension);
                 else if (b instanceof ShieldBuff)               ((ShieldBuff) b).delay(extension);
                 else if (b instanceof Kinetic.ConservedDamage)  ((Kinetic.ConservedDamage) b).delay(extension);
-                else if (b instanceof Sungrass.Health)          ((Sungrass.Health) b).boost((int) extension);
+                else if (b instanceof Sungrass.Health && !avoidHealing)          ((Sungrass.Health) b).boost((int) extension);
                 else if (b instanceof FireRing.FireRingBuff)    ((FireRing.FireRingBuff) b).setLeft(((FireRing.FireRingBuff) b).left + (int)extension);
 
                 b.mnemonicExtended = true;

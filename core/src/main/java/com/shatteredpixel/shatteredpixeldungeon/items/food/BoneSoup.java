@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.MnemonicPrayer;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -29,7 +30,7 @@ public class BoneSoup extends Food{
     @Override
     public void effect(Hero hero, boolean fakeEating){
         GLog.i( Messages.get(BoneSoup.class, "effect") );
-        Barkskin.conditionallyAppend( hero, 5 + hero.lvl, 1 );
+        MnemonicPrayer.INSTANCE.affectChar(hero, 3f, true);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

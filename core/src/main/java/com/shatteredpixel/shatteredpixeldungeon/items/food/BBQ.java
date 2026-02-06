@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -42,39 +43,9 @@ public class BBQ extends Food{
             hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(hero.HT / 4), FloatingText.HEALING);
         }
         PotionOfHealing.cure(hero);
+        if (hero.buff(Spell.OverRunes.class)!=null)
+            hero.buff(Spell.OverRunes.class).reduce(30f);
         GLog.i( Messages.get(BBQ.class, "effect") );
-    }
-
-    @Override
-    public void execute( Hero hero, String action ) {
-        GameScene.cancel();
-        curUser = hero;
-        curItem = this;
-
-        if (action.equals( AC_IMAGINE )) {
-
-            float foodVal = energy;
-            if (Dungeon.isChallenged(Challenges.NO_FOOD)){
-                foodVal /= 3f;
-            }
-            foodVal *=  (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
-            hero.buff(Hunger.class).affectHunger(-foodVal);
-
-            hero.sprite.operate( hero.pos );
-            hero.busy();
-            SpellSprite.show( hero, SpellSprite.FOOD );
-            eatSFX();
-
-            hero.spend( eatingTime() );
-
-//            effect(hero);
-            Barkskin.conditionallyAppend( hero, hero.HT / 4, 1 );
-            Buff.affect( hero, Invisibility.class, Invisibility.DURATION );
-//            hero.HP = Math.min( hero.HP + hero.HT / 4, hero.HT );
-            hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hero.HT / 4), FloatingText.HEALING );
-            PotionOfHealing.cure(hero);
-            GLog.i( Messages.get(BBQ.class, "effect") );
-        } else super.execute( hero, action );
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

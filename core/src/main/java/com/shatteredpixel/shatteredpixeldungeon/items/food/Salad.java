@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -52,6 +53,11 @@ public class Salad extends Food{
                 GLog.i( Messages.get(FrozenCarpaccio.class, "better") );
                 hero.HP = Math.min( hero.HP + hero.HT / 4, hero.HT );
                 hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hero.HT / 4), FloatingText.HEALING );
+                break;
+            case 4:
+                GLog.i( Messages.get(FrozenCarpaccio.class, "reduce") );
+                if (hero.buff(Spell.OverRunes.class)!=null)
+                    hero.buff(Spell.OverRunes.class).reduce(30f);
                 break;
         }
     }

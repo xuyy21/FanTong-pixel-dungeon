@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -53,6 +54,8 @@ public class PhantomMeat extends Food {
 			hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(hero.HT / 4), FloatingText.HEALING);
 		}
 		PotionOfHealing.cure(hero);
+		if (hero.buff(Spell.OverRunes.class)!=null)
+			hero.buff(Spell.OverRunes.class).reduce(30f);
 
 	}
 

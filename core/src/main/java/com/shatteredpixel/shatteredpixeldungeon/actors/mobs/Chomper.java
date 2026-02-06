@@ -78,7 +78,7 @@ public class Chomper extends Mob{
 
     @Override
     public float attackDelay() {
-        return super.attackDelay()*0.33f;
+        return super.attackDelay()*3f;
     }
 
     @Override

@@ -128,7 +128,7 @@ public class HallsLevel extends RegularLevel {
 	protected void createMobs(){
 		super.createMobs();
 
-		int chompertospawn = Random.chances(new float[]{0.2f, 0.7f, 0.1f})+2;
+		int chompertospawn = Random.chances(new float[]{0.3f, 0.7f})+1;
 		if (Dungeon.isChallenged(Challenges.CRAZY_PLANT)) chompertospawn *= 2;
 		ArrayList<Integer> candidateCells = new ArrayList<>();
 		for (int i = 0; i < length(); i++) {

@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
@@ -30,8 +31,8 @@ public class Mandrake_liquor extends Food{
     @Override
     public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(Mandrake_liquor.class, "effect") );
-        Buff.affect( hero, Bless.class, 20f );
-        Buff.affect( hero, Adrenaline.class, 10f );
+        Buff.affect( hero, Bless.class, 30f );
+        Buff.affect( hero, AdrenalineSurge.class ).reset(1, 30f);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

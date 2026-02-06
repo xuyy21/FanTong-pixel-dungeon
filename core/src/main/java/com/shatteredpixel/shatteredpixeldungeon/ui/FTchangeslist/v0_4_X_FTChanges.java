@@ -316,6 +316,9 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SCORPIOTEMPURA), "蝎尾天妇罗",
                 "蝎尾天妇罗的效果被修改为下一次攻击致残敌人10回合。"));
 
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.MANDRAKE_LIQUOR), "曼德拉药酒",
+                "曼德拉药酒的效果被修改为给予30回合的力量+1与祝福。"));
+
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.CARPACCIO), "冻肉效果",
                 "在原有的全冻肉效果的基础上，额外增加减轻30回合的符文过载的可能，占20%概率，也就是说现在冻肉一定会给予一种证明效果。\n\n" +
                         "冻肉效果的改变也同步到幻影鱼肉、地牢凉拌、豪华烤肉上。"));

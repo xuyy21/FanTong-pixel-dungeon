@@ -18,7 +18,8 @@ public class ScorpioTail extends Food{
                 || Dungeon.hero.hasTalent(Talent.ENERGIZING_MEAL)
                 || Dungeon.hero.hasTalent(Talent.MYSTICAL_MEAL)
                 || Dungeon.hero.hasTalent(Talent.INVIGORATING_MEAL)
-                || Dungeon.hero.hasTalent(Talent.FOCUSED_MEAL)){
+                || Dungeon.hero.hasTalent(Talent.FOCUSED_MEAL)
+                || Dungeon.hero.hasTalent(Talent.ENLIGHTENING_MEAL)){
             return 2f;
         } else {
             return 4f;

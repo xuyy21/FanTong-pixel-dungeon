@@ -36,6 +36,12 @@ public class MeatPie extends Food {
 		image = ItemSpriteSheet.MEAT_PIE;
 		energy = Hunger.STARVING*2f;
 	}
+
+	@Override
+	protected void satisfy(Hero hero) {
+		super.satisfy( hero );
+		Buff.affect(hero, WellFed.class).reset();
+	}
 	
 	@Override
 	public int value() {

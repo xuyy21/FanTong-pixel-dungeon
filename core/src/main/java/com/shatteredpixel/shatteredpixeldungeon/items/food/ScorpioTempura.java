@@ -1,6 +1,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -8,7 +11,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.Image;
 
 import java.util.ArrayList;
 
@@ -29,7 +34,7 @@ public class ScorpioTempura extends Food{
     @Override
     public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(ScorpioTempura.class, "effect") );
-        Barkskin.conditionallyAppend( hero, 5 + hero.lvl / 2, 1 );
+        Buff.affect(hero, ScorpioTracker.class);
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
@@ -38,7 +43,7 @@ public class ScorpioTempura extends Food{
             inputs =  new Class[]{ScorpioTail.class};
             inQuantity = new int[]{1};
 
-            cost = 3;
+            cost = 1;
 
             output = ScorpioTempura.class;
             outQuantity = 1;
@@ -51,5 +56,26 @@ public class ScorpioTempura extends Food{
             return super.testIngredients(ingredients);
         }
 
+    }
+
+    public static class ScorpioTracker extends Buff {
+        {
+            type = buffType.POSITIVE;
+        }
+
+        @Override
+        public int icon() {
+            return BuffIndicator.CRIPPLE;
+        }
+
+        @Override
+        public void tintIcon(Image icon) {
+            icon.hardlight(1f, 0.5f, 0f);
+        }
+
+        public void affectChar(Char ch) {
+            Buff.affect(ch, Cripple.class, 10f);
+            detach();
+        }
     }
 }

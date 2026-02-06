@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ChomperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -323,5 +324,10 @@ public class v0_4_X_FTChanges {
                 "修复_启蒙圣餐_对快速食用的食物不起作用的BUG。\n\n" +
                         "当英雄拥有任何二层进食天赋时，快速食用的食物应当不消耗时间。但是由于饭桶地牢中的部分食物推出在牧师之前，所以长久以来_启蒙圣餐_是不被计入其中的。\n\n" +
                         "或许很多人都没有注意到这点，我也一直忘了修复。不过现在这个BUG修复了。"));
+
+        changes.addButton(new ChangeButton(new Image(new ChomperSprite()), "地狱食人花",
+                "重做了地狱食人花的伪装逻辑，现在伪装时地狱食人花将不会被英雄自动索敌。\n\n" +
+                        "减少了地狱食人花的生成数量，每层的基础生成数量从2~4降低至1~2。\n\n" +
+                        "降低地狱食人花的攻速至0.33。"));
     }
 }

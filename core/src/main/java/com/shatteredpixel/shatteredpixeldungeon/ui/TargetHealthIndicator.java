@@ -41,11 +41,6 @@ public class TargetHealthIndicator extends HealthBar {
 	public void update() {
 		super.update();
 
-		if (target instanceof Chomper && ((Chomper) target).isWandering()) {
-			visible = false;
-			return;
-		}
-
 		if (target != null && target.isAlive() && target.isActive() && target.sprite.visible) {
 			CharSprite sprite = target.sprite;
 			width = sprite.width();
@@ -59,8 +54,6 @@ public class TargetHealthIndicator extends HealthBar {
 	}
 	
 	public void target( Char ch ) {
-		if (target instanceof Chomper && ((Chomper) target).isWandering()) return;
-
 		if (ch != null && ch.isAlive() && ch.isActive()) {
 			target = ch;
 		} else {

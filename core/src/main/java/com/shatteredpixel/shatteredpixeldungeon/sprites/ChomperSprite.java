@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.watabou.noosa.TextureFilm;
 
 public class ChomperSprite extends MobSprite{
@@ -25,7 +26,6 @@ public class ChomperSprite extends MobSprite{
         die.frames( frames, 4, 5, 6 );
 
         play( idle );
-        alpha(0.3f);
     }
 
     @Override
@@ -41,5 +41,13 @@ public class ChomperSprite extends MobSprite{
     @Override
     public void showLost(){
         //do nothing
+    }
+
+    @Override
+    public void linkVisuals(Char ch) {
+        super.linkVisuals(ch);
+        if (ch.alignment == Char.Alignment.NEUTRAL) {
+            alpha(0.4f);
+        }
     }
 }

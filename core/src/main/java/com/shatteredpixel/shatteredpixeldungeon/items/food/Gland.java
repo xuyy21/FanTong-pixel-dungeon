@@ -26,12 +26,6 @@ public class Gland extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 5 * quantity;
     }
@@ -42,7 +36,7 @@ public class Gland extends Food{
     }
 
     @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         GLog.w( Messages.get(Gland.class, "effect") );
         PotionOfHealing.cure(hero);
         Buff.affect( hero, Poison.class ).set( hero.HT / 3f );

@@ -23,12 +23,8 @@ public class MandrakeRoot extends Food{
     {
         image = ItemSpriteSheet.ROOT;
         energy = Hunger.HUNGRY/3f;
-    }
 
-    @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
+        canFakeEat = true;
     }
 
     @Override
@@ -42,7 +38,7 @@ public class MandrakeRoot extends Food{
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(MandrakeRoot.class, "effect") );
         PotionOfHealing.cure(hero);
 //        Buff.affect( hero, Drowsy.class, Drowsy.DURATION );

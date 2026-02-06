@@ -25,18 +25,12 @@ public class ToastBat extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 5 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(ToastBat.class, "effect") );
         Buff.affect(hero, Healing.class).setHeal(Random.Int(10, 30), 0, 1);
     }

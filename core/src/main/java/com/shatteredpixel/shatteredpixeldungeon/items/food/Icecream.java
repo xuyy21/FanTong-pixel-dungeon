@@ -30,18 +30,12 @@ public class Icecream extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 30 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(Icecream.class, "effect") );
         Buff.affect(curUser, Recharging.class, 30f);
     }

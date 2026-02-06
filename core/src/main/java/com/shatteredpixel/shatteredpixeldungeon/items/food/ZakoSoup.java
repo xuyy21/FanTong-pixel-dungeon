@@ -16,13 +16,7 @@ public class ZakoSoup extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(ZakoSoup.class, "effect") );
         Buff.affect(hero, Healing.class).setHeal(5 + 3*hero.lvl, 0, 1);
     }

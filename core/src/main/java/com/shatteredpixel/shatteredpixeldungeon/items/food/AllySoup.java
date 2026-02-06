@@ -28,13 +28,7 @@ public class AllySoup extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         Buff.affect(hero, Shadow_Blade.class, Shadow_Blade.DURATION);
         for (Mob mob: Dungeon.level.mobs) {
             if (mob.alignment == Char.Alignment.ALLY)

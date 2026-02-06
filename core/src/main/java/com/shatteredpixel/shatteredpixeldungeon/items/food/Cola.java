@@ -18,13 +18,7 @@ public class Cola extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(Cola.class, "effect") );
         Buff.prolong(hero, Bless.class, 20f);
         new Flare(6, 32).color(0xFFFF00, true).show(hero.sprite, 2f);

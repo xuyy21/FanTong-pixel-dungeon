@@ -22,18 +22,12 @@ public class BigEye extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 5 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(BigEye.class, "effect") );
         Buff.affect( hero, MindVision.class, 4f );
         Buff.affect( hero, Blindness.class, 6f );

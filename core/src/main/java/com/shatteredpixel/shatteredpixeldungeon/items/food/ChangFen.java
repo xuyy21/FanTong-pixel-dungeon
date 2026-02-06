@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.PotatoGun;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -26,7 +27,11 @@ public class ChangFen extends Food{
     {
         image = ItemSpriteSheet.CHANGFEN;
         energy = 2 * Hunger.HUNGRY / 3f; //200 food value
+
+        canFakeEat = true;
     }
+
+    private boolean fakeEating = false;
 
     @Override
     public void execute( Hero hero, String action ) {
@@ -44,7 +49,9 @@ public class ChangFen extends Food{
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
+        this.fakeEating = fakeEating;
+
         GameScene.selectItem(seedSelector);
     }
 
@@ -66,6 +73,10 @@ public class ChangFen extends Food{
 
         @Override
         public boolean itemSelectable(Item item) {
+            if (fakeEating) {
+                return (item instanceof Plant.Seed) && !(item instanceof Sungrass.Seed);
+            }
+
             return item instanceof Plant.Seed;
         }
 

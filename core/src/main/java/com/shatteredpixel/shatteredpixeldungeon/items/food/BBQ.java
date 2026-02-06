@@ -29,22 +29,18 @@ public class BBQ extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 35 * quantity;
     }
 
     @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         Barkskin.conditionallyAppend( hero, hero.HT / 4, 1 );
         Buff.affect( hero, Invisibility.class, Invisibility.DURATION );
-        hero.HP = Math.min( hero.HP + hero.HT / 4, hero.HT );
-        hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hero.HT / 4), FloatingText.HEALING );
+        if (!fakeEating) {
+            hero.HP = Math.min(hero.HP + hero.HT / 4, hero.HT);
+            hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(hero.HT / 4), FloatingText.HEALING);
+        }
         PotionOfHealing.cure(hero);
         GLog.i( Messages.get(BBQ.class, "effect") );
     }

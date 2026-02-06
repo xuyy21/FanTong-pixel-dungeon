@@ -23,18 +23,12 @@ public class Mandrake_liquor extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 10 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(Mandrake_liquor.class, "effect") );
         Buff.affect( hero, Bless.class, 20f );
         Buff.affect( hero, Adrenaline.class, 10f );

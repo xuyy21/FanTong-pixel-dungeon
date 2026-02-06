@@ -16,13 +16,7 @@ public class Popsicle extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         Buff.affect(hero, IcePower.class, IcePower.DURATION);
     }
 

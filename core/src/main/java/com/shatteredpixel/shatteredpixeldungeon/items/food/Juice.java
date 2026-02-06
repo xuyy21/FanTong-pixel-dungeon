@@ -43,18 +43,12 @@ public class Juice extends Food {
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 5 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(Juice.class, "effect") );
         Buff.affect(hero, Healing.class).setHeal(Math.max(Math.round(hero.HT*0.1f),8), 0, 1);
     }

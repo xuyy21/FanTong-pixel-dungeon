@@ -18,12 +18,6 @@ public class RatTail extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 3 * quantity;
     }

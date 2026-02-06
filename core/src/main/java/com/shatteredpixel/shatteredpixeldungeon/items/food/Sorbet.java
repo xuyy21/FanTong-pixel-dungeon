@@ -25,21 +25,15 @@ public class Sorbet extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 10 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(Sorbet.class, "effect") );
         Buff.prolong( hero, Recharging.class, 15f);
-        Buff.affect(curUser, ArtifactRecharge.class).set( 15f ).ignoreHornOfPlenty = true;
+        Buff.affect(curUser, ArtifactRecharge.class).set( 15f ).ignoreHornOfPlenty = !fakeEating;
         Buff.affect(hero, FireImbue.class).set( FireImbue.DURATION*0.3f );
         Buff.affect(hero, FrostImbue.class, FrostImbue.DURATION*0.3f);
     }

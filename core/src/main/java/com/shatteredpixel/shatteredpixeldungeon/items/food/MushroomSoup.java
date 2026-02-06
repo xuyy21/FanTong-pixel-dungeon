@@ -25,18 +25,12 @@ public class MushroomSoup extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 9 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(MushroomSoup.class, "effect") );
         Buff.affect(hero, Healing.class).setHeal(Dungeon.hero.HT / 5, 0, 1);
     }

@@ -22,18 +22,12 @@ public class BoneSoup extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 8 * quantity;
     }
 
     @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         GLog.i( Messages.get(BoneSoup.class, "effect") );
         Barkskin.conditionallyAppend( hero, 5 + hero.lvl, 1 );
     }

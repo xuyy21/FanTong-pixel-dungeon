@@ -22,20 +22,14 @@ public class ElementalCore extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 5 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(ElementalCore.class, "effect") );
         Buff.affect(curUser, Recharging.class, 15f);
-        Buff.affect(curUser, ArtifactRecharge.class).set( 15f ).ignoreHornOfPlenty = true;
+        Buff.affect(curUser, ArtifactRecharge.class).set( 15f ).ignoreHornOfPlenty = !fakeEating;
     }
 }

@@ -52,7 +52,7 @@ public class LaTiao extends Food{
     }
 
     @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         GLog.i(Messages.get(this, "effect"));
         Buff.affect(hero, Adrenaline.class, 10f);
 

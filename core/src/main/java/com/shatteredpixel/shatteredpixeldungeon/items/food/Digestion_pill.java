@@ -12,12 +12,8 @@ public class Digestion_pill extends Food{
     {
         image = ItemSpriteSheet.DIGESTION_PILL;
         energy = Hunger.HUNGRY/6f;
-    }
 
-    @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
+        canFakeEat = true;
     }
 
     @Override
@@ -26,7 +22,7 @@ public class Digestion_pill extends Food{
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         Buff.prolong(hero, Helping_Digestion.class, Helping_Digestion.Duration);
     }
 

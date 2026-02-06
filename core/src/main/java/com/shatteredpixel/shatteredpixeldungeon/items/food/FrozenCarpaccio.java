@@ -42,18 +42,12 @@ public class FrozenCarpaccio extends Food {
 		canFakeEat = true;
 	}
 	
-	@Override
-	protected void satisfy(Hero hero) {
-		super.satisfy(hero);
-		effect(hero);
-	}
-	
 	public int value() {
 		return 10 * quantity;
 	}
 
 	@Override
-	public void effect(Hero hero){
+	public void effect(Hero hero, boolean fakeEating){
 		switch (Random.Int( 5 )) {
 			case 0:
 				GLog.i( Messages.get(FrozenCarpaccio.class, "invis") );
@@ -68,6 +62,7 @@ public class FrozenCarpaccio extends Food {
 				PotionOfHealing.cure(hero);
 				break;
 			case 3:
+				if (fakeEating) break;
 				GLog.i( Messages.get(FrozenCarpaccio.class, "better") );
 				hero.HP = Math.min( hero.HP + hero.HT / 4, hero.HT );
 				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hero.HT / 4), FloatingText.HEALING );

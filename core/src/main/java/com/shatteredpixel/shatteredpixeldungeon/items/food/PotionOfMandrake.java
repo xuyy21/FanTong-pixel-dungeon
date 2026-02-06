@@ -14,16 +14,12 @@ public class PotionOfMandrake extends Food {
     {
         image = ItemSpriteSheet.POTION_MANDRAKE;
         energy = Hunger.HUNGRY;
+
+        canFakeEat = true;
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         PotionOfHealing.cure(hero);
         Buff.affect( hero, Drowsy.class, Drowsy.DURATION );
         GLog.w( Messages.get(PotionOfMandrake.class, "effect") );

@@ -26,13 +26,7 @@ public class Magic_Coin extends Food {
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         if (hero.subClass == HeroSubClass.MAGICIAN) {
             GLog.p(Messages.get(Magic_Coin.class, "effect"));
             Buff.affect(Dungeon.hero, Magic_mark.class).gainmark(99);

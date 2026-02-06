@@ -31,18 +31,12 @@ public class BlackPudding extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 40 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(BlackPudding.class, "effect") );
         Buff.affect(hero, ArcaneArmor.class).set(5 + hero.lvl/2, 80);
         Buff.affect(hero, ElixirOfAquaticRejuvenation.AquaHealing.class).set(Math.round(hero.HT * 0.75f));

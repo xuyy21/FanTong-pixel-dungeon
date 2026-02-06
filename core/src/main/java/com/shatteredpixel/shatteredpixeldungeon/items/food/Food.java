@@ -73,6 +73,10 @@ public class Food extends Item {
 	}
 
 	public void effect(Hero hero) {
+		effect(hero, false);
+	}
+
+	public void effect(Hero hero, boolean fakeEating) {
 		//do nothing by default
 	}
 	
@@ -121,7 +125,7 @@ public class Food extends Item {
 
 			hero.spend( eatingTime() );
 
-			effect(hero);
+			effect(hero, true);
 		}
 	}
 
@@ -157,6 +161,8 @@ public class Food extends Item {
 //		foodVal *= (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f;
 
 		Buff.affect(hero, Hunger.class).satisfy(foodVal);
+
+		effect(hero);
 	}
 	
 	@Override

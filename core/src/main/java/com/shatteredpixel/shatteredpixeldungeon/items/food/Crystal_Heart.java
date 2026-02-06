@@ -35,27 +35,7 @@ public class Crystal_Heart extends Pasty{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        float foodVal = energy;
-        if (Dungeon.isChallenged(Challenges.NO_FOOD)){
-            foodVal /= 3f;
-        }
-
-        Artifact.ArtifactBuff buff = hero.buff( HornOfPlenty.hornRecharge.class );
-        if (buff != null && buff.isCursed()){
-            foodVal *= 0.67f;
-            GLog.n( Messages.get(Hunger.class, "cursedhorn") );
-        }
-
-//		foodVal *= (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f;
-
-        Buff.affect(hero, Hunger.class).satisfy(foodVal);
-
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(Crystal_Heart.class, "effect") );
         Buff.affect(hero, Light.class, Light.DURATION);
     }

@@ -73,6 +73,8 @@ public class SupplyRation extends Food {
 			cloak.directCharge(1);
 			ScrollOfRecharging.charge(hero);
 		}
+
+		effect(hero);
 	}
 
 	@Override

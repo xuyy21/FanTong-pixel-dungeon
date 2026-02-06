@@ -17,12 +17,8 @@ public class ScorpioTempura extends Food{
     {
         image = ItemSpriteSheet.SCORPIOTEMPURA;
         energy = Hunger.HUNGRY/2f;
-    }
 
-    @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
+        canFakeEat = true;
     }
 
     @Override
@@ -31,7 +27,7 @@ public class ScorpioTempura extends Food{
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(ScorpioTempura.class, "effect") );
         Barkskin.conditionallyAppend( hero, 5 + hero.lvl / 2, 1 );
     }

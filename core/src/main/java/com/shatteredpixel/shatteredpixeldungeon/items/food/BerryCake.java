@@ -27,18 +27,12 @@ public class BerryCake extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 25 * quantity;
     }
 
     @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         Char target = null;
 
         //charms an adjacent non-boss enemy, prioritizing the one the hero is focusing on

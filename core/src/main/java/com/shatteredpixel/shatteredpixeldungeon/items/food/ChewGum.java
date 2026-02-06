@@ -19,11 +19,6 @@ public class ChewGum extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-    }
-
-    @Override
     public int value() {
         return 5 * quantity;
     }

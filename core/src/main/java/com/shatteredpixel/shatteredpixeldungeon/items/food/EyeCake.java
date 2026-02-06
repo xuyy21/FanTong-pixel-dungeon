@@ -23,18 +23,12 @@ public class EyeCake extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 25 * quantity;
     }
 
     @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         GLog.i( Messages.get(EyeCake.class, "effect") );
         Buff.affect( hero, MindVision.class, 10f );
         Buff.affect(hero, MagicalSight.class, 10f);

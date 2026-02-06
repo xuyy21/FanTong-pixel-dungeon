@@ -33,12 +33,6 @@ public class Mushroom extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 3 * quantity;
     }
@@ -47,7 +41,7 @@ public class Mushroom extends Food{
     public int energyVal() { return 2 * quantity; }
 
     @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         switch (Random.Int( 5 )) {
             case 0:
                 GLog.w( Messages.get(MysteryMeat.class, "hot") );

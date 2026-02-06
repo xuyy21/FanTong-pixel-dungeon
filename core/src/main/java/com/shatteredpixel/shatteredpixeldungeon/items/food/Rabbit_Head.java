@@ -23,13 +23,7 @@ public class Rabbit_Head extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i(Messages.get(Rabbit_Head.class, "effect"));
         Buff.prolong(hero, RabbitMagic.class, RabbitMagic.DURATION);
     }

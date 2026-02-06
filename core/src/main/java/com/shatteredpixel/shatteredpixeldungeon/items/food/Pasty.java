@@ -177,6 +177,8 @@ public class Pasty extends Food {
 				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(toShield), FloatingText.SHIELDING );
 				break;
 		}
+
+		effect(hero);
 	}
 
 	@Override

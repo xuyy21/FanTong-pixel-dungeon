@@ -25,13 +25,7 @@ public class BatCookie extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         Buff.affect(hero, Bat_Bite.class, Bat_Bite.DURATION);
         GLog.i(Messages.get(this, "effect"));
     }

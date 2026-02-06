@@ -15,6 +15,8 @@ public class Larva extends Food{
     {
         image = ItemSpriteSheet.LARVA;
         energy = Hunger.HUNGRY/3f;
+
+        canFakeEat = true;
     }
 
     @Override
@@ -31,18 +33,12 @@ public class Larva extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 3 * quantity;
     }
 
     @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         GLog.i( Messages.get(Larva.class, "effect") );
         Buff.affect( hero, Vertigo.class, 2f );
     }

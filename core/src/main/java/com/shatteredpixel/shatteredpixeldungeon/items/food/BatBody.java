@@ -25,18 +25,12 @@ public class BatBody extends Food{
         canFakeEat = true;
     }
 
-    @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
     public int value() {
         return 3 * quantity;
     }
 
     @Override
-    public void effect(Hero hero){
+    public void effect(Hero hero, boolean fakeEating){
         switch (Random.Int( 5 )) {
             case 0:
                 GLog.w( Messages.get(MysteryMeat.class, "hot") );

@@ -33,20 +33,14 @@ public class GoldenPudding extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 40 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(GoldenPudding.class, "effect") );
-        Buff.affect(curUser, ArtifactRecharge.class).set( 30f ).ignoreHornOfPlenty = true;
+        Buff.affect(curUser, ArtifactRecharge.class).set( 30f ).ignoreHornOfPlenty = !fakeEating;
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

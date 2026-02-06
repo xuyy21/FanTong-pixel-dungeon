@@ -31,18 +31,12 @@ public class Tempura extends Food {
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
     public int value() {
         return 5 * quantity;
     }
 
     @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(Tempura.class, "effect") );
         Buff.affect( hero, MeleeWeapon.Charger.class ).gainCharge(1);
     }

@@ -37,13 +37,7 @@ public class Chocolate_Egg extends Food{
     }
 
     @Override
-    protected void satisfy(Hero hero) {
-        super.satisfy(hero);
-        effect(hero);
-    }
-
-    @Override
-    public void effect(Hero hero) {
+    public void effect(Hero hero, boolean fakeEating) {
         if (prize!=null && Random.Float()<0.6f+0.02*Dungeon.scalingDepth()-0.1*prize.tier) {
             if(!prize.doPickUp(hero)){
                 Dungeon.level.drop( prize, hero.pos ).sprite.drop();

@@ -310,6 +310,9 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.BONESOUP), "大骨浓汤",
                 "大骨浓汤的效果被修改为延长增益效果3回合。"));
 
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SORBET), "元素刨冰",
+                "元素刨冰的效果被修改为获得15回合的法杖充能与神器充能以及30回合的法术与元素免疫。"));
+
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.CARPACCIO), "冻肉效果",
                 "在原有的全冻肉效果的基础上，额外增加减轻30回合的符文过载的可能，占20%概率，也就是说现在冻肉一定会给予一种证明效果。\n\n" +
                         "冻肉效果的改变也同步到幻影鱼肉、地牢凉拌、豪华烤肉上。"));

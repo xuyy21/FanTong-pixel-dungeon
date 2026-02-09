@@ -355,6 +355,7 @@ public class v0_4_X_FTChanges {
         changeInfos.add(changes);
 
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
-                "修复了由于修改食物特效代码导致肠粉会无限吃的BUG"));
+                "修复了由于修改食物特效代码导致肠粉会无限吃的BUG。\n\n" +
+                        "修复了饭桶地牢改动页面底部按钮排列错误的BUG。"));
     }
 }

@@ -125,11 +125,17 @@ public class HungerBar extends Component {
             public WndInfoHunger(){
                 super();
 
-                Hunger buff = Buff.affect(Dungeon.hero, Hunger.class);
+                Buff buff;
+                Image buffIcon;
+                if (Dungeon.hero.buff(WellFed.class)!=null) {
+                    buff = Dungeon.hero.buff(WellFed.class);
+                    buffIcon = new BuffIcon( ((WellFed)buff).true_icon(), true );
+                } else {
+                    buff = Buff.affect(Dungeon.hero, Hunger.class);
+                    buffIcon = new BuffIcon( ((Hunger)buff).true_icon(), true );
+                }
 
                 IconTitle titlebar = new IconTitle();
-
-                Image buffIcon = new BuffIcon( buff.true_icon(), true );
 
                 titlebar.icon( buffIcon );
                 titlebar.label( Messages.titleCase(buff.name()), Window.TITLE_COLOR );

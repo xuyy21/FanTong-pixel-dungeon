@@ -76,9 +76,14 @@ public class WellFed extends Buff {
 	public void extend( float duration ) {
 		left += duration;
 	}
-	
+
+	// i add a hunger bar, so wellfed buff do not have to appear in buffs any longer
 	@Override
 	public int icon() {
+		return BuffIndicator.NONE;
+	}
+
+	public int true_icon() {
 		return BuffIndicator.WELL_FED;
 	}
 

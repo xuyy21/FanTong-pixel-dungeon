@@ -94,6 +94,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Banner;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.CharHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
+import com.shatteredpixel.shatteredpixeldungeon.ui.HungerBar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.InventoryPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.LootIndicator;
@@ -169,6 +170,7 @@ public class GameScene extends PixelScene {
 
 	private MenuPane menu;
 	private StatusPane status;
+	private HungerBar hunger;
 
 	private BossHealthBar boss;
 
@@ -457,6 +459,11 @@ public class GameScene extends PixelScene {
 		status.setRect(insets.left, uiSize > 0 ? uiCamera.height-39-insets.bottom : screentop, uiCamera.width - insets.left - insets.right, 0 );
 		add(status);
 
+		hunger = new HungerBar();
+		hunger.camera = uiCamera;
+		hunger.setRect(insets.left, SPDSettings.interfaceSize() > 0 ? (uiCamera.height-HungerBar.HEIGHT)/2 : status.bottom() + 2, HungerBar.WIDTH, HungerBar.HEIGHT);
+		add(hunger);
+
 		if (uiSize < 2 && largeInsetTop != 0) {
 			SkinnedBlock bar = new SkinnedBlock(uiCamera.width, largeInsetTop, TextureCache.createSolid(0x88000000));
 			bar.camera = uiCamera;
@@ -502,6 +509,7 @@ public class GameScene extends PixelScene {
 
 		if (uiSize > 0){
 			bringToFront(status);
+			bringToFront(hunger);
 		}
 
 		toolbar = new Toolbar();
@@ -729,6 +737,7 @@ public class GameScene extends PixelScene {
 			}
 			toolbar.visible = toolbar.active = false;
 			status.visible = status.active = false;
+			hunger.visible = hunger.active = false;
 			if (inventory != null) inventory.visible = inventory.active = false;
 		}
 
@@ -1257,12 +1266,15 @@ public class GameScene extends PixelScene {
 						scene.status.alpha(2*progress);
 						scene.status.visible = scene.status.active = true;
 						scene.toolbar.visible = scene.toolbar.active = false;
+						scene.hunger.visible = scene.hunger.active = false;
 						if (scene.inventory != null) scene.inventory.visible = scene.inventory.active = false;
 					} else {
 						scene.status.alpha(1f);
 						scene.status.visible = scene.status.active = true;
 						scene.toolbar.alpha((progress - 0.5f)*2);
 						scene.toolbar.visible = scene.toolbar.active = true;
+						scene.hunger.alpha((progress - 0.5f)*2);
+						scene.hunger.visible = scene.hunger.active = true;
 						if (scene.inventory != null){
 							scene.inventory.visible = scene.inventory.active = true;
 							scene.inventory.alpha((progress - 0.5f)*2);

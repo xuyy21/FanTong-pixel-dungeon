@@ -152,6 +152,8 @@ public class BuffIndicator extends Component {
 	public static final int ABSORB_DAMAGE		= 97;
 	public static final int POWER_SWAP			= 98;
 
+	public static final int FEED		= 100;
+
 	public static final int SIZE_SMALL  = 7;
 	public static final int SIZE_LARGE  = 16;
 	

@@ -199,10 +199,15 @@ public class Hunger extends Buff implements Hero.Doom {
 		return (int)Math.ceil(level);
 	}
 
+	// i add a hunger bar, so hunger buff do not have to appear in buffs any longer
 	@Override
 	public int icon() {
+		return BuffIndicator.NONE;
+	}
+
+	public int true_icon() {
 		if (level < HUNGRY) {
-			return BuffIndicator.NONE;
+			return BuffIndicator.FEED;
 		} else if (level < STARVING) {
 			return BuffIndicator.HUNGER;
 		} else {
@@ -212,7 +217,9 @@ public class Hunger extends Buff implements Hero.Doom {
 
 	@Override
 	public String name() {
-		if (level < STARVING) {
+		if (level < HUNGRY) {
+			return Messages.get(this, "feed");
+		} else if (level < STARVING) {
 			return Messages.get(this, "hungry");
 		} else {
 			return Messages.get(this, "starving");
@@ -222,7 +229,9 @@ public class Hunger extends Buff implements Hero.Doom {
 	@Override
 	public String desc() {
 		String result;
-		if (level < STARVING) {
+		if (level < HUNGRY) {
+			result = Messages.get(this, "desc_intro_feed");
+		} else if (level < STARVING) {
 			result = Messages.get(this, "desc_intro_hungry");
 		} else {
 			result = Messages.get(this, "desc_intro_starving");

@@ -348,4 +348,13 @@ public class v0_4_X_FTChanges {
                         "减少了地狱食人花的生成数量，每层的基础生成数量从2~4降低至1~2。\n\n" +
                         "降低地狱食人花的攻速至0.33。"));
     }
+
+    public static void add_v0_4_11_Changes(ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.4.11", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了由于修改食物特效代码导致肠粉会无限吃的BUG"));
+    }
 }

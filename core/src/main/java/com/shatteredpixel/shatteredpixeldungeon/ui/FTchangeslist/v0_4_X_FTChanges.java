@@ -374,7 +374,7 @@ public class v0_4_X_FTChanges {
                 "修改了重型回旋镖的返回间隔。\n\n" +
                         "从破碎地牢的_5回合_，改为_1+距离_回合，上限仍是5回合。"));
 
-        changes.addButton(new ChangeButton(new Image(new Animate_Armor.Animated_Armor()), "加强活化护甲",
+        changes.addButton(new ChangeButton(new Image(new Animate_Armor.Animated_Armor_Sprite()), "加强活化护甲",
                 "活化护甲的基础HP提高20点。\n\n" +
                         "活化护甲的命中提高100%。\n\n" +
                         "活化护甲的基础攻击力提高4~10。"));

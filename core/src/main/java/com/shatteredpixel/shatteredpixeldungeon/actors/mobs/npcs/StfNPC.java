@@ -22,9 +22,11 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Point;
 
 public class StfNPC extends NPC{
+    public static StfNPC INSTANCE = new StfNPC();
 
     {
         spriteClass = ShopkeeperSprite.class;
@@ -142,30 +144,43 @@ public class StfNPC extends NPC{
         buy_times = bundle.getInt(BUYTIMES);
     }
 
-    public static void spawnSTF(Level level, Room room, int depth ) {
+    public static void spawn(Level level, Room room, int depth ) {
+        spawn(level, room, depth, StfNPC.INSTANCE);
+    }
+
+    public static void spawn(Level level, Room room, int depth, StfNPC npc ) {
         if (Dungeon.depth != depth) return;
 
-        StfNPC npc = new StfNPC();
-
         boolean validPos;
-        //Do not spawn npc on the entrance, in front of a door, or on bad terrain.
+        //Do not spawn npc on the entrance or exit, in front of a door, or on bad terrain.
+        int tries = 0;
+        int dist = 2;
         do {
             validPos = true;
-            npc.pos = level.pointToCell(room.random((room.width() > 6 && room.height() > 6) ? 2 : 1));
-            if (npc.pos == level.entrance()){
+            if (tries > 30 && dist > 0){
+                tries = 0;
+                dist--;
+            }
+            npc.pos = level.pointToCell(room.random(dist));
+            if (npc.pos == level.entrance() || npc.pos == level.exit()
+                    || level.solid[npc.pos]
+                    || Actor.findChar(npc.pos)!=null){
                 validPos = false;
             }
-            for (Point door : room.connected.values()){
-                if (level.trueDistance( npc.pos, level.pointToCell( door ) ) <= 1){
+            for (int i : PathFinder.NEIGHBOURS4){
+                if (level.map[npc.pos+i] == Terrain.DOOR){
                     validPos = false;
+                    break;
                 }
             }
             if (level.traps.get(npc.pos) != null
-                    || !level.passable[npc.pos]
-                    || level.map[npc.pos] == Terrain.EMPTY_SP){
+                    || !level.passable[npc.pos]){
                 validPos = false;
             }
-            Char ch = Actor.findChar(npc.pos);
+            if (dist>1 && level.map[npc.pos] == Terrain.EMPTY_SP){
+                validPos = false;
+            }
+            tries++;
         } while (!validPos);
         level.mobs.add( npc );
     }

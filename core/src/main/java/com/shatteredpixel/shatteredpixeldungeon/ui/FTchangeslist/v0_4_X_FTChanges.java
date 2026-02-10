@@ -365,7 +365,8 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "修复了由于修改食物特效代码导致肠粉和麻辣王子的BUG。\n\n" +
                         "修复了饭桶地牢改动页面底部按钮排列错误的BUG。\n\n" +
-                        "修复了初级幻影与高级幻影可能移动的BUG。"));
+                        "修复了初级幻影与高级幻影可能移动的BUG。\n\n" +
+                        "修复了新版地形中NPC可能生成在门上的BUG。"));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.BOOMERANG), "重型回旋镖",
                 "修改了重型回旋镖的返回间隔。\n\n" +

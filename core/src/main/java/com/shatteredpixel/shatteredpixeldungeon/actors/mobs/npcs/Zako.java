@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ZakoSprite;
 import com.watabou.utils.Point;
 
 public class Zako extends StfNPC{
+    public static Zako INSTANCE = new Zako();
 
     {
         spriteClass = ZakoSprite.class;
@@ -49,30 +50,6 @@ public class Zako extends StfNPC{
     }
 
     public static void spawn(Level level, Room room, int depth ) {
-        if (Dungeon.depth != depth) return;
-
-        StfNPC npc = new Zako();
-
-        boolean validPos;
-        //Do not spawn npc on the entrance, in front of a door, or on bad terrain.
-        do {
-            validPos = true;
-            npc.pos = level.pointToCell(room.random((room.width() > 6 && room.height() > 6) ? 2 : 1));
-            if (npc.pos == level.entrance() || npc.pos == level.exit()){
-                validPos = false;
-            }
-            for (Point door : room.connected.values()){
-                if (level.trueDistance( npc.pos, level.pointToCell( door ) ) <= 1){
-                    validPos = false;
-                }
-            }
-            if (level.traps.get(npc.pos) != null
-                    || !level.passable[npc.pos]){
-                validPos = false;
-            }
-            Char ch = Actor.findChar(npc.pos);
-            if (ch instanceof Mob) validPos = false;
-        } while (!validPos);
-        level.mobs.add( npc );
+        spawn(level, room, depth, Zako.INSTANCE);
     }
 }

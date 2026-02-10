@@ -39,36 +39,9 @@ public class BlackPudding extends Food{
     public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(BlackPudding.class, "effect") );
         Buff.affect(hero, ArcaneArmor.class).set(5 + hero.lvl/2, 80);
-        Buff.affect(hero, ElixirOfAquaticRejuvenation.AquaHealing.class).set(Math.round(hero.HT * 0.75f));
-    }
-
-    @Override
-    public void execute( Hero hero, String action ) {
-        GameScene.cancel();
-        curUser = hero;
-        curItem = this;
-
-        if (action.equals( AC_IMAGINE )) {
-
-            float foodVal = energy;
-            if (Dungeon.isChallenged(Challenges.NO_FOOD)){
-                foodVal /= 3f;
-            }
-            foodVal *=  (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
-            hero.buff(Hunger.class).affectHunger(-foodVal);
-
-            hero.sprite.operate( hero.pos );
-            hero.busy();
-            SpellSprite.show( hero, SpellSprite.FOOD );
-            eatSFX();
-
-            hero.spend( eatingTime() );
-
-//            effect(hero);
-            GLog.i( Messages.get(BlackPudding.class, "effect") );
-            Buff.affect(hero, ArcaneArmor.class).set(5 + hero.lvl/2, 80);
-//            Buff.affect(hero, ElixirOfAquaticRejuvenation.AquaHealing.class).set(Math.round(hero.HT * 0.75f));
-        } else super.execute( hero, action );
+        if (!fakeEating) {
+            Buff.affect(hero, ElixirOfAquaticRejuvenation.AquaHealing.class).set(Math.round(hero.HT * 0.75f));
+        }
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

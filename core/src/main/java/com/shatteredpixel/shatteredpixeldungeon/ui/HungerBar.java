@@ -11,14 +11,15 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoBuff;
+import com.watabou.gltextures.TextureCache;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.PointF;
 
 public class HungerBar extends Component {
-    public static float WIDTH = 19f;
-    public static float HEIGHT = 109f;
+    public static float WIDTH = 15f;
+    public static float HEIGHT = 104f;
 
     private Image bar;
 
@@ -52,15 +53,15 @@ public class HungerBar extends Component {
         bar.y = y;
 
         hunger.x = bar.x + 2;
-        hunger.y = bar.y + WIDTH;
+        hunger.y = bar.y + WIDTH - 1;
         PixelScene.align(hunger);
 
         hungerText.scale.set(PixelScene.align(0.5f));
-        hungerText.x = bar.x + 6;
+        hungerText.x = bar.x + 5;
         hungerText.y = bar.y + WIDTH + 1;
         PixelScene.align(hungerText);
 
-        hungerIcon.setRect(bar.x+1, bar.y+1, 16, 16);
+        hungerIcon.setRect(bar.x+1, bar.y, 13, 13);
     }
 
     @Override
@@ -73,7 +74,13 @@ public class HungerBar extends Component {
 
         hunger.scale.y = feed / Hunger.STARVING;
 
-        hungerText.text(Messages.decimalFormat("#.##", feed));
+        if (Dungeon.hero!=null && Dungeon.hero.buff(WellFed.class)!=null) {
+            hungerText.text(Dungeon.hero.buff(WellFed.class).iconTextDisplay());
+            hungerText.hardlight(0, 1f, 0);
+        } else {
+            hungerText.text(Messages.decimalFormat("#.##", feed));
+            hungerText.hardlight(1f, 1f, 1f);
+        }
 
         hungerIcon.updateIcon(feed);
     }
@@ -87,7 +94,7 @@ public class HungerBar extends Component {
 
     public static class HungerButton extends IconButton {
         public HungerButton() {
-            super(new BuffIcon(BuffIndicator.FEED, true));
+            super(new BuffIcon(BuffIndicator.FEED, false));
         }
 
         public void updateIcon(float feed) {

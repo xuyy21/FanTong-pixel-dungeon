@@ -101,7 +101,8 @@ public class HeavyBoomerang extends MissileWeapon {
 			this.returnPos = returnPos;
 			this.returnDepth = returnDepth;
 			this.returnBranch = returnBranch;
-			left = 5;
+			left = 1 + Dungeon.level.distance(thrownPos, returnPos);
+			left = Math.min(left, 5);
 		}
 		
 		public int returnPos(){

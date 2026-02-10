@@ -366,5 +366,9 @@ public class v0_4_X_FTChanges {
                 "修复了由于修改食物特效代码导致肠粉和麻辣王子的BUG。\n\n" +
                         "修复了饭桶地牢改动页面底部按钮排列错误的BUG。\n\n" +
                         "修复了初级幻影与高级幻影可能移动的BUG。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.BOOMERANG), "重型回旋镖",
+                "修改了重型回旋镖的返回间隔。\n\n" +
+                        "从破碎地牢的_5回合_，改为_1+距离_回合，上限仍是5回合。"));
     }
 }

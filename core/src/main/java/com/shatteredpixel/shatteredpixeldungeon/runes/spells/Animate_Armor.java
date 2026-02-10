@@ -149,7 +149,7 @@ public class Animate_Armor extends InventorySpell{
             this.level = level;
             this.armor = armor;
 
-            HT = 3*this.level + 10*this.armor.tier + 10*this.armor.level();
+            HT = 20 + 3*this.level + 10*this.armor.tier + 10*this.armor.level();
         }
 
         public void spawnAt( int pos, Hero hero, Armor armor ){
@@ -214,12 +214,12 @@ public class Animate_Armor extends InventorySpell{
 
         @Override
         public int attackSkill( Char target ){
-            return 9 + this.level;
+            return 18 + 2*this.level;
         }
 
         @Override
         public int damageRoll() {
-            return Random.NormalIntRange( 2*this.armor.level(), 3*this.armor.level()+this.level );
+            return Random.NormalIntRange( 4+2*this.armor.level(), 10+3*this.armor.level()+this.level );
         }
 
         @Override

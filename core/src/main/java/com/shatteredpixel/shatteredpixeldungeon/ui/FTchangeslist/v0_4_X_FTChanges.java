@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfDiv
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Remove_Missiles_Curse;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -371,5 +372,10 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.BOOMERANG), "重型回旋镖",
                 "修改了重型回旋镖的返回间隔。\n\n" +
                         "从破碎地牢的_5回合_，改为_1+距离_回合，上限仍是5回合。"));
+
+        changes.addButton(new ChangeButton(new Image(new Animate_Armor.Animated_Armor()), "加强活化护甲",
+                "活化护甲的基础HP提高20点。\n\n" +
+                        "活化护甲的命中提高100%。\n\n" +
+                        "活化护甲的基础攻击力提高4~10。"));
     }
 }

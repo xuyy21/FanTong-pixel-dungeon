@@ -461,7 +461,7 @@ public class GameScene extends PixelScene {
 
 		hunger = new HungerBar();
 		hunger.camera = uiCamera;
-		hunger.setRect(insets.left, SPDSettings.interfaceSize() > 0 ? (uiCamera.height-HungerBar.HEIGHT)/2 : status.bottom() + 2, HungerBar.WIDTH, HungerBar.HEIGHT);
+		hunger.setRect(insets.left, SPDSettings.interfaceSize() > 0 ? (uiCamera.height-HungerBar.HEIGHT)/2 : status.bottom() + 5, HungerBar.WIDTH, HungerBar.HEIGHT);
 		add(hunger);
 
 		if (uiSize < 2 && largeInsetTop != 0) {

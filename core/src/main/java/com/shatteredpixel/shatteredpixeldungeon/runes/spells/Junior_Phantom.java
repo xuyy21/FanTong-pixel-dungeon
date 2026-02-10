@@ -115,6 +115,16 @@ public class Junior_Phantom extends TargetedSpell{
         }
 
         @Override
+        protected boolean getCloser(int target) {
+            return false;
+        }
+
+        @Override
+        protected boolean getFurther(int target) {
+            return false;
+        }
+
+        @Override
         public int defenseSkill(Char enemy) {
             return 18 + 2 * Dungeon.scalingDepth();
         }

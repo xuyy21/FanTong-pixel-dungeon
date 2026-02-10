@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.Remove_Missiles_Cur
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.SpinCocoon;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -377,5 +378,8 @@ public class v0_4_X_FTChanges {
                 "活化护甲的基础HP提高20点。\n\n" +
                         "活化护甲的命中提高100%。\n\n" +
                         "活化护甲的基础攻击力提高4~10。"));
+
+        changes.addButton(new ChangeButton(SpinCocoon.INSTANCE.icon(), "结茧护盾",
+                "优化了结茧护盾的机制，原先与植被护甲绑定，结果导致植被护甲被破也会导致结茧提前结束，现在改为独立判定位置的同时由结茧buff赋予植被护甲。"));
     }
 }

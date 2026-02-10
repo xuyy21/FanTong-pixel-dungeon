@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.runes.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -32,8 +33,6 @@ public class SpinCocoon extends Spell{
         hero.sprite.operate(hero.pos);
 
         Buff.detach(hero, Cocoon.class);
-        Buff.affect(hero, Earthroot.Armor.class).level(hero.lvl/3);
-        Buff.affect(hero, Blindness.class, 10f);
         Buff.affect(hero, Cocoon.class).set(10, Math.round(hero.HT*0.15f*implement.powerMultiplier(hero, this)));
 
         Sample.INSTANCE.play(Assets.Sounds.MISS);
@@ -45,9 +44,11 @@ public class SpinCocoon extends Spell{
     public static class Cocoon extends Buff {
         protected int shield = 0;
         public int left = 0;
+        private int pos;
 
         public static final String SHIELD = "shield";
         public static final String LEFT = "left";
+        private static final String POS		= "pos";
 
         {
             type = buffType.POSITIVE;
@@ -67,12 +68,10 @@ public class SpinCocoon extends Spell{
 
         @Override
         public boolean act() {
-            if (target.buff(Earthroot.Armor.class)==null || left<=0)
+            if (pos != target.pos || target.flying || left<=0)
                 detach();
             else {
-                Buff.affect(target, Barrier.class).setShield(shield);
-                target.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING );
-                CellEmitter.center(target.pos).start( WebParticle.FACTORY, 0.05f, 4 );
+                affect();
 
                 left--;
 
@@ -82,11 +81,29 @@ public class SpinCocoon extends Spell{
             return true;
         }
 
+        public void affect() {
+            Buff.affect(target, Barrier.class).setShield(shield);
+            Buff.affect(target, Earthroot.Armor.class).level(((Hero)target).lvl/3);
+            target.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING );
+            CellEmitter.center(target.pos).start( WebParticle.FACTORY, 0.05f, 4 );
+        }
+
+        @Override
+        public boolean attachTo(Char target) {
+            if (super.attachTo(target)) {
+                this.pos = target.pos;
+                affect();
+                Buff.affect(target, Blindness.class, 10f);
+                return true;
+            } else return false;
+        }
+
         @Override
         public void storeInBundle(Bundle bundle) {
             super.storeInBundle(bundle);
             bundle.put(SHIELD, shield);
             bundle.put(LEFT, left);
+            bundle.put( POS, pos );
         }
 
         @Override
@@ -94,6 +111,7 @@ public class SpinCocoon extends Spell{
             super.restoreFromBundle(bundle);
             shield = bundle.getInt(SHIELD);
             left = bundle.getInt(LEFT);
+            pos = bundle.getInt( POS );
         }
 
         @Override

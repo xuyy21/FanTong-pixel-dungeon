@@ -355,6 +355,9 @@ public class v0_4_X_FTChanges {
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
+        changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "同步破碎的像素地牢",
+                "底层从破碎地牢3.3.3同步至破碎地牢3.3.5，改动详情请到破碎地牢改动页面查看。\n\n但是可以会导致BUG，目前尚未完全排查，请谨慎游玩，并即时汇报BUG。可以到QQ群1005329949（饭桶地牢交流群）或者870181168（萝卜地牢交流群）找“彦木”。\n\nBYD EVAN，整个小恶魔任务整了那么久都没有端出来。"));
+
         changes.addButton( new ChangeButton(Icons.get(Icons.STATS), "饱食度条",
                 "饭桶地牢添加了饱食度条，用于实时显示英雄的饱食度，它位于屏幕的左侧。\n\n" +
                         "英雄的buff栏从此也不再显示饥饿buff。"));

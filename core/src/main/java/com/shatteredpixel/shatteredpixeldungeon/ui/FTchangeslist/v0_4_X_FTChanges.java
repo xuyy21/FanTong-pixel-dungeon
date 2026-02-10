@@ -359,7 +359,7 @@ public class v0_4_X_FTChanges {
                         "英雄的buff栏从此也不再显示饥饿buff。"));
 
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
-                "修复了由于修改食物特效代码导致肠粉会无限吃的BUG。\n\n" +
+                "修复了由于修改食物特效代码导致肠粉和麻辣王子的BUG。\n\n" +
                         "修复了饭桶地牢改动页面底部按钮排列错误的BUG。"));
     }
 }

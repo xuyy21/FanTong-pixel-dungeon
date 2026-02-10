@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -11,10 +12,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.PotatoGun;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -49,6 +53,24 @@ public class LaTiao extends Food{
         } else {
             super.execute( hero, action );
         }
+    }
+
+    @Override
+    protected void satisfy(Hero hero) {
+        float foodVal = energy;
+        if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+            foodVal /= 3f;
+        }
+
+        Artifact.ArtifactBuff buff = hero.buff( HornOfPlenty.hornRecharge.class );
+        if (buff != null && buff.isCursed()){
+            foodVal *= 0.67f;
+            GLog.n( Messages.get(Hunger.class, "cursedhorn") );
+        }
+
+//		foodVal *= (Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)+9f) / 9f;
+
+        Buff.affect(hero, Hunger.class).satisfy(foodVal);
     }
 
     @Override

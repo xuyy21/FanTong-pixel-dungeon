@@ -26,7 +26,7 @@ public class Xuyy extends StfNPC{
     }
 
     public static void spawn(Level level, Room room, int depth ) {
-        spawn(level, room, depth, Xuyy.INSTANCE);
+        spawn(level, room, depth, new Xuyy());
     }
 
 }

@@ -28,6 +28,6 @@ public class Doge extends StfNPC{
     }
 
     public static void spawn(Level level, Room room, int depth ) {
-        spawn(level, room, depth, Doge.INSTANCE);
+        spawn(level, room, depth, new Doge());
     }
 }

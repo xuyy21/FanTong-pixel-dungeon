@@ -26,7 +26,7 @@ public class SmallLeaf extends StfNPC{
     }
 
     public static void spawn(Level level, Room room, int depth ) {
-        spawn(level, room, depth, SmallLeaf.INSTANCE);
+        spawn(level, room, depth, new SmallLeaf());
     }
 
 }

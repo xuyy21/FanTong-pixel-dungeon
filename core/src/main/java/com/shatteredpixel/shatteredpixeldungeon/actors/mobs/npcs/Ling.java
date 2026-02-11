@@ -26,7 +26,7 @@ public class Ling extends StfNPC{
     }
 
     public static void spawn(Level level, Room room, int depth ) {
-        spawn(level, room, depth, Ling.INSTANCE);
+        spawn(level, room, depth, new Ling());
     }
 
 }

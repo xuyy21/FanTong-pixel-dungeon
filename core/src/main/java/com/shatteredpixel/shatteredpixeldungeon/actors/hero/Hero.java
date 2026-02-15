@@ -1480,6 +1480,9 @@ public class Hero extends Char {
 				Buff.affect(this, Talent.AggressiveBarrierCooldown.class, 50f);
 
 			}
+			if (hasTalent(Talent.HOLD_FAST) && (pointsInTalent(Talent.HOLD_FAST) >= 2)){
+				Buff.affect(this, HoldFast.class).pos = pos;
+			}
 			//attack target cleared on onAttackComplete
 			sprite.attack( attackTarget.pos );
 

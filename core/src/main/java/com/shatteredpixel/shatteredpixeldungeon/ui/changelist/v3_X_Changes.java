@@ -85,6 +85,24 @@ public class v3_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes = new ChangeInfo("v3.3.6", false, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
+
+		changes.addButton( new ChangeButton(new Image(new ImpSprite()), "Quest Tester Area Hazards",
+				"I've added three new static hazards to the quest tester area!\n" +
+						"\n" +
+						"There are now sentries which scan in a pattern, sentries that periodically fire lasers, and floor vents that periodically vent green flames. At the moment none of these hazards actually harm you, instead they just show '!!!' above your character if they hit you.\n" +
+						"\n" +
+						"I think these are enough hazards to cook with, so next I'm going to focus on more variety of room layouts and a better overall level layout (Currently room placement is mostly random). I expect there will be 1 or 2 more v3.3 patches and then I'll move onto making the new quest properly."));
+
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+				"Fixed the following bugs:\n" +
+						"**Caused by v3.3.5:**\n" +
+						"**-** Gladiator's combo lasting much longer than intended after defeating an enemy\n" +
+						"**-** Rare enemies appearing much less frequently than intended\n" +
+						"**-** Some items in the quest tester area spawning as cursed"));
+
 		changes = new ChangeInfo("v3.3.5", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);

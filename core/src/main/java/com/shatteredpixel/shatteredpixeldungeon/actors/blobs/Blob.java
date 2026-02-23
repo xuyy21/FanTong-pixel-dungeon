@@ -229,6 +229,10 @@ public class Blob extends Actor {
 	public Notes.Landmark landmark(){
 		return null;
 	}
+
+	public String tileDesc() {
+		return null;
+	}
 	
 	public String tileDesc(int cell) {
 		return null;

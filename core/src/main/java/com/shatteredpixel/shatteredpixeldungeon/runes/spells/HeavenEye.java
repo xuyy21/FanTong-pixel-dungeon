@@ -64,6 +64,9 @@ public class HeavenEye extends TargetedSpell{
 
             onSpellCast(implement, hero);
 
+            hero.sprite.operate(target);
+            hero.busy();
+
             if (eye == null) {
                 eye = new Eye();
                 eye.initHT(Math.round((50 + 10*Dungeon.scalingDepth())*implement.powerMultiplier(hero, this)));
@@ -71,12 +74,11 @@ public class HeavenEye extends TargetedSpell{
                 GameScene.add(eye);
                 Bestiary.setSeen(Eye.class);
                 Bestiary.countEncounter(Eye.class);
-            } else {
-                ((HeavenEyeSprite)eye.sprite).blink(target);
-            }
 
-            hero.sprite.operate(target);
-            hero.spendAndNext(implement.delay(hero, this));
+                hero.spendAndNext(implement.delay(hero, this));
+            } else {
+                ((HeavenEyeSprite)eye.sprite).blink(target, implement.delay(hero, this));
+            }
         }
     }
 
@@ -109,7 +111,7 @@ public class HeavenEye extends TargetedSpell{
             this.HP = this.HT = HT;
         }
 
-        public void blink(int target) {
+        public void blink(int target, float delay) {
             this.sprite.interruptMotion();
             Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
@@ -125,6 +127,8 @@ public class HeavenEye extends TargetedSpell{
             }
 
             ((HeavenEyeSprite)sprite).appear();
+
+            Dungeon.hero.spendAndNext(delay);
         }
 
         @Override
@@ -225,11 +229,11 @@ public class HeavenEye extends TargetedSpell{
             play(appear);
         }
 
-        public void blink(int target) {
+        public void blink(int target, float delay) {
             animCallback = new Callback() {
                 @Override
                 public void call() {
-                    ((HeavenEye.Eye)ch).blink(target);
+                    ((HeavenEye.Eye)ch).blink(target, delay);
                 }
             };
 

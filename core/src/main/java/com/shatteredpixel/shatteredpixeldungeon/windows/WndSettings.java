@@ -363,6 +363,7 @@ public class WndSettings extends WndTabbed {
 		ColorBlock sep1;
 		OptionSlider optUIMode;
 		OptionSlider optUIScale;
+		OptionSlider optUIHunger;
 		RedButton btnToolbarSettings;
 		CheckBox chkFlipTags;
 		ColorBlock sep2;
@@ -416,6 +417,21 @@ public class WndSettings extends WndTabbed {
 				optUIScale.setSelectedValue(PixelScene.defaultZoom);
 				add(optUIScale);
 			}
+
+			optUIHunger = new OptionSlider(Messages.get(this, "hungerui"),
+					Messages.get(this, "hungerui_buff"),
+					Messages.get(this, "hungerui_bar"),
+					0, 2) {
+				@Override
+				protected void onChange() {
+					if (getSelectedValue() != SPDSettings.hungerUI()) {
+						SPDSettings.hungerUI(getSelectedValue());
+						ShatteredPixelDungeon.seamlessResetScene();
+					}
+				}
+			};
+			optUIHunger.setSelectedValue(PixelScene.hungerUI);
+			add(optUIHunger);
 
 			if (SPDSettings.interfaceSize() == 0) {
 				btnToolbarSettings = new RedButton(Messages.get(this, "toolbar_settings"), 9){
@@ -625,6 +641,11 @@ public class WndSettings extends WndTabbed {
 					optUIScale.setRect(0, height + GAP, width, SLIDER_HEIGHT);
 					height = optUIScale.bottom();
 				}
+			}
+
+			if (optUIHunger != null) {
+				optUIHunger.setRect(0, height + GAP, width, SLIDER_HEIGHT);
+				height = optUIHunger.bottom();
 			}
 
 			if (btnToolbarSettings != null) {

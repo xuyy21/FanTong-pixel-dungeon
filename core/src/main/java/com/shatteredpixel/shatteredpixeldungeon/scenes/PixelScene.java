@@ -79,6 +79,7 @@ public class PixelScene extends Scene {
 	public static final float MIN_HEIGHT_FULL = 200;
 
 	public static int defaultZoom = 0;
+	public static int hungerUI = 0;
 	public static int maxDefaultZoom = 0;
 	public static float minZoom;
 	public static float maxZoom;
@@ -176,6 +177,7 @@ public class PixelScene extends Scene {
 
 		Cursor.setCustomCursor(Cursor.Type.DEFAULT, defaultZoom);
 
+		hungerUI = SPDSettings.hungerUI();
 	}
 
 	@Override

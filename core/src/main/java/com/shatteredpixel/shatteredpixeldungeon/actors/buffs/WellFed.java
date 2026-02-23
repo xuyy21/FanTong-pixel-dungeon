@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -77,14 +78,18 @@ public class WellFed extends Buff {
 		left += duration;
 	}
 
-	// i add a hunger bar, so wellfed buff do not have to appear in buffs any longer
+	// whether show hunger buff is according to setting
 	@Override
 	public int icon() {
-		return BuffIndicator.NONE;
+		return true_icon(PixelScene.hungerUI<2);
 	}
 
-	public int true_icon() {
-		return BuffIndicator.WELL_FED;
+	public int true_icon(boolean visible) {
+		if (visible) {
+			return BuffIndicator.WELL_FED;
+		} else {
+			return BuffIndicator.NONE;
+		}
 	}
 
 	@Override

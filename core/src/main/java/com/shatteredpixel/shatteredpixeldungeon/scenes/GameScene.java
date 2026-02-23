@@ -940,6 +940,12 @@ public class GameScene extends PixelScene {
 			}
 			toDestroy.clear();
 		}
+
+		updateHungerBar();
+	}
+
+	public static void updateHungerBar() {
+		scene.hunger.visible = scene.hunger.active = PixelScene.hungerUI>0;
 	}
 
 	private static Point lastOffset = null;
@@ -1276,7 +1282,7 @@ public class GameScene extends PixelScene {
 						scene.toolbar.alpha((progress - 0.5f)*2);
 						scene.toolbar.visible = scene.toolbar.active = true;
 						scene.hunger.alpha((progress - 0.5f)*2);
-						scene.hunger.visible = scene.hunger.active = true;
+						scene.hunger.visible = scene.hunger.active = PixelScene.hungerUI>0;
 						if (scene.inventory != null){
 							scene.inventory.visible = scene.inventory.active = true;
 							scene.inventory.alpha((progress - 0.5f)*2);

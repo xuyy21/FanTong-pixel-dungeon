@@ -122,6 +122,7 @@ public class SPDSettings extends GameSettings {
 
 	public static final String KEY_UI_SIZE 	    = "full_ui";
 	public static final String KEY_SCALE		= "scale";
+	public static final String KEY_HUNGER		= "hunger_ui";
 	public static final String KEY_QUICK_SWAP	= "quickslot_swapper";
 	public static final String KEY_FLIPTOOLBAR	= "flipped_ui";
 	public static final String KEY_FLIPTAGS 	= "flip_tags";
@@ -157,7 +158,15 @@ public class SPDSettings extends GameSettings {
 	public static int scale() {
 		return getInt( KEY_SCALE, 0 );
 	}
-	
+
+	public static void hungerUI( int value ) {
+		put( KEY_HUNGER, value );
+	}
+
+	public static int hungerUI() {
+		return getInt( KEY_HUNGER, 0 );
+	}
+
 	public static void quickSwapper(boolean value ){ put( KEY_QUICK_SWAP, value ); }
 	
 	public static boolean quickSwapper(){ return getBoolean( KEY_QUICK_SWAP, true); }

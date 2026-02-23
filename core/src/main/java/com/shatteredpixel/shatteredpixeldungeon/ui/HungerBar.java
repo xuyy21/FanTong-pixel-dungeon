@@ -136,10 +136,10 @@ public class HungerBar extends Component {
                 Image buffIcon;
                 if (Dungeon.hero.buff(WellFed.class)!=null) {
                     buff = Dungeon.hero.buff(WellFed.class);
-                    buffIcon = new BuffIcon( ((WellFed)buff).true_icon(), true );
+                    buffIcon = new BuffIcon( ((WellFed)buff).true_icon(PixelScene.hungerUI>0), true );
                 } else {
                     buff = Buff.affect(Dungeon.hero, Hunger.class);
-                    buffIcon = new BuffIcon( ((Hunger)buff).true_icon(), true );
+                    buffIcon = new BuffIcon( ((Hunger)buff).true_icon(PixelScene.hungerUI>0), true );
                 }
 
                 IconTitle titlebar = new IconTitle();

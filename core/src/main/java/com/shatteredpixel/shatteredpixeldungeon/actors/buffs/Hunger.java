@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Grassyterrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -199,19 +200,23 @@ public class Hunger extends Buff implements Hero.Doom {
 		return (int)Math.ceil(level);
 	}
 
-	// i add a hunger bar, so hunger buff do not have to appear in buffs any longer
+	// whether show hunger buff is according to setting
 	@Override
 	public int icon() {
-		return BuffIndicator.NONE;
+		return true_icon(PixelScene.hungerUI<2);
 	}
 
-	public int true_icon() {
-		if (level < HUNGRY) {
-			return BuffIndicator.FEED;
-		} else if (level < STARVING) {
-			return BuffIndicator.HUNGER;
+	public int true_icon(boolean visible) {
+		if (visible) {
+			if (level < HUNGRY) {
+				return BuffIndicator.FEED;
+			} else if (level < STARVING) {
+				return BuffIndicator.HUNGER;
+			} else {
+				return BuffIndicator.STARVATION;
+			}
 		} else {
-			return BuffIndicator.STARVATION;
+			return BuffIndicator.NONE;
 		}
 	}
 
@@ -230,9 +235,9 @@ public class Hunger extends Buff implements Hero.Doom {
 	public String desc() {
 		String result;
 		if (level < HUNGRY) {
-			result = Messages.get(this, "desc_intro_feed");
+			result = Messages.get(this, "desc_intro_feed", (int)(STARVING-level));
 		} else if (level < STARVING) {
-			result = Messages.get(this, "desc_intro_hungry");
+			result = Messages.get(this, "desc_intro_hungry", (int)(STARVING-level));
 		} else {
 			result = Messages.get(this, "desc_intro_starving");
 		}

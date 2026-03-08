@@ -241,8 +241,13 @@ public class Burning extends Buff implements Hero.Doom {
 		
 		Badges.validateDeathFromFire();
 
-		if (Dungeon.hero!=null && Dungeon.hero.buff(Levitation.class)!=null)
+		boolean dyinginflying = (Dungeon.hero.buff(Levitation.class)!=null);
+		Blob trackGas = Dungeon.level.blobs.get(Levitation.DeathInFlyingTrackGas.class);
+		if (trackGas != null && trackGas.volume>0 && trackGas.cur[Dungeon.hero.pos]>0)
+			dyinginflying = true;
+		if (dyinginflying) {
 			Badges.validateDeathFromBurningFly();
+		}
 		
 		Dungeon.fail( this );
 		GLog.n( Messages.get(this, "ondeath") );

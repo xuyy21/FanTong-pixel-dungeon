@@ -21,10 +21,17 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -57,6 +64,10 @@ public class Levitation extends FlavourBuff {
 		//only press tiles if we're current in the game screen
 		if (ShatteredPixelDungeon.scene() instanceof GameScene) {
 			Dungeon.level.occupyCell(target );
+		}
+
+		if (!target.isAlive()) {
+			Blob.seed(target.pos, 2, DeathInFlyingTrackGas.class);
 		}
 	}
 
@@ -92,5 +103,24 @@ public class Levitation extends FlavourBuff {
 	public void fx(boolean on) {
 		if (on) target.sprite.add(CharSprite.State.LEVITATING);
 		else target.sprite.remove(CharSprite.State.LEVITATING);
+	}
+
+	public static class DeathInFlyingTrackGas extends Blob{
+		//Only used to mark one die while flying
+		@Override
+		protected void evolve() {
+
+			int cell;
+
+			Level l = Dungeon.level;
+			for (int i = area.left; i < area.right; i++){
+				for (int j = area.top; j < area.bottom; j++){
+					cell = i + j*l.width();
+					off[cell] = cur[cell] > 0 ? cur[cell] - 1 : 0;
+
+					volume += off[cell];
+				}
+			}
+		}
 	}
 }

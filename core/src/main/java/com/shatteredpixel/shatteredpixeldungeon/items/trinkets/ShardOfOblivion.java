@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Xuanmi;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -93,7 +94,7 @@ public class ShardOfOblivion extends Trinket {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return !item.isIdentified() && item.isUpgradable();
+			return !item.isIdentified() && (item.isUpgradable() || item instanceof Xuanmi);
 		}
 
 		@Override

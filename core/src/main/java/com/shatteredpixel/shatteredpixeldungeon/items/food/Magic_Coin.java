@@ -77,6 +77,8 @@ public class Magic_Coin extends Food {
                     ingredient.quantity(ingredient.quantity() - 1);
                 } else if (ingredient instanceof LiquidMetal){
                     ingredient.quantity(ingredient.quantity() - 10);
+                } else {
+                    ingredient.quantity(ingredient.quantity() - 1);
                 }
             }
 

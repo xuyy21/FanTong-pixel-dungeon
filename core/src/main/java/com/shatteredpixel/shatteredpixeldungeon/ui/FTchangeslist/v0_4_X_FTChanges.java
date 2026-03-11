@@ -383,4 +383,24 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(SpinCocoon.INSTANCE.icon(), "结茧护盾",
                 "优化了结茧护盾的机制，原先与植被护甲绑定，结果导致植被护甲被破也会导致结茧提前结束，现在改为独立判定位置的同时由结茧buff赋予植被护甲。"));
     }
+
+    public static void add_v0_4_12_Changes(ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.4.12", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "同步破碎的像素地牢",
+                "底层从破碎地牢3.3.5同步至破碎地牢3.3.6，改动详情请到破碎地牢改动页面查看。\n\n但是可以会导致BUG，目前尚未完全排查，请谨慎游玩，并即时汇报BUG。可以到QQ群1005329949（饭桶地牢交流群）或者870181168（萝卜地牢交流群）找“彦木”。"));
+
+        changes.addButton( new ChangeButton(Icons.get(Icons.STATS), "饥饿显示切换",
+                "添加了切换饥饿显示方式的功能，位于设置中。\n\n" +
+                        "你可以自由选择是使用BUFF的形式显示饥饿，还是采用新的饱食度条，或者两者一起。"));
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "优化了天堂之眼的代码，使其更稳定。\n\n" +
+                        "修复了凤凰浴火徽章有时不能触发的BUG。\n\n" +
+                        "修复了部分饰品不能生成的BUG。\n\n" +
+                        "修复了遗忘碎片不能鉴定寻觅长枪的BUG。\n\n" +
+                        "修复了制作咒印金币不消耗肉馅饼的BUG。"));
+    }
 }

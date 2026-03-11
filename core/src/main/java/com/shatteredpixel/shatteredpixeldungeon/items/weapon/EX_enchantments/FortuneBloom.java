@@ -23,7 +23,7 @@ public class FortuneBloom extends Weapon.Enchantment{
 
         if (!defender.isImmune(FortuneBloom.class)) {
             FortuneBloomTracker tracker = Buff.affect(defender, FortuneBloomTracker.class);
-            tracker.procChance = (level+5f) / 20f * procChanceMultiplier(attacker);
+            tracker.procChance = (level+5f) / 15f * procChanceMultiplier(attacker);
             tracker.owner = attacker;
         }
 
@@ -59,22 +59,24 @@ public class FortuneBloom extends Weapon.Enchantment{
             procChance -= Random.Float();
             while (procChance > 0) {
                 new Flare(6, 20).color(0xFF5500, true).show(target.sprite, 2f);
-                switch (Random.Int(5)) {
-                    default: case 0:case 1:case 2:
-                        if (!mobSpawned && Random.Int(2)==0) {
-                            PlantMonster mob = Reflection.newInstance(PlantMonster.random());
-                            mob.pos = pos;
-                            GameScene.add(mob);
-                            Buff.affect(mob, ScrollOfSirensSong.Enthralled.class);
-                            Dungeon.level.occupyCell(mob);
-                            mobSpawned = true;
-                        } else {
+                if (!mobSpawned) {
+                    PlantMonster mob = Reflection.newInstance(PlantMonster.random());
+                    mob.pos = pos;
+                    GameScene.add(mob);
+                    Buff.affect(mob, ScrollOfSirensSong.Enthralled.class);
+                    Dungeon.level.occupyCell(mob);
+                    mobSpawned = true;
+                } else {
+                    switch (Random.Int(3)) {
+                        default:
+                        case 0:
+                        case 1:
                             Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED), pos);
-                        }
-                        break;
-                    case 3:case 4:
-                        Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos);
-                        break;
+                            break;
+                        case 2:
+                            Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos);
+                            break;
+                    }
                 }
                 procChance -= Random.Float();
             }

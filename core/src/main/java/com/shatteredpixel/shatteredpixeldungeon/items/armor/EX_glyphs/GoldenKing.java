@@ -22,9 +22,11 @@ public class GoldenKing extends Armor.Glyph {
 
     @Override
     public int proc(Armor armor, Char attacker, Char defender, int damage) {
+        int level = Math.max(0, armor.buffedLvl());
+
         GoldenFuror buff = Buff.affect(defender, GoldenFuror.class);
-        buff.damage(damage);
-        buff.setDRMax(armor.DRMax());
+        buff.setDRMax(armor.DRMax() + 2 * level);
+        buff.damage(damage * (10f + level) / 10f);
 
         return damage;
     }
@@ -74,7 +76,7 @@ public class GoldenKing extends Armor.Glyph {
             return Math.min(1, power);
         }
 
-        public void damage(int dmg) {
+        public void damage(float dmg) {
             power += dmg * 2f / target.HT;
             if (power>=1f) {
                 for (int i : PathFinder.NEIGHBOURS8) {

@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
@@ -47,7 +48,6 @@ public class WaterMoon extends Armor.Glyph {
                 mirror.setLevel(Math.max(0, armor.buffedLvl()));
                 GameScene.add( mirror );
                 ScrollOfTeleportation.appear( mirror, respawnPoints.get( index ) );
-                Buff.affect(mirror, StoneOfAggression.Aggression.class, 10f);
                 Buff.affect(defender, MirrorTracker.class, MirrorTracker.DURATION);
             }
         }
@@ -88,12 +88,31 @@ public class WaterMoon extends Armor.Glyph {
     }
 
     public static class WaterMirror extends MirrorImage {
+        {
+            viewDistance = 8;
+        }
+
         private int level;
 
         private static final String LEVEL = "level";
 
         public void setLevel(int lvl) {
             level = lvl;
+        }
+
+        @Override
+        protected boolean act(){
+            if (fieldOfView==null)
+                // in case when the phantom is nearly generated and don't have view
+                return super.act();
+            for (Mob mob : Dungeon.level.mobs) {
+                if (mob.alignment == Alignment.ENEMY && fieldOfView[mob.pos]) {
+                    // attract enemies in view
+                    mob.aggro(this);
+                }
+            }
+
+            return super.act();
         }
 
         @Override

@@ -1039,20 +1039,8 @@ public abstract class Char extends Actor {
 			if (buff(FortuneBloom.FortuneBloomTracker.class)!=null){
 				buff(FortuneBloom.FortuneBloomTracker.class).bloom(pos);
 			}
-		}
-
-		if (HP < 0 && src instanceof Char && alignment == Alignment.ENEMY){
-			if (((Char) src).buff(Kinetic.KineticTracker.class) != null){
-				int dmgToAdd = -HP;
-				dmgToAdd -= ((Char) src).buff(Kinetic.KineticTracker.class).conservedDamage;
-				dmgToAdd = Math.round(dmgToAdd * Weapon.Enchantment.genericProcChanceMultiplier((Char) src));
-				if (dmgToAdd > 0) {
-					Buff.affect((Char) src, Kinetic.ConservedDamage.class).setBonus(dmgToAdd);
-				}
-				((Char) src).buff(Kinetic.KineticTracker.class).detach();
-			}
 			if (buff(RockGuarding.RockGuardingTracker.class) != null){
-				int armorToAdd = -HP;
+				int armorToAdd = dmg;
 				armorToAdd = Math.round(armorToAdd * Weapon.Enchantment.genericProcChanceMultiplier((Char) src) * 1.5f);
 				if (src instanceof Hero && armorToAdd > 0 ){
 					RockGuarding.RockGuardian guardian = null;
@@ -1069,6 +1057,18 @@ public abstract class Char extends Actor {
 						guardian.setInfo((Hero) src, buff(RockGuarding.RockGuardingTracker.class).wep, armorToAdd);
 					}
 				}
+			}
+		}
+
+		if (HP < 0 && src instanceof Char && alignment == Alignment.ENEMY){
+			if (((Char) src).buff(Kinetic.KineticTracker.class) != null){
+				int dmgToAdd = -HP;
+				dmgToAdd -= ((Char) src).buff(Kinetic.KineticTracker.class).conservedDamage;
+				dmgToAdd = Math.round(dmgToAdd * Weapon.Enchantment.genericProcChanceMultiplier((Char) src));
+				if (dmgToAdd > 0) {
+					Buff.affect((Char) src, Kinetic.ConservedDamage.class).setBonus(dmgToAdd);
+				}
+				((Char) src).buff(Kinetic.KineticTracker.class).detach();
 			}
 		}
 		

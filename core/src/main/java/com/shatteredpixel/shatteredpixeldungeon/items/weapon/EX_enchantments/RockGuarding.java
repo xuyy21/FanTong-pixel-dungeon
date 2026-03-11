@@ -269,9 +269,9 @@ public class RockGuarding extends Weapon.Enchantment {
         public int drRoll() {
             int dr = super.drRoll();
             if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-                return dr + Random.NormalIntRange(wep.buffedLvl(), 2 + wep.buffedLvl());
+                return dr + Random.NormalIntRange(wep.buffedLvl(), 4 + 2 * wep.buffedLvl());
             } else {
-                return dr + Random.NormalIntRange(wep.buffedLvl(), 3 + 3 * wep.buffedLvl());
+                return dr + Random.NormalIntRange(wep.buffedLvl(), 6 + 5 * wep.buffedLvl());
             }
         }
 

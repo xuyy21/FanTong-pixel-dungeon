@@ -395,7 +395,7 @@ public class v0_4_X_FTChanges {
                 "底层从破碎地牢3.3.5同步至破碎地牢3.3.6，改动详情请到破碎地牢改动页面查看。\n\n但是可以会导致BUG，目前尚未完全排查，请谨慎游玩，并即时汇报BUG。可以到QQ群1005329949（饭桶地牢交流群）或者870181168（萝卜地牢交流群）找“彦木”。"));
 
         changes.addButton( new ChangeButton(Icons.get(Icons.STATS), "饥饿显示切换",
-                "添加了切换饥饿显示方式的功能，位于设置中。\n\n" +
+                "添加了切换饥饿显示方式的功能，位于“设置-界面设置”中。\n\n" +
                         "你可以自由选择是使用BUFF的形式显示饥饿，还是采用新的饱食度条，或者两者一起。"));
 
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),

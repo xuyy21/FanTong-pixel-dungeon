@@ -67,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.AllySoup;
@@ -78,8 +79,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Destiny;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
@@ -893,6 +896,23 @@ public abstract class Mob extends Char {
 
 				if (Dungeon.hero.subClass == HeroSubClass.MONK){
 					Buff.affect(Dungeon.hero, MonkEnergy.class).gainEnergy(this);
+				}
+
+				if (((Weapon)Dungeon.hero.belongings.weapon).hasEnchant(Destiny.class, Dungeon.hero)) {
+					Buff.affect(Dungeon.hero, Destiny.DestinyPoints.class).add();
+					if (isImmune(Grim.class)) Buff.affect(Dungeon.hero, Destiny.DestinyPoints.class).add();
+				}
+				for (Mob mob: Dungeon.level.mobs) {
+					if (mob instanceof DriedRose.GhostHero && ((DriedRose.GhostHero) mob).weapon()!=null && ((DriedRose.GhostHero) mob).weapon().hasEnchant(Destiny.class, mob)) {
+						Buff.affect(mob, Destiny.DestinyPoints.class).add();
+						if (isImmune(Grim.class)) Buff.affect(mob, Destiny.DestinyPoints.class).add();
+					} else if (mob instanceof Statue && ((Statue)mob).weapon()!=null && ((Statue)mob).weapon().hasEnchant(Destiny.class, mob)) {
+						Buff.affect(mob, Destiny.DestinyPoints.class).add();
+						if (isImmune(Grim.class)) Buff.affect(mob, Destiny.DestinyPoints.class).add();
+					} else if (mob instanceof ArmedSkeleton && ((ArmedSkeleton)mob).weapon()!=null && ((ArmedSkeleton)mob).weapon().hasEnchant(Destiny.class, mob)) {
+						Buff.affect(mob, Destiny.DestinyPoints.class).add();
+						if (isImmune(Grim.class)) Buff.affect(mob, Destiny.DestinyPoints.class).add();
+					}
 				}
 			}
 		}

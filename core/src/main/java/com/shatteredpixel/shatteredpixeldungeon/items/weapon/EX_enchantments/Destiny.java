@@ -21,24 +21,22 @@ public class Destiny extends Weapon.Enchantment{
     public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
         int level = Math.max( 0, weapon.buffedLvl() );
 
-        if (defender.isImmune(Grim.class)) {
-            Buff.affect(attacker, DestinyTracker.class);
-            return damage;
-        }
-
         if (attacker.buff(DestinyPoints.class)!=null
                 && (Random.Float() < (attacker.buff(DestinyPoints.class).getPoints() * (5+level) * procChanceMultiplier(attacker) / 100f))) {
-            Buff.affect(defender, Grim.GrimTracker.class).maxChance = 999999f;
+
+            if (!defender.isImmune(Grim.class)) {
+                Buff.affect(defender, Grim.GrimTracker.class).maxChance = 999999f;
+            } else {
+                defender.damage(Math.round(attacker.buff(DestinyPoints.class).getPoints()*procChanceMultiplier(attacker)*attacker.HT/8f), Destiny.class);
+            }
+
             attacker.buff(DestinyPoints.class).detach();
-            Buff.affect(attacker, DestinyTracker.class).detach();
 
             if (defender.buff(Grim.GrimTracker.class) != null
                     && attacker instanceof Hero
-                    && weapon.hasEnchant(Grim.class, attacker)){
+                    && weapon.hasEnchant(Destiny.class, attacker)){
                 defender.buff(Grim.GrimTracker.class).qualifiesForBadge = true;
             }
-        } else {
-            Buff.affect(attacker, DestinyTracker.class);
         }
 
         return damage;
@@ -47,18 +45,6 @@ public class Destiny extends Weapon.Enchantment{
     @Override
     public ItemSprite.Glowing glowing() {
         return BLACK;
-    }
-
-    public static class DestinyTracker extends Buff {
-        {
-            actPriority = Actor.VFX_PRIO;
-        }
-
-        @Override
-        public boolean act() {
-            detach();
-            return true;
-        }
     }
 
     public static class DestinyPoints extends Buff {
@@ -95,7 +81,7 @@ public class Destiny extends Weapon.Enchantment{
 
         @Override
         public void detach() {
-            Buff.affect(target, Barrier.class).setShield(Math.round(target.HT * points * genericProcChanceMultiplier(target) / 25f));
+            Buff.affect(target, Barrier.class).setShield(Math.round(target.HT * points * genericProcChanceMultiplier(target) / 15f));
 
             super.detach();
         }

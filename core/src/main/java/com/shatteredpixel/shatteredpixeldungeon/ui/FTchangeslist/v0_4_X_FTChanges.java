@@ -402,5 +402,9 @@ public class v0_4_X_FTChanges {
                         "修复了部分饰品不能生成的BUG。\n\n" +
                         "修复了遗忘碎片不能鉴定寻觅长枪的BUG。\n\n" +
                         "修复了制作咒印金币不消耗肉馅饼的BUG。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EX_ENCHANTMENT), "加强EX附魔与EX刻印",
+                "部分EX附魔与EX刻印得到加强，以使其变得更加实用。\n\n" +
+                        "死生恒常附魔：现在可以从所有生物的死亡中获得点数，而不是仅能通过带有此附魔的武器杀死敌人。该附魔给予护盾量提高67%。该附魔现在还可以对免疫秒杀的敌人造成伤害。"));
     }
 }

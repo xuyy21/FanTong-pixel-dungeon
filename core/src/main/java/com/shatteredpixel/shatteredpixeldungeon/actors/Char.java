@@ -1036,10 +1036,6 @@ public abstract class Char extends Actor {
 		}
 
 		if (HP <= 0 && src instanceof Char && alignment == Alignment.ENEMY) {
-			if (((Char) src).buff(Destiny.DestinyTracker.class) != null){
-				Buff.affect(((Char) src), Destiny.DestinyPoints.class).add();
-				if (isImmune(Grim.class)) Buff.affect(((Char) src), Destiny.DestinyPoints.class).add();
-			}
 			if (buff(FortuneBloom.FortuneBloomTracker.class)!=null){
 				buff(FortuneBloom.FortuneBloomTracker.class).bloom(pos);
 			}

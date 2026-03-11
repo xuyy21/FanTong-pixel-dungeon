@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.Remove_Missiles_Cur
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.RockGuarding;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Proofing;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.SpinCocoon;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
@@ -409,5 +410,8 @@ public class v0_4_X_FTChanges {
                         "花开富贵附魔：现在生效时必定生成植物怪，然后再随机生成额外的种子与符石。同时触发概率提高33%。\n\n" +
                         "磐石守卫附魔：不再是使用溢出的伤害，而是击杀一击的全部伤害。而且磐石守卫的防御力提高大约67%，信念护体挑战下的提升则是约100%。\n\n" +
                         "阴拒阳留附魔：触发概率提高33%。"));
+
+        changes.addButton(new ChangeButton(Proofing.INSTANCE.icon(), "水火不侵",
+                "金刚不坏改为水火不侵，免疫外界一切法术与元素效果，但是自身依旧可以使用魔法力量。"));
     }
 }

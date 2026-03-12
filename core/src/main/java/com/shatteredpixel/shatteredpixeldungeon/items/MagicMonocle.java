@@ -1,8 +1,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
@@ -30,7 +35,26 @@ public class MagicMonocle extends Item{
         super.execute( hero, action );
 
         if (action.equals( AC_USE )){
-            Buff.affect(hero, Monocle.class, Monocle.DURATION);
+            hero.sprite.operate(hero.pos);
+//            Buff.affect(hero, Monocle.class, Monocle.DURATION);
+            for (int i = 0; i < Dungeon.level.length(); i++) {
+
+                int terr = Dungeon.level.map[i];
+                if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
+
+                    Dungeon.level.discover( i );
+
+                    if (Dungeon.level.heroFOV[i]) {
+                        GameScene.discoverTile( i, terr );
+                    }
+                }
+            }
+
+            Buff.affect( hero, Awareness.class, Awareness.DURATION );
+            Dungeon.observe();
+
+            hero.spendAndNext(Actor.TICK);
+            detach(hero.belongings.backpack);
         }
     }
 

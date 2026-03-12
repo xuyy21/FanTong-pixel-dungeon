@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.InsulatedGloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MagicMonocle;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Candy_Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChangFen;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Chocolate_Egg;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.IcyRedTea;
@@ -97,6 +98,7 @@ public class VendingMachine extends NPC{
                                                 Dungeon.gold -= price;
                                                 Catalog.countUses(Gold.class, price);
                                                 buy_counts++;
+                                                sold(goods);
                                                 if (!goods.doPickUp(Dungeon.hero)){
                                                     Dungeon.level.drop(goods, Dungeon.hero.pos);
                                                 }
@@ -168,7 +170,8 @@ public class VendingMachine extends NPC{
         if (challenges>=10 && T4_GOODS.isEmpty()) {
             T4_GOODS.add(MagicMonocle.class);
             T4_GOODS.add(InsulatedGloves.class);
-//            Random.shuffle(T4_GOODS);
+            T4_GOODS.add(Candy_Ring.class);
+            Random.shuffle(T4_GOODS);
         }
     }
 
@@ -198,6 +201,8 @@ public class VendingMachine extends NPC{
         for (Item i: goods) {
             if (i instanceof Chocolate_Egg)
                 ((Chocolate_Egg)i).init();
+            if (i instanceof Candy_Ring)
+                ((Candy_Ring) i).init();
         }
 
         return goods;
@@ -207,6 +212,9 @@ public class VendingMachine extends NPC{
         // marked some goods while sold
         if (item instanceof Chocolate_Egg) {
             ((Chocolate_Egg) item).sold();
+        }
+        if (item instanceof Candy_Ring) {
+            ((Candy_Ring) item).sold();
         }
     }
 

@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Candy_Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -83,6 +84,9 @@ public class RingOfForce extends Ring {
 		//level can be 0 while still using a ring, so we specifically check for the presence of a ring of force
 		boolean usingForce = hero.buff(Force.class) != null;
 		if (hero.buff(SpiritForm.SpiritFormBuff.class) != null && hero.buff(SpiritForm.SpiritFormBuff.class).ring() instanceof RingOfForce){
+			usingForce = true;
+		}
+		if (hero.buff(Candy_Ring.CandyRingBuff.class) != null && hero.buff(Candy_Ring.CandyRingBuff.class).ring() instanceof RingOfForce){
 			usingForce = true;
 		}
 		//and ignore that presence if using monk abilities

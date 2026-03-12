@@ -898,7 +898,7 @@ public abstract class Mob extends Char {
 					Buff.affect(Dungeon.hero, MonkEnergy.class).gainEnergy(this);
 				}
 
-				if (((Weapon)Dungeon.hero.belongings.weapon).hasEnchant(Destiny.class, Dungeon.hero)) {
+				if (Dungeon.hero.belongings.weapon!=null && ((Weapon)Dungeon.hero.belongings.weapon).hasEnchant(Destiny.class, Dungeon.hero)) {
 					Buff.affect(Dungeon.hero, Destiny.DestinyPoints.class).add();
 					if (isImmune(Grim.class)) Buff.affect(Dungeon.hero, Destiny.DestinyPoints.class).add();
 				}

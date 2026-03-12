@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.ItemStatusHandler;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Candy_Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -364,6 +365,12 @@ public class Ring extends KindofMisc {
 		for (RingBuff buff : target.buffs(type)) {
 			bonus += buff.level();
 		}
+		Candy_Ring.CandyRingBuff candyRingBuff = target.buff(Candy_Ring.CandyRingBuff.class);
+		if (candyRingBuff!=null
+				&& candyRingBuff.ring()!=null
+				&& candyRingBuff.ring().buffClass == type) {
+			bonus += Candy_Ring.CandyRingBuff.BONUS;
+		}
 		SpiritForm.SpiritFormBuff spiritForm = target.buff(SpiritForm.SpiritFormBuff.class);
 		if (bonus == 0
 				&& spiritForm != null
@@ -379,6 +386,12 @@ public class Ring extends KindofMisc {
 		int bonus = 0;
 		for (RingBuff buff : target.buffs(type)) {
 			bonus += buff.buffedLvl();
+		}
+		Candy_Ring.CandyRingBuff candyRingBuff = target.buff(Candy_Ring.CandyRingBuff.class);
+		if (candyRingBuff!=null
+			&& candyRingBuff.ring()!=null
+			&& candyRingBuff.ring().buffClass == type) {
+			bonus += Candy_Ring.CandyRingBuff.BONUS;
 		}
 		if (bonus == 0
 				&& target.buff(SpiritForm.SpiritFormBuff.class) != null

@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.BloodyRunes;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Junior_Reshape;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Proofing;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Senior_Reshape;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.SpinCocoon;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
@@ -425,7 +426,7 @@ public class v0_4_X_FTChanges {
         changes.addButton(new ChangeButton(Junior_Reshape.INSTANCE.icon(), "次级重塑",
                 "次级重塑现在生效后有概率对无附魔装备施加随机附魔。这个概率受到符术强度影响。"));
 
-        changes.addButton(new ChangeButton(Junior_Reshape.INSTANCE.icon(), "高级重塑",
+        changes.addButton(new ChangeButton(Senior_Reshape.INSTANCE.icon(), "高级重塑",
                 "高级重塑现在生效后有概率对装备施加随机附魔。这个概率受到符术强度影响。"));
     }
 }

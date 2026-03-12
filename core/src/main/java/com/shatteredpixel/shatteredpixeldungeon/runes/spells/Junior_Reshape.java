@@ -8,11 +8,16 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.EX_Enchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
+
+import java.util.Arrays;
 
 public class Junior_Reshape extends InventorySpell{
     public static Junior_Reshape INSTANCE = new Junior_Reshape();
@@ -65,6 +70,17 @@ public class Junior_Reshape extends InventorySpell{
             result.augment = origin.augment;
             result.enchantHardened = origin.enchantHardened;
 
+            if (Random.Float() < implement.powerMultiplier(hero, this) * 0.382f) {
+                if (result.enchantment == null) {
+                    result.enchant();
+                }
+//                else if (Arrays.asList(Weapon.Enchantment.common).contains(result.enchantment.getClass())
+//                        || Arrays.asList(Weapon.Enchantment.uncommon).contains(result.enchantment.getClass())
+//                        || Arrays.asList(Weapon.Enchantment.rare).contains(result.enchantment.getClass())) {
+//                    new EX_Enchantment().onItemSelected(result);
+//                }
+            }
+
             if (result.isIdentified()){
                 Catalog.setSeen(result.getClass());
             }
@@ -93,6 +109,17 @@ public class Junior_Reshape extends InventorySpell{
             result.augment = origin.augment;
             result.enchantHardened = origin.enchantHardened;
 
+            if (Random.Float() < implement.powerMultiplier(hero, this) * 0.382f) {
+                if (result.enchantment == null) {
+                    result.enchant();
+                }
+//                else if (Arrays.asList(Weapon.Enchantment.common).contains(result.enchantment.getClass())
+//                        || Arrays.asList(Weapon.Enchantment.uncommon).contains(result.enchantment.getClass())
+//                        || Arrays.asList(Weapon.Enchantment.rare).contains(result.enchantment.getClass())) {
+//                    new EX_Enchantment().onItemSelected(result);
+//                }
+            }
+
             if (result.isIdentified()){
                 Catalog.setSeen(result.getClass());
             }
@@ -120,6 +147,21 @@ public class Junior_Reshape extends InventorySpell{
             result.cursed = origin.cursed;
             result.augment = origin.augment;
             result.glyphHardened = origin.glyphHardened;
+
+            if (Random.Float() < implement.powerMultiplier(hero, this) * 0.382f) {
+                if (result.glyph == null) {
+                    result.inscribe();
+                }
+//                else if (Arrays.asList(Armor.Glyph.common).contains(result.glyph.getClass())
+//                        || Arrays.asList(Armor.Glyph.uncommon).contains(result.glyph.getClass())
+//                        || Arrays.asList(Armor.Glyph.rare).contains(result.glyph.getClass())) {
+//                    new EX_Enchantment().onItemSelected(result);
+//                }
+            }
+
+            if (result.isIdentified()){
+                Catalog.setSeen(result.getClass());
+            }
 
             Transmuting.show(hero, origin, result);
             origin.detach(hero.belongings.backpack);

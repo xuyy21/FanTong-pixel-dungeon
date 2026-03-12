@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Roc
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.BloodyRunes;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Junior_Reshape;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Proofing;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.SpinCocoon;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
@@ -420,5 +421,11 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(BloodyRunes.INSTANCE.icon(), "血祭符文",
                 "调整血祭符文的优先级，现在不受任何减伤的影响，而且造成饥饿伤害。无敌状态下使用血祭符文可以抵消这次伤害但是会立即结束无敌。"));
+
+        changes.addButton(new ChangeButton(Junior_Reshape.INSTANCE.icon(), "次级重塑",
+                "次级重塑现在生效后有概率对无附魔装备施加随机附魔。这个概率受到符术强度影响。"));
+
+        changes.addButton(new ChangeButton(Junior_Reshape.INSTANCE.icon(), "高级重塑",
+                "高级重塑现在生效后有概率对装备施加随机附魔。这个概率受到符术强度影响。"));
     }
 }

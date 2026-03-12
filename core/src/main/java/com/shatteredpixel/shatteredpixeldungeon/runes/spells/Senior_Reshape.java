@@ -78,6 +78,10 @@ public class Senior_Reshape extends InventorySpell{
             result.augment = origin.augment;
             result.enchantHardened = origin.enchantHardened;
 
+            if (Random.Float() < implement.powerMultiplier(hero, this) * 0.382f) {
+                result.enchant();
+            }
+
             if (result.isIdentified()){
                 Catalog.setSeen(result.getClass());
             }
@@ -115,6 +119,10 @@ public class Senior_Reshape extends InventorySpell{
             result.augment = origin.augment;
             result.enchantHardened = origin.enchantHardened;
 
+            if (Random.Float() < implement.powerMultiplier(hero, this) * 0.382f) {
+                result.enchant();
+            }
+
             if (result.isIdentified()){
                 Catalog.setSeen(result.getClass());
             }
@@ -151,6 +159,10 @@ public class Senior_Reshape extends InventorySpell{
             result.cursed = origin.cursed;
             result.augment = origin.augment;
             result.glyphHardened = origin.glyphHardened;
+
+            if (Random.Float() < implement.powerMultiplier(hero, this) * 0.382f) {
+                result.inscribe();
+            }
 
             Transmuting.show(hero, origin, result);
             origin.detach(hero.belongings.backpack);

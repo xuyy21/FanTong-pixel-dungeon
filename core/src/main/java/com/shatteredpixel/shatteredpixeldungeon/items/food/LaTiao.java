@@ -175,7 +175,7 @@ public class LaTiao extends Food{
                                         SpellSprite.show( Dungeon.hero, SpellSprite.FOOD );
                                         eatSFX();
                                         PotatoGun.foodCharge(Dungeon.hero, energy);
-                                        Talent.onFoodEaten(Dungeon.hero, energy, new ChangFen());
+                                        Talent.onFoodEaten(Dungeon.hero, energy, new LaTiao());
 
                                         Dungeon.hero.spendAndNext( eatingTime() );
                                         detach( Dungeon.hero.belongings.backpack );
@@ -193,7 +193,7 @@ public class LaTiao extends Food{
                 SpellSprite.show( Dungeon.hero, SpellSprite.FOOD );
                 eatSFX();
                 PotatoGun.foodCharge(Dungeon.hero, energy);
-                Talent.onFoodEaten(Dungeon.hero, energy, new ChangFen());
+                Talent.onFoodEaten(Dungeon.hero, energy, new LaTiao());
 
                 Dungeon.hero.spend( eatingTime() );
                 detach( Dungeon.hero.belongings.backpack );

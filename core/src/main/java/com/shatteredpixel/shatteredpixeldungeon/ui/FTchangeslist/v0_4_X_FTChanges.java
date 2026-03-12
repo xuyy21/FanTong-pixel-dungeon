@@ -428,5 +428,19 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(Senior_Reshape.INSTANCE.icon(), "高级重塑",
                 "高级重塑现在生效后有概率对装备施加随机附魔。这个概率受到符术强度影响。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ORANGE), "新的售货机商品",
+                "增加2个售货机商品，分别在1挑，7挑，10挑追加，这样四档商品都有3种了。\n\n" +
+                        "橘子：1挑追加，无效果，单纯的很便宜。\n\n" +
+                        "破碎的拆除符石：7挑追加，与原拆除符石效果相同。\n\n" +
+                        "戒指糖：10挑追加，提供50回合的+2戒指效果。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.MONOCLE), "神秘目镜",
+                "修改神秘目镜的效果为发现全图物品与秘密。\n\n" +
+                        "以防你不知道，神秘目镜是售货机在10挑时会出现的商品。"));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.CHOCOLATE_EGG), "巧克力蛋",
+                "现在巧克力蛋在售货机中时不能看见其中的武器奖励是什么。\n\n" +
+                        "喂，你随意刷新售货机来选武器的日子结束了。"));
     }
 }

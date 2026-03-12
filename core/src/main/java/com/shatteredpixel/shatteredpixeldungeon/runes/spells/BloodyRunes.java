@@ -24,14 +24,16 @@ public class BloodyRunes extends Spell{
         hero.busy();
         hero.sprite.operate(hero.pos);
 
-        hero.damage(10, this);
+        if (hero.buff(Invulnerability.class) != null) {
+            // avoid using invulnerability to repeat this spell costlessly
+            Buff.detach(hero, Invulnerability.class);
+        } else {
+            hero.damage(10, this);
+        }
         OverRunes buff = hero.buff(OverRunes.class);
         if (buff!=null) {
             buff.reduce(50f * implement.powerMultiplier(hero, this));
         }
-
-        // avoid using invulnerability to repeat this spell costlessly
-        Buff.detach(hero, Invulnerability.class);
 
         hero.spendAndNext(implement.delay(hero, this));
         onSpellCast(implement, hero);

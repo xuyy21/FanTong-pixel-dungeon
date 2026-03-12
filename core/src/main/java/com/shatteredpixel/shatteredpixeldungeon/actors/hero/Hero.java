@@ -170,6 +170,7 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.AbsorbDamage;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.BloodyRunes;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.ElectricTouch;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.PowerSwap;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
@@ -1663,6 +1664,11 @@ public class Hero extends Char {
 		if (this.buff(Drowsy.class) != null){
 			Buff.detach(this, Drowsy.class);
 			GLog.w( Messages.get(this, "pain_resist") );
+		}
+
+		if (src instanceof BloodyRunes && dmg > 0) {
+			super.damage( dmg, new Hunger() );
+			return;
 		}
 
 		//temporarily assign to a float to avoid rounding a bunch

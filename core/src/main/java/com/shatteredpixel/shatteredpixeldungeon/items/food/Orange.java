@@ -27,6 +27,6 @@ public class Orange extends Food{
 
     @Override
     public int value() {
-        return 4 * quantity;
+        return 3 * quantity;
     }
 }

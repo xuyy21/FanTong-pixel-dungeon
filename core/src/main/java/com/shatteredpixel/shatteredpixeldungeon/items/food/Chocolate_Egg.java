@@ -60,7 +60,7 @@ public class Chocolate_Egg extends Food{
     public String desc() {
         float foodVal = energy;
         String desc = "";
-        if (prize!=null) {
+        if (prize!=null && sold) {
             desc = Messages.get(this, "desc", prize.name());
         } else {
             desc = Messages.get(this, "desc", "??");

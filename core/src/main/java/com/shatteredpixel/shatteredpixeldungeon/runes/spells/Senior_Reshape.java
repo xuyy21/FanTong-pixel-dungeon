@@ -12,6 +12,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -32,11 +34,11 @@ public class Senior_Reshape extends InventorySpell{
         if (item.isEquipped(Dungeon.hero))
             return false;
 
-        if (item instanceof MeleeWeapon && ((MeleeWeapon)item).tier>1)
+        if (item instanceof MeleeWeapon)
             return true;
-        if (item instanceof MissileWeapon && ((MissileWeapon)item).tier>1)
+        if (item instanceof MissileWeapon)
             return true;
-        if (item instanceof Armor && ((Armor)item).tier>1)
+        if (item instanceof Armor)
             return true;
 
         return false;
@@ -50,11 +52,13 @@ public class Senior_Reshape extends InventorySpell{
 
         if (item instanceof MeleeWeapon) {
             MeleeWeapon origin = (MeleeWeapon) item;
-            MeleeWeapon result = (MeleeWeapon) Generator.randomUsingDefaults(Generator.wepTiers[origin.tier - 2]);
-            result.level(0);
-            result.quantity(1);
+            MeleeWeapon result;
             int level = origin.trueLevel();
             if (origin.enchantment!=null) {
+                result = (MeleeWeapon) Generator.randomUsingDefaults(Generator.wepTiers[origin.tier - 1]);
+                result.level(0);
+                result.quantity(1);
+
                 if (Arrays.asList(Weapon.Enchantment.curses).contains(origin.enchantment.getClass())
                     && Random.Int(2)==0)
                     level += 1;
@@ -62,6 +66,15 @@ public class Senior_Reshape extends InventorySpell{
                     level += 2;
                 else
                     level += 1;
+            } else {
+                if (origin.tier<=1) {
+                    GLog.w(Messages.get(this, "low_tier"));
+                    return;
+                }
+                result = (MeleeWeapon) Generator.randomUsingDefaults(Generator.wepTiers[origin.tier - 2]);
+                result.level(0);
+                result.quantity(1);
+                level += 1;
             }
             if (level > 0) {
                 result.upgrade( level );
@@ -87,11 +100,13 @@ public class Senior_Reshape extends InventorySpell{
             result.collect();
         } else if (item instanceof MissileWeapon) {
             MissileWeapon origin = (MissileWeapon) item;
-            MissileWeapon result = (MissileWeapon) Generator.randomUsingDefaults(Generator.misTiers[origin.tier - 2]);
-            result.level(0);
-            result.quantity(1);
+            MissileWeapon result;
             int level = origin.trueLevel();
             if (origin.enchantment!=null) {
+                result = (MissileWeapon) Generator.randomUsingDefaults(Generator.misTiers[origin.tier - 1]);
+                result.level(0);
+                result.quantity(1);
+
                 if (Arrays.asList(Weapon.Enchantment.curses).contains(origin.enchantment.getClass())
                         && Random.Int(2)==0)
                     level += 1;
@@ -99,6 +114,15 @@ public class Senior_Reshape extends InventorySpell{
                     level += 2;
                 else
                     level += 1;
+            } else {
+                if (origin.tier<=1) {
+                    GLog.w(Messages.get(this, "low_tier"));
+                    return;
+                }
+                result = (MissileWeapon) Generator.randomUsingDefaults(Generator.misTiers[origin.tier - 2]);
+                result.level(0);
+                result.quantity(1);
+                level += 1;
             }
             if (level > 0) {
                 result.upgrade( level );
@@ -124,11 +148,13 @@ public class Senior_Reshape extends InventorySpell{
             result.collect();
         } else if (item instanceof Armor) {
             Armor origin = (Armor) item;
-            Armor result = (Armor) Reflection.newInstance(Generator.Category.ARMOR.classes[origin.tier - 2]);
-            result.level(0);
-            result.quantity(1);
+            Armor result;
             int level = origin.trueLevel();
             if (origin.glyph!=null) {
+                result = (Armor) Reflection.newInstance(Generator.Category.ARMOR.classes[origin.tier - 2]);
+                result.level(0);
+                result.quantity(1);
+
                 if (Arrays.asList(Armor.Glyph.curses).contains(origin.glyph.getClass())
                         && Random.Int(2)==0)
                     level += 1;
@@ -136,6 +162,15 @@ public class Senior_Reshape extends InventorySpell{
                     level += 2;
                 else
                     level += 1;
+            } else {
+                if (origin.tier<=1) {
+                    GLog.w(Messages.get(this, "low_tier"));
+                    return;
+                }
+                result = (Armor) Reflection.newInstance(Generator.Category.ARMOR.classes[origin.tier - 2]);
+                result.level(0);
+                result.quantity(1);
+                level += 1;
             }
             if (level > 0) {
                 result.upgrade( level );

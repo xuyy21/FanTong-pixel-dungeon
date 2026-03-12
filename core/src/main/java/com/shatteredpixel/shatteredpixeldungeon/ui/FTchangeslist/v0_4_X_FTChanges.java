@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.EX_enchantments.Roc
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Proofing;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Senior_Reshape;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.SpinCocoon;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
@@ -416,5 +417,8 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(Proofing.INSTANCE.icon(), "水火不侵",
                 "金刚不坏改为水火不侵，免疫外界一切法术与元素效果，但是自身依旧可以使用魔法力量。"));
+
+        changes.addButton(new ChangeButton(Senior_Reshape.INSTANCE.icon(), "高级重塑",
+                "加强高级重塑，现在高级重塑对无附魔装备使用会降一阶并升一级，对附魔装备使用会消除附魔、升级但是不降阶。"));
     }
 }

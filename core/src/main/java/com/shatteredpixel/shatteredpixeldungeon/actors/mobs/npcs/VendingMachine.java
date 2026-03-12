@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.LaTiao;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Orange;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Popsicle;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SleepCandy;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDisarming;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -161,7 +162,8 @@ public class VendingMachine extends NPC{
         if (challenges>=7 && T3_GOODS.isEmpty()) {
             T3_GOODS.add(SleepCandy.class);
             T3_GOODS.add(LaTiao.class);
-//            Random.shuffle(T3_GOODS);
+            T3_GOODS.add(StoneOfDisarming.class);
+            Random.shuffle(T3_GOODS);
         }
         if (challenges>=10 && T4_GOODS.isEmpty()) {
             T4_GOODS.add(MagicMonocle.class);

@@ -36,12 +36,13 @@ import java.util.Collections;
 import java.util.Comparator;
 
 //for pre-v2.5.3 saves, add a conversion in v3.0 and remove entirely later
+//back to vending machine in Fantong Dungeon in V0.4.12
 public class StoneOfDisarming extends Runestone {
 	
 	private static final int DIST = 8;
 	
 	{
-		image = ItemSpriteSheet.STONE_DETECT;
+		image = ItemSpriteSheet.DISARM_STONE;
 	}
 
 	@Override

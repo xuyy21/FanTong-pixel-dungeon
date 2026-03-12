@@ -925,6 +925,7 @@ public class ItemSpriteSheet {
 	public static final int MONOCLE			= GOODS+8;
 	public static final int INS_GLOVES		= GOODS+9;
 	public static final int ORANGE			= GOODS+10;
+	public static final int DISARM_STONE	= GOODS+11;
 	static {
 		assignItemRect(CHANGFEN,		16, 12);
 		assignItemRect(CHOCOLATE_EGG,	13, 16);
@@ -937,6 +938,7 @@ public class ItemSpriteSheet {
 		assignItemRect(MONOCLE,			16, 15);
 		assignItemRect(INS_GLOVES,		16, 16);
 		assignItemRect(ORANGE,			12, 14);
+		assignItemRect(DISARM_STONE,	14, 12);
 	}
 
 	private static final int QUEST  =                                       xy(1, 30);  //16 slots

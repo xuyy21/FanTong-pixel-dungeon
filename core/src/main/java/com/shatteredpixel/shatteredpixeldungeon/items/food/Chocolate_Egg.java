@@ -53,10 +53,18 @@ public class Chocolate_Egg extends Food{
     private MeleeWeapon prize = null;
     public static final String PRIZE = "prize";
 
+    private boolean sold = false;
+    public static final String SOLD = "sold";
+
     @Override
     public String desc() {
         float foodVal = energy;
-        String desc = Messages.get(this, "desc", prize!=null ? prize.name() : "??");
+        String desc = "";
+        if (prize!=null) {
+            desc = Messages.get(this, "desc", prize.name());
+        } else {
+            desc = Messages.get(this, "desc", "??");
+        }
         desc += "\n\n" + Messages.get(Food.class, "energy", Messages.decimalFormat("#.##", foodVal));
         if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) {
             foodVal *= (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
@@ -70,6 +78,7 @@ public class Chocolate_Egg extends Food{
         super.storeInBundle(bundle);
 
         bundle.put(PRIZE, prize);
+        bundle.put(SOLD, sold);
     }
 
     @Override
@@ -77,11 +86,16 @@ public class Chocolate_Egg extends Food{
         super.restoreFromBundle(bundle);
 
         prize = (MeleeWeapon) bundle.get(PRIZE);
+        sold = bundle.getBoolean(SOLD);
     }
 
     @Override
     public int value() {
         return 10 * quantity;
+    }
+
+    public void sold() {
+        sold = true;
     }
 
     public static class Piece extends Item {
@@ -119,6 +133,7 @@ public class Chocolate_Egg extends Food{
                 hero.spend( Actor.TICK );
 
                 Chocolate_Egg egg = new Chocolate_Egg().init();
+                egg.sold();
                 if (!egg.doPickUp(hero)) {
                     Dungeon.level.drop(egg, hero.pos).sprite.drop();
                 }

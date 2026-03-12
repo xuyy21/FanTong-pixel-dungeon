@@ -194,13 +194,20 @@ public class VendingMachine extends NPC{
             goods.add(Reflection.newInstance(T4_GOODS.get(1)));
         }
 
-        // init Chocolate Egg
+        // init some goods
         for (Item i: goods) {
             if (i instanceof Chocolate_Egg)
                 ((Chocolate_Egg)i).init();
         }
 
         return goods;
+    }
+
+    protected void sold(Item item) {
+        // marked some goods while sold
+        if (item instanceof Chocolate_Egg) {
+            ((Chocolate_Egg) item).sold();
+        }
     }
 
     public String[] getOptions() {

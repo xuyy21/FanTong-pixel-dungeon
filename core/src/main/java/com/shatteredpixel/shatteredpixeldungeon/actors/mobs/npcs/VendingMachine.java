@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Chocolate_Egg;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.IcyRedTea;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Kiwi_Fruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.LaTiao;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Orange;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Popsicle;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SleepCandy;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -148,7 +149,8 @@ public class VendingMachine extends NPC{
         if (challenges>=1 && T1_GOODS.isEmpty()) {
             T1_GOODS.add(ChangFen.class);
             T1_GOODS.add(Chocolate_Egg.class);
-//            Random.shuffle(T1_GOODS);
+            T1_GOODS.add(Orange.class);
+            Random.shuffle(T1_GOODS);
         }
         if (challenges>=4 && T2_GOODS.isEmpty()) {
             T2_GOODS.add(IcyRedTea.class);

@@ -138,7 +138,7 @@ public class WaterMoon extends Armor.Glyph {
     }
 
     public static class MirrorTracker extends FlavourBuff {
-        public static final float DURATION = 20f;
+        public static final float DURATION = 30f;
 
         @Override
         public int icon() {

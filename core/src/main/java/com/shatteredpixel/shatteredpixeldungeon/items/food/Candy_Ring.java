@@ -19,7 +19,7 @@ import com.watabou.utils.Bundle;
 
 public class Candy_Ring extends Food{
     {
-        image = ItemSpriteSheet.ICYREDTEA;
+        image = ItemSpriteSheet.CANDY_RING;
         energy = Hunger.HUNGRY; //300 food value
 
         stackable = false;

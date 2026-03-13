@@ -37,6 +37,16 @@ public class RunicBoom extends TargetedSpell{
             Sample.INSTANCE.play( Assets.Sounds.BLAST );
             CellEmitter.center(target).burst(BlastParticle.FACTORY, 30);
 
+            //destroys items / triggers bombs caught in the blast.
+            Heap heap = Dungeon.level.heaps.get(target);
+            if (heap != null) {
+                heap.explode();
+            }
+            if (Dungeon.level.flamable[target]) {
+                Dungeon.level.destroy(target);
+                GameScene.updateMap(target);
+            }
+
             Char ch = Actor.findChar(target);
             if (ch!=null) {
                 //in case they have already been killed by another bomb
@@ -46,16 +56,6 @@ public class RunicBoom extends TargetedSpell{
                         ch.damage(dmg, new Bomb());
                     }
                 }
-            }
-
-            //destroys items / triggers bombs caught in the blast.
-            Heap heap = Dungeon.level.heaps.get(target);
-            if (heap != null) {
-                heap.explode();
-            }
-            if (Dungeon.level.flamable[target]) {
-                Dungeon.level.destroy(target);
-                GameScene.updateMap(target);
             }
 
             Dungeon.level.pressCell(target);

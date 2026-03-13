@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Animate_Armor;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.BloodyRunes;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Junior_Reshape;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Proofing;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.RunicBoom;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Senior_Reshape;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.SpinCocoon;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
@@ -428,6 +429,9 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(Senior_Reshape.INSTANCE.icon(), "高级重塑",
                 "高级重塑现在生效后有概率对装备施加随机附魔。这个概率受到符术强度影响。"));
+
+        changes.addButton(new ChangeButton(RunicBoom.INSTANCE.icon(), "符文爆发",
+                "调整符文爆发的代码，使其不会炸掉目标死亡后的掉落物。"));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ORANGE), "新的售货机商品",
                 "增加2个售货机商品，分别在1挑，7挑，10挑追加，这样四档商品都有3种了。\n\n" +

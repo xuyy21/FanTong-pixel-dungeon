@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
@@ -64,6 +65,9 @@ public class Candy_Ring extends Food{
     @Override
     public String desc() {
         float foodVal = energy;
+        if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+            foodVal /= 3f;
+        }
         String desc = "";
         if (ring != null && sold) {
             desc = Messages.get(this, "desc", ring.trueName());

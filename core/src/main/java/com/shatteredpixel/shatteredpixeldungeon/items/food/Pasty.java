@@ -25,6 +25,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.ROG
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -35,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
@@ -209,28 +211,39 @@ public class Pasty extends Food {
 
 	@Override
 	public String desc() {
+		String desc;
 		switch(Holiday.getCurrentHoliday()){
 			case NONE: default:
-				return super.desc();
+				desc = super.desc();
 			case LUNAR_NEW_YEAR:
-				return Messages.get(this, "fish_desc");
+				desc = Messages.get(this, "fish_desc");
 			case APRIL_FOOLS:
-				return Messages.get(this, "amulet_desc");
+				desc = Messages.get(this, "amulet_desc");
 			case EASTER:
-				return Messages.get(this, "egg_desc");
+				desc = Messages.get(this, "egg_desc");
 //			case PRIDE:
-//				return Messages.get(this, "rainbow_desc");
+//				desc = Messages.get(this, "rainbow_desc");
 			case SHATTEREDPD_BIRTHDAY:
-				return Messages.get(this, "shattered_desc");
+				desc = Messages.get(this, "shattered_desc");
 			case HALLOWEEN:
-				return Messages.get(this, "pie_desc");
+				desc = Messages.get(this, "pie_desc");
 			case PD_BIRTHDAY:
-				return Messages.get(this, "vanilla_desc");
+				desc = Messages.get(this, "vanilla_desc");
 			case WINTER_HOLIDAYS:
-				return Messages.get(this, "cane_desc");
+				desc = Messages.get(this, "cane_desc");
 			case NEW_YEARS:
-				return Messages.get(this, "sparkling_desc");
+				desc = Messages.get(this, "sparkling_desc");
 		}
+		float foodVal = energy;
+		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+			foodVal /= 3f;
+		}
+		desc += "\n\n" + Messages.get(Food.class, "energy", Messages.decimalFormat("#.##", foodVal));
+		if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) {
+			foodVal *= (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
+			desc += Messages.get(Food.class, "imagine_energy", Messages.decimalFormat("#.##", foodVal));
+		}
+		return desc;
 	}
 	
 	@Override

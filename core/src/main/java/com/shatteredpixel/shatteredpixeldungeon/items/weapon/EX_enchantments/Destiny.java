@@ -22,7 +22,7 @@ public class Destiny extends Weapon.Enchantment{
         int level = Math.max( 0, weapon.buffedLvl() );
 
         if (attacker.buff(DestinyPoints.class)!=null
-                && (Random.Float() < (attacker.buff(DestinyPoints.class).getPoints() * (5+level) * procChanceMultiplier(attacker) / 100f))) {
+                && (Random.Float() < Math.min(attacker.buff(DestinyPoints.class).getPoints() * (5+level) * procChanceMultiplier(attacker) / 100f, 0.618f))) {
 
             if (!defender.isImmune(Grim.class)) {
                 Buff.affect(defender, Grim.GrimTracker.class).maxChance = 999999f;

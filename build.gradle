@@ -14,8 +14,8 @@ allprojects {
         appName = 'Fellow Pixel Dungeon'
         appPackageName = 'com.shatteredpixel.shatteredpixeldungeon'
 
-        appVersionCode = 912
-        appVersionName = '3.3.6-based-0.4.11'
+        appVersionCode = 914
+        appVersionName = '3.3.6-based-0.4.12'
 
         appJavaCompatibility = JavaVersion.VERSION_11
 

@@ -37,18 +37,18 @@ public class MagicMonocle extends Item{
         if (action.equals( AC_USE )){
             hero.sprite.operate(hero.pos);
 //            Buff.affect(hero, Monocle.class, Monocle.DURATION);
-            for (int i = 0; i < Dungeon.level.length(); i++) {
-
-                int terr = Dungeon.level.map[i];
-                if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
-
-                    Dungeon.level.discover( i );
-
-                    if (Dungeon.level.heroFOV[i]) {
-                        GameScene.discoverTile( i, terr );
-                    }
-                }
-            }
+//            for (int i = 0; i < Dungeon.level.length(); i++) {
+//
+//                int terr = Dungeon.level.map[i];
+//                if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
+//
+//                    Dungeon.level.discover( i );
+//
+//                    if (Dungeon.level.heroFOV[i]) {
+//                        GameScene.discoverTile( i, terr );
+//                    }
+//                }
+//            }
 
             Buff.affect( hero, Awareness.class, Awareness.DURATION );
             Dungeon.observe();

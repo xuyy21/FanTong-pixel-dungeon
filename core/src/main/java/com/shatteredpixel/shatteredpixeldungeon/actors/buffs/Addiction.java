@@ -3,7 +3,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
@@ -94,7 +96,7 @@ public class Addiction extends Buff implements Hero.Doom {
                 else if (level==9) GLog.w(Messages.get(this, "severely_want"));
                 else if (level>=10) {
                     GLog.n(Messages.get(this, "attack"));
-                    level = 10;
+                    level = 7;
                     target.damage(Math.min(point*point, (int)(target.HT*0.2f)), this);
                     Buff.affect(target, Vertigo.class, 2f);
                 }
@@ -118,6 +120,23 @@ public class Addiction extends Buff implements Hero.Doom {
 
         Dungeon.fail( this );
         GLog.n( Messages.get(this, "ondeath") );
+    }
+
+    public static class Placebo extends Food {
+        {
+            image = ItemSpriteSheet.LIQUID_METAL;
+            energy = 0;
+        }
+
+        @Override
+        public void effect(Hero hero, boolean fakeEating){
+            Buff.affect(hero, Addiction.class).reduce(2);
+        }
+
+        @Override
+        public int value() {
+            return 0;
+        }
     }
 
 }

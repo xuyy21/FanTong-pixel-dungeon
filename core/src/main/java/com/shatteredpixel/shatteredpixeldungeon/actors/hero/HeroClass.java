@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Addiction;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
@@ -224,6 +225,10 @@ public enum HeroClass {
 		new ScrollOfIdentify().identify();
 
 		new Cookware().collect();
+
+		if (Dungeon.isChallenged(Challenges.NO_HEALING)) {
+			new Addiction.Placebo().collect();
+		}
 
 		if (Testing) {
 			new ScrollOfUpgrade().identify();

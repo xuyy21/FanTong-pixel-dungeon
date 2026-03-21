@@ -447,4 +447,21 @@ public class v0_4_X_FTChanges {
                 "现在巧克力蛋在售货机中时不能看见其中的武器奖励是什么。\n\n" +
                         "喂，你随意刷新售货机来选武器的日子结束了。"));
     }
+
+    public static void add_v0_4_13_Changes(ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.4.13", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+//        changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "同步破碎的像素地牢",
+//                "底层从破碎地牢3.3.5同步至破碎地牢3.3.6，改动详情请到破碎地牢改动页面查看。\n\n但是可以会导致BUG，目前尚未完全排查，请谨慎游玩，并即时汇报BUG。可以到QQ群1005329949（饭桶地牢交流群）或者870181168（萝卜地牢交流群）找“彦木”。"));
+
+        changes.addButton( new ChangeButton(Icons.get(Icons.CHALLENGE_COLOR), "削弱药剂上瘾",
+                "药剂上瘾的发作间隔增大，首次发作后会经过之前版本3倍的时间才会再次发作。\n\n" +
+                        "药剂上瘾挑战下开局额外给予一个可以减轻上瘾的安慰剂。"));
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了药剂上瘾挑战下水灵药剂只给上瘾不给效果的BUG。"));
+
+    }
 }

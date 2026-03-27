@@ -57,7 +57,7 @@ public class GuidingLight extends TargetedSpell{
 
                 Char ch = Actor.findChar( aim.collisionPos );
                 if (ch != null) {
-                    int dmg = Math.round(Random.NormalIntRange(2, 8) * implement.powerMultiplier(hero, GuidingLight.this));
+                    int dmg = Math.round(Hero.heroDamageIntRange(2, 8) * implement.powerMultiplier(hero, GuidingLight.this));
                     ch.damage(dmg, GuidingLight.this);
                     Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
                     ch.sprite.burst(0xFFFFFF44, 3);

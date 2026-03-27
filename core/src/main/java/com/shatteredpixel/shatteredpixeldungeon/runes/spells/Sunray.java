@@ -74,7 +74,7 @@ public class Sunray extends TargetedSpell{
             if (Char.hasProp(ch, Char.Property.UNDEAD) || Char.hasProp(ch, Char.Property.DEMONIC)){
                     ch.damage(max_dmg, Sunray.this);
             } else {
-                ch.damage(Random.NormalIntRange(min_dmg, max_dmg), Sunray.this);
+                ch.damage(Hero.heroDamageIntRange(min_dmg, max_dmg), Sunray.this);
             }
 
             if (ch.isAlive()) {

@@ -63,6 +63,7 @@ public class RunicLance extends TargetedSpell{
             public void call() {
                 int cell = beam.path.get(Math.min(beam.dist, 3));
                 hero.sprite.parent.add(new Beam.LightRay(hero.sprite.center(), DungeonTilemap.raisedTileCenterToWorld( cell )));
+                Sample.INSTANCE.play( Assets.Sounds.RAY );
                 Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.8f, 1f) );
 
                 for (Char ch : chars){

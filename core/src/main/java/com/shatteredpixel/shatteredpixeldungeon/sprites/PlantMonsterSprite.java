@@ -167,6 +167,7 @@ public abstract class PlantMonsterSprite extends MobSprite{
             Sample.INSTANCE.play( Assets.Sounds.ZAP );
 
             parent.add( new Beam.LightRay(center(), DungeonTilemap.raisedTileCenterToWorld(cell)));
+            Sample.INSTANCE.play( Assets.Sounds.RAY );
         }
     }
 }

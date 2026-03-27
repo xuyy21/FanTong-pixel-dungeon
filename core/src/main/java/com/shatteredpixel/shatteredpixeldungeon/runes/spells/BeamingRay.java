@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.runes.spells;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -21,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 
@@ -113,6 +115,7 @@ public class BeamingRay extends TargetedSpell{
             hero.buff(Stasis.StasisBuff.class).detach();
             hero.sprite.parent.add(
                     new Beam.SunRay(hero.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(telePos)));
+            Sample.INSTANCE.play( Assets.Sounds.RAY );
 
             if (ally.buff(LifeLink.class) != null){
                 Buff.prolong(Dungeon.hero, LifeLink.class, ally.buff(LifeLink.class).cooldown()).object = ally.id();
@@ -120,6 +123,7 @@ public class BeamingRay extends TargetedSpell{
         } else {
             hero.sprite.parent.add(
                     new Beam.SunRay(ally.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(telePos)));
+            Sample.INSTANCE.play( Assets.Sounds.RAY );
         }
 
         hero.sprite.zap(telePos);

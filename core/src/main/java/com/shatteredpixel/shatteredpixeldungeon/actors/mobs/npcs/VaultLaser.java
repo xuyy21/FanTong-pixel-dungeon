@@ -80,6 +80,7 @@ public class VaultLaser extends NPC {
 			}
 			if (visible){
 				sprite.parent.add(new Beam.DeathRay(sprite.center(), DungeonTilemap.raisedTileCenterToWorld(beam.collisionPos)));
+				Sample.INSTANCE.play( Assets.Sounds.RAY );
 				if (SFXLastPlayed+80 < ShatteredPixelDungeon.realTime) {
 					Sample.INSTANCE.play(Assets.Sounds.RAY, 0.5f);
 					SFXLastPlayed = ShatteredPixelDungeon.realTime;

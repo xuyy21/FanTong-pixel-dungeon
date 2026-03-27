@@ -386,8 +386,10 @@ public class SentryRoom extends SpecialRoom {
 			emitter().burst(MagicMissile.WardParticle.UP, 2);
 			if (Actor.findChar(pos) != null){
 				parent.add(new Beam.DeathRay(center(), Actor.findChar(pos).sprite.center()));
+				Sample.INSTANCE.play( Assets.Sounds.RAY );
 			} else {
 				parent.add(new Beam.DeathRay(center(), DungeonTilemap.raisedTileCenterToWorld(pos)));
+				Sample.INSTANCE.play( Assets.Sounds.RAY );
 			}
 			((Sentry)ch).onZapComplete();
 		}

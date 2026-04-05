@@ -215,22 +215,30 @@ public class Pasty extends Food {
 		switch(Holiday.getCurrentHoliday()){
 			case NONE: default:
 				desc = super.desc();
+				break;
 			case LUNAR_NEW_YEAR:
 				desc = Messages.get(this, "fish_desc");
+				break;
 			case APRIL_FOOLS:
 				desc = Messages.get(this, "amulet_desc");
+				break;
 			case EASTER:
 				desc = Messages.get(this, "egg_desc");
+				break;
 //			case PRIDE:
 //				desc = Messages.get(this, "rainbow_desc");
 			case SHATTEREDPD_BIRTHDAY:
 				desc = Messages.get(this, "shattered_desc");
+				break;
 			case HALLOWEEN:
 				desc = Messages.get(this, "pie_desc");
+				break;
 			case PD_BIRTHDAY:
 				desc = Messages.get(this, "vanilla_desc");
+				break;
 			case WINTER_HOLIDAYS:
 				desc = Messages.get(this, "cane_desc");
+				break;
 			case NEW_YEARS:
 				desc = Messages.get(this, "sparkling_desc");
 		}

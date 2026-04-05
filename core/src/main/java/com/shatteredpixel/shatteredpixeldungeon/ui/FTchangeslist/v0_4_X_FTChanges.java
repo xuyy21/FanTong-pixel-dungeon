@@ -457,15 +457,13 @@ public class v0_4_X_FTChanges {
         changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "同步破碎的像素地牢",
                 "底层从破碎地牢3.3.6同步至破碎地牢3.3.8，改动详情请到破碎地牢改动页面查看。\n\n_特别提醒!!!_我没有同步对死灵法师的改动、语言文件的更新以及Android依赖项的更新。所以，现在的死灵法师召唤逻辑与v3.3.6保持一致，一些文本的用词会与v3.3.8的破碎不同，可能会因为Android依赖项未更新导致一些BUG（也可能不会）。\n\n请即时汇报BUG。可以到QQ群1005329949（饭桶地牢交流群）或者870181168（萝卜地牢交流群）找“彦木”。"));
 
-        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
-                "修复了节日食物文本显示错误的BUG。"));
-
         changes.addButton( new ChangeButton(Icons.get(Icons.CHALLENGE_COLOR), "削弱药剂上瘾",
                 "药剂上瘾的发作间隔增大，首次发作后会经过之前版本3倍的时间才会再次发作。\n\n" +
                         "药剂上瘾挑战下开局额外给予一个可以减轻上瘾的安慰剂。"));
 
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
-                "修复了药剂上瘾挑战下水灵药剂只给上瘾不给效果的BUG。"));
+                "修复了药剂上瘾挑战下水灵药剂只给上瘾不给效果的BUG。\n\n" +
+                        "修复了节日食物文本显示错误的BUG。"));
 
     }
 }

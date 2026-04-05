@@ -465,5 +465,9 @@ public class v0_4_X_FTChanges {
                 "修复了药剂上瘾挑战下水灵药剂只给上瘾不给效果的BUG。\n\n" +
                         "修复了节日食物文本显示错误的BUG。"));
 
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.MANDRAKE_LIQUOR), "曼德拉药酒",
+                "曼德拉药酒的效果被调整。\n\n" +
+                        "当英雄的力量小于等于17时，曼德拉药酒给予力量提升与祝福，而当英雄的力量大于17时，改为给予激素涌动与祝福。"));
+
     }
 }

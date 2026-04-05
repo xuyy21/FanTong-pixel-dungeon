@@ -32,7 +32,11 @@ public class Mandrake_liquor extends Food{
     public void effect(Hero hero, boolean fakeEating) {
         GLog.i( Messages.get(Mandrake_liquor.class, "effect") );
         Buff.affect( hero, Bless.class, 30f );
-        Buff.affect( hero, AdrenalineSurge.class ).reset(1, 30f);
+        if (hero.STR() <= 17) {
+            Buff.affect( hero, AdrenalineSurge.class ).reset(1, 30f);
+        } else {
+            Buff.affect( hero, Adrenaline.class, 30f);
+        }
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

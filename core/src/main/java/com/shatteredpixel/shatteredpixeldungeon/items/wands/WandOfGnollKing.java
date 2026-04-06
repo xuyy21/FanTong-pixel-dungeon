@@ -71,17 +71,17 @@ public class WandOfGnollKing extends DamageWand{
 
     @Override
     public String upgradeStat1(int level) {
-        return min(level()) + "-" + max(level());
+        return min(level) + "-" + max(level);
     }
 
     @Override
     public String upgradeStat2(int level) {
-        return 2*level() + "-" + (5 + 4*level());
+        return 2*level + "-" + (5 + 4*level);
     }
 
     @Override
     public String upgradeStat3(int level) {
-        return Messages.decimalFormat("#.##", gnollNumLimit(level()));
+        return Messages.decimalFormat("#.##", gnollNumLimit(level));
     }
 
     @Override

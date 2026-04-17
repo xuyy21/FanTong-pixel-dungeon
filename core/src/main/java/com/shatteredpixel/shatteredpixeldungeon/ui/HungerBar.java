@@ -61,7 +61,7 @@ public class HungerBar extends Component {
         hungerText.y = bar.y + WIDTH + 1;
         PixelScene.align(hungerText);
 
-        hungerIcon.setRect(bar.x+1, bar.y, 13, 13);
+        hungerIcon.setRect(bar.x-1, bar.y, 13, 13);
     }
 
     @Override

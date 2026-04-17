@@ -58,8 +58,10 @@ public class HeavenEye extends TargetedSpell{
         } else {
             Eye eye = null;
             for (Mob m: Dungeon.level.mobs) {
-                if (m instanceof Eye) eye = (Eye) m;
-                break;
+                if (m instanceof Eye) {
+                    eye = (Eye) m;
+                    break;
+                }
             }
 
             onSpellCast(implement, hero);

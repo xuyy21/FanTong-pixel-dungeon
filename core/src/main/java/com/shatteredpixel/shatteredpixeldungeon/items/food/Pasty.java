@@ -242,14 +242,16 @@ public class Pasty extends Food {
 			case NEW_YEARS:
 				desc = Messages.get(this, "sparkling_desc");
 		}
-		float foodVal = energy;
-		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
-			foodVal /= 3f;
-		}
-		desc += "\n\n" + Messages.get(Food.class, "energy", Messages.decimalFormat("#.##", foodVal));
-		if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) {
-			foodVal *= (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
-			desc += Messages.get(Food.class, "imagine_energy", Messages.decimalFormat("#.##", foodVal));
+		if (Holiday.getCurrentHoliday()!= Holiday.NONE) {
+			float foodVal = energy;
+			if (Dungeon.isChallenged(Challenges.NO_FOOD)) {
+				foodVal /= 3f;
+			}
+			desc += "\n\n" + Messages.get(Food.class, "energy", Messages.decimalFormat("#.##", foodVal));
+			if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.FAKE_EATING) && canFakeEat) {
+				foodVal *= (9f - Dungeon.hero.pointsInTalent(Talent.FAKE_EATING)) / 10f;
+				desc += Messages.get(Food.class, "imagine_energy", Messages.decimalFormat("#.##", foodVal));
+			}
 		}
 		return desc;
 	}

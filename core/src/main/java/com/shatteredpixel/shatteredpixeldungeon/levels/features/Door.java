@@ -29,12 +29,18 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 
 public class Door {
 
 	public static void enter( int pos ) {
 		Level.set( pos, Terrain.OPEN_DOOR );
 		GameScene.updateMap( pos );
+
+//		for (int i: PathFinder.NEIGHBOURS4) {
+//			if (Dungeon.level.map[pos+i] == Terrain.DOOR)
+//				Level.set( pos, Terrain.OPEN_DOOR );
+//		}
 
 		if (Dungeon.level.heroFOV[pos]) {
 			Dungeon.observe();
@@ -52,6 +58,10 @@ public class Door {
 		//door does not shut if anything else is also on it
 		if (Dungeon.level.heaps.get( pos ) == null && chars <= 1) {
 			Level.set( pos, Terrain.DOOR );
+//			for (int i: PathFinder.NEIGHBOURS4) {
+//				if (Dungeon.level.map[pos+i] == Terrain.OPEN_DOOR)
+//					Level.set( pos, Terrain.DOOR );
+//			}
 			GameScene.updateMap( pos );
 			if (Dungeon.level.heroFOV[pos])
 				Dungeon.observe();

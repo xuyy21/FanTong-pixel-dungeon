@@ -179,6 +179,11 @@ public abstract class RegularPainter extends Painter {
 				
 				r.connected.put( n, door );
 				n.connected.put( r, door );
+
+//				Room.Door door2 = new Room.Door(Random.element(doorSpots));
+//				if (door.type==Room.Door.Type.UNLOCKED && !door.equals(door2)) {
+//					r.connected.put( n, door2 );
+//				}
 			}
 		}
 	}

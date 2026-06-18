@@ -153,9 +153,11 @@ public class SpiritBow extends Weapon {
 						KindOfWeapon wep = hero.belongings.weapon();
 						if (defender.alignment!=Char.Alignment.ALLY) {
 							damage += wep.damageRoll(hero);
+							Arrow.set_cooldown(Arrow.ArmedCooldown, defender.pos);
 						}
 						else {
 							Buff.affect(defender, Arrow.ArmedArrowBuff.class, Arrow.ArmedArrowBuff.DURATION).set(wep.min(), wep.max());
+							Arrow.set_cooldown(Arrow.ArmedCooldown, defender.pos);
 						}
 					}
 					break;
@@ -213,6 +215,8 @@ public class SpiritBow extends Weapon {
 								Buff.append(attacker, TalismanOfForesight.CharAwareness.class, 5f).charID = defender.id();
 							}
 						}
+
+						Arrow.set_cooldown(Arrow.TeleportCooldown, defender.pos);
 					}
 					break;
 				case SHOCKING:
@@ -224,6 +228,7 @@ public class SpiritBow extends Weapon {
 					}
 					defender.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 					Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
+					Arrow.set_cooldown(Arrow.ShockingCooldown, defender.pos);
 					break;
 			}
 		}
@@ -586,6 +591,7 @@ public class SpiritBow extends Weapon {
 					for (int i : PathFinder.NEIGHBOURS9) {
 						if (!Dungeon.level.solid[cell + i]) {
 							GameScene.add(Blob.seed(cell + i, 2, Electricity.class));
+							Arrow.set_cooldown(Arrow.ShockingCooldown, cell);
 						}
 					}
 				}

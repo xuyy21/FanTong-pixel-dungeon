@@ -148,6 +148,9 @@ public class SpiritBow extends Weapon {
 			Hero hero = (Hero)attacker;
 			switch (Arrow.arrowType(hero)) {
 				case ORDINARY: default:
+					if (hero.pointsInTalent(Talent.FLETCH_TECH)>=3 && hero.belongings.weapon()!=null) {
+						hero.belongings.weapon().proc(hero, defender, damage);
+					}
 					break;
 				case ARMED:
 					if (hero.belongings.weapon()!=null) {

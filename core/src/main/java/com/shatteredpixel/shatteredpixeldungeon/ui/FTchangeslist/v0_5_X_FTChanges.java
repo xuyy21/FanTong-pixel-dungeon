@@ -25,7 +25,8 @@ public class v0_5_X_FTChanges {
 
         changes.addButton( new ChangeButton(new Image(new HeroIcon(HeroSubClass.FLETCHER)), "制箭师",
                 "女猎的第三转职_制箭师_现已推出！\n\n" +
-                        "这个子职可以使用三种特殊箭矢，并且被设计为可以从对近战武器的升级中受益。"));
+                        "这个子职可以使用三种特殊箭矢，并且被设计为可以从对近战武器的升级中受益。\n\n" +
+                        "测试中，天赋_箭匠秘方_预期给予的食谱均未实装"));
 
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "修复了天堂之眼重复召唤的BUG。"));

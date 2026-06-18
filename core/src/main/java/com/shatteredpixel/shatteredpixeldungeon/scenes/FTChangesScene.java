@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist.v0_3_X_FTChanges;
 import com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist.v0_4_X_FTChanges;
+import com.shatteredpixel.shatteredpixeldungeon.ui.FTchangeslist.v0_5_X_FTChanges;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
@@ -118,15 +119,18 @@ public class FTChangesScene extends PixelScene {
 
         switch (changesSelected){
             case 0: default:
-                v0_4_X_FTChanges.addAllChanges(changeInfos);
+                v0_5_X_FTChanges.addAllChanges(changeInfos);
                 break;
             case 1:
-                v0_3_X_FTChanges.addAllChanges(changeInfos);
+                v0_4_X_FTChanges.addAllChanges(changeInfos);
                 break;
             case 2:
-                v0_2_X_FTChanges.addAllChanges(changeInfos);
+                v0_3_X_FTChanges.addAllChanges(changeInfos);
                 break;
             case 3:
+                v0_2_X_FTChanges.addAllChanges(changeInfos);
+                break;
+            case 4:
                 v0_1_X_FTChanges.addAllChanges(changeInfos);
                 break;
         }
@@ -183,7 +187,7 @@ public class FTChangesScene extends PixelScene {
                 panel.innerHeight() + 2);
         list.scrollTo(0, 0);
 
-        StyledButton btn0_4_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.4.X"){
+        StyledButton btn0_5_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.5.X"){
             @Override
             protected void onClick() {
                 super.onClick();
@@ -193,11 +197,11 @@ public class FTChangesScene extends PixelScene {
                 }
             }
         };
-        if (changesSelected != 0) btn0_4_X.textColor( 0xBBBBBB );
-        btn0_4_X.setRect(list.left(), list.bottom(), 21, changesSelected == 0 ? 19 : 15);
-        addToBack(btn0_4_X);
+        if (changesSelected != 0) btn0_5_X.textColor( 0xBBBBBB );
+        btn0_5_X.setRect(list.left(), list.bottom(), 21, changesSelected == 0 ? 19 : 15);
+        addToBack(btn0_5_X);
 
-        StyledButton btn0_3_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.3.X"){
+        StyledButton btn0_4_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.4.X"){
             @Override
             protected void onClick() {
                 super.onClick();
@@ -207,11 +211,11 @@ public class FTChangesScene extends PixelScene {
                 }
             }
         };
-        if (changesSelected != 1) btn0_3_X.textColor( 0xBBBBBB );
-        btn0_3_X.setRect(btn0_4_X.right()-2, list.bottom(), 21, changesSelected == 1 ? 19 : 15);
-        addToBack(btn0_3_X);
+        if (changesSelected != 1) btn0_4_X.textColor( 0xBBBBBB );
+        btn0_4_X.setRect(btn0_5_X.right()-2, list.bottom(), 21, changesSelected == 1 ? 19 : 15);
+        addToBack(btn0_4_X);
 
-        StyledButton btn0_2_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.2.X"){
+        StyledButton btn0_3_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.3.X"){
             @Override
             protected void onClick() {
                 super.onClick();
@@ -221,11 +225,11 @@ public class FTChangesScene extends PixelScene {
                 }
             }
         };
-        if (changesSelected != 2) btn0_2_X.textColor( 0xBBBBBB );
-        btn0_2_X.setRect(btn0_3_X.right()-2, list.bottom(), 21, changesSelected == 2 ? 19 : 15);
-        addToBack(btn0_2_X);
+        if (changesSelected != 2) btn0_3_X.textColor( 0xBBBBBB );
+        btn0_3_X.setRect(btn0_4_X.right()-2, list.bottom(), 21, changesSelected == 2 ? 19 : 15);
+        addToBack(btn0_3_X);
 
-        StyledButton btn0_1_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.1.X"){
+        StyledButton btn0_2_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.2.X"){
             @Override
             protected void onClick() {
                 super.onClick();
@@ -235,8 +239,22 @@ public class FTChangesScene extends PixelScene {
                 }
             }
         };
-        if (changesSelected != 3) btn0_1_X.textColor( 0xBBBBBB );
-        btn0_1_X.setRect(btn0_2_X.right()-2, list.bottom(), 21, changesSelected == 3 ? 19 : 15);
+        if (changesSelected != 3) btn0_2_X.textColor( 0xBBBBBB );
+        btn0_2_X.setRect(btn0_3_X.right()-2, list.bottom(), 21, changesSelected == 3 ? 19 : 15);
+        addToBack(btn0_2_X);
+
+        StyledButton btn0_1_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.1.X"){
+            @Override
+            protected void onClick() {
+                super.onClick();
+                if (changesSelected != 4) {
+                    changesSelected = 4;
+                    ShatteredPixelDungeon.seamlessResetScene();
+                }
+            }
+        };
+        if (changesSelected != 4) btn0_1_X.textColor( 0xBBBBBB );
+        btn0_1_X.setRect(btn0_2_X.right()-2, list.bottom(), 21, changesSelected == 4 ? 19 : 15);
         addToBack(btn0_1_X);
 
         Archs archs = new Archs();

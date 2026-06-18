@@ -463,7 +463,8 @@ public class v0_4_X_FTChanges {
 
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "修复了药剂上瘾挑战下水灵药剂只给上瘾不给效果的BUG。\n\n" +
-                        "修复了节日食物文本显示错误的BUG。"));
+                        "修复了节日食物文本显示错误的BUG。\n\n" +
+                        "修复了王权法杖的升级预览文本显示的BUG。"));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.MANDRAKE_LIQUOR), "曼德拉药酒",
                 "曼德拉药酒的效果被调整。\n\n" +

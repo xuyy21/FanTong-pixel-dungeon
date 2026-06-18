@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SacrificialFire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SmokeScreen;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Web;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WellWater;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Arrow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -1281,6 +1282,8 @@ public abstract class Level implements Bundlable {
 		if (hard && Blob.volumeAt(cell, Web.class) > 0){
 			blobs.get(Web.class).clear(cell);
 		}
+
+		Arrow.checkCellTrigger(cell);
 	}
 
 	private static boolean[] heroMindFov;

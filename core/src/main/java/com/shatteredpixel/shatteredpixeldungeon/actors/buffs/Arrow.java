@@ -466,6 +466,7 @@ public class Arrow extends Buff implements ActionIndicator.Action{
             if (defender == Dungeon.hero) {
                 Dungeon.observe();
                 GameScene.updateFog();
+                Dungeon.hero.interrupt();
             } else if (!Dungeon.level.heroFOV[chosenPos]) {
                 Buff.append(attacker, TalismanOfForesight.CharAwareness.class, 5f).charID = defender.id();
             }
@@ -539,6 +540,7 @@ public class Arrow extends Buff implements ActionIndicator.Action{
             if (defender == Dungeon.hero) {
                 Dungeon.observe();
                 GameScene.updateFog();
+                Dungeon.hero.interrupt();
             } else if (!Dungeon.level.heroFOV[chosenPos]) {
                 Buff.append(attacker, TalismanOfForesight.CharAwareness.class, 5f).charID = defender.id();
             }
@@ -546,5 +548,50 @@ public class Arrow extends Buff implements ActionIndicator.Action{
             Arrow.set_cooldown(Arrow.TeleportCooldown, -1);
             return true;
         } else return false;
+    }
+
+    public static boolean checkCellTrigger(int cell) {
+        Arrow arrow = Dungeon.hero.buff(Arrow.class);
+        if (arrow == null) return false;
+
+        boolean triggered = false;
+        Char ch = Actor.findChar(cell);
+
+        if (ch == null) return false;
+
+        // 检查第一个传送标记
+        if (arrow.first_arrowType == ArrowType.TELEPORT
+                && arrow.first_pos == cell
+                && arrow.first_depth == Dungeon.depth
+                && arrow.first_branch == Dungeon.branch) {
+
+            arrow.first_pos = -1;
+            if (arrow.e1 != null) arrow.e1.on = false;
+
+            if(!attrackedTeleport(Dungeon.hero, ch)) {
+                randomTeleport(Dungeon.hero, ch);
+            } else {
+                // 不知道为什么两个标记间传送时会出现粒子特效有一个不关闭的问题，所以这里手冻关闭
+                if (arrow.e2 != null) arrow.e2.on = false;
+            }
+        }
+
+        // 检查第二个传送标记
+        if (arrow.second_arrowType == ArrowType.TELEPORT
+                && arrow.second_pos == cell
+                && arrow.second_depth == Dungeon.depth
+                && arrow.second_branch == Dungeon.branch) {
+
+            arrow.second_pos = -1;
+            if (arrow.e2 != null) arrow.e2.on = false;
+
+            if(!attrackedTeleport(Dungeon.hero, ch)) {
+                randomTeleport(Dungeon.hero, ch);
+            } else {
+                if (arrow.e1 != null) arrow.e1.on = false;
+            }
+        }
+
+        return triggered;
     }
 }

@@ -1,16 +1,30 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Swap_Between;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.particles.Emitter;
+import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Arrow extends Buff implements ActionIndicator.Action{
 
@@ -94,6 +108,7 @@ public class Arrow extends Buff implements ActionIndicator.Action{
             first_cooldown -= TICK;
             if (first_cooldown <= 0) {
                 first_arrowType = ArrowType.ORDINARY;
+                if (e1 != null) e1.on = false;
             }
         }
 
@@ -101,6 +116,7 @@ public class Arrow extends Buff implements ActionIndicator.Action{
             second_cooldown -= TICK;
             if (second_cooldown <= 0) {
                 second_arrowType = ArrowType.ORDINARY;
+                if (e2 != null) e2.on = false;
             }
         }
 
@@ -138,6 +154,43 @@ public class Arrow extends Buff implements ActionIndicator.Action{
             return true;
         } else {
             return false;
+        }
+    }
+
+    Emitter e1;
+    Emitter e2;
+
+    public void set_teleport_emitter() {
+        if (first_arrowType==ArrowType.TELEPORT && second_arrowType==ArrowType.TELEPORT  && first_pos>=0 && second_pos>=0) {
+            if (first_depth==second_depth && first_branch==second_branch && first_pos==second_pos) {
+                second_arrowType = ArrowType.ORDINARY;
+                first_cooldown = Math.min(first_cooldown, second_cooldown);
+            }
+        }
+
+        if (first_arrowType==ArrowType.TELEPORT && first_depth==Dungeon.depth && first_branch==Dungeon.branch && first_pos>=0) {
+            e1 = CellEmitter.center(first_pos);
+            e1.on = true;
+            e1.pour(MagicMissile.WardParticle.UP, 0.05f);
+        }
+        if (second_arrowType==ArrowType.TELEPORT && second_depth==Dungeon.depth && second_branch==Dungeon.branch && second_pos>=0) {
+            e2 = CellEmitter.center(second_pos);
+            e2.on = true;
+            e2.pour(MagicMissile.WardParticle.UP, 0.05f);
+        }
+    }
+
+    @Override
+    public void fx(boolean on) {
+        if (on) {
+            if (first_arrowType==ArrowType.TELEPORT && first_depth==Dungeon.depth && first_branch==Dungeon.branch && first_pos>=0) {
+                e1 = CellEmitter.center(first_pos);
+                e1.pour(MagicMissile.WardParticle.UP, 0.05f);
+            } else if (e1 != null) e1.on = false;
+            if (second_arrowType==ArrowType.TELEPORT && second_depth==Dungeon.depth && second_branch==Dungeon.branch && second_pos>=0) {
+                e2 = CellEmitter.center(second_pos);
+                e2.pour(MagicMissile.WardParticle.UP, 0.05f);
+            } else if (e2 != null) e2.on = false;
         }
     }
 
@@ -362,5 +415,136 @@ public class Arrow extends Buff implements ActionIndicator.Action{
         public String desc() {
             return Messages.get(this, "desc", dmgMin, dmgMax, dispTurns());
         }
+    }
+
+    public static void randomTeleport(Char attacker, Char defender) {
+        //attempts to teleport the enemy to a position 8-10 cells away from the hero
+        //prioritizes the closest visible cell to the defender, or closest non-visible if no visible are present
+        //grants vision on the defender if teleport goes to non-visible
+        ArrayList<Integer> visiblePositions = new ArrayList<>();
+        ArrayList<Integer> nonVisiblePositions = new ArrayList<>();
+
+        PathFinder.buildDistanceMap(defender.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
+
+        for (int pos = 0; pos < Dungeon.level.length(); pos++) {
+            if (Dungeon.level.passable[pos]
+                    && PathFinder.distance[pos] >= 8
+                    && PathFinder.distance[pos] <= 10
+                    && (!Char.hasProp(defender, Char.Property.LARGE) || Dungeon.level.openSpace[pos])
+                    && Actor.findChar(pos) == null) {
+
+                if (Dungeon.level.heroFOV[pos]) {
+                    visiblePositions.add(pos);
+                } else {
+                    nonVisiblePositions.add(pos);
+                }
+
+            }
+        }
+
+        int chosenPos = -1;
+
+        if (!visiblePositions.isEmpty()) {
+            for (int pos : visiblePositions) {
+                if (chosenPos == -1 || Dungeon.level.trueDistance(defender.pos, chosenPos)
+                        > Dungeon.level.trueDistance(defender.pos, pos)) {
+                    chosenPos = pos;
+                }
+            }
+        } else {
+            for (int pos : nonVisiblePositions) {
+                if (chosenPos == -1 || Dungeon.level.trueDistance(defender.pos, chosenPos)
+                        > Dungeon.level.trueDistance(defender.pos, pos)) {
+                    chosenPos = pos;
+                }
+            }
+        }
+
+        if (chosenPos != -1) {
+            ScrollOfTeleportation.appear(defender, chosenPos);
+            Dungeon.level.occupyCell(defender);
+            if (defender == Dungeon.hero) {
+                Dungeon.observe();
+                GameScene.updateFog();
+            } else if (!Dungeon.level.heroFOV[chosenPos]) {
+                Buff.append(attacker, TalismanOfForesight.CharAwareness.class, 5f).charID = defender.id();
+            }
+        }
+
+        Arrow.set_cooldown(Arrow.TeleportCooldown, -1);
+    }
+
+    public static float teleportDistance(Char ch, int pos, int depth, int branch) {
+        if (ch==null || pos<0) {
+            return -1;
+        }
+
+        if (!Dungeon.level.passable[pos] || Actor.findChar(pos) != null) {
+            return -1;
+        }
+
+        PathFinder.buildDistanceMap(ch.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
+        if (PathFinder.distance[pos] == Integer.MAX_VALUE) {
+            return -1;
+        }
+
+        if (depth!=Dungeon.depth || branch!=Dungeon.branch) {
+            return -1;
+        }
+
+        return Dungeon.level.trueDistance(ch.pos, pos);
+    }
+    public static boolean attrackedTeleport(Char attacker, Char defender) {
+        Arrow arrow = attacker.buff(Arrow.class);
+        if (arrow==null) return false;
+
+        int chosenPos = -1;
+
+        float distance1 = -1;
+        float distance2 = -1;
+
+        if (arrow.first_arrowType==Arrow.ArrowType.TELEPORT && arrow.first_pos>=0) {
+            distance1 = teleportDistance(defender, arrow.first_pos, arrow.first_depth, arrow.first_branch);
+        }
+
+        if (arrow.second_arrowType==Arrow.ArrowType.TELEPORT && arrow.second_pos>=0) {
+            distance2 = teleportDistance(defender, arrow.second_pos, arrow.second_depth, arrow.second_branch);
+        }
+
+        if (distance1>0) {
+            if (distance2>0) {
+                if (distance1<distance2) {
+                    chosenPos = arrow.first_pos;
+                    arrow.first_pos = -1;
+                    arrow.e1.on = false;
+                } else {
+                    chosenPos = arrow.second_pos;
+                    arrow.second_pos = -1;
+                    arrow.e2.on = false;
+                }
+            } else {
+                chosenPos = arrow.first_pos;
+                arrow.first_pos = -1;
+                arrow.e1.on = false;
+            }
+        } else if (distance2>0) {
+            chosenPos = arrow.second_pos;
+            arrow.second_pos = -1;
+            arrow.e2.on = false;
+        }
+
+        if (chosenPos!=-1){
+            ScrollOfTeleportation.appear(defender, chosenPos);
+            Dungeon.level.occupyCell(defender);
+            if (defender == Dungeon.hero) {
+                Dungeon.observe();
+                GameScene.updateFog();
+            } else if (!Dungeon.level.heroFOV[chosenPos]) {
+                Buff.append(attacker, TalismanOfForesight.CharAwareness.class, 5f).charID = defender.id();
+            }
+
+            Arrow.set_cooldown(Arrow.TeleportCooldown, -1);
+            return true;
+        } else return false;
     }
 }

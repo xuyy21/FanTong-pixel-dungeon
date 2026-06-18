@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.BArray;
@@ -153,70 +154,18 @@ public class SpiritBow extends Weapon {
 						KindOfWeapon wep = hero.belongings.weapon();
 						if (defender.alignment!=Char.Alignment.ALLY) {
 							damage += wep.damageRoll(hero);
-							Arrow.set_cooldown(Arrow.ArmedCooldown, defender.pos);
+							Arrow.set_cooldown(Arrow.ArmedCooldown, -1);
 						}
 						else {
 							Buff.affect(defender, Arrow.ArmedArrowBuff.class, Arrow.ArmedArrowBuff.DURATION).set(wep.min(), wep.max());
-							Arrow.set_cooldown(Arrow.ArmedCooldown, defender.pos);
+							Arrow.set_cooldown(Arrow.ArmedCooldown, -1);
 						}
 					}
 					break;
 				case TELEPORT:
-					//attempts to teleport the enemy to a position 8-10 cells away from the hero
-					//prioritizes the closest visible cell to the defender, or closest non-visible if no visible are present
-					//grants vision on the defender if teleport goes to non-visible
 					if (!defender.properties().contains(Char.Property.IMMOVABLE)) {
-						ArrayList<Integer> visiblePositions = new ArrayList<>();
-						ArrayList<Integer> nonVisiblePositions = new ArrayList<>();
-
-						PathFinder.buildDistanceMap(attacker.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
-
-						for (int pos = 0; pos < Dungeon.level.length(); pos++){
-							if (Dungeon.level.passable[pos]
-									&& PathFinder.distance[pos] >= 8
-									&& PathFinder.distance[pos] <= 10
-									&& (!Char.hasProp(defender, Char.Property.LARGE) || Dungeon.level.openSpace[pos])
-									&& Actor.findChar(pos) == null){
-
-								if (Dungeon.level.heroFOV[pos]){
-									visiblePositions.add(pos);
-								} else {
-									nonVisiblePositions.add(pos);
-								}
-
-							}
-						}
-
-						int chosenPos = -1;
-
-						if (!visiblePositions.isEmpty()) {
-							for (int pos : visiblePositions) {
-								if (chosenPos == -1 || Dungeon.level.trueDistance(defender.pos, chosenPos)
-										> Dungeon.level.trueDistance(defender.pos, pos)){
-									chosenPos = pos;
-								}
-							}
-						} else {
-							for (int pos : nonVisiblePositions) {
-								if (chosenPos == -1 || Dungeon.level.trueDistance(defender.pos, chosenPos)
-										> Dungeon.level.trueDistance(defender.pos, pos)){
-									chosenPos = pos;
-								}
-							}
-						}
-
-						if (chosenPos != -1){
-							ScrollOfTeleportation.appear( defender, chosenPos );
-							Dungeon.level.occupyCell(defender );
-							if (defender == Dungeon.hero){
-								Dungeon.observe();
-								GameScene.updateFog();
-							} else if (!Dungeon.level.heroFOV[chosenPos]){
-								Buff.append(attacker, TalismanOfForesight.CharAwareness.class, 5f).charID = defender.id();
-							}
-						}
-
-						Arrow.set_cooldown(Arrow.TeleportCooldown, defender.pos);
+						if (!Arrow.attrackedTeleport(attacker, defender))
+							Arrow.randomTeleport(attacker, defender);
 					}
 					break;
 				case SHOCKING:
@@ -228,7 +177,7 @@ public class SpiritBow extends Weapon {
 					}
 					defender.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 					Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
-					Arrow.set_cooldown(Arrow.ShockingCooldown, defender.pos);
+					Arrow.set_cooldown(Arrow.ShockingCooldown, -1);
 					break;
 			}
 		}
@@ -591,8 +540,15 @@ public class SpiritBow extends Weapon {
 					for (int i : PathFinder.NEIGHBOURS9) {
 						if (!Dungeon.level.solid[cell + i]) {
 							GameScene.add(Blob.seed(cell + i, 2, Electricity.class));
-							Arrow.set_cooldown(Arrow.ShockingCooldown, cell);
+							Arrow.set_cooldown(Arrow.ShockingCooldown, -1);
 						}
+					}
+				}
+
+				if (Arrow.arrowType(user)==Arrow.ArrowType.TELEPORT) {
+					if (!Dungeon.level.solid[cell] && Actor.findChar( cell)== null) {
+						Arrow.set_cooldown(Arrow.TeleportCooldown, cell);
+						Dungeon.hero.buff(Arrow.class).set_teleport_emitter();
 					}
 				}
 

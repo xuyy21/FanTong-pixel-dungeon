@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Arrow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -129,6 +130,13 @@ public class SpiritBow extends Weapon {
 				}
 			});
 
+		}
+
+		if (attacker instanceof Hero) {
+			Hero hero = (Hero)attacker;
+			if (Arrow.arrowType(hero)==Arrow.ArrowType.ARMED && hero.belongings.weapon()!=null) {
+				damage += hero.belongings.weapon().damageRoll( hero);
+			}
 		}
 
 		return super.proc(attacker, defender, damage);

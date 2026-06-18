@@ -168,7 +168,7 @@ public enum Talent {
 	//Warden T3
 	DURABLE_TIPS(110, 3), BARKSKIN(111, 3), BERRY_HARVEST(112, 3),
 	//BOWBLADE T3
-	FLETCH_TECH(122, 3), QUICK_FLETCH(123, 3), FLETCH_RECIPE(124, 3),
+	FLETCH_TECH(122, 3), QUICK_FLETCH(123, 3), MELEE_BACKUP(124, 3),
 	//Spectral Blades T4
 	FAN_OF_BLADES(113, 4), PROJECTING_BLADES(114, 4), SPIRIT_BLADES(115, 4),
 	//Natures Power T4
@@ -1160,7 +1160,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, DURABLE_TIPS, BARKSKIN, BERRY_HARVEST);
 				break;
 			case FLETCHER:
-				Collections.addAll(tierTalents, FLETCH_TECH, QUICK_FLETCH, FLETCH_RECIPE);
+				Collections.addAll(tierTalents, FLETCH_TECH, QUICK_FLETCH, MELEE_BACKUP);
 				break;
 			case CHAMPION:
 				Collections.addAll(tierTalents, VARIED_CHARGE, TWIN_UPGRADES, COMBINED_LETHALITY);

@@ -1603,6 +1603,13 @@ public class Hero extends Char {
 
 		if (buff(ElectricTouch.Electric_Touch.class)!=null) buff(ElectricTouch.Electric_Touch.class).affectChar(enemy);
 
+		if (wep instanceof MeleeWeapon && this.hasTalent(Talent.FLETCH_RECIPE)) {
+			Arrow arrow = buff(Arrow.class);
+			if (arrow != null) {
+				arrow.coolDown(1+3*pointsInTalent(Talent.FLETCH_RECIPE));
+			}
+		}
+
 		return damage;
 	}
 	

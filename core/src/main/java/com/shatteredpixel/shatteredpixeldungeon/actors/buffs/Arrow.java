@@ -101,24 +101,32 @@ public class Arrow extends Buff implements ActionIndicator.Action{
         ActionIndicator.clearAction(this);
     }
 
-    @Override
-    public boolean act() {
-
+    public void coolDown(float cooldown) {
         if (first_arrowType!=ArrowType.ORDINARY) {
-            first_cooldown -= TICK;
+            first_cooldown -= cooldown;
             if (first_cooldown <= 0) {
                 first_arrowType = ArrowType.ORDINARY;
+                first_cooldown = 0;
+                first_pos = -1;
                 if (e1 != null) e1.on = false;
             }
         }
 
         if (second_arrowType!=ArrowType.ORDINARY) {
-            second_cooldown -= TICK;
+            second_cooldown -= cooldown;
             if (second_cooldown <= 0) {
                 second_arrowType = ArrowType.ORDINARY;
+                second_cooldown = 0;
+                second_pos = -1;
                 if (e2 != null) e2.on = false;
             }
         }
+    }
+
+    @Override
+    public boolean act() {
+
+        coolDown(TICK);
 
         spend( TICK);
         return true;

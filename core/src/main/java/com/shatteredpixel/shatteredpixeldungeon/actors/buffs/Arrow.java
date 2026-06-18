@@ -594,4 +594,28 @@ public class Arrow extends Buff implements ActionIndicator.Action{
 
         return triggered;
     }
+
+    public static float enchantPowerMultiplier(Char target ) {
+        if (!(target instanceof Hero && ((Hero)target).hasTalent(Talent.MELEE_BACKUP))) return 1f;
+
+        Arrow arrow = target.buff(Arrow.class);
+        if (arrow != null) {
+            if (arrow.first_arrowType!=Arrow.ArrowType.ORDINARY || arrow.second_arrowType!=Arrow.ArrowType.ORDINARY)
+                return 1.1f + 0.3f * ((Hero)target).pointsInTalent(Talent.MELEE_BACKUP);
+        }
+
+        return 1f;
+    }
+
+    public static float damagePowerMultiplier(Char target ) {
+        if (!(target instanceof Hero && ((Hero)target).hasTalent(Talent.MELEE_BACKUP))) return 1f;
+
+        Arrow arrow = target.buff(Arrow.class);
+        if (arrow != null) {
+            if (arrow.first_arrowType!=Arrow.ArrowType.ORDINARY || arrow.second_arrowType!=Arrow.ArrowType.ORDINARY)
+                return 1.05f + 0.15f * ((Hero)target).pointsInTalent(Talent.MELEE_BACKUP);
+        }
+
+        return 1f;
+    }
 }

@@ -732,6 +732,10 @@ public class Hero extends Char {
 			dmg = Math.round(dmg * 1.025f + (.025f*pointsInTalent(Talent.WEAPON_RECHARGING)));
 		}
 
+		if (wep instanceof MeleeWeapon) {
+			dmg = Math.round(dmg *= Arrow.damagePowerMultiplier( this));
+		}
+
 		if (!(wep instanceof MissileWeapon)) {
 			if (hasTalent(Talent.HIGH_FREQUENCY)) dmg = Math.round(dmg / (1f + pointsInTalent(Talent.HIGH_FREQUENCY) / 3f));
 		}

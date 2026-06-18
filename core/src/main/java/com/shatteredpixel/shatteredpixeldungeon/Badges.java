@@ -205,6 +205,7 @@ public class Badges {
 		BOSS_SLAIN_3_NIGHTWING,
 		BOSS_SLAIN_3_SNIPER,
 		BOSS_SLAIN_3_WARDEN,
+		BOSS_SLAIN_3_FLETCHER,
 		BOSS_SLAIN_3_CHAMPION,
 		BOSS_SLAIN_3_MONK,
 		BOSS_SLAIN_3_PRIEST,
@@ -884,6 +885,7 @@ public class Badges {
 		thirdBossSubclassBadges.put(HeroSubClass.NIGHTWING, Badge.BOSS_SLAIN_3_NIGHTWING);
 		thirdBossSubclassBadges.put(HeroSubClass.SNIPER, Badge.BOSS_SLAIN_3_SNIPER);
 		thirdBossSubclassBadges.put(HeroSubClass.WARDEN, Badge.BOSS_SLAIN_3_WARDEN);
+		thirdBossSubclassBadges.put(HeroSubClass.FLETCHER, Badge.BOSS_SLAIN_3_FLETCHER);
 		thirdBossSubclassBadges.put(HeroSubClass.CHAMPION, Badge.BOSS_SLAIN_3_CHAMPION);
 		thirdBossSubclassBadges.put(HeroSubClass.MONK, Badge.BOSS_SLAIN_3_MONK);
 		thirdBossSubclassBadges.put(HeroSubClass.PRIEST, Badge.BOSS_SLAIN_3_PRIEST);

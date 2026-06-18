@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class Arrow extends Buff implements ActionIndicator.Action{
 
@@ -178,5 +179,63 @@ public class Arrow extends Buff implements ActionIndicator.Action{
         }
 
         ActionIndicator.refresh();
+    }
+
+    public static class ArmedArrowBuff extends FlavourBuff {
+
+        {
+            type = buffType.POSITIVE;
+        }
+
+        public static final float DURATION = 5f;
+
+        public int dmgMax = 0;
+        public int dmgMin = 0;
+
+        private static final String DMG_MAX = "dmg_max";
+        private static final String DMG_MIN = "dmg_min";
+
+        @Override
+        public void storeInBundle(Bundle bundle) {
+            bundle.put(DMG_MAX, dmgMax);
+            bundle.put(DMG_MIN, dmgMin);
+            super.storeInBundle(bundle);
+        }
+
+        @Override
+        public void restoreFromBundle(Bundle bundle) {
+            dmgMax = bundle.getInt(DMG_MAX);
+            dmgMin = bundle.getInt(DMG_MIN);
+            super.restoreFromBundle(bundle);
+        }
+
+        public void set(int dmgMin, int dmgMax) {
+            this.dmgMin = dmgMin;
+            this.dmgMax = dmgMax;
+        }
+
+        public int damageRoll() {
+            return Random.NormalIntRange(dmgMin, dmgMax);
+        }
+
+        @Override
+        public int icon() {
+            return BuffIndicator.ARROW;
+        }
+
+        @Override
+        public void tintIcon(Image icon) {
+            icon.hardlight(1, 0, 0);
+        }
+
+        @Override
+        public float iconFadePercent() {
+            return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+        }
+
+        @Override
+        public String desc() {
+            return Messages.get(this, "desc", dmgMin, dmgMax, dispTurns());
+        }
     }
 }

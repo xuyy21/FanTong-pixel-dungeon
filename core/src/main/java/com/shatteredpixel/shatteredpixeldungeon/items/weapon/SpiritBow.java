@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.N
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -135,7 +136,13 @@ public class SpiritBow extends Weapon {
 		if (attacker instanceof Hero) {
 			Hero hero = (Hero)attacker;
 			if (Arrow.arrowType(hero)==Arrow.ArrowType.ARMED && hero.belongings.weapon()!=null) {
-				damage += hero.belongings.weapon().damageRoll( hero);
+				KindOfWeapon wep = hero.belongings.weapon();
+				if (defender.alignment!=Char.Alignment.ALLY) {
+					damage += wep.damageRoll(hero);
+				}
+				else {
+					Buff.affect(defender, Arrow.ArmedArrowBuff.class, Arrow.ArmedArrowBuff.DURATION).set(wep.min(), wep.max());
+				}
 			}
 		}
 

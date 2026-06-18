@@ -431,6 +431,11 @@ public abstract class Char extends Actor {
 			//flat damage bonus is affected by multipliers
 			dmg += dmgBonus;
 
+			Arrow.ArmedArrowBuff armedArrowBuff = buff(Arrow.ArmedArrowBuff.class);
+			if (armedArrowBuff!= null) {
+				dmg += armedArrowBuff.damageRoll();
+			}
+
 			if (enemy.buff(GuidingLight.Illuminated.class) != null){
 				enemy.buff(GuidingLight.Illuminated.class).detach();
 				if (this == Dungeon.hero && Dungeon.hero.hasTalent(Talent.SEARING_LIGHT)){

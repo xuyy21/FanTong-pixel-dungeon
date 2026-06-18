@@ -118,6 +118,7 @@ public class HeroIcon extends Image {
 	public static final int MONK_ABILITIES  = 110;
 	public static final int MAGICIAN_ABILITIES = 111;
 	public static final int NIGHTWING		= 112;
+	public static final int ARROW          	= 113;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );

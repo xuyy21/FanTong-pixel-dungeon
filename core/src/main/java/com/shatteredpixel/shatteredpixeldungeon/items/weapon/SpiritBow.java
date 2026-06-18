@@ -25,6 +25,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Arrow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -577,6 +579,14 @@ public class SpiritBow extends Weapon {
 						a.branch = Dungeon.branch;
 						a.pos = shotPos;
 						Buff.affect(user, Talent.SeerShotCooldown.class, 20f);
+					}
+				}
+
+				if (Arrow.arrowType(user)==Arrow.ArrowType.SHOCKING) {
+					for (int i : PathFinder.NEIGHBOURS9) {
+						if (!Dungeon.level.solid[cell + i]) {
+							GameScene.add(Blob.seed(cell + i, 2, Electricity.class));
+						}
 					}
 				}
 

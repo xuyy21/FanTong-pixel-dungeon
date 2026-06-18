@@ -154,6 +154,8 @@ public class BuffIndicator extends Component {
 
 	public static final int FEED		= 100;
 
+	public static final int ARROW		= 101;
+
 	public static final int SIZE_SMALL  = 7;
 	public static final int SIZE_LARGE  = 16;
 	

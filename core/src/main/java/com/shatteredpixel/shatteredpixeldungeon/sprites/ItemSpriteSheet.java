@@ -846,6 +846,9 @@ public class ItemSpriteSheet {
 	public static final int DIGESTION_PILL 	= COOKED_FOOD+25;
 	public static final int ALLY_SOUP 		= COOKED_FOOD+26;
 	public static final int BAT_COOKIE 		= COOKED_FOOD+27;
+	public static final int CRISPBITE		= COOKED_FOOD+28;
+	public static final int STUFFED_MEAT 	= COOKED_FOOD+29;
+	public static final int HoneyArrow 		= COOKED_FOOD+30;
 	static{
 		assignItemRect(Honey_MEAT,    	15, 11);
 		assignItemRect(ICECREAM, 		10, 16);

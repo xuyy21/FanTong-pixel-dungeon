@@ -5,6 +5,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM200Sprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
@@ -15,7 +17,20 @@ import java.util.ArrayList;
 
 public class v0_5_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ) {
+        add_v0_5_1_Changes(changeInfos);
         add_v0_5_0_Changes(changeInfos);
+    }
+
+    public static void add_v0_5_1_Changes(ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.5.1", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton( new ChangeButton(new Image(new ItemSprite(ItemSpriteSheet.STUFFED_MEAT)), "制箭师食谱",
+                "女猎的第三转职_制箭师_的箭匠秘方的三个食谱已经实装。\n\n" +
+                        "一口酥：下一次攻击必定命中。\n\n" +
+                        "鲜肉酿：10回合内盟友的攻击会以25%的效率触发箭匠秘方。\n\n" +
+                        "蜜糖箭头：20回合nei你的特殊箭矢对盟友不造成伤害，还会治疗其最大生命值的25%。"));
     }
 
     public static void add_v0_5_0_Changes(ArrayList<ChangeInfo> changeInfos ) {

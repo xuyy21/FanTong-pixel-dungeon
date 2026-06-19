@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChewGum;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.CrispBite;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Digestion_pill;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ElementalCore;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
@@ -434,6 +435,11 @@ public class QuickRecipe extends Component {
 					}
 					if (Dungeon.hero.pointsInTalent(Talent.CLOAK_POWERS)>=3) {
 						result.add(new QuickRecipe(new BatCookie.Recipe()));
+					}
+					if (Dungeon.hero.pointsInTalent(Talent.FLETCH_RECIPE)>=1) {
+						result.add(new QuickRecipe(new CrispBite.Recipe(),
+								new ArrayList<Item>(Arrays.asList(new Food(), new Plant.Seed.PlaceHolder(), new Plant.Seed.PlaceHolder())),
+								new CrispBite().quantity(3)));
 					}
 					if (Dungeon.hero.belongings != null) {
 						RecipeFolder folder = Dungeon.hero.belongings.getItem(RecipeFolder.class);

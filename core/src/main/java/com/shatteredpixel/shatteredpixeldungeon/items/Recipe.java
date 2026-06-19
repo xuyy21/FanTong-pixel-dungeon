@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChewGum;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cooked_larva;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cookit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.CrispBite;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Digestion_pill;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.EyeCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
@@ -293,7 +294,8 @@ public abstract class Recipe {
 		new Magic_Coin.Recipe(),
 		new EX_Enchantment.Recipe(),
 		new AllySoup.Recipe(),
-		new BatCookie.Recipe()
+		new BatCookie.Recipe(),
+		new CrispBite.Recipe()
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){

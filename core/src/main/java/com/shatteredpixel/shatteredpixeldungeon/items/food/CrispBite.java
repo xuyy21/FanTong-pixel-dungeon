@@ -26,6 +26,11 @@ public class CrispBite extends Food{
     }
 
     @Override
+    public float eatingTime() {
+        return super.fastEatingTime();
+    }
+
+    @Override
     public void effect(Hero hero, boolean fakeEating) {
         FlavourBuff.affect(hero, CrispBiteTracker.class);
         GLog.i(Messages.get(this, "effect"));

@@ -88,6 +88,8 @@ public class Arrow extends Buff implements ActionIndicator.Action{
     public int second_depth;
     public int second_branch;
 
+    public float partialCooldown = 0f;
+
     @Override
     public boolean attachTo(Char target) {
         ActionIndicator.setAction(this);
@@ -102,23 +104,33 @@ public class Arrow extends Buff implements ActionIndicator.Action{
     }
 
     public void coolDown(float cooldown) {
-        if (first_arrowType!=ArrowType.ORDINARY) {
-            first_cooldown -= cooldown;
-            if (first_cooldown <= 0) {
-                first_arrowType = ArrowType.ORDINARY;
-                first_cooldown = 0;
-                first_pos = -1;
-                if (e1 != null) e1.on = false;
-            }
-        }
+        partialCooldown += cooldown;
+        if (partialCooldown >= 1) {
+            int toCooldown = (int) partialCooldown;
+            partialCooldown -= toCooldown;
 
-        if (second_arrowType!=ArrowType.ORDINARY) {
-            second_cooldown -= cooldown;
-            if (second_cooldown <= 0) {
-                second_arrowType = ArrowType.ORDINARY;
-                second_cooldown = 0;
-                second_pos = -1;
-                if (e2 != null) e2.on = false;
+            if (first_arrowType != ArrowType.ORDINARY) {
+                first_cooldown -= toCooldown;
+                if (first_cooldown <= 0) {
+                    first_arrowType = ArrowType.ORDINARY;
+                    first_cooldown = 0;
+                    first_pos = -1;
+                    if (e1 != null) e1.on = false;
+                }
+            }
+
+            if (second_arrowType != ArrowType.ORDINARY) {
+                second_cooldown -= toCooldown;
+                if (second_cooldown <= 0) {
+                    second_arrowType = ArrowType.ORDINARY;
+                    second_cooldown = 0;
+                    second_pos = -1;
+                    if (e2 != null) e2.on = false;
+                }
+            }
+
+            if (first_arrowType == ArrowType.ORDINARY && second_arrowType == ArrowType.ORDINARY) {
+                partialCooldown = 0;
             }
         }
     }
@@ -271,6 +283,7 @@ public class Arrow extends Buff implements ActionIndicator.Action{
     private static final String SECOND_POS = "second_pos";
     private static final String SECOND_DEPTH = "second_depth";
     private static final String SECOND_BRANCH = "second_branch";
+    private static final String PARTIAL_COOLDOWN = "partial_cooldown";
 
     @Override
     public void storeInBundle(Bundle bundle) {
@@ -285,6 +298,7 @@ public class Arrow extends Buff implements ActionIndicator.Action{
         bundle.put(SECOND_POS, second_pos);
         bundle.put(SECOND_DEPTH, second_depth);
         bundle.put(SECOND_BRANCH, second_branch);
+        bundle.put(PARTIAL_COOLDOWN, partialCooldown);
         super.storeInBundle(bundle);
     }
 
@@ -301,6 +315,7 @@ public class Arrow extends Buff implements ActionIndicator.Action{
         second_pos = bundle.getInt(SECOND_POS);
         second_depth = bundle.getInt(SECOND_DEPTH);
         second_branch = bundle.getInt(SECOND_BRANCH);
+        partialCooldown = bundle.getFloat(PARTIAL_COOLDOWN);
         super.restoreFromBundle(bundle);
     }
 

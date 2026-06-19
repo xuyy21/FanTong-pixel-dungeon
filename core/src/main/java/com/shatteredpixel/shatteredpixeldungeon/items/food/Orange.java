@@ -13,16 +13,7 @@ public class Orange extends Food{
 
     @Override
     protected float eatingTime(){
-        if (Dungeon.hero.hasTalent(Talent.IRON_STOMACH)
-                || Dungeon.hero.hasTalent(Talent.ENERGIZING_MEAL)
-                || Dungeon.hero.hasTalent(Talent.MYSTICAL_MEAL)
-                || Dungeon.hero.hasTalent(Talent.INVIGORATING_MEAL)
-                || Dungeon.hero.hasTalent(Talent.FOCUSED_MEAL)
-                || Dungeon.hero.hasTalent(Talent.ENLIGHTENING_MEAL)){
-            return 0;
-        } else {
-            return 1;
-        }
+        return fastEatingTime();
     }
 
     @Override

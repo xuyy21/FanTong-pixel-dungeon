@@ -41,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyArrow;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -162,6 +163,10 @@ public class SpiritBow extends Weapon {
 						else {
 							Buff.affect(defender, Arrow.ArmedArrowBuff.class, Arrow.ArmedArrowBuff.DURATION).set(wep.min(), wep.max());
 							Arrow.set_cooldown(Arrow.ArmedCooldown, -1);
+							if (attacker.buff(HoneyArrow.HoneyArrowTracker.class)!=null) {
+								damage = 0;
+								HoneyArrow.HoneyArrowTracker.heal(defender);
+							}
 						}
 					}
 					break;
@@ -169,6 +174,13 @@ public class SpiritBow extends Weapon {
 					if (!defender.properties().contains(Char.Property.IMMOVABLE)) {
 						if (!Arrow.attrackedTeleport(attacker, defender))
 							Arrow.randomTeleport(attacker, defender);
+
+						if (defender.alignment==Char.Alignment.ALLY) {
+							if (attacker.buff(HoneyArrow.HoneyArrowTracker.class)!=null) {
+								damage = 0;
+								HoneyArrow.HoneyArrowTracker.heal(defender);
+							}
+						}
 					}
 					break;
 				case SHOCKING:
@@ -177,6 +189,10 @@ public class SpiritBow extends Weapon {
 					} else {
 						PotionOfCleansing.cleanse(defender, 0f);
 						Buff.affect(defender, Adrenaline.class, 5f);
+						if (attacker.buff(HoneyArrow.HoneyArrowTracker.class)!=null) {
+							damage = 0;
+							HoneyArrow.HoneyArrowTracker.heal(defender);
+						}
 					}
 					defender.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 					Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);

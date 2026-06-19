@@ -119,6 +119,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.IcyRedTea;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.StuffedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
@@ -765,6 +766,13 @@ public abstract class Char extends Actor {
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			buff.onAttackProc( enemy );
 		}
+
+		if (!(this instanceof Hero) && this.alignment==Alignment.ALLY) {
+			if (Dungeon.hero != null && Dungeon.hero.buff(StuffedMeat.StuffedMeatTracker.class)!=null) {
+				Dungeon.hero.buff(StuffedMeat.StuffedMeatTracker.class).trrigger();
+			}
+		}
+
 		return damage;
 	}
 	

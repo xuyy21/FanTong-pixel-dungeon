@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Arrow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
@@ -36,9 +37,15 @@ public class StuffedMeat extends Food{
 
     public static class StuffedMeatTracker extends FlavourBuff{
         { type = buffType.POSITIVE; }
-        public static final float DURATION = 10f;
+        public static final float DURATION = 100f;
         public int icon() { return BuffIndicator.ARROW; }
-        public void tintIcon(Image icon) { icon.hardlight(0.8f, 0f, 0f); }
+        public void tintIcon(Image icon) { icon.hardlight(0f, 0.8f, 0.2f); }
+
+        public void trrigger() {
+            if (Dungeon.hero!=null && Dungeon.hero.hasTalent(Talent.FLETCH_RECIPE) && Dungeon.hero.buff(Arrow.class)!= null){
+                Dungeon.hero.buff(Arrow.class).coolDown((1+3*Dungeon.hero.pointsInTalent(Talent.FLETCH_RECIPE))*0.25f);
+            }
+        }
     }
 
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
@@ -46,7 +53,7 @@ public class StuffedMeat extends Food{
             inputs =  new Class[]{MysteryMeat.class, Berry.class};
             inQuantity = new int[]{1, 1};
 
-            cost = 3;
+            cost = 6;
 
             output = StuffedMeat.class;
             outQuantity = 1;

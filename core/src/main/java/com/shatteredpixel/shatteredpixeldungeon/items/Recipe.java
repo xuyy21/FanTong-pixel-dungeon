@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.StuffedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SupplyRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
@@ -277,6 +278,7 @@ public abstract class Recipe {
 		new Mandrake_liquor.Recipe(),
 		new ChewGum.Recipe(),
 		new Rabbit_Head.Recipe(),
+		new StuffedMeat.Recipe()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

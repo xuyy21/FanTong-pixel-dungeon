@@ -20,7 +20,7 @@ public class CrispBite extends Food{
 
     {
         image = ItemSpriteSheet.CRISPBITE;
-        energy = Hunger.HUNGRY/3f; //325 food value
+        energy = Hunger.HUNGRY/3f; //100 food value
 
         canFakeEat = true;
     }

@@ -838,7 +838,6 @@ public class Armor extends EquipableItem {
 
 		public static float genericProcChanceMultiplier( Char defender ){
 			float multi = RingOfArcana.enchantPowerMultiplier(defender);
-			multi *= Arrow.enchantPowerMultiplier( defender );
 
 			if (Dungeon.hero.alignment == defender.alignment
 					&& (Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null || Dungeon.hero.buff(com.shatteredpixel.shatteredpixeldungeon.runes.spells.AuraOfProtection.AuraBuff.class) != null)

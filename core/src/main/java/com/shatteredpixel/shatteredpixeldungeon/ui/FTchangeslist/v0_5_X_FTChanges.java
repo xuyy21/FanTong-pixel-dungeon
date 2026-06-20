@@ -17,8 +17,24 @@ import java.util.ArrayList;
 
 public class v0_5_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ) {
+        add_v0_5_2_Changes(changeInfos);
         add_v0_5_1_Changes(changeInfos);
         add_v0_5_0_Changes(changeInfos);
+    }
+
+    public static void add_v0_5_2_Changes(ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.5.2", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton( new ChangeButton(new Image(new HeroIcon(HeroSubClass.FLETCHER)), "制箭师平衡性调整",
+                "现在制箭师使用武装箭时会受到近战武器的攻速倍率修正。\n\n" +
+                        "传送箭的冷却从50回合降低至30回合。"
+        ));
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "修复了电击箭射击单位时还有触发射击空地效果的BUG。\n\n" +
+                        "修复了两手准备的附魔强度提升对投武和护甲也生效的BUG"));
     }
 
     public static void add_v0_5_1_Changes(ArrayList<ChangeInfo> changeInfos ) {

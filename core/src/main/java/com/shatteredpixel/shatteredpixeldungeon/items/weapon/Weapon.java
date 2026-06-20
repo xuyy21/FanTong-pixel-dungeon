@@ -554,12 +554,15 @@ abstract public class Weapon extends KindOfWeapon {
 		public abstract int proc( Weapon weapon, Char attacker, Char defender, int damage );
 
 		protected float procChanceMultiplier( Char attacker ){
-			return genericProcChanceMultiplier( attacker );
+			float multi = genericProcChanceMultiplier(attacker);
+			if (attacker instanceof Hero && ((Hero) attacker).belongings.attackingWeapon() instanceof MeleeWeapon){
+				multi *= Arrow.enchantPowerMultiplier(attacker);
+			}
+			return multi;
 		}
 
 		public static float genericProcChanceMultiplier( Char attacker ){
 			float multi = RingOfArcana.enchantPowerMultiplier(attacker);
-			multi *= Arrow.enchantPowerMultiplier( attacker);
 
 			Berserk rage = attacker.buff(Berserk.class);
 			if (rage != null) {

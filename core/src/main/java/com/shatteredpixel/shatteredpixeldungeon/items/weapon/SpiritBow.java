@@ -557,7 +557,7 @@ public class SpiritBow extends Weapon {
 
 				if (Arrow.arrowType(user)==Arrow.ArrowType.SHOCKING) {
 					for (int i : PathFinder.NEIGHBOURS9) {
-						if (!Dungeon.level.solid[cell + i]) {
+						if (!Dungeon.level.solid[cell + i] && Actor.findChar( cell)== null) {
 							GameScene.add(Blob.seed(cell + i, 2, Electricity.class));
 							Arrow.set_cooldown(Arrow.ShockingCooldown, -1);
 						}

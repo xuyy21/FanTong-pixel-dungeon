@@ -158,15 +158,19 @@ public class SpiritBow extends Weapon {
 						KindOfWeapon wep = hero.belongings.weapon();
 						if (defender.alignment!=Char.Alignment.ALLY) {
 							damage += wep.damageRoll(hero);
-							Arrow.set_cooldown(Arrow.ArmedCooldown, -1);
 						}
 						else {
 							Buff.affect(defender, Arrow.ArmedArrowBuff.class, Arrow.ArmedArrowBuff.DURATION).set(wep.min(), wep.max());
-							Arrow.set_cooldown(Arrow.ArmedCooldown, -1);
 							if (attacker.buff(HoneyArrow.HoneyArrowTracker.class)!=null) {
 								damage = 0;
 								HoneyArrow.HoneyArrowTracker.heal(defender);
 							}
+						}
+
+						Arrow.set_cooldown(Arrow.ArmedCooldown, -1);
+						float delay = hero.belongings.weapon().delayFactor( hero);
+						if (delay > 1f) {
+							hero.spend(hero.attackDelay() * (delay-1f));
 						}
 					}
 					break;

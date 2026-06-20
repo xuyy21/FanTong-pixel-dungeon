@@ -43,7 +43,7 @@ public class Arrow extends Buff implements ActionIndicator.Action{
     }
 
     public static int ArmedCooldown = 20;
-    public static int TeleportCooldown = 50;
+    public static int TeleportCooldown = 30;
     public static int ShockingCooldown = 20;
 
     protected ArrowType arrowType = ArrowType.ORDINARY;

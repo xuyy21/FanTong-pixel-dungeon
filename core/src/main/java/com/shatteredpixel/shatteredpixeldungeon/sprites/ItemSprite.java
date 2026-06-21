@@ -80,7 +80,7 @@ public class ItemSprite extends MovieClip {
 	}
 	
 	public ItemSprite( Heap heap ){
-		this(heap, Assets.Sprites.ITEMS);
+		this(heap, Assets.Items.ITEMS);
 	}
 
 	public ItemSprite( Heap heap, String tx) {
@@ -89,7 +89,7 @@ public class ItemSprite extends MovieClip {
 	}
 	
 	public ItemSprite( Item item ) {
-		this(item, Assets.Sprites.ITEMS);
+		this(item, Assets.Items.ITEMS);
 	}
 
 	public ItemSprite( Item item, String tx ) {
@@ -102,7 +102,7 @@ public class ItemSprite extends MovieClip {
 	}
 	
 	public ItemSprite( int image, Glowing glowing ) {
-		this( image, glowing, Assets.Sprites.ITEMS);
+		this( image, glowing, Assets.Items.ITEMS);
 	}
 
 	public ItemSprite( int image, Glowing glowing, String tx) {
@@ -410,7 +410,7 @@ public class ItemSprite extends MovieClip {
 	}
 
 	public static int pick( int index, int x, int y ) {
-		return pick(index, x, y, Assets.Sprites.ITEMS);
+		return pick(index, x, y, Assets.Items.ITEMS);
 	}
 
 	public static int pick( int index, int x, int y, String texture) {

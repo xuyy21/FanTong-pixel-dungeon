@@ -465,7 +465,7 @@ public class Notes {
 				case SPECIFIC_ITEM:
 					Item item = (Item) Reflection.newInstance(itemClass);
 					if (item.isIdentified() && item.icon != -1) {
-						Image secondIcon = new Image(Assets.Sprites.ITEM_ICONS);
+						Image secondIcon = new Image(Assets.Items.ITEM_ICONS);
 						secondIcon.frame(ItemSpriteSheet.Icons.film.get(item.icon));
 						return secondIcon;
 					}

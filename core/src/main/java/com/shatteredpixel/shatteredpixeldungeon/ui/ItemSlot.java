@@ -246,7 +246,7 @@ public class ItemSlot extends Button {
 		if (item.icon != -1 && (item.isIdentified() || (item instanceof Ring && ((Ring) item).isKnown()))){
 			extra.text( null );
 
-			itemIcon = new Image(Assets.Sprites.ITEM_ICONS);
+			itemIcon = new Image(Assets.Items.ITEM_ICONS);
 			itemIcon.frame(ItemSpriteSheet.Icons.film.get(item.icon));
 			add(itemIcon);
 

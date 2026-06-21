@@ -200,7 +200,7 @@ public class StoneOfIntuition extends InventoryStone {
 						super.onClick();
 					}
 				};
-				Image im = new Image(Assets.Sprites.ITEM_ICONS);
+				Image im = new Image(Assets.Items.ITEM_ICONS);
 				im.frame(ItemSpriteSheet.Icons.film.get(Reflection.newInstance(i).icon));
 				im.scale.set(2f);
 				btn.icon(im);

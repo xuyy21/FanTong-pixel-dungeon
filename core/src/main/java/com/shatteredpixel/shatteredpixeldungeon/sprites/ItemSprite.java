@@ -80,12 +80,20 @@ public class ItemSprite extends MovieClip {
 	}
 	
 	public ItemSprite( Heap heap ){
-		super(Assets.Sprites.ITEMS);
-		view( heap );
+		this(heap, Assets.Sprites.ITEMS);
+	}
+
+	public ItemSprite( Heap heap, String tx) {
+		super(tx);
+		view( heap);
 	}
 	
 	public ItemSprite( Item item ) {
-		super(Assets.Sprites.ITEMS);
+		this(item, Assets.Sprites.ITEMS);
+	}
+
+	public ItemSprite( Item item, String tx ) {
+		super(tx);
 		view( item );
 	}
 	
@@ -94,8 +102,11 @@ public class ItemSprite extends MovieClip {
 	}
 	
 	public ItemSprite( int image, Glowing glowing ) {
-		super( Assets.Sprites.ITEMS );
-		
+		this( image, glowing, Assets.Sprites.ITEMS);
+	}
+
+	public ItemSprite( int image, Glowing glowing, String tx) {
+		super(tx);
 		view(image, glowing);
 	}
 	
@@ -399,7 +410,11 @@ public class ItemSprite extends MovieClip {
 	}
 
 	public static int pick( int index, int x, int y ) {
-		SmartTexture tx = TextureCache.get( Assets.Sprites.ITEMS );
+		return pick(index, x, y, Assets.Sprites.ITEMS);
+	}
+
+	public static int pick( int index, int x, int y, String texture) {
+		SmartTexture tx = TextureCache.get( texture );
 		int rows = tx.width / SIZE;
 		int row = index / rows;
 		int col = index % rows;

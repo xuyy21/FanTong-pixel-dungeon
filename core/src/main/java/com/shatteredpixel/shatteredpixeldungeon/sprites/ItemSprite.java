@@ -250,6 +250,24 @@ public class ItemSprite extends MovieClip {
 		frame( ItemSpriteSheet.film.get( image ));
 
 		float height = ItemSpriteSheet.film.height( image );
+		float width = ItemSpriteSheet.film.width( image );
+		
+		// Store original dimensions for centering calculation
+		float originalWidth = width;
+		float originalHeight = height;
+		
+		// Auto-scale images larger than SIZE to fit within SIZE while maintaining aspect ratio
+		if (width > SIZE || height > SIZE) {
+			float scaleX = (float)SIZE / width;
+			float scaleY = (float)SIZE / height;
+			float scale = Math.min(scaleX, scaleY);
+			this.scale.set(scale);
+		} else {
+			this.scale.set(1f);
+		}
+
+//		origin.set( width / 2f, height / 2f);
+		
 		//adds extra raise to very short items, so they are visible
 		if (height < 8f){
 			perspectiveRaise =  (5 + 8 - height) / 16f;

@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -149,9 +152,14 @@ public class RightClickMenu extends Component {
 	protected void layout() {
 		super.layout();
 
-		float topHeight = Math.max(icon.height(), titleText.height());
+		if (icon.scale.x > 1f || icon.scale.y > 1f) {
+			float toScale = max(icon.scale.x, icon.scale.y);
+			icon.scale.set(icon.scale.x/toScale, icon.scale.y/toScale);
+		}
+
+		float topHeight = max(icon.height(), titleText.height());
 		if (topRightButton != null){
-			topHeight = Math.max(topHeight, topRightButton.height());
+			topHeight = max(topHeight, topRightButton.height());
 		}
 
 		height = 0;

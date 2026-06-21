@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -66,7 +69,11 @@ public class WndInfoMob extends WndTitledMessage {
 		
 		@Override
 		protected void layout() {
-			
+
+			if (image.scale.x > 1f || image.scale.y > 1f) {
+				float toScale = max(image.scale.x, image.scale.y);
+				image.scale.set(image.scale.x/toScale, image.scale.y/toScale);
+			}
 			image.x = 0;
 			image.y = Math.max( 0, name.height() + health.height() - image.height() );
 

@@ -876,6 +876,9 @@ public class ItemSpriteSheet {
 		assignItemRect(DIGESTION_PILL,	16, 15);
 		assignItemRect(ALLY_SOUP,		16, 15);
 		assignItemRect(BAT_COOKIE,		16, 13);
+		assignItemRect(CRISPBITE,		16, 16);
+		assignItemRect(STUFFED_MEAT,	16, 16);
+		assignItemRect(HONEYARROW,		16, 16);
 	}
 
 	private static final int HOLIDAY_FOOD   =                               xy(1, 29);  //16 slots

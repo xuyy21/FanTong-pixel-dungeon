@@ -117,6 +117,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.CrispBite;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.IcyRedTea;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StuffedMeat;
@@ -676,6 +677,11 @@ public abstract class Char extends Actor {
 		//invisible chars always hit (for the hero this is surprise attacking)
 		if (attacker.invisible > 0 && attacker.canSurpriseAttack()){
 			acuStat = INFINITE_ACCURACY;
+		}
+
+		if (attacker.buff(CrispBite.CrispBiteTracker.class)!=null){
+			acuStat = INFINITE_ACCURACY;
+			Buff.detach(attacker, CrispBite.CrispBiteTracker.class);
 		}
 
 		if (defender.buff(MonkEnergy.MonkAbility.Focus.FocusBuff.class) != null){

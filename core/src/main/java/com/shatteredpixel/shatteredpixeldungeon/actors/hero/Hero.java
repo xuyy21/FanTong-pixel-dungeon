@@ -569,11 +569,6 @@ public class Hero extends Char {
 		if (buff(Scimitar.SwordDance.class) != null){
 			accuracy *= 1.50f;
 		}
-
-		if (buff(CrispBite.CrispBiteTracker.class)!=null){
-			accuracy *= Float.POSITIVE_INFINITY;
-			Buff.detach(this, CrispBite.CrispBiteTracker.class);
-		}
 		
 		if (!RingOfForce.fightingUnarmed(this)) {
 			return Math.max(1, Math.round(attackSkill * accuracy * wep.accuracyFactor( this, target )));

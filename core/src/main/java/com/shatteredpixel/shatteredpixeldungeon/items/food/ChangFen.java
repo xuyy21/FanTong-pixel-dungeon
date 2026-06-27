@@ -127,8 +127,10 @@ public class ChangFen extends Food{
             GLog.i( Messages.get(ChangFen.class, "eat_msg") );
             SpellSprite.show( Dungeon.hero, SpellSprite.FOOD );
             eatSFX();
-            PotatoGun.foodCharge(Dungeon.hero, energy);
-            Talent.onFoodEaten(Dungeon.hero, energy, new ChangFen());
+            if (!fakeEating) {
+                PotatoGun.foodCharge(Dungeon.hero, energy);
+                Talent.onFoodEaten(Dungeon.hero, energy, new ChangFen());
+            }
 
             Dungeon.hero.spend( eatingTime() );
         }

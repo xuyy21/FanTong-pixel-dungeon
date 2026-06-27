@@ -34,7 +34,8 @@ public class v0_5_X_FTChanges {
 
         changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
                 "修复了电击箭射击单位时还有触发射击空地效果的BUG。\n\n" +
-                        "修复了两手准备的附魔强度提升对投武和护甲也生效的BUG"));
+                        "修复了两手准备的附魔强度提升对投武和护甲也生效的BUG\n\n" +
+                        "修复了肠粉想象时会触发进食效果的BUG"));
     }
 
     public static void add_v0_5_1_Changes(ArrayList<ChangeInfo> changeInfos ) {

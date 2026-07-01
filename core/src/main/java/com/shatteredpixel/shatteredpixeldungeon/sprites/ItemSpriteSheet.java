@@ -848,7 +848,7 @@ public class ItemSpriteSheet {
 	public static final int BAT_COOKIE 		= COOKED_FOOD+27;
 	public static final int CRISPBITE		= COOKED_FOOD+28;
 	public static final int STUFFED_MEAT 	= COOKED_FOOD+29;
-	public static final int HONEYARROW 		= COOKED_FOOD+30;
+	public static final int HONEYARROW 		= COOKED_FOOD+31;
 	static{
 		assignItemRect(Honey_MEAT,    	15, 11);
 		assignItemRect(ICECREAM, 		10, 16);
@@ -877,7 +877,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ALLY_SOUP,		16, 15);
 		assignItemRect(BAT_COOKIE,		16, 13);
 		assignItemRect(CRISPBITE,		16, 16);
-		assignItemRect(STUFFED_MEAT,	16, 16);
+		assignItemRect(STUFFED_MEAT,	24, 20);
 		assignItemRect(HONEYARROW,		16, 16);
 	}
 
@@ -905,7 +905,7 @@ public class ItemSpriteSheet {
 		assignItemRect(SPARKLING_POTION, 7, 16);
 	}
 
-	private static final int SpecialFood   	=								xy(1, 37);
+	private static final int SpecialFood   	=								xy(1, 39);
 	public static final int COLA			= SpecialFood+0;
 	public static final int DOGESMEAT		= SpecialFood+1;
 	public static final int ZAKOSOUP		= SpecialFood+2;
@@ -919,7 +919,7 @@ public class ItemSpriteSheet {
 		assignItemRect(XUANMI, 			16, 16);
 	}
 
-	private static final int GOODS   		=								xy(9, 37);
+	private static final int GOODS   		=								xy(9, 39);
 	public static final int CHANGFEN		= GOODS+0;
 	public static final int CHOCOLATE_EGG	= GOODS+1;
 	public static final int EGG_PIECE		= GOODS+2;

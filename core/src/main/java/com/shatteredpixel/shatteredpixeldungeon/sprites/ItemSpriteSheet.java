@@ -877,7 +877,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ALLY_SOUP,		16, 15);
 		assignItemRect(BAT_COOKIE,		16, 13);
 		assignItemRect(CRISPBITE,		16, 16);
-		assignItemRect(STUFFED_MEAT,	24, 20);
+		assignItemRect(STUFFED_MEAT,	26, 22);
 		assignItemRect(HONEYARROW,		16, 16);
 	}
 

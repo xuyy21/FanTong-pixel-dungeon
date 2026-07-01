@@ -82,6 +82,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Cola;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cooked_larva;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cookit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.CrabClaw;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.CrispBite;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Crystal_Heart;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Digestion_pill;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Doges_meat;
@@ -92,6 +93,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Gland;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Glandcandy;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.GoldenPudding;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyArrow;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.HoneyMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Icecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.IcyRedTea;
@@ -122,6 +124,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.SleepCandy;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Sorbet;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.StuffedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SupplyRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Tempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ToastBat;
@@ -314,7 +317,7 @@ public enum Catalog {
 				Magic_Coin.class, Digestion_pill.class, AllySoup.class, BatCookie.class,
 				ChangFen.class, Chocolate_Egg.class, IcyRedTea.class, Kiwi_Fruit.class,
 				SleepCandy.class, LaTiao.class, Popsicle.class, Orange.class,
-				Candy_Ring.class);
+				Candy_Ring.class, CrispBite.class, StuffedMeat.class, HoneyArrow.class);
 
 		RAW_FOOD.addItems(MysteryMeat.class, RatTail.class, CrabClaw.class, SlimeBlob.class, MysteryBone.class,
 				Mushroom.class, MandrakeRoot.class, BatBody.class, Gland.class, Nut.class,

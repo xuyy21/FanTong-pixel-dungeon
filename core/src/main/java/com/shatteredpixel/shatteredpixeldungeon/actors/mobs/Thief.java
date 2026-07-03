@@ -50,8 +50,8 @@ public class Thief extends Mob {
 		EXP = 5;
 		maxLvl = 11;
 
-		loot = Random.oneOf(Generator.Category.RING, Generator.Category.ARTIFACT);
-		lootChance = 0.03f; //initially, see lootChance()
+		loot = Random.oneOf(Generator.Category.RING, Generator.Category.ARTIFACT, Generator.Category.GOLD);
+		lootChance = 0.045f; //initially, see lootChance()
 		food = new Berry();
 		foodChance = 0.1f;
 
@@ -93,6 +93,9 @@ public class Thief extends Mob {
 
 	@Override
 	public float lootChance() {
+		// 等效为1/3概率掉落金币
+		if (loot == Generator.Category.GOLD) return 1f;
+		// 2/3 概率进入神器或者戒指的掉落判定，同时基础掉落率为4.5%，最终等效为3%掉落神器或者戒指
 		//each drop makes future drops 1/3 as likely
 		// so loot chance looks like: 1/33, 1/100, 1/300, 1/900, etc.
 		return super.lootChance() * (float)Math.pow(1/3f, Dungeon.LimitedDrops.THEIF_MISC.count);
@@ -111,7 +114,9 @@ public class Thief extends Mob {
 
 	@Override
 	public Item createLoot() {
-		Dungeon.LimitedDrops.THEIF_MISC.count++;
+		if (loot != Generator.Category.GOLD) {
+			Dungeon.LimitedDrops.THEIF_MISC.count++;
+		}
 		return super.createLoot();
 	}
 

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM200Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ThiefSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
@@ -38,7 +39,7 @@ public class v0_5_X_FTChanges {
                         "修复了两手准备的附魔强度提升对投武和护甲也生效的BUG\n\n" +
                         "修复了肠粉想象时会触发进食效果的BUG"));
 
-        changes.addButton( new ChangeButton(new Image(new Thief()), "小偷掉落",
+        changes.addButton( new ChangeButton(new Image(new ThiefSprite()), "小偷掉落",
                 "从现在开始，疯狂小偷死亡时有33%的概率掉落一堆金币。这不会影响神器与戒指的掉落概率，也不会计入这两者的掉落次数。\n\n疯狂强盗的掉落依旧不包含金币。"));
     }
 

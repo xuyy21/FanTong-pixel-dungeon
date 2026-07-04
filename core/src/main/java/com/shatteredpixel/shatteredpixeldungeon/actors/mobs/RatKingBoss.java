@@ -102,6 +102,10 @@ public class RatKingBoss extends Mob{
             notice();
         } else {
             HP -= 1;
+            if (!BossHealthBar.isAssigned()){
+                BossHealthBar.assignBoss( this );
+                Dungeon.level.seal();
+            }
 
             String warning = "warning";
             if (HP >= 7) {

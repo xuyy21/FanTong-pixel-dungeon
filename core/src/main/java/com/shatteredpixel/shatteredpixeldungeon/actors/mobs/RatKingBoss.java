@@ -170,7 +170,6 @@ public class RatKingBoss extends Mob{
             for (Heap heap : level.heaps.values()) {
                 if (heap.type == Heap.Type.CHEST) {
                     Statistics.bossScores[0] -= 100;
-                    GLog.n("扣分");
                 }
             }
         }

@@ -55,7 +55,7 @@ import com.watabou.utils.Rect;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class CityBossLevel extends Level {
+public class CityBossLevel_DwarfKing extends Level {
 
 	{
 		color1 = 0x4b6636;
@@ -589,9 +589,9 @@ public class CityBossLevel extends Level {
 				//DK arena tiles
 			} else {
 				if (Dungeon.level.map[cell] == Terrain.CUSTOM_DECO){
-					return Messages.get(CityBossLevel.class, "throne_name");
+					return Messages.get(CityBossLevel_DwarfKing.class, "throne_name");
 				} else if (Dungeon.level.map[cell] == Terrain.PEDESTAL){
-					return Messages.get(CityBossLevel.class, "summoning_name");
+					return Messages.get(CityBossLevel_DwarfKing.class, "summoning_name");
 				}
 			}
 
@@ -615,9 +615,9 @@ public class CityBossLevel extends Level {
 			//DK arena tiles
 			} else {
 				if (Dungeon.level.map[cell] == Terrain.CUSTOM_DECO){
-					return Messages.get(CityBossLevel.class, "throne_desc");
+					return Messages.get(CityBossLevel_DwarfKing.class, "throne_desc");
 				} else if (Dungeon.level.map[cell] == Terrain.PEDESTAL){
-					return Messages.get(CityBossLevel.class, "summoning_desc");
+					return Messages.get(CityBossLevel_DwarfKing.class, "summoning_desc");
 				}
 			}
 

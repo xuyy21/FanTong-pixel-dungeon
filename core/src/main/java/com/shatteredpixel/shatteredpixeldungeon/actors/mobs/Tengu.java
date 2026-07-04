@@ -57,7 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel_Tengu;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
@@ -134,7 +134,7 @@ public class Tengu extends Mob {
 			return;
 		}
 
-		PrisonBossLevel.State state = ((PrisonBossLevel)Dungeon.level).state();
+		PrisonBossLevel_Tengu.State state = ((PrisonBossLevel_Tengu)Dungeon.level).state();
 		
 		int hpBracket = HT / 8;
 
@@ -158,7 +158,7 @@ public class Tengu extends Mob {
 		}
 
 		//phase 2 of the fight is over
-		if (HP == 0 && state == PrisonBossLevel.State.FIGHT_ARENA) {
+		if (HP == 0 && state == PrisonBossLevel_Tengu.State.FIGHT_ARENA) {
 			//let full attack action complete first
 			Actor.add(new Actor() {
 
@@ -169,7 +169,7 @@ public class Tengu extends Mob {
 				@Override
 				protected boolean act() {
 					Actor.remove(this);
-					((PrisonBossLevel)Dungeon.level).progress();
+					((PrisonBossLevel_Tengu)Dungeon.level).progress();
 					return true;
 				}
 			});
@@ -177,10 +177,10 @@ public class Tengu extends Mob {
 		}
 
 		//phase 1 of the fight is over
-		if (state == PrisonBossLevel.State.FIGHT_START && HP <= HT/2){
+		if (state == PrisonBossLevel_Tengu.State.FIGHT_START && HP <= HT/2){
 			HP = (HT/2);
 			yell(Messages.get(this, "interesting"));
-			((PrisonBossLevel)Dungeon.level).progress();
+			((PrisonBossLevel_Tengu)Dungeon.level).progress();
 			BossHealthBar.bleed(true);
 
 		//if tengu has lost a certain amount of hp, jump
@@ -249,17 +249,17 @@ public class Tengu extends Mob {
 		if (enemy == null) enemy = Dungeon.hero; //jump away from hero if nothing else is being targeted
 		
 		int newPos;
-		if (Dungeon.level instanceof PrisonBossLevel){
-			PrisonBossLevel level = (PrisonBossLevel) Dungeon.level;
+		if (Dungeon.level instanceof PrisonBossLevel_Tengu){
+			PrisonBossLevel_Tengu level = (PrisonBossLevel_Tengu) Dungeon.level;
 			
 			//if we're in phase 1, want to warp around within the room
-			if (level.state() == PrisonBossLevel.State.FIGHT_START) {
+			if (level.state() == PrisonBossLevel_Tengu.State.FIGHT_START) {
 				
 				level.cleanTenguCell();
 
 				int tries = 100;
 				do {
-					newPos = ((PrisonBossLevel)Dungeon.level).randomTenguCellPos();
+					newPos = ((PrisonBossLevel_Tengu)Dungeon.level).randomTenguCellPos();
 					tries--;
 				} while ( tries > 0 && (level.trueDistance(newPos, enemy.pos) <= 3.5f
 						|| level.trueDistance(newPos, Dungeon.hero.pos) <= 3.5f

@@ -68,7 +68,7 @@ import com.watabou.utils.Rect;
 
 import java.util.ArrayList;
 
-public class PrisonBossLevel extends Level {
+public class PrisonBossLevel_Tengu extends Level {
 	
 	{
 		color1 = 0x6a723d;

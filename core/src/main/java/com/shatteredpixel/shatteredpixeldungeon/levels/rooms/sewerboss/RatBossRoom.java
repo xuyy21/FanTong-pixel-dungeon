@@ -12,6 +12,8 @@ public class RatBossRoom extends StandardRoom {
     @Override
     public int maxHeight() { return 7; }
     public int maxWidth() { return 7; }
+    public int minHeight() { return 5; }
+    public int minWidth() { return 5; }
 
     @Override
     public boolean canMerge(Level l, Room other, Point p, int mergeTerrain) {

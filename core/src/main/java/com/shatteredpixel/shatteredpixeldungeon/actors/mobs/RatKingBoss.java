@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
-import com.watabou.utils.BArray;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -215,5 +215,13 @@ public class RatKingBoss extends Mob{
         } else {
             return super.description();
         }
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ) {
+
+        super.restoreFromBundle( bundle );
+
+        if (state != SLEEPING) BossHealthBar.assignBoss(this);
     }
 }

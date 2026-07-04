@@ -261,11 +261,6 @@ public class RatKingBoss extends Mob{
         public int attackSkill( Char target ) {
             return 10;
         }
-
-        @Override
-        public int damageRoll() {
-            return Random.NormalIntRange( 2, 5 );
-        }
     }
 
     private boolean summonRat() {

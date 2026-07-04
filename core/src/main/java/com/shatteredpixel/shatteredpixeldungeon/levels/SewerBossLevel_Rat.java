@@ -66,7 +66,7 @@ public class SewerBossLevel_Rat extends SewerLevel{
         initRooms.add( roomEntrance = new SewerBossEntranceRoom() );
         initRooms.add( roomExit = new SewerBossExitRoom() );
 
-        int standards = standardRooms(true);
+        int standards = standardRooms(false);
         for (int i = 0; i < standards; i++) {
             StandardRoom s = StandardRoom.createRoom();
             //force to normal size
@@ -87,9 +87,9 @@ public class SewerBossLevel_Rat extends SewerLevel{
 
     @Override
     protected int standardRooms(boolean forceMax) {
-        if (forceMax) return 6;
-        //5 to 6, average 5.5
-        return 5+ Random.chances(new float[]{1, 1});
+        if (forceMax) return 5;
+        //4 to 5, average 4.5
+        return 4+ Random.chances(new float[]{1, 1});
     }
 
     protected Builder builder(){

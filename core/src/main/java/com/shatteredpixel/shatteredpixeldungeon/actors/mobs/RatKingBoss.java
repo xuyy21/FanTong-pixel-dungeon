@@ -119,15 +119,15 @@ public class RatKingBoss extends Mob{
             String warning = "warning";
             if (HP >= 7) {
                 warning += Random.IntRange(1,3);
-                GLog.n(Messages.get(this, warning));
+                yell(Messages.get(this, warning));
                 teleport();
             } else if (HP >= 4) {
                 warning += Random.IntRange(4,6);
-                GLog.n(Messages.get(this, warning));
+                yell(Messages.get(this, warning));
                 teleport();
             } else if (HP >= 1) {
                 warning += Random.IntRange(7,9);
-                GLog.n(Messages.get(this, warning));
+                yell(Messages.get(this, warning));
                 teleport();
             } else {
                 die(null);

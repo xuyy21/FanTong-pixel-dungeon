@@ -5,8 +5,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Bones;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Goo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RatKingBoss;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.Builder;
@@ -14,8 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.builders.FigureEightBuild
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.SewerPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.RatKingRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.GooBossRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.RatBossRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.SewerBossEntranceRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.SewerBossExitRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
@@ -45,8 +44,7 @@ public class SewerBossLevel_Rat extends SewerLevel{
 
         boolean RatAlive = false;
         for (Mob m : mobs){
-            // TODO:改为鼠王BOSS
-            if (m instanceof Goo) {
+            if (m instanceof RatKingBoss && m.state!=m.SLEEPING) {
                 RatAlive = true;
                 break;
             }
@@ -75,11 +73,12 @@ public class SewerBossLevel_Rat extends SewerLevel{
             initRooms.add(s);
         }
 
-        // TODO: 添加鼠王BOSS房间，添加隐藏房间
-        GooBossRoom gooRoom = GooBossRoom.randomGooRoom();
-        initRooms.add(gooRoom);
-        ((FigureEightBuilder)builder).setLandmarkRoom(gooRoom);
-        initRooms.add(new RatKingRoom());
+        RatBossRoom ratRoom = new RatBossRoom();
+        initRooms.add(ratRoom);
+        ((FigureEightBuilder)builder).setLandmarkRoom(ratRoom);
+
+        // TODO: 添加隐藏房间
+
         return initRooms;
     }
 

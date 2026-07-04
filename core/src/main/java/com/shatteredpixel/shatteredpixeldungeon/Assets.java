@@ -368,5 +368,6 @@ public class Assets {
 		public static final String ARMOR	= "sprites/animated_armor.png";
 		public static final String HEAVEN_EYE		= "sprites/heaven_eye.png";
 		public static final String BEAN_SOLDIER		= "sprites/bean_soldier.png";
+		public static final String PRISON_WARDEN = "sprites/prison_warden.png";
 	}
 }

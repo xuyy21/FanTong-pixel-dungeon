@@ -16,7 +16,11 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
+import com.watabou.utils.BArray;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class RatKingBoss extends Mob{
     {
@@ -155,12 +159,51 @@ public class RatKingBoss extends Mob{
 //            }
 
             teleport();
-            GLog.i(Messages.get(this, "tip"));
+            GLog.w(Messages.get(this, "tip"));
         }
     }
 
     public void teleport() {
-        ScrollOfTeleportation.teleportChar(this);
+        ArrayList<Integer> visibleValid = new ArrayList<>();
+        ArrayList<Integer> notVisibleValid = new ArrayList<>();
+        ArrayList<Integer> notSeenValid = new ArrayList<>();
+
+        boolean[] passable = Dungeon.level.passable;
+
+        PathFinder.buildDistanceMap(this.pos, passable);
+
+        for (int i = 0; i < Dungeon.level.length(); i++){
+            if (PathFinder.distance[i] < Integer.MAX_VALUE
+                    && !Dungeon.level.secret[i]
+                    && Actor.findChar(i) == null){
+                if (!Dungeon.level.visited[i]){
+                    notSeenValid.add(i);
+                } else if (Dungeon.level.heroFOV[i]){
+                    visibleValid.add(i);
+                } else {
+                    notVisibleValid.add(i);
+                }
+            }
+        }
+
+        int pos;
+
+        if (!notSeenValid.isEmpty()){
+            pos = Random.element(notSeenValid);
+            GLog.i("notSeenValid");
+        } else if (!notVisibleValid.isEmpty()){
+            pos = Random.element(notVisibleValid);
+            GLog.i("notVisibleValid");
+        } else if (!visibleValid.isEmpty()){
+            pos = Random.element(visibleValid);
+            GLog.i("visibleValid");
+        } else {
+            GLog.w( Messages.get(ScrollOfTeleportation.class, "no_tele") );
+            return;
+        }
+
+        ScrollOfTeleportation.appear( this, pos );
+        Dungeon.level.occupyCell( this );
     }
 
     @Override

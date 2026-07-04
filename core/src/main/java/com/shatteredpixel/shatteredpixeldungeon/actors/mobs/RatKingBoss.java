@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.WornKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -162,15 +163,13 @@ public class RatKingBoss extends Mob{
         }
 
         Statistics.bossScores[0] += 1000;
-        // 遍历本层地图，每有一个HIDDEN门就扣100分
+        // 每有一个未开启的宝箱就扣100分
         if (Dungeon.level instanceof SewerBossLevel_Rat) {
             SewerBossLevel_Rat level = (SewerBossLevel_Rat) Dungeon.level;
-            for (Room room : level.rooms()) {
-                for (Room.Door door : room.connected.values()) {
-                    if (door.type == Room.Door.Type.HIDDEN) {
-                        Statistics.bossScores[0] -= 100;
-                        GLog.n("扣分");
-                    }
+            for (Heap heap : level.heaps.values()) {
+                if (heap.type == Heap.Type.CHEST) {
+                    Statistics.bossScores[0] -= 100;
+                    GLog.n("扣分");
                 }
             }
         }

@@ -314,6 +314,6 @@ public class RatKingBoss extends Mob{
     }
 
     public static class SummoningCooldown extends FlavourBuff {
-        public static final float DELAY = 10f;
+        public static final float DELAY = 15f;
     }
 }

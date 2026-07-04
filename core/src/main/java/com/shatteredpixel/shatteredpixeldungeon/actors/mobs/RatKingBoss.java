@@ -147,7 +147,7 @@ public class RatKingBoss extends Mob{
         Dungeon.level.drop( new WornKey( Dungeon.depth ), pos ).sprite.drop();
         // TODO:鼠王王冠
 
-        for (Mob m: Dungeon.level.mobs) {
+        for (Mob m: Dungeon.level.mobs.toArray(new Mob[0])) {
             if (m instanceof RatGuard) {
                 m.die(null);
             }

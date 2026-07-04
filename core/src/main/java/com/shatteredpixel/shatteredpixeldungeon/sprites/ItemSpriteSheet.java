@@ -788,7 +788,7 @@ public class ItemSpriteSheet {
 		assignItemRect(BERRY,           9,  11);
 		assignItemRect(PHANTOM_MEAT,    15, 11);
 		assignItemRect(SUPPLY_RATION,   16, 12);
-		assignItemRect(CHEESE,          29, 31);
+		assignItemRect(CHEESE,          31, 32);
 	}
 
 	private static  final int RAW_FOOD		=								xy(1, 34);

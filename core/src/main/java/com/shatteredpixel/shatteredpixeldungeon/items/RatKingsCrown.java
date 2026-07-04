@@ -99,4 +99,9 @@ public class RatKingsCrown extends Item{
     public boolean isIdentified() {
         return true;
     }
+
+    @Override
+    public int value() {
+        return 5 * quantity;
+    }
 }

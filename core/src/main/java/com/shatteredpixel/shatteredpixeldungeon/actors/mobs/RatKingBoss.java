@@ -74,7 +74,7 @@ public class RatKingBoss extends Mob{
 
     @Override
     public void damage( int dmg, Object src ) {
-        //do nothing
+        GLog.w(Messages.get(this, "tips2"));
     }
 
     @Override
@@ -179,6 +179,12 @@ public class RatKingBoss extends Mob{
     }
 
     @Override
+    public String defenseVerb() {
+        GLog.w(Messages.get(this, "tips2"));
+        return super.defenseVerb();
+    }
+
+    @Override
     public void notice() {
         super.notice();
         if (!BossHealthBar.isAssigned()) {
@@ -192,7 +198,7 @@ public class RatKingBoss extends Mob{
 //            }
 
             teleport();
-            GLog.w(Messages.get(this, "tip"));
+            GLog.w(Messages.get(this, "tips1"));
         }
     }
 

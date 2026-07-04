@@ -26,6 +26,7 @@ public class RatKingBoss extends Mob{
         EXP = 10;
 
         properties.add(Property.BOSS);
+        alignment = Alignment.NEUTRAL;
 
         state = SLEEPING;
     }
@@ -116,7 +117,7 @@ public class RatKingBoss extends Mob{
             }
         }
 
-        return super.interact(c);
+        return true;
     }
 
     @Override

@@ -17,6 +17,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportat
 import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel_Rat;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.connection.ConnectionRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.CheessRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
@@ -204,6 +207,11 @@ public class RatKingBoss extends Mob{
         PathFinder.buildDistanceMap(this.pos, passable);
 
         for (int i = 0; i < Dungeon.level.length(); i++){
+            Room room = ((SewerBossLevel_Rat)Dungeon.level).room(i);
+            if (room == null || room instanceof SecretRoom) {
+                continue;
+            }
+
             if (PathFinder.distance[i] < Integer.MAX_VALUE
                     && !Dungeon.level.secret[i]
                     && Actor.findChar(i) == null){

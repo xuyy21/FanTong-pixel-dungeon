@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
+import com.shatteredpixel.shatteredpixeldungeon.items.RatKingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.WornKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -149,7 +150,7 @@ public class RatKingBoss extends Mob{
         GameScene.bossSlain();
         Dungeon.level.drop( new Gold().quantity(Random.Int(300, 500)), pos ).sprite.drop();
         Dungeon.level.drop( new WornKey( Dungeon.depth ), pos ).sprite.drop();
-        // TODO:鼠王王冠
+        Dungeon.level.drop( new RatKingsCrown(), pos ).sprite.drop();
 
         for (Mob m: Dungeon.level.mobs.toArray(new Mob[0])) {
             if (m instanceof RatGuard) {

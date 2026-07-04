@@ -55,6 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
+import com.shatteredpixel.shatteredpixeldungeon.items.RatKingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.SlimeBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
@@ -263,6 +264,7 @@ public enum HeroClass {
 			new Stylus().quantity(10).collect();
 			new TengusMask().collect();
 			new KingsCrown().collect();
+			new RatKingsCrown().collect();
 			new GooBlob().quantity(100).collect();
 			new Greatsword().upgrade(30).identify().collect();
 			new PlateArmor().upgrade(30).identify().collect();

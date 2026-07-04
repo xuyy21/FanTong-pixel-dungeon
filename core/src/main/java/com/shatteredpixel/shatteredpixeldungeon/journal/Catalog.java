@@ -41,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.KingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.MagicMonocle;
 import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
+import com.shatteredpixel.shatteredpixeldungeon.items.RatKingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.SlimeBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
@@ -350,7 +351,7 @@ public enum Catalog {
 				LiquidMetal.class, ArcaneResin.class,
 				SealShard.class, BrokenStaff.class, CloakScrap.class, BowFragment.class, BrokenHilt.class, TornPage.class,
 				Cookware.class, PiranhaPot.class, Chocolate_Egg.Piece.class, StoneOfDisarming.class, MagicMonocle.class,
-				InsulatedGloves.class, RunicAsh.class);
+				InsulatedGloves.class, RunicAsh.class, RatKingsCrown.class);
 
 	}
 

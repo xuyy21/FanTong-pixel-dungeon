@@ -86,8 +86,12 @@ public class KingsCrown extends Item {
 	public boolean isIdentified() {
 		return true;
 	}
-	
+
 	public void upgradeArmor(Hero hero, Armor armor, ArmorAbility ability) {
+		upgradeArmor(hero, armor, ability, false);
+	}
+	
+	public void upgradeArmor(Hero hero, Armor armor, ArmorAbility ability, boolean ratkingscrown) {
 
 		detach(hero.belongings.backpack);
 		Catalog.countUse( getClass() );
@@ -98,10 +102,14 @@ public class KingsCrown extends Item {
 
 		if (armor != null){
 
-			if (ability instanceof Ratmogrify){
-				GLog.p(Messages.get(this, "ratgraded"));
+			if (ratkingscrown) {
+				GLog.p(Messages.get(RatKingsCrown.class, "upgraded"));
 			} else {
-				GLog.p(Messages.get(this, "upgraded"));
+				if (ability instanceof Ratmogrify) {
+					GLog.p(Messages.get(this, "ratgraded"));
+				} else {
+					GLog.p(Messages.get(this, "upgraded"));
+				}
 			}
 
 			ClassArmor classArmor = ClassArmor.upgrade(hero, armor);

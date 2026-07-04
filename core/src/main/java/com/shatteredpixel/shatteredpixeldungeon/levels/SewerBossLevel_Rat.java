@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.builders.FigureEightBuild
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.SewerPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.CheessRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.RatBossRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.SewerBossEntranceRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.SewerBossExitRoom;
@@ -77,7 +78,9 @@ public class SewerBossLevel_Rat extends SewerLevel{
         initRooms.add(ratRoom);
         ((FigureEightBuilder)builder).setLandmarkRoom(ratRoom);
 
-        // TODO: 添加隐藏房间
+        for (int i = 0; i < 5; i++) {
+            initRooms.add(new CheessRoom());
+        }
 
         return initRooms;
     }

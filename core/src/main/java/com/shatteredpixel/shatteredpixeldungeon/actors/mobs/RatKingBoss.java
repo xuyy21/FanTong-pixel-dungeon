@@ -18,7 +18,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.watabou.utils.Bundle;
@@ -298,11 +297,6 @@ public class RatKingBoss extends Mob{
     }
 
     public static class SummoningCooldown extends FlavourBuff {
-        @Override
-        public int icon() {
-            return BuffIndicator.UPGRADE;
-        }
-
         public static final float DELAY = 10f;
     }
 }

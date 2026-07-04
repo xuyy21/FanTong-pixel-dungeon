@@ -14,6 +14,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.WornKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel_Rat;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
@@ -148,8 +151,21 @@ public class RatKingBoss extends Mob{
         if (Statistics.qualifiedForBossChallengeBadge){
             Badges.validateBossChallengeCompleted();
         }
-        // TODO：隐藏房间计分
+
         Statistics.bossScores[0] += 1000;
+        // 遍历本层地图，每有一个HIDDEN门就扣100分
+        if (Dungeon.level instanceof SewerBossLevel_Rat) {
+            SewerBossLevel_Rat level = (SewerBossLevel_Rat) Dungeon.level;
+            for (Room room : level.rooms()) {
+                for (Room.Door door : room.connected.values()) {
+                    if (door.type == Room.Door.Type.HIDDEN) {
+                        Statistics.bossScores[0] -= 100;
+                        GLog.n("扣分");
+                    }
+                }
+            }
+        }
+
 
         yell( Messages.get(this, "defeated") );
     }

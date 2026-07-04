@@ -77,6 +77,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.BoneSoup;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Candy_Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChangFen;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Cheess;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChewGum;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Chocolate_Egg;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Cola;
@@ -318,7 +319,8 @@ public enum Catalog {
 				Magic_Coin.class, Digestion_pill.class, AllySoup.class, BatCookie.class,
 				ChangFen.class, Chocolate_Egg.class, IcyRedTea.class, Kiwi_Fruit.class,
 				SleepCandy.class, LaTiao.class, Popsicle.class, Orange.class,
-				Candy_Ring.class, CrispBite.class, StuffedMeat.class, HoneyArrow.class);
+				Candy_Ring.class, CrispBite.class, StuffedMeat.class, HoneyArrow.class,
+				Cheess.class);
 
 		RAW_FOOD.addItems(MysteryMeat.class, RatTail.class, CrabClaw.class, SlimeBlob.class, MysteryBone.class,
 				Mushroom.class, MandrakeRoot.class, BatBody.class, Gland.class, Nut.class,

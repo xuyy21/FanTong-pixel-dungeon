@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Cheess;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -20,7 +21,7 @@ public class CheessRoom extends SecretRoom{
         Door entrance = entrance();
         entrance.set( Door.Type.HIDDEN );
 
-        Item prize = new SmallRation();//暂时使用口粮,TODO: 添加奶酪
+        Item prize = new Cheess();
         level.drop( prize, level.pointToCell(center()) ).type = Heap.Type.CHEST;
     }
 }

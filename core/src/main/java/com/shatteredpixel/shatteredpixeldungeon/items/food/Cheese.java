@@ -3,9 +3,9 @@ package com.shatteredpixel.shatteredpixeldungeon.items.food;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Cheess extends Food{
+public class Cheese extends Food{
     {
-        image = ItemSpriteSheet.BERRY;
+        image = ItemSpriteSheet.CHEESE;
         energy = Hunger.STARVING/5f; //90 food value
     }
 

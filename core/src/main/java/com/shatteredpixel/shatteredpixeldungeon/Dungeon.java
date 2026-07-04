@@ -69,7 +69,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel_Goo;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
@@ -317,7 +317,7 @@ public class Dungeon {
 					level = new SewerLevel();
 					break;
 				case 5:
-					level = new SewerBossLevel();
+					level = new SewerBossLevel_Goo();
 					break;
 				case 6:
 				case 7:

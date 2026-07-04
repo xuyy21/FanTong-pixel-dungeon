@@ -51,7 +51,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class SewerBossLevel extends SewerLevel {
+public class SewerBossLevel_Goo extends SewerLevel {
 
 	{
 		color1 = 0x48763c;

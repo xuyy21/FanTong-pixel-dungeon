@@ -90,6 +90,7 @@ public class Badges {
 		FOOD_EATEN_1                ( 13 ),
 		ITEMS_CRAFTED_1             ( 14 ),
 		BOSS_SLAIN_1                ( 15 ),
+		SECOND_BOSS_SLAIN_1         ( 15 ),
 		CATALOG_ONE_EQUIPMENT       ( 16, BadgeType.JOURNAL ),
 		DEATH_FROM_FIRE             ( 17 ),
 		DEATH_FROM_POISON           ( 18 ),
@@ -168,6 +169,7 @@ public class Badges {
 		DEATH_FROM_GRIM_TRAP        ( 81 ), //also disintegration traps
 		VICTORY                     ( 82 ),
 		BOSS_CHALLENGE_1            ( 83 ),
+		SECOND_BOSS_CHALLENGE_1     ( 91 ),
 		BOSS_CHALLENGE_2            ( 84 ),
 		RESEARCHER_3                ( 85, BadgeType.JOURNAL ),
 		GAMES_PLAYED_3              ( 86, BadgeType.GLOBAL ),
@@ -964,6 +966,55 @@ public class Badges {
 		}
 	}
 
+	public static void validateBossSlain_second() {
+		Badge badge = null;
+		switch (Dungeon.depth) {
+			case 5:
+				badge = Badge.SECOND_BOSS_SLAIN_1;
+				break;
+			case 10:
+				break;
+			case 15:
+				break;
+			case 20:
+				break;
+		}
+
+		if (badge != null) {
+			local.add( badge );
+			displayBadge( badge );
+
+			if (badge == Badge.SECOND_BOSS_SLAIN_1) {
+				badge = firstBossClassBadges.get(Dungeon.hero.heroClass);
+				if (badge == null) return;
+				local.add( badge );
+				unlock(badge);
+
+				boolean allUnlocked = true;
+				for (Badge b : firstBossClassBadges.values()){
+					if (!isUnlocked(b)){
+						allUnlocked = false;
+						break;
+					}
+				}
+				if (allUnlocked) {
+
+					badge = Badge.BOSS_SLAIN_1_ALL_CLASSES;
+					if (!isUnlocked( badge )) {
+						displayBadge( badge );
+					}
+				}
+			}
+
+			if (Statistics.qualifiedForBossRemainsBadge && Dungeon.hero.belongings.getItem(RemainsItem.class) != null){
+				badge = Badge.BOSS_SLAIN_REMAINS;
+				local.add( badge );
+				displayBadge( badge );
+			}
+
+		}
+	}
+
 	public static void validateBossChallengeCompleted(){
 		Badge badge = null;
 		switch (Dungeon.depth) {
@@ -981,6 +1032,28 @@ public class Badges {
 				break;
 			case 25:
 				badge = Badge.BOSS_CHALLENGE_5;
+				break;
+		}
+
+		if (badge != null) {
+			local.add(badge);
+			displayBadge(badge);
+		}
+	}
+
+	public static void validateBossChallengeCompleted_second() {
+		Badge badge = null;
+		switch (Dungeon.depth) {
+			case 5:
+				badge = Badge.SECOND_BOSS_CHALLENGE_1;
+				break;
+			case 10:
+				break;
+			case 15:
+				break;
+			case 20:
+				break;
+			case 25:
 				break;
 		}
 
@@ -1309,6 +1382,7 @@ public class Badges {
 	// and all diamond tier badges must have a gold/plat prerequisite
 	private static final Badge[][] prerequisiteBadges = new Badge[][]{
 			{Badge.BOSS_SLAIN_1, Badge.BOSS_CHALLENGE_1},
+			{Badge.SECOND_BOSS_SLAIN_1, Badge.SECOND_BOSS_CHALLENGE_1},
 			{Badge.BOSS_SLAIN_2, Badge.BOSS_CHALLENGE_2},
 			{Badge.BOSS_SLAIN_3, Badge.BOSS_CHALLENGE_3},
 			{Badge.BOSS_SLAIN_4, Badge.BOSS_CHALLENGE_4},

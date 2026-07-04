@@ -66,7 +66,7 @@ public class Snake extends Mob {
 			dodges++;
 		}
 		if ((dodges >= 2 && !Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_SURPRISE_ATKS))
-				|| (dodges >= 4 && !Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_1))){
+				|| (dodges >= 4 && !(Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_1) || Badges.isUnlocked(Badges.Badge.SECOND_BOSS_SLAIN_1)))){
 			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_SURPRISE_ATKS);
 			dodges = 0;
 		}

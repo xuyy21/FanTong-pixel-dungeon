@@ -154,10 +154,7 @@ public class RatKingBoss extends Mob{
             }
         }
 
-        Badges.validateBossSlain();
-        if (Statistics.qualifiedForBossChallengeBadge){
-            Badges.validateBossChallengeCompleted();
-        }
+        Badges.validateBossSlain_second();
 
         Statistics.bossScores[0] += 1000;
         // 每有一个未开启的宝箱就扣100分
@@ -166,8 +163,13 @@ public class RatKingBoss extends Mob{
             for (Heap heap : level.heaps.values()) {
                 if (heap.type == Heap.Type.CHEST) {
                     Statistics.bossScores[0] -= 100;
+                    Statistics.qualifiedForBossChallengeBadge = false;
                 }
             }
+        }
+
+        if (Statistics.qualifiedForBossChallengeBadge){
+            Badges.validateBossChallengeCompleted_second();
         }
 
 

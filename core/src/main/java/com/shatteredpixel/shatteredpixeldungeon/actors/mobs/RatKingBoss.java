@@ -1,11 +1,15 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.STRONGER_BOSSES;
+
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.WornKey;
@@ -14,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.watabou.utils.Bundle;
@@ -67,12 +72,7 @@ public class RatKingBoss extends Mob{
 
     @Override
     public boolean add( Buff buff ) {
-        return false;
-    }
-
-    @Override
-    public boolean reset() {
-        return true;
+        return buff instanceof SummoningCooldown && super.add( buff );
     }
 
     @Override
@@ -81,6 +81,12 @@ public class RatKingBoss extends Mob{
             //do nothing
         } else {
             Dungeon.level.seal();
+
+            if (buff(SummoningCooldown.class)==null) {
+                if (summonRat()) {
+                    Buff.affect(this, SummoningCooldown.class, SummoningCooldown.DELAY);
+                }
+            }
 
             if (state != PASSIVE) {
                 state = PASSIVE;
@@ -194,13 +200,10 @@ public class RatKingBoss extends Mob{
 
         if (!notSeenValid.isEmpty()){
             pos = Random.element(notSeenValid);
-            GLog.i("notSeenValid");
         } else if (!notVisibleValid.isEmpty()){
             pos = Random.element(notVisibleValid);
-            GLog.i("notVisibleValid");
         } else if (!visibleValid.isEmpty()){
             pos = Random.element(visibleValid);
-            GLog.i("visibleValid");
         } else {
             GLog.w( Messages.get(ScrollOfTeleportation.class, "no_tele") );
             return;
@@ -227,5 +230,74 @@ public class RatKingBoss extends Mob{
         super.restoreFromBundle( bundle );
 
         if (state != SLEEPING) BossHealthBar.assignBoss(this);
+    }
+
+    public static class RatGuard extends Rat{
+        {
+            properties.add(Property.BOSS_MINION);
+            state = HUNTING;
+
+            HP = HT = 12;
+            defenseSkill = 4;
+            maxLvl = -2;
+        }
+
+        @Override
+        public int attackSkill( Char target ) {
+            return 10;
+        }
+    }
+
+    private boolean summonRat() {
+        boolean[] passable = Dungeon.level.passable;
+        ArrayList<Integer> toSummon = new ArrayList<>();
+
+        PathFinder.buildDistanceMap(this.pos, passable);
+
+        for (int i = 0; i < Dungeon.level.length(); i++){
+            if (PathFinder.distance[i] < Integer.MAX_VALUE
+                    && !Dungeon.level.secret[i]
+                    && Actor.findChar(i) == null){
+                if (!Dungeon.level.heroFOV[i]){
+                    toSummon.add(i);
+                }
+            }
+        }
+
+        if (!toSummon.isEmpty()) {
+            int pos = Random.element(toSummon);
+            RatGuard guard = new RatGuard();
+            guard.pos = pos;
+            GameScene.add(guard);
+            Dungeon.level.occupyCell(guard);
+
+            if (Dungeon.isChallenged(STRONGER_BOSSES) && Random.Float()<0.35f) {
+                Class<?extends ChampionEnemy> buffCls;
+                switch (Random.Int(6)){
+                    case 0: default:    buffCls = ChampionEnemy.Blazing.class;      break;
+                    case 1:             buffCls = ChampionEnemy.Projecting.class;   break;
+                    case 2:             buffCls = ChampionEnemy.AntiMagic.class;    break;
+                    case 3:             buffCls = ChampionEnemy.Giant.class;        break;
+                    case 4:             buffCls = ChampionEnemy.Blessed.class;      break;
+                    case 5:             buffCls = ChampionEnemy.Growing.class;      break;
+                }
+
+                Buff.affect(guard, buffCls);
+                GLog.w(Messages.get(ChampionEnemy.class, "warn"));
+            }
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static class SummoningCooldown extends FlavourBuff {
+        @Override
+        public int icon() {
+            return BuffIndicator.UPGRADE;
+        }
+
+        public static final float DELAY = 10f;
     }
 }

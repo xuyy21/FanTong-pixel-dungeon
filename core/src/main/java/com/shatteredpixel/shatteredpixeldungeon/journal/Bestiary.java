@@ -303,6 +303,8 @@ public enum Bestiary {
 		classConversions.put(YogDzewa.YogRipper.class,         RipperDemon.class);
 		classConversions.put(YogDzewa.YogEye.class,            Eye.class);
 		classConversions.put(YogDzewa.YogScorpio.class,        Scorpio.class);
+
+		classConversions.put(RatKingBoss.RatGuard.class,       Rat.class);
 	}
 
 	public static boolean isSeen(Class<?> cls){

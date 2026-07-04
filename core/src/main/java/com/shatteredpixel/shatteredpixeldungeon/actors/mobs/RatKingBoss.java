@@ -141,7 +141,7 @@ public class RatKingBoss extends Mob{
         Dungeon.level.unseal();
 
         GameScene.bossSlain();
-        Dungeon.level.drop( new Gold().quantity(Random.Int(500, 700)), pos ).sprite.drop();
+        Dungeon.level.drop( new Gold().quantity(Random.Int(300, 500)), pos ).sprite.drop();
         Dungeon.level.drop( new WornKey( Dungeon.depth ), pos ).sprite.drop();
         // TODO:鼠王王冠
 
@@ -237,7 +237,7 @@ public class RatKingBoss extends Mob{
             properties.add(Property.BOSS_MINION);
             state = HUNTING;
 
-            HP = HT = 12;
+            HP = HT = 10;
             defenseSkill = 4;
             maxLvl = -2;
         }
@@ -245,6 +245,11 @@ public class RatKingBoss extends Mob{
         @Override
         public int attackSkill( Char target ) {
             return 10;
+        }
+
+        @Override
+        public int damageRoll() {
+            return Random.NormalIntRange( 2, 5 );
         }
     }
 

@@ -14,10 +14,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.RatKingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
@@ -27,9 +29,15 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoArmorAbility;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.watabou.noosa.Game;
+import com.watabou.noosa.Image;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
@@ -94,6 +102,40 @@ public class PrisonWarden extends Mob{
         }
 
         return super.act();
+    }
+
+    @Override
+    public boolean interact(Char c) {
+        if (c != Dungeon.hero) {
+            return true;
+        }
+
+        if (alignment==Alignment.ALLY && buff(successTracker.class)!=null) {
+            sprite.turnTo( pos, c.pos );
+            Game.runOnRenderThread(new Callback() {
+                @Override
+                public void call() {
+                    GameScene.show(new WndOptions(
+                            sprite,
+                            Messages.titleCase(name()),
+                            Messages.get(PrisonWarden.class, "thanks"),
+                            Messages.get(PrisonWarden.class, "respond1"),
+                            Messages.get(PrisonWarden.class, "respond2"),
+                            Messages.get(PrisonWarden.class, "respond3"),
+                            Messages.get(PrisonWarden.class, "respond4")
+                    ){
+                        @Override
+                        protected void onSelect(int index) {
+                            die( null);
+                        }
+                    });
+                }
+            });
+
+            return true;
+        }
+
+        return super.interact(c);
     }
 
     @Override

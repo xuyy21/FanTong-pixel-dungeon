@@ -101,6 +101,12 @@ public class PrisonWarden extends Mob{
             }
         }
 
+        for (Mob m: Dungeon.level.mobs.toArray(new Mob[0])) {
+            if (m instanceof PrisonSkeleton && m.enemy==null) {
+                m.aggro( this);
+            }
+        }
+
         return super.act();
     }
 
@@ -116,7 +122,7 @@ public class PrisonWarden extends Mob{
                 @Override
                 public void call() {
                     GameScene.show(new WndOptions(
-                            sprite,
+                            new PrisonWardenSprite(),
                             Messages.titleCase(name()),
                             Messages.get(PrisonWarden.class, "thanks", Dungeon.hero.name()),
                             Messages.get(PrisonWarden.class, "respond1"),
@@ -166,6 +172,7 @@ public class PrisonWarden extends Mob{
         state = PASSIVE;
         alignment = Alignment.ALLY;
         ((PrisonWardenSprite)sprite).passive();
+        HP = HT/2;
         Buff.affect(this, Barrier.class).setShield(50);
         GLog.p(Messages.get(this, "switch_state"));
     }
@@ -460,7 +467,7 @@ public class PrisonWarden extends Mob{
         {
             maxLvl = -2;
             properties.add(Property.BOSS_MINION);
-            state = HUNTING;
+            state = WANDERING;
         }
 
         @Override
@@ -495,7 +502,7 @@ public class PrisonWarden extends Mob{
                     break;
                 }
             }
-            if (warden != null) {
+            if (warden != null && warden.buff(successTracker.class)==null) {
                 Buff.affect(warden, skeletonCounter.class).count++;
                 if (Buff.affect(warden, skeletonCounter.class).count>=10)
                     warden.success();

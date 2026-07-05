@@ -19,6 +19,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.WornKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -133,6 +135,7 @@ public class PrisonWarden extends Mob{
     @Override
     public void die( Object cause ) {
         if (Dungeon.hero.subClass == HeroSubClass.NONE) {
+            Dungeon.level.drop( new IronKey( Dungeon.depth), pos ).sprite.drop();
             Dungeon.level.drop( new TengusMask(), pos ).sprite.drop();
         }
 

@@ -67,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel_Tengu;
+import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel_Warden;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel_Goo;
@@ -312,7 +313,15 @@ public class Dungeon {
 		if (branch == 0) {
 			switch (depth) {
 				case 1:
+					if (SPDSettings.testing()){
+						level = new SewerBossLevel_Rat();
+						break;
+					}
 				case 2:
+					if (SPDSettings.testing()){
+						level = new PrisonBossLevel_Warden();
+						break;
+					}
 				case 3:
 				case 4:
 					level = new SewerLevel();

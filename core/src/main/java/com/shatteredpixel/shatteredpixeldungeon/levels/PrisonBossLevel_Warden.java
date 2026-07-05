@@ -76,7 +76,13 @@ public class PrisonBossLevel_Warden extends PrisonLevel{
 
     @Override
     protected void createMobs() {
-
+        PrisonWarden warden = new PrisonWarden();
+        for (Room r: rooms) {
+            if (r instanceof WardenBossRoom) {
+                warden.pos = ((WardenBossRoom)r).wardensRoom;
+                mobs.add( warden );
+            }
+        }
     }
 
     protected Builder builder(){

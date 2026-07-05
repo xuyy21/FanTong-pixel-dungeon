@@ -43,7 +43,7 @@ public class WardenBossRoom extends StandardRoom implements Bundlable {
         else return 2;
     }
 
-    private int wardensRoom;
+    public int wardensRoom;
 
     @Override
     public void paint(Level level) {

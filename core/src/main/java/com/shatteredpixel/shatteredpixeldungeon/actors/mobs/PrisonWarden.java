@@ -170,6 +170,8 @@ public class PrisonWarden extends Mob{
         for (Char ch : Actor.chars()) {
             if (ch instanceof PrisonSkeleton && fieldOfView[ch.pos]) {
                 state = HUNTING;
+                if (!(enemy instanceof PrisonSkeleton))
+                    yell(Messages.get(this, "undead"));
                 return ch;
             }
         }

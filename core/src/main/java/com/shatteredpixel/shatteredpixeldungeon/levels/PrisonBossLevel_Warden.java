@@ -86,13 +86,13 @@ public class PrisonBossLevel_Warden extends PrisonLevel{
 
     protected Painter painter() {
         return new WardenBossPainter()
-                .setWater(0.30f, 4)
-                .setGrass(0.20f, 3)
+                .setWater(0.20f, 3)
+                .setGrass(0.10f, 2)
                 .setTraps(nTraps(), trapClasses(), trapChances());
     }
 
     protected int nTraps() {
-        return Random.Int(20,32);
+        return Random.Int(24,32);
     }
 
     protected Class<?>[] trapClasses() {

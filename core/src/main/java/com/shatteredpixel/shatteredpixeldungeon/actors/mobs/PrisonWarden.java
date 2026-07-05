@@ -184,6 +184,12 @@ public class PrisonWarden extends Mob{
         Buff.affect(this, successTracker.class);
 
         Dungeon.level.unseal();
+
+        for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+            if (mob instanceof PrisonSkeleton) {
+                mob.die(null);
+            }
+        }
     }
 
     @Override
@@ -358,6 +364,23 @@ public class PrisonWarden extends Mob{
         public static final float DURATION = 20f;
     }
 
+    public static class skeletonCounter extends Buff {
+            public int count = 0;
+            public static final String COUNT = "count";
+
+            @Override
+            public void storeInBundle(Bundle bundle) {
+                super.storeInBundle(bundle);
+                bundle.put(COUNT, count);
+            }
+
+            @Override
+            public void restoreFromBundle(Bundle bundle) {
+                super.restoreFromBundle(bundle);
+                count = bundle.getInt(COUNT);
+            }
+        }
+
     public static class PrisonWardenSprite extends MobSprite {
         protected Animation passive;
 
@@ -370,16 +393,16 @@ public class PrisonWarden extends Mob{
             idle = new Animation( 2, true );
             idle.frames( frames, 0, 0, 0, 1, 0, 0, 1, 1 );
 
-            run = new MovieClip.Animation( 15, true );
+            run = new Animation( 15, true );
             run.frames( frames, 2, 3, 4, 5, 6, 7 );
 
-            attack = new MovieClip.Animation( 12, false );
+            attack = new Animation( 12, false );
             attack.frames( frames, 8, 9, 10 );
 
-            die = new MovieClip.Animation( 8, false );
+            die = new Animation( 8, false );
             die.frames( frames, 11, 12, 13, 14 );
 
-            passive = new MovieClip.Animation( 8, false );
+            passive = new Animation( 8, false );
             passive.frames( frames, 11, 12, 15 );
 
             play(idle);
@@ -419,6 +442,24 @@ public class PrisonWarden extends Mob{
             }
 
             return super.chooseEnemy();
+        }
+
+        @Override
+        public void die(Object cause) {
+            PrisonWarden warden = null;
+            for (Char ch : Actor.chars()) {
+                if (ch instanceof PrisonWarden) {
+                    warden = (PrisonWarden) ch;
+                    break;
+                }
+            }
+            if (warden != null) {
+                Buff.affect(warden, skeletonCounter.class).count++;
+                if (Buff.affect(warden, skeletonCounter.class).count>=10)
+                    warden.success();
+            }
+
+            super.die(cause);
         }
     }
 }

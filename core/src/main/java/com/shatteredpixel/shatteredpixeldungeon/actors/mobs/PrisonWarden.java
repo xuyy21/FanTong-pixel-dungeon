@@ -118,7 +118,7 @@ public class PrisonWarden extends Mob{
                     GameScene.show(new WndOptions(
                             sprite,
                             Messages.titleCase(name()),
-                            Messages.get(PrisonWarden.class, "thanks"),
+                            Messages.get(PrisonWarden.class, "thanks", Dungeon.hero.name()),
                             Messages.get(PrisonWarden.class, "respond1"),
                             Messages.get(PrisonWarden.class, "respond2"),
                             Messages.get(PrisonWarden.class, "respond3"),

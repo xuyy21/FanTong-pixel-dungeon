@@ -44,8 +44,7 @@ public class WardenExitRoom extends ExitRoom {
         }
 
         Point exit = center();
-        Painter.set( level, exit, Terrain.EXIT );
-        level.transitions.add(new LevelTransition(level, level.pointToCell(exit), LevelTransition.Type.REGULAR_EXIT));
+        Painter.set( level, exit, Terrain.EMPTY_WELL );
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.Builder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.LineBuilder;
+import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.PrisonPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
@@ -175,6 +176,11 @@ public class PrisonBossLevel_Warden extends PrisonLevel{
 
             set( entrance(), Terrain.ENTRANCE );
             GameScene.updateMap( entrance() );
+
+            Point exit = roomExit.center();
+            Painter.set( this, exit, Terrain.EXIT );
+            transitions.add(new LevelTransition(this, pointToCell(exit), LevelTransition.Type.REGULAR_EXIT));
+            GameScene.updateMap( exit() );
 
             Game.runOnRenderThread(new Callback() {
                 @Override

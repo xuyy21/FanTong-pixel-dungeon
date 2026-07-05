@@ -141,7 +141,10 @@ public class PrisonWarden extends Mob{
         }
 
         yell(Messages.get(this, "defeated"));
-        success();
+
+        if (buff(successTracker.class)==null) {
+            success();
+        }
 
         super.die( cause);
     }
@@ -159,6 +162,12 @@ public class PrisonWarden extends Mob{
         } else {
             Statistics.bossScores[1] -= hurtHP*10;
         }
+
+        if (isAlive()) {
+            yell(Messages.get(this, "success"));
+        }
+
+        Buff.affect(this, successTracker.class);
 
         Dungeon.level.unseal();
     }
@@ -289,6 +298,9 @@ public class PrisonWarden extends Mob{
 
     public static class chainsCooldown extends FlavourBuff {
         public static final float DURATION = 10f;
+    }
+
+    public static class successTracker extends Buff {
     }
 
     public static class PrisonWardenSprite extends MobSprite {

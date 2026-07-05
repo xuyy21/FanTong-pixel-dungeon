@@ -10,27 +10,33 @@ import com.watabou.utils.Point;
 public class WardenBossRoom extends StandardRoom {
     @Override
     public int minWidth() {
-        return Math.max(super.minWidth(), 9);
+        return 32;
     }
 
     @Override
     public int minHeight() {
-        return Math.max(super.minHeight(), 9);
+        return 32;
     }
 
     @Override
     public int maxWidth() {
-        return Math.min(super.maxWidth(), 9);
+        return 32;
     }
 
     @Override
     public int maxHeight() {
-        return Math.min(super.maxHeight(), 9);
+        return 32;
+    }
+
+    @Override
+    public boolean forceSize(int w, int h) {
+        return setSize(32, 32, 32, 32);
     }
 
     @Override
     public int maxConnections(int direction){
-        return 2;
+        if (direction == ALL) return 4;
+        else return 2;
     }
 
     @Override
@@ -45,7 +51,7 @@ public class WardenBossRoom extends StandardRoom {
 
     @Override
     public boolean canMerge(Level l, Room other, Point p, int mergeTerrain){
-        return false;
+        return true;
     }
 
     @Override

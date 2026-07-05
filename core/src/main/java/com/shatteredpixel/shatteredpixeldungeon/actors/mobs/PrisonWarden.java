@@ -5,20 +5,26 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
@@ -59,8 +65,65 @@ public class PrisonWarden extends Mob{
     }
 
     @Override
+    public boolean act() {
+        if (HP*2 <= HT) {
+            if (state == PASSIVE) {
+                alignment = Alignment.ALLY;
+            } else {
+                switchState();
+            }
+        }
+
+        return super.act();
+    }
+
+    @Override
     public void damage(int dmg, Object src) {
-        //TODO
+        if (!BossHealthBar.isAssigned()){
+            BossHealthBar.assignBoss( this );
+            Dungeon.level.seal();
+        }
+        boolean bleeding = (HP*2 <= HT);
+        super.damage(dmg, src);
+        if ((HP*2 <= HT) && !bleeding) {
+            BossHealthBar.bleed(true);
+            switchState();
+        }
+
+        if (bleeding) {
+            yell(Messages.get(this, "hurted"+Random.IntRange(1,4)));
+        }
+
+        LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
+        if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+            if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(2*dmg/3f);
+            else                                                    lock.addTime(dmg);
+        }
+    }
+
+    public void switchState() {
+        state = PASSIVE;
+        alignment = Alignment.ALLY;
+        Buff.affect(this, Barrier.class).setShield(50);
+        GLog.p(Messages.get(this, "switch_state"));
+    }
+
+    @Override
+    public void notice() {
+        super.notice();
+        if (!BossHealthBar.isAssigned()) {
+            BossHealthBar.assignBoss(this);
+            if (HP <= HT/2) BossHealthBar.bleed(true);
+            if (HP >= HT) {
+                yell(Messages.get(this, "notice"));
+//                for (Char ch : Actor.chars()){
+//                    if (ch instanceof DriedRose.GhostHero){
+                            //TODO:幽灵对话
+//                        ((DriedRose.GhostHero) ch).sayBoss();
+//                    }
+//                }
+            }
+        }
     }
 
     @Override
@@ -74,7 +137,19 @@ public class PrisonWarden extends Mob{
         super.die( cause);
     }
 
-    //TODO:敌人选择
+    @Override
+    protected Char chooseEnemy() {
+        if (state == PASSIVE) return null;
+
+        for (Char ch : Actor.chars()) {
+            if (ch instanceof PrisonSkeleton && fieldOfView[ch.pos]) {
+                state = HUNTING;
+                return ch;
+            }
+        }
+
+        return super.chooseEnemy();
+    }
 
     @Override
     public void restoreFromBundle( Bundle bundle ) {
@@ -213,6 +288,24 @@ public class PrisonWarden extends Mob{
 
         public void passive() {
             play(passive);
+        }
+    }
+
+    public static class PrisonSkeleton extends Skeleton{
+        {
+            maxLvl = -2;
+            properties.add(Property.BOSS_MINION);
+            state = HUNTING;
+        }
+
+        @Override
+        public void damage(int dmg, Object src){
+            super.damage(dmg, src);
+            LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
+            if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+                if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg/3f);
+                else                                                    lock.addTime(2*dmg/3f);
+            }
         }
     }
 }

@@ -10,29 +10,27 @@ import com.watabou.utils.Point;
 public class WardenBossRoom extends StandardRoom {
     @Override
     public int minWidth() {
-        return Math.max(super.minWidth(), 16);
+        return Math.max(super.minWidth(), 9);
     }
 
     @Override
     public int minHeight() {
-        return Math.max(super.minHeight(), 20);
+        return Math.max(super.minHeight(), 9);
     }
 
     @Override
     public int maxWidth() {
-        return Math.min(super.maxWidth(), 20);
+        return Math.min(super.maxWidth(), 9);
     }
 
     @Override
     public int maxHeight() {
-        return Math.min(super.maxHeight(), 24);
+        return Math.min(super.maxHeight(), 9);
     }
 
     @Override
     public int maxConnections(int direction){
-        if (direction == BOTTOM) return 1;
-        else if (direction == TOP) return 1;
-        else return 0;
+        return 2;
     }
 
     @Override

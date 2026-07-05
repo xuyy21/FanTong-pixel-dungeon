@@ -5,15 +5,13 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.SewerBossExitRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.exit.ExitRoom;
-import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.watabou.utils.Point;
 
 public class WardenExitRoom extends ExitRoom {
     @Override
     public int minWidth() {
-        return Math.max(super.minWidth(), 5);
+        return Math.max(super.minWidth(), 7);
     }
 
     @Override
@@ -23,7 +21,7 @@ public class WardenExitRoom extends ExitRoom {
 
     @Override
     public int maxWidth() {
-        return Math.min(super.maxWidth(), 5);
+        return Math.min(super.maxWidth(), 7);
     }
 
     @Override
@@ -33,8 +31,7 @@ public class WardenExitRoom extends ExitRoom {
 
     @Override
     public int maxConnections(int direction){
-        if (direction == TOP) return 1;
-        else return 0;
+        return 1;
     }
 
     @Override
@@ -42,13 +39,11 @@ public class WardenExitRoom extends ExitRoom {
         Painter.fill( level, this, Terrain.WALL );
         Painter.fill( level, this, 1, Terrain.EMPTY );
 
-        Point door = new Point(left+2,top);
-        Painter.set( level, door, Terrain.LOCKED_EXIT );
-        CustomTilemap vis = new SewerBossExitRoom.SewerExit();
-        vis.pos(level.pointToCell(door));
-        level.customTiles.add(vis);
+        for (Room.Door door : connected.values()) {
+            door.set( Door.Type.LOCKED );
+        }
 
-        Point exit = new Point(left+2,bottom-2);
+        Point exit = center();
         Painter.set( level, exit, Terrain.EXIT );
         level.transitions.add(new LevelTransition(level, level.pointToCell(exit), LevelTransition.Type.REGULAR_EXIT));
     }

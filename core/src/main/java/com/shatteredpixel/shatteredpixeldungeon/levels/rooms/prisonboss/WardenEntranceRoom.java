@@ -11,7 +11,7 @@ import com.watabou.utils.Point;
 public class WardenEntranceRoom extends EntranceRoom {
     @Override
     public int minWidth() {
-        return Math.max(super.minWidth(), 5);
+        return Math.max(super.minWidth(), 7);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class WardenEntranceRoom extends EntranceRoom {
 
     @Override
     public int maxWidth() {
-        return Math.min(super.maxWidth(), 5);
+        return Math.min(super.maxWidth(), 7);
     }
 
     @Override
@@ -31,8 +31,7 @@ public class WardenEntranceRoom extends EntranceRoom {
 
     @Override
     public int maxConnections(int direction){
-        if (direction == BOTTOM) return 1;
-        else return 0;
+        return 1;
     }
 
     @Override
@@ -44,7 +43,7 @@ public class WardenEntranceRoom extends EntranceRoom {
             door.set( Room.Door.Type.REGULAR );
         }
 
-        Point entrance = new Point(left+2,top+2);
+        Point entrance = center();
         Painter.set( level, entrance, Terrain.ENTRANCE );
         level.transitions.add(new LevelTransition(level, level.pointToCell(entrance), LevelTransition.Type.REGULAR_ENTRANCE));
     }

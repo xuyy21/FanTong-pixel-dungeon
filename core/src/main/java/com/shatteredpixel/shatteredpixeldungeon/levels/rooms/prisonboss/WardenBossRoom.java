@@ -67,7 +67,7 @@ public class WardenBossRoom extends StandardRoom implements Bundlable {
         // 随机生成监房
         int cellCount = Random.IntRange(3, 5);
         for (int i = 0; i < cellCount; i++) {
-            Rect cell = generateRandomRect(3, 5, 3, 5, placedRects);
+            Rect cell = generateRandomRect(4, 7, 4, 7, placedRects);
             if (cell != null) {
                 placeCell(level, cell);
                 placedRects.add(cell);

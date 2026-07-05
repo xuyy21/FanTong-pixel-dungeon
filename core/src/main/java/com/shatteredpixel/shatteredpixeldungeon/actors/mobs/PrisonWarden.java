@@ -106,6 +106,7 @@ public class PrisonWarden extends Mob{
     public void switchState() {
         state = PASSIVE;
         alignment = Alignment.ALLY;
+        ((PrisonWardenSprite)sprite).passive();
         Buff.affect(this, Barrier.class).setShield(50);
         GLog.p(Messages.get(this, "switch_state"));
     }

@@ -73,6 +73,7 @@ public class PrisonWarden extends Mob{
         if (HP*2 <= HT) {
             if (state == PASSIVE) {
                 alignment = Alignment.ALLY;
+                ((PrisonWardenSprite)sprite).passive();
             } else {
                 switchState();
             }
@@ -179,6 +180,10 @@ public class PrisonWarden extends Mob{
     @Override
     public void restoreFromBundle( Bundle bundle ) {
         super.restoreFromBundle(bundle);
+        if (state!=SLEEPING){
+            BossHealthBar.assignBoss( this );
+            if (HP*2 <= HT) BossHealthBar.bleed(true);
+        }
         if (state==PASSIVE){
             alignment = Alignment.ALLY;
         }
@@ -312,7 +317,8 @@ public class PrisonWarden extends Mob{
         }
 
         public void passive() {
-            play(passive);
+            if (curAnim != passive)
+                play(passive);
         }
     }
 

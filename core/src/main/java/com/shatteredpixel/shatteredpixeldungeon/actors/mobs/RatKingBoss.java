@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.STRONGER_BOSSES;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -10,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.RatKingsCrown;
@@ -131,6 +133,12 @@ public class RatKingBoss extends Mob{
                 teleport();
             } else {
                 die(null);
+            }
+
+            LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
+            if (lock != null){
+                if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(5);
+                else                                                    lock.addTime(7.5f);
             }
         }
 
@@ -277,6 +285,16 @@ public class RatKingBoss extends Mob{
         @Override
         public int attackSkill( Char target ) {
             return 10;
+        }
+
+        @Override
+        public void damage(int dmg, Object src) {
+            super.damage(dmg, src);
+            LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
+            if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+                if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg);
+                else                                                    lock.addTime(dmg*1.5f);
+            }
         }
     }
 

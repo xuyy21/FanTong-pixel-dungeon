@@ -342,7 +342,13 @@ public class Dungeon {
 					level = new PrisonLevel();
 					break;
 				case 10:
-					level = new PrisonBossLevel_Tengu();
+					switch (Random.IntRange(0,1)){
+						case 0: default:
+							level = new PrisonBossLevel_Tengu();
+							break;
+						case 1:
+							level = new PrisonBossLevel_Warden();
+					}
 					break;
 				case 11:
 				case 12:

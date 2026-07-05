@@ -1,8 +1,10 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
@@ -132,9 +134,27 @@ public class PrisonWarden extends Mob{
             Dungeon.level.drop( new TengusMask(), pos ).sprite.drop();
         }
 
-        //TODO
+        yell(Messages.get(this, "defeated"));
+        success();
 
         super.die( cause);
+    }
+
+    public void success() {
+        GameScene.bossSlain();
+
+        Badges.validateBossSlain_second();
+        Statistics.bossScores[1] += 2000;
+        int hurtHP = HT/2 - HP;
+        hurtHP = Math.max(hurtHP, 0);
+        hurtHP = Math.min(hurtHP, HT/2);
+        if (hurtHP<=0){
+            Badges.validateBossChallengeCompleted_second();
+        } else {
+            Statistics.bossScores[1] -= hurtHP*10;
+        }
+
+        Dungeon.level.unseal();
     }
 
     @Override

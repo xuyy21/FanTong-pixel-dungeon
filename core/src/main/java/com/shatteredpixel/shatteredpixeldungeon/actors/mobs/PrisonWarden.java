@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
@@ -34,7 +35,10 @@ import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class PrisonWarden extends Mob{
     {
@@ -45,6 +49,7 @@ public class PrisonWarden extends Mob{
         defenseSkill = 12;
 
         properties.add(Property.BOSS);
+        immunities.add(MagicalSleep.class);
 
         HUNTING = new Hunting();
     }
@@ -74,8 +79,17 @@ public class PrisonWarden extends Mob{
             if (state == PASSIVE) {
                 alignment = Alignment.ALLY;
                 ((PrisonWardenSprite)sprite).passive();
+
+                if (buff(summonCooldown.class)==null && summonSkeleton()) {
+                    if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) summonSkeleton();//召唤两只
+                    Buff.affect(this, summonCooldown.class, summonCooldown.DURATION/2f);
+                }
             } else {
                 switchState();
+            }
+        } else if (state != SLEEPING) {
+            if (buff(summonCooldown.class)==null && summonSkeleton()) {
+                Buff.affect(this, summonCooldown.class, summonCooldown.DURATION);
             }
         }
 
@@ -269,6 +283,43 @@ public class PrisonWarden extends Mob{
         }
     }
 
+    public boolean summonSkeleton(){
+        boolean[] passable = Dungeon.level.passable;
+        ArrayList<Integer> visible = new ArrayList<>();
+        ArrayList<Integer> invisible = new ArrayList<>();
+
+        PathFinder.buildDistanceMap(this.pos, passable);
+
+        for (int i = 0; i < Dungeon.level.length(); i++){
+            if (PathFinder.distance[i] < Integer.MAX_VALUE
+                    && !Dungeon.level.secret[i]
+                    && Actor.findChar(i) == null){
+                if (Dungeon.level.heroFOV[i]){
+                    visible.add(i);
+                } else {
+                    invisible.add(i);
+                }
+            }
+        }
+
+        int pos;
+        if (!invisible.isEmpty()) {
+            pos = Random.element(invisible);
+        } else if (!visible.isEmpty()) {
+            pos = Random.element(visible);
+        } else {
+            return false;
+        }
+
+        PrisonSkeleton skeleton = new PrisonSkeleton();
+        skeleton.pos = pos;
+        GameScene.add(skeleton);
+        Dungeon.level.occupyCell(skeleton);
+        skeleton.aggro(this);
+
+        return true;
+    }
+
     @Override
     public CharSprite sprite() {
         CharSprite sprite = super.sprite();
@@ -301,6 +352,10 @@ public class PrisonWarden extends Mob{
     }
 
     public static class successTracker extends Buff {
+    }
+
+    public static class summonCooldown extends FlavourBuff {
+        public static final float DURATION = 20f;
     }
 
     public static class PrisonWardenSprite extends MobSprite {
@@ -351,6 +406,19 @@ public class PrisonWarden extends Mob{
                 if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg/3f);
                 else                                                    lock.addTime(2*dmg/3f);
             }
+        }
+
+        @Override
+        protected Char chooseEnemy() {
+            for (Char ch : Actor.chars()) {
+                if (ch instanceof PrisonWarden && fieldOfView[ch.pos]) {
+                    state = HUNTING;
+                    ((PrisonWarden) ch).chooseEnemy();
+                    return ch;
+                }
+            }
+
+            return super.chooseEnemy();
         }
     }
 }

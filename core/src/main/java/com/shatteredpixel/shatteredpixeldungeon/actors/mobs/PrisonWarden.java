@@ -114,6 +114,7 @@ public class PrisonWarden extends Mob{
     @Override
     public void notice() {
         super.notice();
+        Dungeon.level.seal();
         if (!BossHealthBar.isAssigned()) {
             BossHealthBar.assignBoss(this);
             if (HP <= HT/2) BossHealthBar.bleed(true);

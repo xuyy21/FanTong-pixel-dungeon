@@ -27,12 +27,15 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.OozeTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PoisonDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ShockingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TeleportationTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 
@@ -81,14 +84,14 @@ public class PrisonBossLevel_Warden extends PrisonLevel{
     }
 
     protected Painter painter() {
-        return new PrisonPainter()
+        return new WardenBossPainter()
                 .setWater(0.30f, 4)
                 .setGrass(0.20f, 3)
                 .setTraps(nTraps(), trapClasses(), trapChances());
     }
 
     protected int nTraps() {
-        return 10;
+        return Random.Int(20,32);
     }
 
     protected Class<?>[] trapClasses() {
@@ -184,6 +187,73 @@ public class PrisonBossLevel_Warden extends PrisonLevel{
                     });
                 }
             });
+        }
+    }
+
+    public static class WardenBossPainter extends PrisonPainter {
+        @Override
+        protected void paintTraps( Level l, ArrayList<Room> rooms ) {
+            //全部陷阱设置为不隐藏
+            ArrayList<Integer> validCells = new ArrayList<>();
+
+            if (!rooms.isEmpty()){
+                for (Room r : rooms){
+                    for (Point p : r.trapPlaceablePoints()){
+                        int i = l.pointToCell(p);
+                        if (l.map[i] == Terrain.EMPTY){
+                            validCells.add(i);
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < l.length(); i ++) {
+                    if (l.map[i] == Terrain.EMPTY){
+                        validCells.add(i);
+                    }
+                }
+            }
+
+            //no more than one trap every 5 valid tiles.
+            nTraps = Math.min(nTraps, validCells.size()/5);
+
+            //for traps that want to avoid being in hallways
+            ArrayList<Integer> validNonHallways = new ArrayList<>();
+
+            //temporarily use the passable array for the next step
+            for (int i = 0; i < l.length(); i++){
+                l.passable[i] = (Terrain.flags[l.map[i]] & Terrain.PASSABLE) != 0;
+            }
+
+            for (int i : validCells){
+                if ((l.passable[i+ PathFinder.CIRCLE4[0]] || l.passable[i+PathFinder.CIRCLE4[2]])
+                        && (l.passable[i+PathFinder.CIRCLE4[1]] || l.passable[i+PathFinder.CIRCLE4[3]])){
+                    validNonHallways.add(i);
+                }
+            }
+
+            //no more than one trap every 5 valid tiles.
+            nTraps = Math.min(nTraps, validCells.size()/5);
+
+            for (int i = 0; i < nTraps; i++) {
+
+                Trap trap = Reflection.newInstance(trapClasses[Random.chances( trapChances )]);
+
+                Integer trapPos;
+                if (trap.avoidsHallways && !validNonHallways.isEmpty()){
+                    trapPos = Random.element(validNonHallways);
+                } else {
+                    trapPos = Random.element(validCells);
+                }
+                //removes the integer object, not at the index
+                validCells.remove(trapPos);
+                validNonHallways.remove(trapPos);
+
+                trap.reveal();
+
+                l.setTrap( trap, trapPos );
+                //some traps will not be hidden
+                l.map[trapPos] = trap.visible ? Terrain.TRAP : Terrain.SECRET_TRAP;
+            }
         }
     }
 }

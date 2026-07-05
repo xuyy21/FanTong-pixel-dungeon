@@ -65,9 +65,9 @@ public abstract class RegularPainter extends Painter {
 		return this;
 	}
 	
-	private int nTraps = 0;
-	private Class<? extends Trap>[] trapClasses;
-	private float[] trapChances;
+	protected int nTraps = 0;
+	protected Class<? extends Trap>[] trapClasses;
+	protected float[] trapChances;
 	
 	public RegularPainter setTraps(int num, Class<?>[] classes, float[] chances){
 		nTraps = num;

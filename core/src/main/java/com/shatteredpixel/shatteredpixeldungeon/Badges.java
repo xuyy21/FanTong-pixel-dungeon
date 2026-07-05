@@ -119,6 +119,7 @@ public class Badges {
 		ITEMS_CRAFTED_2             ( 46 ),
 		ITEMS_CRAFTED_3             ( 47 ),
 		BOSS_SLAIN_2                ( 48 ),
+		SECOND_BOSS_SLAIN_2         ( 48 ),
 		BOSS_SLAIN_3                ( 49 ),
 		ALL_POTIONS_IDENTIFIED      , //still exists internally for pre-2.5 saves
 		ALL_SCROLLS_IDENTIFIED      , //still exists internally for pre-2.5 saves
@@ -171,6 +172,7 @@ public class Badges {
 		BOSS_CHALLENGE_1            ( 83 ),
 		SECOND_BOSS_CHALLENGE_1     ( 91 ),
 		BOSS_CHALLENGE_2            ( 84 ),
+		SECOND_BOSS_CHALLENGE_2     ( 92 ),
 		RESEARCHER_3                ( 85, BadgeType.JOURNAL ),
 		GAMES_PLAYED_3              ( 86, BadgeType.GLOBAL ),
 		HIGH_SCORE_3                ( 87 ),
@@ -973,6 +975,7 @@ public class Badges {
 				badge = Badge.SECOND_BOSS_SLAIN_1;
 				break;
 			case 10:
+				badge = Badge.SECOND_BOSS_SLAIN_2;
 				break;
 			case 15:
 				break;
@@ -1048,6 +1051,7 @@ public class Badges {
 				badge = Badge.SECOND_BOSS_CHALLENGE_1;
 				break;
 			case 10:
+				badge = Badge.SECOND_BOSS_CHALLENGE_2;
 				break;
 			case 15:
 				break;
@@ -1371,6 +1375,7 @@ public class Badges {
 			{Badge.FOOD_EATEN_1, Badge.FOOD_EATEN_2, Badge.FOOD_EATEN_3, Badge.FOOD_EATEN_4, Badge.FOOD_EATEN_5},
 			{Badge.ITEMS_CRAFTED_1, Badge.ITEMS_CRAFTED_2, Badge.ITEMS_CRAFTED_3, Badge.ITEMS_CRAFTED_4, Badge.ITEMS_CRAFTED_5},
 			{Badge.BOSS_SLAIN_1, Badge.BOSS_SLAIN_2, Badge.BOSS_SLAIN_3, Badge.BOSS_SLAIN_4},
+			{Badge.SECOND_BOSS_SLAIN_1, Badge.SECOND_BOSS_SLAIN_2},
 			{Badge.RESEARCHER_1, Badge.RESEARCHER_2, Badge.RESEARCHER_3, Badge.RESEARCHER_4, Badge.RESEARCHER_5},
 			{Badge.HIGH_SCORE_1, Badge.HIGH_SCORE_2, Badge.HIGH_SCORE_3, Badge.HIGH_SCORE_4, Badge.HIGH_SCORE_5},
 			{Badge.GAMES_PLAYED_1, Badge.GAMES_PLAYED_2, Badge.GAMES_PLAYED_3, Badge.GAMES_PLAYED_4, Badge.GAMES_PLAYED_5},
@@ -1384,6 +1389,7 @@ public class Badges {
 			{Badge.BOSS_SLAIN_1, Badge.BOSS_CHALLENGE_1},
 			{Badge.SECOND_BOSS_SLAIN_1, Badge.SECOND_BOSS_CHALLENGE_1},
 			{Badge.BOSS_SLAIN_2, Badge.BOSS_CHALLENGE_2},
+			{Badge.SECOND_BOSS_SLAIN_2, Badge.SECOND_BOSS_CHALLENGE_2},
 			{Badge.BOSS_SLAIN_3, Badge.BOSS_CHALLENGE_3},
 			{Badge.BOSS_SLAIN_4, Badge.BOSS_CHALLENGE_4},
 			{Badge.VICTORY,      Badge.BOSS_CHALLENGE_5},

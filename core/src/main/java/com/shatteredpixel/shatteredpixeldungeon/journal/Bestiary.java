@@ -292,6 +292,7 @@ public enum Bestiary {
 		classConversions.put(CorpseDust.DustWraith.class,      Wraith.class);
 
 		classConversions.put(Necromancer.NecroSkeleton.class,  Skeleton.class);
+		classConversions.put(PrisonWarden.PrisonSkeleton.class,  Skeleton.class);
 
 		classConversions.put(TenguDartTrap.class,              PoisonDartTrap.class);
 		classConversions.put(GnollRockfallTrap.class,          RockfallTrap.class);

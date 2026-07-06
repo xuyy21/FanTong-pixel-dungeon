@@ -73,6 +73,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Necromancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.PhantomPiranha;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.PlantMonster;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.PrisonWarden;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Pylon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RatKingBoss;
@@ -238,7 +239,7 @@ public enum Bestiary {
 				RipperDemon.class, DemonSpawner.class, Succubus.class, Eye.class, Scorpio.class, Chomper.class, ArmedSkeleton.class);
 
 		BOSSES.addEntities(Goo.class, RatKingBoss.class,
-				Tengu.class,
+				Tengu.class, PrisonWarden.class,
 				Pylon.class, DM300.class,
 				DwarfKing.class,
 				YogDzewa.Larva.class, YogFist.BurningFist.class, YogFist.SoiledFist.class, YogFist.RottingFist.class, YogFist.RustedFist.class,YogFist.BrightFist.class, YogFist.DarkFist.class, YogDzewa.class);

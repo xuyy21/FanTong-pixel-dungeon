@@ -170,9 +170,9 @@ public class Badges {
 		DEATH_FROM_GRIM_TRAP        ( 81 ), //also disintegration traps
 		VICTORY                     ( 82 ),
 		BOSS_CHALLENGE_1            ( 83 ),
-		SECOND_BOSS_CHALLENGE_1     ( 91 ),
+		SECOND_BOSS_CHALLENGE_1     ( 90 ),
 		BOSS_CHALLENGE_2            ( 84 ),
-		SECOND_BOSS_CHALLENGE_2     ( 92 ),
+		SECOND_BOSS_CHALLENGE_2     ( 91 ),
 		RESEARCHER_3                ( 85, BadgeType.JOURNAL ),
 		GAMES_PLAYED_3              ( 86, BadgeType.GLOBAL ),
 		HIGH_SCORE_3                ( 87 ),

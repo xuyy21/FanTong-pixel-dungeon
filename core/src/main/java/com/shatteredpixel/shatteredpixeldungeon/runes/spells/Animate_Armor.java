@@ -219,7 +219,7 @@ public class Animate_Armor extends InventorySpell{
 
         @Override
         public int damageRoll() {
-            return Random.NormalIntRange( 4+2*this.armor.level(), 10+3*this.armor.level()+this.level );
+            return Random.NormalIntRange( 2+this.armor.level(), 5+2*this.armor.level()+this.level );
         }
 
         @Override

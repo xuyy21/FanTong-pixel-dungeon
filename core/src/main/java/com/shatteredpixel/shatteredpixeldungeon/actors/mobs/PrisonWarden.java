@@ -99,11 +99,11 @@ public class PrisonWarden extends Mob{
             if (buff(summonCooldown.class)==null && summonSkeleton()) {
                 Buff.affect(this, summonCooldown.class, summonCooldown.DURATION);
             }
-        }
 
-        for (Mob m: Dungeon.level.mobs.toArray(new Mob[0])) {
-            if (m instanceof PrisonSkeleton && m.enemy==null) {
-                m.aggro( this);
+            for (Mob m: Dungeon.level.mobs.toArray(new Mob[0])) {
+                if (m instanceof PrisonSkeleton && m.enemy==null) {
+                    m.aggro( this);
+                }
             }
         }
 

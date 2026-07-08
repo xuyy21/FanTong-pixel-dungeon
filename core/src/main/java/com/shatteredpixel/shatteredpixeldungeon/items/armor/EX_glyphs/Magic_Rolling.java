@@ -135,6 +135,8 @@ public class Magic_Rolling extends Armor.Glyph {
         }
 
         public int absorb(int damage) {
+            setLevel();
+
             if (state==State.ABSORBING) {
                 this.damage += damage;
                 if (this.damage > damageCap()) {
@@ -151,6 +153,8 @@ public class Magic_Rolling extends Armor.Glyph {
         }
 
         public void OnReadScroll(float factor) {
+            setLevel();
+
             if (damage>0) {
                 particalDamage -= damageCap() * 0.15f * genericProcChanceMultiplier(target) * factor;
                 if (particalDamage<-1) {
@@ -169,6 +173,9 @@ public class Magic_Rolling extends Armor.Glyph {
                 detach();
                 return true;
             }
+
+            setLevel();
+
             if (state==State.ABSORBING) {
                 if (damage>0) {
                     particalDamage -= damageCap() * 0.005f * genericProcChanceMultiplier(target);

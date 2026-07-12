@@ -288,6 +288,19 @@ public class RatKingBoss extends Mob{
         }
 
         @Override
+        public int damageRoll() {
+            int dmgBoost = 0;
+            for (int i: PathFinder.NEIGHBOURS8) {
+                if (Actor.findChar(this.pos+i) instanceof RatGuard) {
+                    dmgBoost += 1;
+                }
+            }
+            dmgBoost = Math.min(dmgBoost, 3);
+
+            return super.damageRoll() + dmgBoost;
+        }
+
+        @Override
         public void damage(int dmg, Object src) {
             super.damage(dmg, src);
             LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);

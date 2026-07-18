@@ -36,7 +36,7 @@ public class v0_5_X_FTChanges {
         changes.addButton( new ChangeButton(new Image(new RatKingSprite()), "鼠王BOSS",
                 "从现在开始，下水道区域尽头的BOSS有50%的概率被鼠王替换。\n\n鼠王本身没有战斗能力，但是你也无法直接伤害它，在处理源源不断的鼠王卫队的同时来一场\"躲鼠鼠\"游戏吧。\n也记得寻找5个被藏起来的\"鼠王宝藏\"。"));
 
-        changes.addButton( new ChangeButton(new Image(new PrisonWarden()), "典狱长BOSS",
+        changes.addButton( new ChangeButton(new Image(new PrisonWarden.PrisonWardenSprite()), "典狱长BOSS",
                 "从现在开始，监狱区域尽头的BOSS有50%的概率被典狱长替换。\n\n典狱长只是在恪守自己的职责，镇压腐化的囚徒，你未必需要与她斗个你死我活。在典狱长的生命值低于一半后进入二阶段，此时她将不再是你的敌人。"));
 
         changes.addButton( new ChangeButton(new Image(new Animate_Armor.Animated_Armor()), "活化护甲",

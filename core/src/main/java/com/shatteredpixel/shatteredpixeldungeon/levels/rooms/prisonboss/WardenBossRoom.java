@@ -14,27 +14,27 @@ import com.watabou.utils.Rect;
 public class WardenBossRoom extends StandardRoom implements Bundlable {
     @Override
     public int minWidth() {
-        return 32;
+        return 24;
     }
 
     @Override
     public int minHeight() {
-        return 32;
+        return 24;
     }
 
     @Override
     public int maxWidth() {
-        return 32;
+        return 24;
     }
 
     @Override
     public int maxHeight() {
-        return 32;
+        return 24;
     }
 
     @Override
     public boolean forceSize(int w, int h) {
-        return setSize(32, 32, 32, 32);
+        return setSize(24, 24, 24, 24);
     }
 
     @Override
@@ -65,9 +65,9 @@ public class WardenBossRoom extends StandardRoom implements Bundlable {
         placedRects.add(wardensRoom);
 
         // 随机生成监房
-        int cellCount = Random.IntRange(3, 5);
+        int cellCount = Random.IntRange(3, 4);
         for (int i = 0; i < cellCount; i++) {
-            Rect cell = generateRandomRect(4, 7, 4, 7, placedRects);
+            Rect cell = generateRandomRect(3, 5, 3, 5, placedRects);
             if (cell != null) {
                 placeCell(level, cell);
                 placedRects.add(cell);
@@ -75,7 +75,7 @@ public class WardenBossRoom extends StandardRoom implements Bundlable {
         }
 
         // 随机生成柱子
-        int pillarCount = Random.IntRange(8, 12);
+        int pillarCount = Random.IntRange(8, 10);
         for (int i = 0; i < pillarCount; i++) {
             // 1:1比例生成1*1或2*2的柱子
             int size = Random.Float() < 0.5f ? 1 : 2;

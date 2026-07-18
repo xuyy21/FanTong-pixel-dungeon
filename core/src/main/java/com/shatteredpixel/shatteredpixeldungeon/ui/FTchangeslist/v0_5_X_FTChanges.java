@@ -39,7 +39,7 @@ public class v0_5_X_FTChanges {
         changes.addButton( new ChangeButton(new Image(new PrisonWarden.PrisonWardenSprite()), "典狱长BOSS",
                 "从现在开始，监狱区域尽头的BOSS有50%的概率被典狱长替换。\n\n典狱长只是在恪守自己的职责，镇压腐化的囚徒，你未必需要与她斗个你死我活。在典狱长的生命值低于一半后进入二阶段，此时她将不再是你的敌人。"));
 
-        changes.addButton( new ChangeButton(new Image(new Animate_Armor.Animated_Armor()), "活化护甲",
+        changes.addButton( new ChangeButton(new Image(new Animate_Armor.Animated_Armor_Sprite()), "活化护甲",
                 "活化护甲被削弱，攻击力降低。"));
 
         changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_HOLDER), "韧性戒指",

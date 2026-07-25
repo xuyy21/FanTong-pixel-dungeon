@@ -774,6 +774,7 @@ public class ItemSpriteSheet {
 	public static final int PHANTOM_MEAT    = FOOD+11;
 	public static final int SUPPLY_RATION   = FOOD+12;
 	public static final int CHEESE          = FOOD+13;
+	public static final int COFFEE   		= FOOD+15;
 	static{
 		assignItemRect(MEAT,            15, 11);
 		assignItemRect(STEAK,           15, 11);
@@ -789,6 +790,7 @@ public class ItemSpriteSheet {
 		assignItemRect(PHANTOM_MEAT,    15, 11);
 		assignItemRect(SUPPLY_RATION,   16, 12);
 		assignItemRect(CHEESE,          31, 32);
+		assignItemRect(COFFEE,          16, 12);
 	}
 
 	private static  final int RAW_FOOD		=								xy(1, 34);

@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.PrisonWarden;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
@@ -317,7 +318,7 @@ public enum Catalog {
 				ChangFen.class, Chocolate_Egg.class, IcyRedTea.class, Kiwi_Fruit.class,
 				SleepCandy.class, LaTiao.class, Popsicle.class, Orange.class,
 				Candy_Ring.class, CrispBite.class, StuffedMeat.class, HoneyArrow.class,
-				Cheese.class);
+				Cheese.class, PrisonWarden.Coffee.class);
 
 		RAW_FOOD.addItems(MysteryMeat.class, RatTail.class, CrabClaw.class, SlimeBlob.class, MysteryBone.class,
 				Mushroom.class, MandrakeRoot.class, BatBody.class, Gland.class, Nut.class,

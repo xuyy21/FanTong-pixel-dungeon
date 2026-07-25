@@ -74,17 +74,17 @@ public class PrisonWarden extends Mob{
 
     @Override
     public boolean act() {
-        if (HP*2 <= HT) {
-            if (state == PASSIVE) {
-                alignment = Alignment.ALLY;
-                ((PrisonWardenSprite)sprite).passive();
+        if (HP*2 <= HT && state != PASSIVE) {
+            switchState();
+        }
 
-                if (buff(summonCooldown.class)==null && summonSkeleton()) {
-                    if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) summonSkeleton();//召唤两只
-                    Buff.affect(this, summonCooldown.class, summonCooldown.DURATION/2f);
-                }
-            } else {
-                switchState();
+        if (state == PASSIVE) {
+            alignment = Alignment.ALLY;
+            ((PrisonWardenSprite)sprite).passive();
+
+            if (buff(successTracker.class)==null && buff(summonCooldown.class)==null && summonSkeleton()) {
+                if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) summonSkeleton();//召唤两只
+                Buff.affect(this, summonCooldown.class, summonCooldown.DURATION/2f);
             }
         } else if (state != SLEEPING) {
             if (buff(summonCooldown.class)==null && summonSkeleton()) {

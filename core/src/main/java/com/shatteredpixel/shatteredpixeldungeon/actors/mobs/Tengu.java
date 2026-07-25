@@ -56,6 +56,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Shuriken;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel_Tengu;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -221,6 +222,14 @@ public class Tengu extends Mob {
 		Badges.validateBossSlain();
 		if (Statistics.qualifiedForBossChallengeBadge){
 			Badges.validateBossChallengeCompleted();
+
+			Shuriken shuriken = new Shuriken();
+			shuriken.quantity(1);
+			shuriken.cursed = false;
+			shuriken.level(0);
+			shuriken.enchantment = null;
+			shuriken.identify(false);
+			Dungeon.level.drop( shuriken, pos ).sprite.drop();
 		}
 		Statistics.bossScores[1] += 2000;
 		

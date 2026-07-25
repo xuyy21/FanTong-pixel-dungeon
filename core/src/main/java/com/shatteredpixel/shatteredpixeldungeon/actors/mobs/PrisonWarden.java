@@ -528,14 +528,14 @@ public class PrisonWarden extends Mob{
     public static class Coffee extends Food {
         {
             image = ItemSpriteSheet.COFFEE;
-            energy = Hunger.HUNGRY/3f; //100 food value
+            energy = Hunger.HUNGRY/2f; //150 food value
 
             canFakeEat = true;
         }
 
         @Override
         public void effect(Hero hero, boolean fakeEating) {
-            Buff.prolong(hero, Stamina.class, 30f);
+            Buff.prolong(hero, Stamina.class, 20f);
             GLog.i(Messages.get(this, "effect"));
         }
     }

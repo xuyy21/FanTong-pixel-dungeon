@@ -198,7 +198,9 @@ public class PrisonWarden extends Mob{
     public void die( Object cause ) {
         if (Dungeon.hero.subClass == HeroSubClass.NONE) {
             Dungeon.level.drop( new IronKey( Dungeon.depth), pos ).sprite.drop();
-            Dungeon.level.drop( new TengusMask(), pos ).sprite.drop();
+            if (Dungeon.hero.subClass == HeroSubClass.NONE) {
+                Dungeon.level.drop(new TengusMask(), pos).sprite.drop();
+            }
         }
 
         yell(Messages.get(this, "defeated"));

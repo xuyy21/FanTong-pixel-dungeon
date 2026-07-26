@@ -486,7 +486,7 @@ public class Ring extends KindofMisc {
 
 		@Override
 		public boolean isSimilar(Item item) {
-			return item instanceof Ring;
+			return item instanceof Ring && !item.isEquipped(Dungeon.hero);
 		}
 
 		@Override

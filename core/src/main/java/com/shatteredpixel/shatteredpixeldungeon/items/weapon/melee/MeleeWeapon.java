@@ -613,7 +613,7 @@ public class MeleeWeapon extends Weapon {
 
 		@Override
 		public boolean isSimilar(Item item) {
-			return (item instanceof MeleeWeapon && !(item instanceof MagesStaff));
+			return (item instanceof MeleeWeapon && !(item instanceof MagesStaff) && !item.isEquipped(Dungeon.hero));
 		}
 
 		@Override

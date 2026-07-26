@@ -946,7 +946,7 @@ public class Armor extends EquipableItem {
 
 		@Override
 		public boolean isSimilar(Item item) {
-			return item instanceof Armor;
+			return item instanceof Armor && !item.isEquipped(Dungeon.hero);
 		}
 
 		@Override

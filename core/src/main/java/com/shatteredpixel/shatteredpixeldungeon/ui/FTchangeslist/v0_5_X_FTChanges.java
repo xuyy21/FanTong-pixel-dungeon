@@ -35,7 +35,7 @@ public class v0_5_X_FTChanges {
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(new Image(new RatKingSprite()), "鼠王BOSS",
-                "从现在开始，下水道区域尽头的BOSS有50%的概率被鼠王替换。\n\n鼠王本身没有战斗能力，但是你也无法直接伤害它，在处理源源不断的鼠王卫队的同时来一场\"躲鼠鼠\"游戏吧。\n也记得寻找5个被藏起来的\"鼠王宝藏\"。"));
+                "从现在开始，下水道区域尽头的BOSS有50%的概率被鼠王替换。\n\n鼠王本身没有战斗能力，但是你也无法直接伤害它，在处理源源不断的鼠王卫队的同时来一场\"躲鼠鼠\"游戏吧。\n\n也记得寻找5个被藏起来的\"鼠王宝藏\"。"));
 
         changes.addButton( new ChangeButton(new Image(new PrisonWarden.PrisonWardenSprite()), "典狱长BOSS",
                 "从现在开始，监狱区域尽头的BOSS有50%的概率被典狱长替换。\n\n典狱长只是在恪守自己的职责，镇压腐化的囚徒，你未必需要与她斗个你死我活。在典狱长的生命值低于一半后进入二阶段，此时她将不再是你的敌人。"));
@@ -49,6 +49,10 @@ public class v0_5_X_FTChanges {
         changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_HOLDER), "韧性戒指",
                 "韧性戒指得到加强，现在可以在损失90.91%的生命值时就可以取得最大效果。"));
 
+        changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RUNICASH), "符术鉴定系统",
+                "现在可以通过分解戒指获得符文粉尘。\n\n" +
+                        "现在也可以拆解未鉴定但是确定无诅咒的武器/护甲/戒指获得符文粉尘，但是这样做的等级收益从每级+2粉尘减为+1粉尘。\n\n" +
+                        "预知秘卷不再是鉴定随机6个符文组合，而是给出4个未鉴定符术的其中两个符文。结果会自动记录到备注，但是如果备注达到上限则不会再自动记录。"));
     }
 
     public static void add_v0_5_2_Changes(ArrayList<ChangeInfo> changeInfos ) {

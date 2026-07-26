@@ -80,6 +80,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfTo
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -341,7 +342,7 @@ public abstract class Recipe {
 		//only upgradeable thrown weapons and wands allowed among equipment items
 		if (item instanceof EquipableItem){
 			return item.cursedKnown && !item.cursed && !item.isEquipped(Dungeon.hero)
-					&& (item instanceof MissileWeapon || item instanceof MeleeWeapon || item instanceof Armor)
+					&& (item instanceof MissileWeapon || item instanceof MeleeWeapon || item instanceof Armor || item instanceof Ring)
 					&& !(item instanceof MagesStaff)
                     && item.isUpgradable();
 		} else if (item instanceof Wand) {

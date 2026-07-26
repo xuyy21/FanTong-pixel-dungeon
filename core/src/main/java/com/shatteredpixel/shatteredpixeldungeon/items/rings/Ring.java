@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.ItemStatusHandler;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Candy_Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -472,5 +473,25 @@ public class Ring extends KindofMisc {
 			return Ring.this.soloBuffedBonus();
 		}
 
+	}
+
+	public static class PlaceHolder extends Ring {
+		{
+			image = ItemSpriteSheet.RING_HOLDER;
+		}
+
+		public PlaceHolder() {
+			super();
+		}
+
+		@Override
+		public boolean isSimilar(Item item) {
+			return item instanceof Ring;
+		}
+
+		@Override
+		public String info() {
+			return "";
+		}
 	}
 }

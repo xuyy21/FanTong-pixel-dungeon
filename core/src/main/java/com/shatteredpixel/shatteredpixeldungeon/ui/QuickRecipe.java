@@ -98,6 +98,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotio
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeFolder;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -513,6 +514,9 @@ public class QuickRecipe extends Component {
 						new RunicAsh()));
 				result.add(new QuickRecipe( new RunicAsh.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Armor.PlaceHolder())),
+						new RunicAsh()));
+				result.add(new QuickRecipe( new RunicAsh.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new Ring.PlaceHolder())),
 						new RunicAsh()));
 				return result;
 			case 7:

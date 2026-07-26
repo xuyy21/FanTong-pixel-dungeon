@@ -4,6 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -36,7 +37,7 @@ public class RunicAsh extends Item {
         @Override
         public boolean testIngredients(ArrayList<Item> ingredients){
             for (Item i : ingredients) {
-                if (!(i instanceof MeleeWeapon || i instanceof Armor) || !i.isIdentified() || i.cursed)
+                if (!(i instanceof MeleeWeapon || i instanceof Armor || i instanceof Ring) || i.isEquipped(Dungeon.hero) || !i.cursedKnown || i.cursed)
                     return false;
             }
 
@@ -67,7 +68,11 @@ public class RunicAsh extends Item {
 
             for (Item i : ingredients) {
                 ashQuantity++;
-                ashQuantity += 2 * i.level();
+                if (i.isIdentified()){
+                    ashQuantity += 2 * i.level();
+                } else {
+                    ashQuantity += i.level();
+                }
 
                 if (i instanceof MeleeWeapon && ((MeleeWeapon) i).enchantment != null) {
                     Class ench = ((MeleeWeapon) i).enchantment.getClass();

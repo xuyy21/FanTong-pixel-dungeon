@@ -29,18 +29,24 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.runes.RuneIcon;
 import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.ui.CustomNoteButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -150,29 +156,41 @@ public class ScrollOfDivination extends ExoticScroll {
 	}
 
 	public void identifyRunes() {
-		int left = 6;
+		// 老版本，随机鉴定6个符文组合
+//		int left = 6;
+//		ArrayList<Integer> toIdentify = new ArrayList<>();
+//		for (int i=0; i < RUNES_NUM*RUNES_NUM*RUNES_NUM; i++) {
+//			toIdentify.add(i);
+//		}
+//		Random.shuffle(toIdentify);
+//		ArrayList<Class> identified = new ArrayList<>();
+//
+//		for (Integer i: toIdentify) {
+//			if (!Runes.getKnown(i)) {
+//				Runes.setKnown(i, true);
+//				if (Runes.getSpell(i)!=null) {
+//					identified.add(Runes.getSpell(i));
+//				}
+//				left--;
+//			}
+//			if (left<=0) break;
+//		}
+
 		ArrayList<Integer> toIdentify = new ArrayList<>();
 		for (int i=0; i < RUNES_NUM*RUNES_NUM*RUNES_NUM; i++) {
-			toIdentify.add(i);
-		}
-		Random.shuffle(toIdentify);
-		ArrayList<Class> identified = new ArrayList<>();
-
-		for (Integer i: toIdentify) {
-			if (!Runes.getKnown(i)) {
-				Runes.setKnown(i, true);
-				if (Runes.getSpell(i)!=null) {
-					identified.add(Runes.getSpell(i));
-				}
-				left--;
+			if (Runes.getSpell(i)!=null && !Runes.getKnown(i)) {
+				toIdentify.add(i);
 			}
-			if (left<=0) break;
 		}
 
-		if (identified.isEmpty()){
+		if (toIdentify.isEmpty()){
 			GLog.n( Messages.get(this, "no_spells_left") );
 		} else {
-			GameScene.show(new WndSpellsIdentified(identified));
+			Random.shuffle(toIdentify);
+			while (toIdentify.size() > 4) {
+				toIdentify.remove(toIdentify.size() - 1);
+			}
+			GameScene.show(new WndIdentifySpells(toIdentify));
 		}
 
 		readAnimation();
@@ -235,6 +253,98 @@ public class ScrollOfDivination extends ExoticScroll {
 			}
 
 			resize(WIDTH, (int)pos);
+		}
+	}
+
+	public class WndIdentifySpells extends Window {
+		private static final int WIDTH = 120;
+		private static final int BTN_SIZE	= 16;
+		private static final int BTN_GAP	= 2;
+
+		WndIdentifySpells(ArrayList<Integer> spells){
+			IconTitle cur = new IconTitle(new ItemSprite(ScrollOfDivination.this),
+					Messages.titleCase(Messages.get(ScrollOfDivination.class, "name")));
+			cur.setRect(0, 0, WIDTH, 0);
+			add(cur);
+
+			RenderedTextBlock msg = PixelScene.renderTextBlock(Messages.get(this, "desc"), 6);
+			msg.maxWidth(120);
+			msg.setPos(0, cur.bottom() + 2);
+			add(msg);
+
+			float pos = msg.bottom() + 10;
+
+			String res = "";
+
+			for (int i : spells) {
+				Spell s = (Spell) Reflection.newInstance(Runes.getSpell(i));
+				cur = new IconTitle(s.icon(), s.name());
+				cur.setRect(0, pos, (int)(WIDTH/2), 0);
+				add(cur);
+
+				if (!res.isEmpty()) res += "\n";
+				res += s.name() + ":";
+
+				int hide = Random.IntRange(1,3);
+				int rune = 0;
+
+				rune = hide==1?0:i/(RUNES_NUM*RUNES_NUM)+1;
+				RuneIcon rune1 = new RuneIcon(rune);
+				IconButton btn1 = new IconButton(rune1);
+				btn1.setRect(cur.right() + BTN_GAP, pos, BTN_SIZE, BTN_SIZE);
+				add(btn1);
+				res += " " + runeToString(rune);
+
+				rune = hide==2?0:i/RUNES_NUM%RUNES_NUM+1;
+				RuneIcon rune2 = new RuneIcon(rune);
+				IconButton btn2 = new IconButton(rune2);
+				btn2.setRect(btn1.right() + BTN_GAP, pos, BTN_SIZE, BTN_SIZE);
+				add(btn2);
+				res += " " + runeToString(rune);
+
+				rune = hide==3?0:i%RUNES_NUM+1;
+				RuneIcon rune3 = new RuneIcon(rune);
+				IconButton btn3 = new IconButton(rune3);
+				btn3.setRect(btn2.right() + BTN_GAP, pos, BTN_SIZE, BTN_SIZE);
+				add(btn3);
+				res += " " + runeToString(rune);
+
+				pos = cur.bottom() + 2;
+			}
+
+			resize(WIDTH, (int)pos);
+
+			for (Notes.CustomRecord note : Notes.getRecords(Notes.CustomRecord.class)) {
+				if (note.title().equals(Messages.get(this, "res_title"))) {
+					note.editText(Messages.get(this, "res_title"), note.desc()+"\n"+res);
+					GLog.p(Messages.get(this, "record"));
+					return;
+				}
+			}
+
+			if (Notes.getRecords(Notes.CustomRecord.class).size() < Notes.customRecordLimit()-1) {
+				Notes.CustomRecord note = new Notes.CustomRecord(Messages.get(this, "res_title"), res);
+				Notes.add(note);
+				GLog.p(Messages.get(this, "record"));
+			} else if (Notes.getRecords(Notes.CustomRecord.class).size() == Notes.customRecordLimit()-1) {
+				Notes.CustomRecord note = new Notes.CustomRecord(Messages.get(this, "res_title"), res);
+				Notes.add(note);
+				GLog.w(Messages.get(this, "nearlimit"));
+			} else {
+				GLog.n(Messages.get(this, "limit"));
+			}
+		}
+
+		private String runeToString(int rune) {
+			switch (rune) {
+				case 0: default:
+					return "?";
+				case 1: return "▲";
+				case 2: return "◆";
+				case 3: return "●";
+				case 4: return "￥";
+				case 5: return "#";
+			}
 		}
 	}
 }

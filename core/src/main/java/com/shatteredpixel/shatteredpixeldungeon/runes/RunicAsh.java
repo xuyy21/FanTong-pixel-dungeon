@@ -54,6 +54,9 @@ public class RunicAsh extends Item {
             Item result = sampleOutput(ingredients);
 
             for (Item i : ingredients){
+                if (!i.isIdentified()) {
+                    result.quantity(result.quantity() + i.level());
+                }
                 i.quantity(0);
                 if (i.isEquipped(Dungeon.hero))
                     ((EquipableItem) i).doUnequip(Dungeon.hero, false);
@@ -70,8 +73,6 @@ public class RunicAsh extends Item {
                 ashQuantity++;
                 if (i.isIdentified()){
                     ashQuantity += 2 * i.level();
-                } else {
-                    ashQuantity += i.level();
                 }
 
                 if (i instanceof MeleeWeapon && ((MeleeWeapon) i).enchantment != null) {

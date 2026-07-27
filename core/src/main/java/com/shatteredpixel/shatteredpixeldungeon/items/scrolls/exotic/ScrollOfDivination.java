@@ -339,9 +339,9 @@ public class ScrollOfDivination extends ExoticScroll {
 			switch (rune) {
 				case 0: default:
 					return "?";
-				case 1: return "▲";
-				case 2: return "◆";
-				case 3: return "●";
+				case 1: return "^";
+				case 2: return "<>";
+				case 3: return "O";
 				case 4: return "￥";
 				case 5: return "#";
 			}

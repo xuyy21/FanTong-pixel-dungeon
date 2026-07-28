@@ -2,6 +2,8 @@ plugins {
     id 'org.beryx.runtime' version '2.0.1'
 }
 
+//gradlew.bat desktop:release
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 java.sourceCompatibility = java.targetCompatibility = appJavaCompatibility
 

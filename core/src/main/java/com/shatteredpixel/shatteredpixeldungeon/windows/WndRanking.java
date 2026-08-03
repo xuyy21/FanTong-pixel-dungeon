@@ -48,6 +48,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ItemSlot;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollingListPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
@@ -434,12 +436,9 @@ public class WndRanking extends WndTabbed {
 		}
 	}
 
-	private class ChallengesTab extends Group{
-
-		public ChallengesTab(){
-			super();
-
-			camera = WndRanking.this.camera;
+	private class ChallengesScrollPane extends ScrollPane {
+		public ChallengesScrollPane() {
+			super(new Component());
 
 			float pos = 0;
 
@@ -456,7 +455,7 @@ public class WndRanking extends WndTabbed {
 				}
 				cb.setRect( 0, pos, WIDTH-16, 15 );
 
-				add( cb );
+				content.add( cb );
 
 				IconButton info = new IconButton(Icons.get(Icons.INFO)){
 					@Override
@@ -468,10 +467,60 @@ public class WndRanking extends WndTabbed {
 					}
 				};
 				info.setRect(cb.right(), pos, 16, 15);
-				add(info);
+				content.add(info);
 
 				pos = cb.bottom();
 			}
+
+			content.setSize(WIDTH, pos);
+		}
+	}
+
+	private class ChallengesTab extends Group{
+
+		private ChallengesScrollPane pane;
+
+		public ChallengesTab(){
+			super();
+
+			camera = WndRanking.this.camera;
+			pane = new ChallengesScrollPane();
+			add(pane);
+			pane.setPos(0,0);
+			pane.setSize(WIDTH, HEIGHT);
+			pane.setPos(0,0);
+
+//			float pos = 0;
+//
+//			for (int i=0; i < Challenges.NAME_IDS.length; i++) {
+//
+//				final String challenge = Challenges.NAME_IDS[i];
+//
+//				CheckBox cb = new CheckBox( Messages.titleCase(Messages.get(Challenges.class, challenge)) );
+//				cb.checked( (Dungeon.challenges & Challenges.MASKS[i]) != 0 );
+//				cb.active = false;
+//
+//				if (i > 0) {
+//					pos += 1;
+//				}
+//				cb.setRect( 0, pos, WIDTH-16, 15 );
+//
+//				add( cb );
+//
+//				IconButton info = new IconButton(Icons.get(Icons.INFO)){
+//					@Override
+//					protected void onClick() {
+//						super.onClick();
+//						ShatteredPixelDungeon.scene().add(
+//								new WndMessage(Messages.get(Challenges.class, challenge+"_desc"))
+//						);
+//					}
+//				};
+//				info.setRect(cb.right(), pos, 16, 15);
+//				add(info);
+//
+//				pos = cb.bottom();
+//			}
 		}
 
 	}

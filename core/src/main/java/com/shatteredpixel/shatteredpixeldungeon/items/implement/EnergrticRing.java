@@ -2,7 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.implement;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 // i spell this name wrongly, but change it will cause this item disappear, so let it wrong
 public class EnergrticRing extends Implement{

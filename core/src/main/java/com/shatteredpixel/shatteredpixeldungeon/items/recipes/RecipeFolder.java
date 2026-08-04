@@ -2,7 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.recipes;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 

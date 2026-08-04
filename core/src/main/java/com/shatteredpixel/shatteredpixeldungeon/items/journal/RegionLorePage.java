@@ -22,7 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 public class RegionLorePage {
 

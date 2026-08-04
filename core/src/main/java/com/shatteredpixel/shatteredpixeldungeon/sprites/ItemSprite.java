@@ -41,6 +41,7 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.NoosaScript;
+import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.PointF;
@@ -55,6 +56,8 @@ public class ItemSprite extends MovieClip {
 	private static final float DROP_INTERVAL = 0.4f;
 	
 	public Heap heap;
+
+	public TextureFilm film;
 	
 	private Glowing glowing;
 	//FIXME: a lot of this emitter functionality isn't very well implemented.
@@ -85,15 +88,17 @@ public class ItemSprite extends MovieClip {
 
 	public ItemSprite( Heap heap, String tx) {
 		super(tx);
+		film = ItemSpriteSheet.film;
 		view( heap);
 	}
 	
 	public ItemSprite( Item item ) {
-		this(item, Assets.Items.ITEMS);
+		this(item, item.texture());
 	}
 
 	public ItemSprite( Item item, String tx ) {
 		super(tx);
+		film = item.textureFilm();
 		view( item );
 	}
 	
@@ -107,6 +112,7 @@ public class ItemSprite extends MovieClip {
 
 	public ItemSprite( int image, Glowing glowing, String tx) {
 		super(tx);
+		film = ItemSpriteSheet.film;
 		view(image, glowing);
 	}
 	
@@ -258,10 +264,10 @@ public class ItemSprite extends MovieClip {
 	}
 
 	public void frame( int image ){
-		frame( ItemSpriteSheet.film.get( image ));
+		frame( film.get( image ));
 
-		float height = ItemSpriteSheet.film.height( image );
-		float width = ItemSpriteSheet.film.width( image );
+		float height = film.height( image );
+		float width = film.width( image );
 		
 		// Auto-scale images larger than SIZE to fit within SIZE while maintaining aspect ratio
 		if (width > SIZE || height > SIZE) {

@@ -28,12 +28,12 @@ public class ItemSpriteSheet {
 
 	public static final int SIZE = 16;
 
-	private static final int TX_WIDTH = 256;
-	private static final int TX_HEIGHT = 672;
+//	private static final int TX_WIDTH = 256;
+//	private static final int TX_HEIGHT = 672;
 
-	private static final int WIDTH = TX_WIDTH / SIZE;
+	private static final int WIDTH = 16;
 
-	public static TextureFilm film = new TextureFilm( TX_WIDTH, TX_HEIGHT, SIZE, SIZE );
+	public static TextureFilm film = new TextureFilm( Assets.Items.ITEMS, SIZE, SIZE );
 
 	private static int xy(int x, int y){
 		x -= 1; y -= 1;

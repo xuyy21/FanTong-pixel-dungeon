@@ -45,8 +45,10 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
+import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
@@ -74,6 +76,8 @@ public class Item implements Bundlable {
 	public boolean usesTargeting;
 
 	//TODO should these be private and accessed through methods?
+	public String texture = Assets.Items.ITEMS;
+	public TextureFilm film = ItemSpriteSheet.film;
 	public int image = 0;
 	public int icon = -1; //used as an identifier for items with randomized images
 	
@@ -504,6 +508,14 @@ public class Item implements Bundlable {
 	
 	public int image() {
 		return image;
+	}
+
+	public String texture() {
+		return texture;
+	}
+
+	public TextureFilm textureFilm() {
+		return film;
 	}
 	
 	public ItemSprite.Glowing glowing() {

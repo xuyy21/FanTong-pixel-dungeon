@@ -52,7 +52,7 @@ public class Implement extends Item {
         super.storeInBundle(bundle);
         bundle.put( NUM, spells.size());
         for (int i=0; i<spells.size(); i++) {
-            bundle.put( SPELL+i, spells.getClass());
+            bundle.put( SPELL+i, spells.get(i));
         }
     }
 
@@ -62,7 +62,7 @@ public class Implement extends Item {
         int num = bundle.getInt(NUM);
         if (num>0) {
             for (int i=0; i<num; i++) {
-                Class<Spell> spell = (Class<Spell>) bundle.getClass(SPELL+i);
+                Class<Spell> spell = bundle.getClass(SPELL+i);
                 if (spell!=null) {
                     addSpell(spell);
                 }

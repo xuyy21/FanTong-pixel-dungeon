@@ -124,11 +124,34 @@ public abstract class Spell {
     public String desc() {
         String desc = Messages.get(this, "desc") + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
         if (levelPunishment()>1f) desc += Messages.get(this, "level_punishment");
+        desc += Messages.get(this, "runes", getRunes());
         return desc;
     }
 
     public String shortDesc() {
         return Messages.get(this, "short_desc") + " " + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
+    }
+
+    public int getIndex() {
+        int i = -1;
+        for (int index=0; index<RUNES_NUM*RUNES_NUM*RUNES_NUM; index++) {
+            if (Runes.getSpell(index)==this.getClass() && Runes.getKnown(index)){
+                i = index;
+                break;
+            }
+        }
+
+        return i;
+    }
+
+    public String getRunes() {
+        int i = getIndex();
+
+        if (Runes.getKnown(i)){
+            return Runes.runesToString(i);
+        } else {
+            return Runes.runeToString(-1);
+        }
     }
 
     public String Type() {

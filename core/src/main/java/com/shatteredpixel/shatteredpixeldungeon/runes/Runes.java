@@ -125,6 +125,37 @@ public class Runes {
         handler.restore(bundle);
     }
 
+    public static String runeToString(int rune) {
+        switch (rune) {
+            case 0: default:
+                return "?";
+            case 1: return "^";
+            case 2: return "<>";
+            case 3: return "O";
+            case 4: return "￥";
+            case 5: return "#";
+        }
+    }
+
+    public static String runesToString(int index) {
+        String s = "";
+        int rune = 0;
+
+        if (index<0 || index>=RUNES_NUM*RUNES_NUM*RUNES_NUM) {
+            return "???";
+        }
+
+        rune = index/(RUNES_NUM*RUNES_NUM)+1;
+        s += runeToString(rune) + " ";
+        rune = index/RUNES_NUM%RUNES_NUM+1;
+        s += runeToString(rune) + " ";
+        rune = index%RUNES_NUM+1;
+        s += runeToString(rune);
+
+
+        return s;
+    }
+
     public enum Rune {
         DEFAULT(0), HA(1), PA(2), BO(3), LA(4), DU(5);
 

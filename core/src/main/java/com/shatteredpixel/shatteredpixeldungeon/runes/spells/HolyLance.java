@@ -40,6 +40,7 @@ public class HolyLance extends TargetedSpell{
         int max = 55;
         String desc =  Messages.get(this, "desc", min, max) + "\n\n" + Type() + Messages.get(this, "overrunes", (int)overRunes(Dungeon.hero));
         if (levelPunishment()>1f) desc += Messages.get(this, "level_punishment");
+        desc += Messages.get(this, "runes", getRunes());
         return desc;
     }
 

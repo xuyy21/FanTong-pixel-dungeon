@@ -290,21 +290,21 @@ public class ScrollOfDivination extends ExoticScroll {
 				IconButton btn1 = new IconButton(rune1);
 				btn1.setRect(cur.right() + BTN_GAP, pos, BTN_SIZE, BTN_SIZE);
 				add(btn1);
-				res += " " + runeToString(rune);
+				res += " " + Runes.runeToString(rune);
 
 				rune = hide==2?0:i/RUNES_NUM%RUNES_NUM+1;
 				RuneIcon rune2 = new RuneIcon(rune);
 				IconButton btn2 = new IconButton(rune2);
 				btn2.setRect(btn1.right() + BTN_GAP, pos, BTN_SIZE, BTN_SIZE);
 				add(btn2);
-				res += " " + runeToString(rune);
+				res += " " + Runes.runeToString(rune);
 
 				rune = hide==3?0:i%RUNES_NUM+1;
 				RuneIcon rune3 = new RuneIcon(rune);
 				IconButton btn3 = new IconButton(rune3);
 				btn3.setRect(btn2.right() + BTN_GAP, pos, BTN_SIZE, BTN_SIZE);
 				add(btn3);
-				res += " " + runeToString(rune);
+				res += " " + Runes.runeToString(rune);
 
 				pos = cur.bottom() + 2;
 			}
@@ -329,18 +329,6 @@ public class ScrollOfDivination extends ExoticScroll {
 				GLog.w(Messages.get(this, "nearlimit"));
 			} else {
 				GLog.n(Messages.get(this, "limit"));
-			}
-		}
-
-		private String runeToString(int rune) {
-			switch (rune) {
-				case 0: default:
-					return "?";
-				case 1: return "^";
-				case 2: return "<>";
-				case 3: return "O";
-				case 4: return "￥";
-				case 5: return "#";
 			}
 		}
 	}

@@ -7,6 +7,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
@@ -18,9 +20,13 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSh
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundlable;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Implement extends Item {
     {
@@ -37,6 +43,33 @@ public class Implement extends Item {
     public float DELAY = 1f;
     public float FAULT = 1f;
 
+    public ArrayList<Spell> spells = new ArrayList<>();
+    public static final String SPELL = "spell";
+    public static final String NUM = "num";
+
+    @Override
+    public void storeInBundle( Bundle bundle ) {
+        super.storeInBundle(bundle);
+        bundle.put( NUM, spells.size());
+        for (int i=0; i<spells.size(); i++) {
+            bundle.put( SPELL+i, spells.get(i).getIndex()+1); // +1以避免为0
+        }
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ){
+        super.restoreFromBundle(bundle);
+        int num = bundle.getInt(NUM);
+        if (num>0) {
+            for (int i=0; i<num; i++) {
+                int index = bundle.getInt(SPELL+i);
+                if (index>0) {
+                    addSpell((Spell) Reflection.newInstance(Runes.getSpell(index-1)));
+                }
+            }
+        }
+    }
+
     public static final String AC_CAST = "CAST";
     public static final String AC_TEST = "TEST";
     public static final String AC_BRAKE = "BRAKE";
@@ -50,6 +83,23 @@ public class Implement extends Item {
             actions.add(AC_BRAKE);
         }
         return actions;
+    }
+
+    public boolean addSpell(Spell spell) {
+        return spells.add(spell);
+    }
+
+    @Override
+    public boolean collect( Bag container ) {
+        if (super.collect(container)) {
+            for (Spell spell: spells) {
+                Runes.setKnown(spell.getIndex(), true);
+            }
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

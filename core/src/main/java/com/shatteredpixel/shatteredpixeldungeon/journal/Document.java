@@ -21,9 +21,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.journal;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
@@ -191,7 +193,7 @@ public enum Document {
 				case "Identifying":
 					return new ItemSprite( new ScrollOfIdentify() );
 				case "Food":
-					return new ItemSprite( ItemSpriteSheet.PASTY );
+					return new ItemSprite( FoodSpriteSheet.PASTY, null, Assets.Items.FOODS, FoodSpriteSheet.film);
 				case "Alchemy":
 					return new ItemSprite( ItemSpriteSheet.TRINKET_CATA );
 				case "Dieing":

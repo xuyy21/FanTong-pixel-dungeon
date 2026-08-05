@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.implement;
 import static com.shatteredpixel.shatteredpixeldungeon.runes.Runes.RUNES_NUM;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -12,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
+import com.shatteredpixel.shatteredpixeldungeon.runes.RunicAsh;
 import com.shatteredpixel.shatteredpixeldungeon.runes.WndSpell;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -27,6 +29,8 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Implement extends Item {
     {
@@ -124,28 +128,37 @@ public class Implement extends Item {
                 @Override
                 protected void onSelect(int index){
                     if (index == 0) {
-                        ArrayList<Integer> toIdentify = new ArrayList<>();
-                        for (int i=0; i < RUNES_NUM*RUNES_NUM*RUNES_NUM; i++) {
-                            toIdentify.add(i);
-                        }
-                        Random.shuffle(toIdentify);
-                        ArrayList<Class> identified = new ArrayList<>();
+//                        ArrayList<Integer> toIdentify = new ArrayList<>();
+//                        for (int i=0; i < RUNES_NUM*RUNES_NUM*RUNES_NUM; i++) {
+//                            toIdentify.add(i);
+//                        }
+//                        Random.shuffle(toIdentify);
+//                        ArrayList<Class> identified = new ArrayList<>();
+//
+//                        for (Integer i: toIdentify) {
+//                            if (!Runes.getKnown(i)) {
+//                                if (Runes.getSpell(i)!=null) {
+//                                    Runes.setKnown(i, true);
+//                                    identified.add(Runes.getSpell(i));
+//                                }
+//                            }
+//                            if (identified.size()>=3) break;
+//                        }
+//
+//                        if (identified.isEmpty()){
+//                            GLog.w( Messages.get(this, "no_spells_left") );
+//                        } else {
+//                            for (Class spell: identified){
+//                                GLog.p(Messages.get(Runes.class, "test_success", Messages.get(spell, "name")));
+//                            }
+//                        }
 
-                        for (Integer i: toIdentify) {
-                            if (!Runes.getKnown(i)) {
-                                if (Runes.getSpell(i)!=null) {
-                                    Runes.setKnown(i, true);
-                                    identified.add(Runes.getSpell(i));
-                                }
-                            }
-                            if (identified.size()>=3) break;
-                        }
-
-                        if (identified.isEmpty()){
-                            GLog.w( Messages.get(this, "no_spells_left") );
-                        } else {
-                            for (Class spell: identified){
-                                GLog.p(Messages.get(Runes.class, "test_success", Messages.get(spell, "name")));
+                        for (Implement implement: hero.belongings.getAllItems(Implement.class)) {
+                            if (!implement.equals(Implement.this)) {
+                                Set<Class<Spell>> set = new LinkedHashSet<>(Implement.this.spells);
+                                set.addAll(spells);
+                                Implement.this.spells.clear();
+                                Implement.this.spells.addAll(set);
                             }
                         }
 
@@ -153,6 +166,11 @@ public class Implement extends Item {
                         hero.spend(Actor.TICK);
                         Sample.INSTANCE.play( Assets.Sounds.SECRET );
                         if (hero.buff(Spell.OverRunes.class)!=null) hero.buff(Spell.OverRunes.class).detach();
+
+                        Item ash = new RunicAsh().quantity(3);
+                        if (!ash.doPickUp(hero)) {
+                            Dungeon.level.drop( ash, Dungeon.hero.pos ).sprite.drop();
+                        }
                         detach(hero.belongings.backpack);
                     }
                 }

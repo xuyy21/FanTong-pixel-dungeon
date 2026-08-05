@@ -75,8 +75,17 @@ public class WndSpell extends Window {
 
         int top = (int)msg.bottom()+4;
 
+        ArrayList<Class<Spell>> allSpells = implement.spells;
+
         for (int i=1; i<=MAX_SPELL_TIER; i++) {
-            ArrayList<Spell> spells = Spell.getSpellList(hero, i);
+            ArrayList<Spell> spells_tier = Spell.getSpellList(hero, i);
+
+            ArrayList<Spell> spells = new ArrayList<>();
+            for (Spell spell: spells_tier) {
+                if (allSpells.contains(spell.getClass())) {
+                    spells.add(spell);
+                }
+            }
 
             if (!spells.isEmpty() && i != 1){
                 top += BTN_SIZE + 2;

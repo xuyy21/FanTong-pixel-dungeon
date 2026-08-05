@@ -93,26 +93,26 @@ public class ItemSprite extends MovieClip {
 	}
 	
 	public ItemSprite( Item item ) {
-		this(item, item.texture());
+		this(item, null);
 	}
 
-	public ItemSprite( Item item, String tx ) {
-		super(tx);
+	public ItemSprite( Item item, Glowing glowing ) {
+		super(item.texture());
 		film = item.textureFilm();
-		view( item );
+		view( item.image(), glowing );
 	}
 	
 	public ItemSprite( int image ){
 		this( image, null );
 	}
-	
+
 	public ItemSprite( int image, Glowing glowing ) {
-		this( image, glowing, Assets.Items.ITEMS);
+		this( image, glowing, Assets.Items.ITEMS, ItemSpriteSheet.film);
 	}
 
-	public ItemSprite( int image, Glowing glowing, String tx) {
+	public ItemSprite( int image, Glowing glowing, String tx, TextureFilm film) {
 		super(tx);
-		film = ItemSpriteSheet.film;
+		this.film = film;
 		view(image, glowing);
 	}
 	

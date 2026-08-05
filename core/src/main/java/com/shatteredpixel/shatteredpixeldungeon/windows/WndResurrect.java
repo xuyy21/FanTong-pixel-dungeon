@@ -63,7 +63,7 @@ public class WndResurrect extends Window {
 		instance = this;
 		
 		IconTitle titlebar = new IconTitle();
-		titlebar.icon( new ItemSprite( ankh.image(), null ) );
+		titlebar.icon( new ItemSprite( ankh, null ) );
 		titlebar.label( Messages.titleCase(Messages.get(this, "title")) );
 		titlebar.setRect( 0, 0, WIDTH, 0 );
 		add( titlebar );

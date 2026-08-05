@@ -47,7 +47,7 @@ public class Enchanting extends ItemSprite {
 	private float passed;
 
 	public Enchanting( Item item ) {
-		super( item.image(), null );
+		super( item, null );
 		//originToCenter();
 
 		if (item.glowing() != null) {

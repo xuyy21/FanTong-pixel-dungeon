@@ -195,12 +195,14 @@ public abstract class Spell {
         if (hero.buff(MagicImmune.class) != null)
             return false;
 
-        for (int index=0; index<RUNES_NUM*RUNES_NUM*RUNES_NUM; index++) {
-            if (Runes.getSpell(index)==this.getClass() && Runes.getKnown(index)){
-                return true;
-            }
-        }
-        return false;
+        return implement.spells.contains(this.getClass());
+
+//        for (int index=0; index<RUNES_NUM*RUNES_NUM*RUNES_NUM; index++) {
+//            if (Runes.getSpell(index)==this.getClass() && Runes.getKnown(index)){
+//                return true;
+//            }
+//        }
+//        return false;
     }
 
     public abstract void onCast(Implement implement, Hero hero);

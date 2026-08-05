@@ -112,7 +112,7 @@ public class Implement extends Item {
             GameScene.show(new WndSpell(this, curUser, false));
         }
         if (action.equals(AC_TEST)){
-            Runes.testSpell();
+            Runes.testSpell(this);
         }
         if (action.equals(AC_BRAKE)){
             GameScene.show(new WndOptions(new ItemSprite(this, null),

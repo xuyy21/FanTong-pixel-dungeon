@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.runes;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
@@ -104,12 +105,12 @@ public class Runes {
         return handler.getSpell(i, j, k);
     }
 
-    public static void testSpell() {
+    public static void testSpell(Implement implement) {
         if (Dungeon.hero.belongings.getItem(RunicAsh.class)==null){
             GLog.w(Messages.get(Runes.class, "no_ash"));
             return;
         }
-        GameScene.show(new WndRunes());
+        GameScene.show(new WndRunes(implement));
     }
 
     public static void save( Bundle bundle ){
@@ -321,8 +322,12 @@ public class Runes {
         private static TestButton testButton;
         private static RandomTestButton randomTestButton;
 
-        public WndRunes() {
+        private Implement implement;
+
+        public WndRunes(Implement implement) {
             super();
+
+            this.implement = implement;
 
             IconTitle titlebar = new IconTitle();
             titlebar.icon(new ItemSprite(new HolyTome()));
@@ -398,7 +403,7 @@ public class Runes {
             }
         }
 
-        public static class TestButton extends RedButton{
+        public class TestButton extends RedButton{
             public int rune1 = 0;
             public int rune2 = 0;
             public int rune3 = 0;
@@ -415,8 +420,13 @@ public class Runes {
                     enable(true);
                     text(Messages.get(Runes.class, "testbtn_yes"));
                 } else {
-                    enable(false);
-                    text(Messages.get(Runes.class, "testbtn_no"));
+                    if(implement.spells.contains(Runes.getSpell(rune1,rune2,rune3))){
+                        enable(false);
+                        text(Messages.get(Runes.class, "testbtn_no"));
+                    } else {
+                        enable(true);
+                        text(Messages.get(Runes.class, "testbtn_have"));
+                    }
                 }
             }
 
@@ -429,6 +439,7 @@ public class Runes {
                 if (getSpell(rune1, rune2, rune3)!=null){
                     GLog.p(Messages.get(Runes.class, "test_success", Messages.get(getSpell(rune1, rune2, rune3), "name")));
                     Sample.INSTANCE.play( Assets.Sounds.SECRET );
+                    implement.addSpell(getSpell(rune1, rune2, rune3));
                     Spell spell = (Spell) Reflection.newInstance(getSpell(rune1, rune2, rune3));
                     GameScene.show(new WndTitledMessage(spell.icon(), Messages.titleCase(spell.name()), spell.desc()));
 
@@ -444,7 +455,7 @@ public class Runes {
             }
         }
 
-        public static class RandomTestButton extends RedButton {
+        public class RandomTestButton extends RedButton {
             protected WndRunes window;
 
             public RandomTestButton(String label, WndRunes window) {
@@ -468,6 +479,7 @@ public class Runes {
                     if (getSpell(index)!=null){
                         GLog.p(Messages.get(Runes.class, "test_success", Messages.get(getSpell(index), "name")));
                         Sample.INSTANCE.play( Assets.Sounds.SECRET );
+                        implement.addSpell(getSpell(index));
                         Spell spell = (Spell) Reflection.newInstance(getSpell(index));
                         GameScene.show(new WndTitledMessage(spell.icon(), Messages.titleCase(spell.name()), spell.desc()));
 

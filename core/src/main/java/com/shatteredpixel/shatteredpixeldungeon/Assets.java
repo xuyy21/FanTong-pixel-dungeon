@@ -271,6 +271,7 @@ public class Assets {
 		// default items assets from SPD
 		public static final String ITEMS = "items/items.png";
 		public static final String ITEM_ICONS = "items/item_icons.png";
+		public static final String FOODS = "items/foods.png";
 	}
 
 	public static class Sprites {

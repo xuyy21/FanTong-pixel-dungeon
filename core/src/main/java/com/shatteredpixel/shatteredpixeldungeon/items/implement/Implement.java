@@ -43,7 +43,7 @@ public class Implement extends Item {
     public float DELAY = 1f;
     public float FAULT = 1f;
 
-    public ArrayList<Spell> spells = new ArrayList<>();
+    public ArrayList<Class<Spell>> spells = new ArrayList<>();
     public static final String SPELL = "spell";
     public static final String NUM = "num";
 
@@ -52,7 +52,7 @@ public class Implement extends Item {
         super.storeInBundle(bundle);
         bundle.put( NUM, spells.size());
         for (int i=0; i<spells.size(); i++) {
-            bundle.put( SPELL+i, spells.get(i).getIndex()+1); // +1以避免为0
+            bundle.put( SPELL+i, spells.getClass());
         }
     }
 
@@ -62,9 +62,9 @@ public class Implement extends Item {
         int num = bundle.getInt(NUM);
         if (num>0) {
             for (int i=0; i<num; i++) {
-                int index = bundle.getInt(SPELL+i);
-                if (index>0) {
-                    addSpell((Spell) Reflection.newInstance(Runes.getSpell(index-1)));
+                Class<Spell> spell = (Class<Spell>) bundle.getClass(SPELL+i);
+                if (spell!=null) {
+                    addSpell(spell);
                 }
             }
         }
@@ -85,15 +85,15 @@ public class Implement extends Item {
         return actions;
     }
 
-    public boolean addSpell(Spell spell) {
+    public boolean addSpell(Class<Spell> spell) {
         return spells.add(spell);
     }
 
     @Override
     public boolean collect( Bag container ) {
         if (super.collect(container)) {
-            for (Spell spell: spells) {
-                Runes.setKnown(spell.getIndex(), true);
+            for (Class<Spell> spell: spells) {
+                Runes.setKnown(Spell.getIndex(spell), true);
             }
 
             return true;

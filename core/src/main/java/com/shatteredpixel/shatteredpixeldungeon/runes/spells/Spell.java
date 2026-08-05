@@ -135,7 +135,19 @@ public abstract class Spell {
     public int getIndex() {
         int i = -1;
         for (int index=0; index<RUNES_NUM*RUNES_NUM*RUNES_NUM; index++) {
-            if (Runes.getSpell(index)==this.getClass() && Runes.getKnown(index)){
+            if (Runes.getSpell(index)==this.getClass()){
+                i = index;
+                break;
+            }
+        }
+
+        return i;
+    }
+
+    public static int getIndex(Class<Spell> spell) {
+        int i = -1;
+        for (int index=0; index<RUNES_NUM*RUNES_NUM*RUNES_NUM; index++) {
+            if (Runes.getSpell(index)==spell){
                 i = index;
                 break;
             }

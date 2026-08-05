@@ -214,7 +214,7 @@ public class FoodSpriteSheet {
         assignItemRect(HONEYARROW,		16, 16);
     }
 
-    private static final int SpecialFood   	=								xy(1, 9);
+    private static final int SpecialFood   	=								xy(1, 13);
     public static final int COLA			= SpecialFood+0;
     public static final int DOGESMEAT		= SpecialFood+1;
     public static final int ZAKOSOUP		= SpecialFood+2;
@@ -228,7 +228,7 @@ public class FoodSpriteSheet {
         assignItemRect(XUANMI, 			16, 16);
     }
 
-    private static final int GOODS   		=								xy(9, 9);
+    private static final int GOODS   		=								xy(9, 13);
     public static final int CHANGFEN		= GOODS+0;
     public static final int CHOCOLATE_EGG	= GOODS+1;
     public static final int EGG_PIECE		= GOODS+2;

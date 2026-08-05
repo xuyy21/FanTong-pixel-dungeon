@@ -1,11 +1,14 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 
 public class SlimeBlob extends Item{
 
     {
-        image = ItemSpriteSheet.SLIMEBLOB;
+        texture = Assets.Items.FOODS;
+        film = FoodSpriteSheet.film;
+        image = FoodSpriteSheet.SLIMEBLOB;
         stackable = true;
     }
 

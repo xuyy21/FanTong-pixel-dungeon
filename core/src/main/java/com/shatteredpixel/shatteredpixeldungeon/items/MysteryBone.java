@@ -1,11 +1,14 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 
 public class MysteryBone extends Item{
 
     {
-        image = ItemSpriteSheet.MYSTERYBONE;
+        texture = Assets.Items.FOODS;
+        film = FoodSpriteSheet.film;
+        image = FoodSpriteSheet.MYSTERYBONE;
         stackable = true;
     }
 

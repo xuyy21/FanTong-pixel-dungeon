@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Point;
 
@@ -42,7 +42,9 @@ public class StoneOfDisarming extends Runestone {
 	private static final int DIST = 8;
 	
 	{
-		image = ItemSpriteSheet.DISARM_STONE;
+		texture = Assets.Items.FOODS;
+		film = FoodSpriteSheet.film;
+		image = FoodSpriteSheet.DISARM_STONE;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -108,7 +109,9 @@ public class Chocolate_Egg extends Food{
         public static final String AC_COMPOUND = "COMPOUND";
 
         {
-            image = ItemSpriteSheet.EGG_PIECE;
+            texture = Assets.Items.FOODS;
+            film = FoodSpriteSheet.film;
+            image = FoodSpriteSheet.EGG_PIECE;
 
             stackable = true;
         }

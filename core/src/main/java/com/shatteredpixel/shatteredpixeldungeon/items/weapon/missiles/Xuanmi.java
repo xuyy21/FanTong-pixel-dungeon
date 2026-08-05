@@ -5,13 +5,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Pursued;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class Xuanmi extends MissileWeapon{
 
     {
-        image = ItemSpriteSheet.XUANMI;
+        texture = Assets.Items.FOODS;
+        film = FoodSpriteSheet.film;
+        image = FoodSpriteSheet.XUANMI;
         hitSound = Assets.Sounds.HIT_STAB;
         hitSoundPitch = 1f;
 

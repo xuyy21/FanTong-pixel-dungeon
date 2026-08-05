@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROTempura;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class Tempura extends Food {
 
     {
-        image = ItemSpriteSheet.TEMPURA;
+        image = FoodSpriteSheet.TEMPURA;
         energy = Hunger.HUNGRY/2f;
         canFakeEat = true;
     }

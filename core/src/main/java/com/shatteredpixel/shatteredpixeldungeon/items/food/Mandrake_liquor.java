@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROMandrake_liquor;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class Mandrake_liquor extends Food{
 
     {
-        image = ItemSpriteSheet.MANDRAKE_LIQUOR;
+        image = FoodSpriteSheet.MANDRAKE_LIQUOR;
         energy = Hunger.HUNGRY*2f/3f;
         canFakeEat = true;
     }

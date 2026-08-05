@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WellFed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 public class MeatPie extends Food {
 	
 	{
-		image = ItemSpriteSheet.MEAT_PIE;
+		image = FoodSpriteSheet.MEAT_PIE;
 		energy = Hunger.STARVING*2f;
 	}
 

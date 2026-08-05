@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class Chocolate_Egg extends Food{
 
     {
-        image = ItemSpriteSheet.CHOCOLATE_EGG;
+        image = FoodSpriteSheet.CHOCOLATE_EGG;
         energy = Hunger.HUNGRY/2f; //150 food value
 
         stackable = false;

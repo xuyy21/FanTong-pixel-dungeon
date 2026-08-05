@@ -46,6 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant.Seed;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -62,7 +63,7 @@ public class Blandfruit extends Food {
 
 	{
 		stackable = true;
-		image = ItemSpriteSheet.BLANDFRUIT;
+		image = FoodSpriteSheet.BLANDFRUIT;
 
 		//only applies when blandfruit is cooked
 		energy = Hunger.STARVING;
@@ -310,7 +311,7 @@ public class Blandfruit extends Food {
 
 		{
 			stackable = true;
-			image = ItemSpriteSheet.BLAND_CHUNKS;
+			image = FoodSpriteSheet.BLAND_CHUNKS;
 
 			energy = Hunger.STARVING;
 

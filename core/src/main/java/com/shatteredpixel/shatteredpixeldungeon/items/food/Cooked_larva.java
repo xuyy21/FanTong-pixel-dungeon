@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROLarva;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -18,7 +19,7 @@ public class Cooked_larva extends Food{
 
 
     {
-        image = ItemSpriteSheet.COOKED_LARVA;
+        image = FoodSpriteSheet.COOKED_LARVA;
         energy = Hunger.HUNGRY/3f;
         canFakeEat = true;
     }

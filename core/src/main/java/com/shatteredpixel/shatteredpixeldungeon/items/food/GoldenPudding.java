@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGoldenPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class GoldenPudding extends Food{
 
     {
-        image = ItemSpriteSheet.GOLDEN_PUDDING;
+        image = FoodSpriteSheet.GOLDEN_PUDDING;
         energy = Hunger.HUNGRY;
         canFakeEat = true;
     }

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROGlandcandy;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class Glandcandy extends Food{
 
     {
-        image = ItemSpriteSheet.GLANDCANDY;
+        image = FoodSpriteSheet.GLANDCANDY;
         energy = Hunger.HUNGRY;
 
         canFakeEat = true;

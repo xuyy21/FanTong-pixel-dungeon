@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
@@ -527,7 +528,7 @@ public class PrisonWarden extends Mob{
 
     public static class Coffee extends Food {
         {
-            image = ItemSpriteSheet.COFFEE;
+            image = FoodSpriteSheet.COFFEE;
             energy = Hunger.HUNGRY/2f; //150 food value
 
             canFakeEat = true;

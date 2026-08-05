@@ -215,6 +215,14 @@ public class ItemSprite extends MovieClip {
 		}
 	}
 
+	public ItemSprite item(Item item) {
+		texture(item.texture());
+		film = item.textureFilm();
+		view( item.image(), glowing );
+
+		return this;
+	}
+
 	public ItemSprite view( Item item ){
 		view(item.image(), item.glowing());
 		Emitter emitter = item.emitter();
@@ -233,7 +241,7 @@ public class ItemSprite extends MovieClip {
 
 		switch (heap.type) {
 			case HEAP: case FOR_SALE:
-				view( heap.peek() ); break;
+				item( heap.peek() ); break;
 			case CHEST:
 				view( ItemSpriteSheet.CHEST, null ); break;
 			case LOCKED_CHEST:

@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class Salad extends Food{
 
     {
-        image = ItemSpriteSheet.SALAD;
+        image = FoodSpriteSheet.SALAD;
         energy = Hunger.HUNGRY/2f;
         canFakeEat = true;
     }

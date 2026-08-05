@@ -948,7 +948,7 @@ public class Toolbar extends Component {
 		}
 		
 		public void reset( Item item, int cell, float endX, float endY ) {
-			view( item );
+			item( item );
 			
 			active =
 			visible =

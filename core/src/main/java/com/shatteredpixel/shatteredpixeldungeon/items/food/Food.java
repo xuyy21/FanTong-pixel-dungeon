@@ -37,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.PotatoGun;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -57,7 +58,10 @@ public class Food extends Item {
 	
 	{
 		stackable = true;
-		image = ItemSpriteSheet.RATION;
+
+		texture = Assets.Items.FOODS;
+		film = FoodSpriteSheet.film;
+		image = FoodSpriteSheet.RATION;
 
 		defaultAction = AC_EAT;
 

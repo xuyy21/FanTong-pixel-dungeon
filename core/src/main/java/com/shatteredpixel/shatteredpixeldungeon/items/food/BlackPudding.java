@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBlackPudding;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class BlackPudding extends Food{
 
     {
-        image = ItemSpriteSheet.BLACK_PUDDING;
+        image = FoodSpriteSheet.BLACK_PUDDING;
         energy = Hunger.STARVING;
         canFakeEat = true;
     }

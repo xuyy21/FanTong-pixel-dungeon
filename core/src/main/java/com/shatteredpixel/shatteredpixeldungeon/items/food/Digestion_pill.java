@@ -4,12 +4,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Helping_Digestion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 public class Digestion_pill extends Food{
 
     {
-        image = ItemSpriteSheet.DIGESTION_PILL;
+        image = FoodSpriteSheet.DIGESTION_PILL;
         energy = Hunger.HUNGRY/6f;
 
         canFakeEat = true;

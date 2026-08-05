@@ -6,13 +6,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class ElementalCore extends Food{
 
     {
-        image = ItemSpriteSheet.ELEMENTALCORE;
+        image = FoodSpriteSheet.ELEMENTALCORE;
         energy = Hunger.STARVING*8/9;
         canFakeEat = true;
     }

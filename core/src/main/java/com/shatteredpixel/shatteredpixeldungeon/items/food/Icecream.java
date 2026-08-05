@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROIcecream;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 public class Icecream extends Food{
 
     {
-        image = ItemSpriteSheet.ICECREAM;
+        image = FoodSpriteSheet.ICECREAM;
         energy = Hunger.HUNGRY;
         canFakeEat = true;
     }

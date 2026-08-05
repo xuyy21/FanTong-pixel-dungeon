@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class HoneyArrow extends Food{
     {
-        image = ItemSpriteSheet.HONEYARROW;
+        image = FoodSpriteSheet.HONEYARROW;
         energy = Hunger.HUNGRY/6f; //50 food value
 
         canFakeEat = true;

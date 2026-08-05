@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class BBQ extends Food{
 
     {
-        image = ItemSpriteSheet.BBQ;
+        image = FoodSpriteSheet.BBQ;
         energy = Hunger.STARVING;
         canFakeEat = true;
     }

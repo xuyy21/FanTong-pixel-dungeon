@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MysteryBone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.MnemonicPrayer;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class BoneSoup extends Food{
 
     {
-        image = ItemSpriteSheet.BONESOUP;
+        image = FoodSpriteSheet.BONESOUP;
         energy = Hunger.HUNGRY/2f;
         canFakeEat = true;
     }

@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class AllySoup extends Food{
 
     {
-        image = ItemSpriteSheet.ALLY_SOUP;
+        image = FoodSpriteSheet.ALLY_SOUP;
         energy = 5*Hunger.HUNGRY/6f; //250 food value
 
         canFakeEat = true;

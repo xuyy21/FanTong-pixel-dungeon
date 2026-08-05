@@ -144,7 +144,7 @@ public class WndUpgrade extends Window {
 			bg2.hardlight(2f, 0.5f, 1f);
 		}
 
-		ItemSprite i1 = new ItemSprite();
+		ItemSprite i1 = new ItemSprite(toUpgrade);
 		add(i1);
 		i1.view(toUpgrade);
 		i1.x = COL_2 - i1.width()/2f;
@@ -152,7 +152,7 @@ public class WndUpgrade extends Window {
 		PixelScene.align(i1);
 		add(i1);
 
-		ItemSprite i2 = new ItemSprite();
+		ItemSprite i2 = new ItemSprite(toUpgrade);
 		add(i2);
 		i2.view(toUpgrade);
 		i2.x = COL_3 - i2.width()/2f;

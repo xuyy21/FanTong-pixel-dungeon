@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROSmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 public class SmallRation extends Food {
 
 	{
-		image = ItemSpriteSheet.OVERPRICED;
+		image = FoodSpriteSheet.OVERPRICED;
 		energy = Hunger.HUNGRY/2f;
 	}
 	

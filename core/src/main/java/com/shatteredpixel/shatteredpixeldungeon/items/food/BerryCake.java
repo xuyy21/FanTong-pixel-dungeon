@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.ROBerryCake;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipes.RecipeBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class BerryCake extends Food{
 
     {
-        image = ItemSpriteSheet.BERRY_CAKE;
+        image = FoodSpriteSheet.BERRY_CAKE;
         energy = Hunger.HUNGRY*4f/3f;
         canFakeEat = true;
     }

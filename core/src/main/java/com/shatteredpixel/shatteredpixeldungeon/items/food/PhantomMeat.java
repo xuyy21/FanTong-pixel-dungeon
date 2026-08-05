@@ -30,12 +30,13 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 public class PhantomMeat extends Food {
 
 	{
-		image = ItemSpriteSheet.PHANTOM_MEAT;
+		image = FoodSpriteSheet.PHANTOM_MEAT;
 		energy = Hunger.STARVING;
 		canFakeEat = true;
 	}

@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Reflection;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class MandrakeRoot extends Food{
 
     {
-        image = ItemSpriteSheet.ROOT;
+        image = FoodSpriteSheet.ROOT;
         energy = Hunger.HUNGRY/3f;
 
         canFakeEat = true;

@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class EyeCake extends Food{
 
     {
-        image = ItemSpriteSheet.EYE_CKAE;
+        image = FoodSpriteSheet.EYE_CKAE;
         energy = Hunger.STARVING;
         canFakeEat = true;
     }

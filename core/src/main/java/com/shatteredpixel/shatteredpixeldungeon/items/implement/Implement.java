@@ -65,7 +65,7 @@ public class Implement extends Item {
             Runes.testSpell();
         }
         if (action.equals(AC_BRAKE)){
-            GameScene.show(new WndOptions(new ItemSprite(image),
+            GameScene.show(new WndOptions(new ItemSprite(this, null),
                     Messages.get(Implement.class, "brake"),
                     Messages.get(Implement.class, "brake_prompt"),
                     Messages.get(Implement.class, "brake_yes"),

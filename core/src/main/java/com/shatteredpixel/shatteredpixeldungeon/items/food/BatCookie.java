@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class BatCookie extends Food{
 
     {
-        image = ItemSpriteSheet.BAT_COOKIE;
+        image = FoodSpriteSheet.BAT_COOKIE;
         energy = Hunger.HUNGRY/3f + Hunger.STARVING/2f; //325 food value
 
         canFakeEat = true;

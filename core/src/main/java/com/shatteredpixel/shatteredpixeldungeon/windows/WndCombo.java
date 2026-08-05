@@ -56,7 +56,7 @@ public class WndCombo extends Window {
 
 		Image icon;
 		if (Dungeon.hero.belongings.weapon() != null){
-			icon = new ItemSprite(Dungeon.hero.belongings.weapon().image, null);
+			icon = new ItemSprite(Dungeon.hero.belongings.weapon(), null);
 		} else {
 			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.WEAPON_HOLDER; }});
 		}

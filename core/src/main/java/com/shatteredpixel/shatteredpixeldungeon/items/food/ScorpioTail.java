@@ -1,12 +1,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 public class ScorpioTail extends Food{
 
     {
-        image = ItemSpriteSheet.SCORPIOTAIL;
+        image = FoodSpriteSheet.SCORPIOTAIL;
         energy = Hunger.HUNGRY/2f;
     }
 

@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class StuffedMeat extends Food{
     {
-        image = ItemSpriteSheet.STUFFED_MEAT;
+        image = FoodSpriteSheet.STUFFED_MEAT;
         energy = Hunger.HUNGRY/2f + Hunger.HUNGRY/3f; //250 food value
 
         canFakeEat = true;

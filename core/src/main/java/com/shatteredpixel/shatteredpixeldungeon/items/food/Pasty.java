@@ -39,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.watabou.noosa.audio.Sample;
@@ -60,34 +61,34 @@ public class Pasty extends Food {
 		super.reset();
 		switch(Holiday.getCurrentHoliday()){
 			case NONE: default:
-				image = ItemSpriteSheet.PASTY;
+				image = FoodSpriteSheet.PASTY;
 				break;
 			case LUNAR_NEW_YEAR:
-				image = ItemSpriteSheet.STEAMED_FISH;
+				image = FoodSpriteSheet.STEAMED_FISH;
 				break;
 			case APRIL_FOOLS:
-				image = ItemSpriteSheet.CHOC_AMULET;
+				image = FoodSpriteSheet.CHOC_AMULET;
 				break;
 			case EASTER:
-				image = ItemSpriteSheet.EASTER_EGG;
+				image = FoodSpriteSheet.EASTER_EGG;
 				break;
 //			case PRIDE:
-//				image = ItemSpriteSheet.RAINBOW_POTION;
+//				image = FoodSpriteSheet.RAINBOW_POTION;
 //				break;
 			case SHATTEREDPD_BIRTHDAY:
-				image = ItemSpriteSheet.SHATTERED_CAKE;
+				image = FoodSpriteSheet.SHATTERED_CAKE;
 				break;
 			case HALLOWEEN:
-				image = ItemSpriteSheet.PUMPKIN_PIE;
+				image = FoodSpriteSheet.PUMPKIN_PIE;
 				break;
 			case PD_BIRTHDAY:
-				image = ItemSpriteSheet.VANILLA_CAKE;
+				image = FoodSpriteSheet.VANILLA_CAKE;
 				break;
 			case WINTER_HOLIDAYS:
-				image = ItemSpriteSheet.CANDY_CANE;
+				image = FoodSpriteSheet.CANDY_CANE;
 				break;
 			case NEW_YEARS:
-				image = ItemSpriteSheet.SPARKLING_POTION;
+				image = FoodSpriteSheet.SPARKLING_POTION;
 				break;
 		}
 	}
@@ -257,7 +258,7 @@ public class Pasty extends Food {
 	public static class FishLeftover extends Food {
 
 		{
-			image = ItemSpriteSheet.FISH_LEFTOVER;
+			image = FoodSpriteSheet.FISH_LEFTOVER;
 			energy = Hunger.HUNGRY/2;
 		}
 

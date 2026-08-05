@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 public class SupplyRation extends Food {
 
 	{
-		image = ItemSpriteSheet.SUPPLY_RATION;
+		image = FoodSpriteSheet.SUPPLY_RATION;
 		energy = 2*Hunger.HUNGRY/3f; //200 food value
 
 		bones = false;

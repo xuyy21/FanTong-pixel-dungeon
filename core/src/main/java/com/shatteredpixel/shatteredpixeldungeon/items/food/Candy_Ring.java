@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -18,7 +19,7 @@ import com.watabou.utils.Bundle;
 
 public class Candy_Ring extends Food{
     {
-        image = ItemSpriteSheet.CANDY_RING;
+        image = FoodSpriteSheet.CANDY_RING;
         energy = Hunger.HUNGRY; //300 food value
 
         stackable = false;

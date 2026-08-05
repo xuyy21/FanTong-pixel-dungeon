@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.UnstableBrew;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class Mushroom extends Food{
 
     {
-        image = ItemSpriteSheet.MUSHROOM;
+        image = FoodSpriteSheet.MUSHROOM;
         energy = Hunger.HUNGRY/3f;
         canFakeEat = true;
     }

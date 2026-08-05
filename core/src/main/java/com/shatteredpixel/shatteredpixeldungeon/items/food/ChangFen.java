@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
@@ -29,7 +30,7 @@ import com.watabou.utils.Reflection;
 public class ChangFen extends Food{
 
     {
-        image = ItemSpriteSheet.CHANGFEN;
+        image = FoodSpriteSheet.CHANGFEN;
         energy = 2 * Hunger.HUNGRY / 3f; //200 food value
 
         canFakeEat = true;

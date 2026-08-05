@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.FoodSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class Magic_Coin extends Food {
 
     {
-        image = ItemSpriteSheet.MAGIC_COIN;
+        image = FoodSpriteSheet.MAGIC_COIN;
         energy = Hunger.STARVING;
         canFakeEat = true;
     }

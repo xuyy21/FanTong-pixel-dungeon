@@ -51,6 +51,8 @@ public class Implement extends Item {
     public static final String SPELL = "spell";
     public static final String NUM = "num";
 
+    private Class<Spell> staticSpell;
+
     @Override
     public void storeInBundle( Bundle bundle ) {
         super.storeInBundle(bundle);
@@ -100,6 +102,10 @@ public class Implement extends Item {
         if (super.collect(container)) {
             for (Class<Spell> spell: spells) {
                 Runes.setKnown(Spell.getIndex(spell), true);
+            }
+
+            if (!spells.contains(staticSpell)) {
+                spells.add(staticSpell);
             }
 
             return true;

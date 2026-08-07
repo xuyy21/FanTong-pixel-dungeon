@@ -157,10 +157,11 @@ public class Implement extends Item {
 
                         for (Implement implement: hero.belongings.getAllItems(Implement.class)) {
                             if (!implement.equals(Implement.this)) {
-                                Set<Class<Spell>> set = new LinkedHashSet<>(Implement.this.spells);
-                                set.addAll(spells);
-                                Implement.this.spells.clear();
-                                Implement.this.spells.addAll(set);
+                                for (Class<Spell> spell: Implement.this.spells) {
+                                    if (!implement.spells.contains(spell)) {
+                                        implement.spells.add(spell);
+                                    }
+                                }
                             }
                         }
 

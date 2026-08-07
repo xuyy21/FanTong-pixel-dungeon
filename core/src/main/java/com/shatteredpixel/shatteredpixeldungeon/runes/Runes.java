@@ -420,12 +420,18 @@ public class Runes {
                     enable(true);
                     text(Messages.get(Runes.class, "testbtn_yes"));
                 } else {
-                    if(implement.spells.contains(Runes.getSpell(rune1,rune2,rune3))){
+                    Class spell = Runes.getSpell(rune1, rune2, rune3);
+                    if (spell != null){
+                        if (implement.spells.contains(spell)) {
+                            enable(false);
+                            text(Messages.get(Runes.class, "testbtn_have"));
+                        } else {
+                            enable(true);
+                            text(Messages.get(spell, "name"));
+                        }
+                    } else {
                         enable(false);
                         text(Messages.get(Runes.class, "testbtn_no"));
-                    } else {
-                        enable(true);
-                        text(Messages.get(Runes.class, "testbtn_have"));
                     }
                 }
             }

@@ -77,6 +77,7 @@ public class Implement extends Item {
     public static final String AC_CAST = "CAST";
     public static final String AC_TEST = "TEST";
     public static final String AC_BRAKE = "BRAKE";
+    public static final String AC_LOAD = "LOAD";
 
     @Override
     public ArrayList<String> actions(Hero hero ){
@@ -85,6 +86,7 @@ public class Implement extends Item {
             actions.add(AC_CAST);
             actions.add(AC_TEST);
             actions.add(AC_BRAKE);
+            actions.add(AC_LOAD);
         }
         return actions;
     }
@@ -175,6 +177,13 @@ public class Implement extends Item {
                     }
                 }
             });
+        }
+        if (action.equals(AC_LOAD)) {
+            for (int i=0;i<RUNES_NUM*RUNES_NUM*RUNES_NUM;i++) {
+                if (Runes.getKnown(i) && Runes.getSpell(i)!=null && !spells.contains(Runes.getSpell(i))) {
+                    spells.add(Runes.getSpell(i));
+                }
+            }
         }
     }
 

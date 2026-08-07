@@ -170,7 +170,7 @@ public class Implement extends Item {
                         Sample.INSTANCE.play( Assets.Sounds.SECRET );
                         if (hero.buff(Spell.OverRunes.class)!=null) hero.buff(Spell.OverRunes.class).detach();
 
-                        Item ash = new RunicAsh().quantity(3);
+                        Item ash = new RunicAsh().quantity(6);
                         if (!ash.doPickUp(hero)) {
                             Dungeon.level.drop( ash, Dungeon.hero.pos ).sprite.drop();
                         }

@@ -287,6 +287,14 @@ public class Implement extends Item {
         cooldowner.attachTo(owner);
     }
 
+    @Override
+    public void onDetach( ) {
+        if (cooldowner != null) {
+            cooldowner.detach();
+            cooldowner = null;
+        }
+    }
+
     public class Cooldowner extends Buff {
 
         private float particleCooldown = 0f;

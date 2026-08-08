@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -275,6 +276,15 @@ public class ItemSlot extends Button {
 
 			extra.text( null );
 
+		}
+
+		if (item instanceof Implement) {
+			Implement implement = ((Implement) item);
+			if (implement.curCooldown()>=implement.maxCooldown()) {
+				status.hardlight(WARNING);
+			} else {
+				status.hardlight(1f, 1f, 0);
+			}
 		}
 
 		int trueLvl = item.visiblyUpgraded();

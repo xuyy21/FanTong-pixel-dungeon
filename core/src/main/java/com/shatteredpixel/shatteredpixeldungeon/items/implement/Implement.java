@@ -5,6 +5,9 @@ import static com.shatteredpixel.shatteredpixeldungeon.runes.Runes.RUNES_NUM;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -48,10 +51,17 @@ public class Implement extends Item {
     public float FAULT = 1f;
 
     public ArrayList<Class<Spell>> spells = new ArrayList<>();
-    public static final String SPELL = "spell";
-    public static final String NUM = "num";
 
     private Class<Spell> staticSpell;
+
+    public int maxCooldown = 50;
+    public int curCooldown = 0;
+
+    protected Cooldowner cooldowner;
+
+    public static final String SPELL = "spell";
+    public static final String NUM = "num";
+    public static final String CD = "CD";
 
     @Override
     public void storeInBundle( Bundle bundle ) {
@@ -60,6 +70,7 @@ public class Implement extends Item {
         for (int i=0; i<spells.size(); i++) {
             bundle.put( SPELL+i, spells.get(i));
         }
+        bundle.put(CD, curCooldown);
     }
 
     @Override
@@ -74,6 +85,7 @@ public class Implement extends Item {
                 }
             }
         }
+        curCooldown = bundle.getInt(CD);
     }
 
     public static final String AC_CAST = "CAST";
@@ -108,10 +120,20 @@ public class Implement extends Item {
                 spells.add(staticSpell);
             }
 
+            setCooldowner(container.owner);
+
             return true;
         } else {
             return false;
         }
+    }
+
+    public int curCooldown() {
+        return curCooldown;
+    }
+
+    public int maxCooldown() {
+        return maxCooldown;
     }
 
     @Override
@@ -206,7 +228,12 @@ public class Implement extends Item {
         }
     }
 
-
+    @Override
+    public String status() {
+        if (curCooldown>0){
+            return Integer.toString(curCooldown);
+        } else return null;
+    }
 
     public float powerMultiplier(Hero hero) {
         return powerMultiplier(hero, null);
@@ -248,5 +275,62 @@ public class Implement extends Item {
         return 50*quantity;
     }
 
+    public void setCooldowner(Char owner) {
+        if (cooldowner == null) cooldowner = new Cooldowner();
+        cooldowner.attachTo(owner);
+    }
+
+    public class Cooldowner extends Buff {
+
+        private float particleCooldown = 0f;
+
+        public static final String PCD = "PCD";
+
+        @Override
+        public boolean attachTo( Char target ) {
+            if (super.attachTo( target )) {
+                //if we're loading in and the hero has partially spent a turn, delay for 1 turn
+                if (target instanceof Hero && Dungeon.hero == null && cooldown() == 0 && target.cooldown() > 0) {
+                    spend(TICK);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean act() {
+            if (target.buff(LockedFloor.class)==null || target.buff(LockedFloor.class).regenOn()) {
+                particleCooldown += TICK;
+                if (coolDownRunes(particleCooldown)) {
+                    particleCooldown -= (int) particleCooldown;
+                }
+            }
+
+            spend(TICK);
+            return true;
+        }
+
+        public boolean coolDownRunes(float cooldown) {
+            if (cooldown >= 1f) {
+                curCooldown = Math.max(0, curCooldown-(int)cooldown);
+                updateQuickslot();
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void storeInBundle( Bundle bundle ) {
+            super.storeInBundle(bundle);
+            bundle.put(PCD, particleCooldown);
+        }
+
+        @Override
+        public void restoreFromBundle( Bundle bundle ){
+            super.restoreFromBundle(bundle);
+            particleCooldown = bundle.getInt(PCD);
+        }
+    }
 
 }

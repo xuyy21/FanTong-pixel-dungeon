@@ -113,6 +113,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourg
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.BatCookie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.CrispBite;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
@@ -2727,6 +2728,8 @@ public class Hero extends Char {
 				}
 			} else if (i instanceof MagesStaff && i.keptThroughLostInventory()){
 				((MagesStaff) i).applyWandChargeBuff(this);
+			} else if (i instanceof Implement && i.keptThroughLostInventory()) {
+				((Implement) i).setCooldowner(this);
 			}
 		}
 

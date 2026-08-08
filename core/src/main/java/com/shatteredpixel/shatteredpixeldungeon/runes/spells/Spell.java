@@ -229,7 +229,11 @@ public abstract class Spell {
         }
 
         Invisibility.dispel();
-        Buff.affect(hero, OverRunes.class).extend(overRunes(hero));
+//        Buff.affect(hero, OverRunes.class).extend(overRunes(hero));
+
+        if (implement.cooldowner == null) implement.setCooldowner(hero);
+        implement.cooldowner.overRunes(overRunes(hero));
+
     }
 
     public static ArrayList<Spell> getSpellList(Hero hero, int tier){

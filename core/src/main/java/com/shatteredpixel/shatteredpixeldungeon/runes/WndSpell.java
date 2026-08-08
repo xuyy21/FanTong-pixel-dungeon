@@ -195,7 +195,7 @@ public class WndSpell extends Window {
                 if (!spell.canCast(implement, Dungeon.hero)){
                     GLog.w(Messages.get(WndSpell.class, "cant_cast"));
                 } else {
-                    if (Dungeon.hero.buff(Spell.OverRunes.class)!=null && Random.Float()<implement.faultMultiplier(Dungeon.hero, spell)*Dungeon.hero.buff(Spell.OverRunes.class).faultChance()) {
+                    if (Random.Float()<implement.faultChance(Dungeon.hero, spell)) {
                         GLog.n(Messages.get(WndSpell.class, "fault"));
                         Dungeon.hero.busy();
                         Dungeon.hero.sprite.operate(Dungeon.hero.pos);
@@ -231,7 +231,7 @@ public class WndSpell extends Window {
                             if (!spell.canCast(implement, Dungeon.hero)){
                                 GLog.w(Messages.get(WndSpell.class, "cant_cast"));
                             } else {
-                                if (Dungeon.hero.buff(Spell.OverRunes.class)!=null && Random.Float()<implement.faultMultiplier(Dungeon.hero, spell)*Dungeon.hero.buff(Spell.OverRunes.class).faultChance()){
+                                if (Random.Float()<implement.faultChance(Dungeon.hero, spell)){
                                     GLog.n(Messages.get(WndSpell.class, "fault"));
                                     Dungeon.hero.busy();
                                     Dungeon.hero.sprite.operate(Dungeon.hero.pos);

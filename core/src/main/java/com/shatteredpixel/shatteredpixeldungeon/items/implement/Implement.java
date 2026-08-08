@@ -2,6 +2,8 @@ package com.shatteredpixel.shatteredpixeldungeon.items.implement;
 
 import static com.shatteredpixel.shatteredpixeldungeon.runes.Runes.RUNES_NUM;
 
+import static java.lang.Math.max;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -57,7 +59,7 @@ public class Implement extends Item {
     public int maxCooldown = 50;
     public int curCooldown = 0;
 
-    protected Cooldowner cooldowner;
+    public Cooldowner cooldowner;
 
     public static final String SPELL = "spell";
     public static final String NUM = "num";
@@ -188,6 +190,7 @@ public class Implement extends Item {
                                 for (Class<Spell> spell: Implement.this.spells) {
                                     if (!implement.spells.contains(spell)) {
                                         implement.spells.add(spell);
+                                        implement.cooldowner.coolDownRunes(1000);
                                     }
                                 }
                             }
@@ -195,8 +198,8 @@ public class Implement extends Item {
 
                         hero.sprite.operate(hero.pos);
                         hero.spend(Actor.TICK);
-                        Sample.INSTANCE.play( Assets.Sounds.SECRET );
-                        if (hero.buff(Spell.OverRunes.class)!=null) hero.buff(Spell.OverRunes.class).detach();
+                        Sample.INSTANCE.play( Assets.Sounds.LEVELUP );
+//                        if (hero.buff(Spell.OverRunes.class)!=null) hero.buff(Spell.OverRunes.class).detach();
 
                         Item ash = new RunicAsh().quantity(6);
                         if (!ash.doPickUp(hero)) {
@@ -260,6 +263,10 @@ public class Implement extends Item {
         return FAULT;
     }
 
+    public float faultChance(Hero hero, Spell spell) {
+        return max(0f, (curCooldown()-maxCooldown())*0.02f) * faultMultiplier(hero, spell);
+    }
+
     @Override
     public boolean isUpgradable() {
         return false;
@@ -318,6 +325,12 @@ public class Implement extends Item {
                 return true;
             }
             return false;
+        }
+
+        public void overRunes(float over) {
+            curCooldown += (int) over;
+            particleCooldown -= over - (int)over;
+            updateQuickslot();
         }
 
         @Override

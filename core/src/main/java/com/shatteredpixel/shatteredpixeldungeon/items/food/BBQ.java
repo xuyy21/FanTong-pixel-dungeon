@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
@@ -41,8 +42,11 @@ public class BBQ extends Food{
             hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(hero.HT / 4), FloatingText.HEALING);
         }
         PotionOfHealing.cure(hero);
-        if (hero.buff(Spell.OverRunes.class)!=null)
-            hero.buff(Spell.OverRunes.class).reduce(30f);
+//        if (hero.buff(Spell.OverRunes.class)!=null)
+//            hero.buff(Spell.OverRunes.class).reduce(30f);
+        for (Implement.Cooldowner cooldowner: hero.buffs(Implement.Cooldowner.class)) {
+            cooldowner.coolDownRunes(30f);
+        }
         GLog.i( Messages.get(BBQ.class, "effect") );
     }
 

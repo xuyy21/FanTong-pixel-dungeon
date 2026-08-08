@@ -30,10 +30,12 @@ public class BloodyRunes extends Spell{
         } else {
             hero.damage(10, this);
         }
-        OverRunes buff = hero.buff(OverRunes.class);
-        if (buff!=null) {
-            buff.reduce(50f * implement.powerMultiplier(hero, this));
-        }
+//        OverRunes buff = hero.buff(OverRunes.class);
+//        if (buff!=null) {
+//            buff.reduce(50f * implement.powerMultiplier(hero, this));
+//        }
+
+        implement.cooldowner.coolDownRunes(50f * implement.powerMultiplier(hero, this));
 
         hero.spendAndNext(implement.delay(hero, this));
         onSpellCast(implement, hero);

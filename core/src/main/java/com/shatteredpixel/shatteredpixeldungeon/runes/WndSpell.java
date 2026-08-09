@@ -19,12 +19,15 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RightClickMenu;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
 import com.watabou.noosa.ColorBlock;
+import com.watabou.noosa.Group;
 import com.watabou.noosa.NinePatch;
+import com.watabou.noosa.ui.Component;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.Random;
 
@@ -35,10 +38,18 @@ public class WndSpell extends Window {
 //    protected static final int WIDTH    = 120;
 
     protected static int width() {
-        return PixelScene.landscape() ? 250 : 120;
+        return PixelScene.landscape() ? 200 : 120;
+    }
+
+    protected static int height() {
+        return PixelScene.landscape() ? 120 : 180;
     }
 
     public static int BTN_SIZE = 20;
+
+    private ScrollPane pane;
+    private int paneTop;
+    private int paneLength = 0;
 
     public WndSpell(Implement implement, Hero hero, boolean info) {
         IconTitle title;
@@ -73,7 +84,9 @@ public class WndSpell extends Window {
         msg.setPos(0, title.bottom()+4);
         add(msg);
 
+        pane = new ScrollPane(new Component());
         int top = (int)msg.bottom()+4;
+        add(pane);
 
         ArrayList<Class<Spell>> allSpells = implement.spells;
 
@@ -87,29 +100,29 @@ public class WndSpell extends Window {
                 }
             }
 
-            if (!spells.isEmpty() && i != 1){
+            if (i != 1){
 //                top += BTN_SIZE + 2;
                 ColorBlock sep = new ColorBlock(width(), 1, 0xFF000000);
-                sep.y = top;
-                add(sep);
-                top += 3;
+                pane.content().add(sep);
+                sep.y = paneLength;
+                paneLength += 3;
             }
 
             int row = 0;
-            int col = PixelScene.landscape() ? 12 : 6;
+            int col = PixelScene.landscape() ? 8 : 5;
             row += spells.size() / col;
             row += spells.size()%col>0 ? 1 : 0;
 
             for (int r=0; r<row; r++) {
                 int num = r==row-1&&spells.size()%col!=0 ? spells.size()%col : col;
-                int left = 2 + (width() - num * BTN_SIZE) / 2;
+                int left = (width() - num * BTN_SIZE) / 2;
                 for (int n=0; n<num; n++) {
                     IconButton spellBtn = new SpellButton(spells.get(r*col+n), implement, info);
-                    add(spellBtn);
-                    spellBtn.setRect(left, top, BTN_SIZE, BTN_SIZE);
+                    pane.content().add(spellBtn);
+                    spellBtn.setRect(left, paneLength, BTN_SIZE, BTN_SIZE);
                     left += spellBtn.width();
                 }
-                top += BTN_SIZE + 2;
+                paneLength += BTN_SIZE + 2;
             }
 
 //            ArrayList<IconButton> spellBtns = new ArrayList<>();
@@ -157,13 +170,23 @@ public class WndSpell extends Window {
 //            }
         }
 
-        resize(width(), top);
+        paneTop = top;
+        pane.setPos(0, paneTop);
+        pane.setSize(width(), Math.min(paneLength, height()-paneTop));
+        pane.content().setRect(0, paneTop, width(), paneLength);
+
+        resize(width(), Math.min(paneLength+paneTop, height()));
 
         //if we are on mobile, offset the window down to just above the toolbar
         if (SPDSettings.interfaceSize() != 2){
             offset(0, (int) (GameScene.uiCamera.height/2 - 30 - height/2));
         }
+    }
 
+    @Override
+    public void offset(int xOffset, int yOffset) {
+        super.offset(xOffset, yOffset);
+        pane.setRect(0, paneTop, width(), Math.min(paneLength, height()-paneTop));
     }
 
     public class SpellButton extends IconButton{

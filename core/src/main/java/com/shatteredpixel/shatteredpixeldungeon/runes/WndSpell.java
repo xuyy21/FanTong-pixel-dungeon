@@ -88,60 +88,76 @@ public class WndSpell extends Window {
             }
 
             if (!spells.isEmpty() && i != 1){
-                top += BTN_SIZE + 2;
+//                top += BTN_SIZE + 2;
                 ColorBlock sep = new ColorBlock(width(), 1, 0xFF000000);
                 sep.y = top;
                 add(sep);
                 top += 3;
             }
 
-            ArrayList<IconButton> spellBtns = new ArrayList<>();
+            int row = 0;
+            int col = PixelScene.landscape() ? 12 : 6;
+            row += spells.size() / col;
+            row += spells.size()%col>0 ? 1 : 0;
 
-            if (spells.size()<=6 || PixelScene.landscape()) {
-                for (Spell spell : spells) {
-                    IconButton spellBtn = new SpellButton(spell, implement, info);
+            for (int r=0; r<row; r++) {
+                int num = r==row-1&&spells.size()%col!=0 ? spells.size()%col : col;
+                int left = 2 + (width() - num * BTN_SIZE) / 2;
+                for (int n=0; n<num; n++) {
+                    IconButton spellBtn = new SpellButton(spells.get(r*col+n), implement, info);
                     add(spellBtn);
-                    spellBtns.add(spellBtn);
+                    spellBtn.setRect(left, top, BTN_SIZE, BTN_SIZE);
+                    left += spellBtn.width();
                 }
-
-                int left = 2 + (width() - spellBtns.size() * BTN_SIZE) / 2;
-                for (IconButton btn : spellBtns) {
-                    btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
-                    left += btn.width();
-                }
-            } else {
-                // separate into two rows
-                int oneRow = (spells.size()+1)/2;
-
-                // first row
-                for (int index = 0; index < oneRow; index++) {
-                    IconButton spellBtn = new SpellButton(spells.get(index), implement, info);
-                    add(spellBtn);
-                    spellBtns.add(spellBtn);
-                }
-                int left = 2 + (width() - spellBtns.size() * BTN_SIZE) / 2;
-                for (IconButton btn : spellBtns) {
-                    btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
-                    left += btn.width();
-                }
-
-                //second row
-                top += BTN_SIZE;
-                spellBtns.clear();
-                for (int index = oneRow; index < spells.size(); index++) {
-                    IconButton spellBtn = new SpellButton(spells.get(index), implement, info);
-                    add(spellBtn);
-                    spellBtns.add(spellBtn);
-                }
-                left = 2 + (width() - spellBtns.size() * BTN_SIZE) / 2;
-                for (IconButton btn : spellBtns) {
-                    btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
-                    left += btn.width();
-                }
+                top += BTN_SIZE + 2;
             }
+
+//            ArrayList<IconButton> spellBtns = new ArrayList<>();
+//            if (spells.size()<=6 || PixelScene.landscape()) {
+//                for (Spell spell : spells) {
+//                    IconButton spellBtn = new SpellButton(spell, implement, info);
+//                    add(spellBtn);
+//                    spellBtns.add(spellBtn);
+//                }
+//
+//                int left = 2 + (width() - spellBtns.size() * BTN_SIZE) / 2;
+//                for (IconButton btn : spellBtns) {
+//                    btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
+//                    left += btn.width();
+//                }
+//            } else {
+//                // separate into two rows
+//                int oneRow = (spells.size()+1)/2;
+//
+//                // first row
+//                for (int index = 0; index < oneRow; index++) {
+//                    IconButton spellBtn = new SpellButton(spells.get(index), implement, info);
+//                    add(spellBtn);
+//                    spellBtns.add(spellBtn);
+//                }
+//                int left = 2 + (width() - spellBtns.size() * BTN_SIZE) / 2;
+//                for (IconButton btn : spellBtns) {
+//                    btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
+//                    left += btn.width();
+//                }
+//
+//                //second row
+//                top += BTN_SIZE;
+//                spellBtns.clear();
+//                for (int index = oneRow; index < spells.size(); index++) {
+//                    IconButton spellBtn = new SpellButton(spells.get(index), implement, info);
+//                    add(spellBtn);
+//                    spellBtns.add(spellBtn);
+//                }
+//                left = 2 + (width() - spellBtns.size() * BTN_SIZE) / 2;
+//                for (IconButton btn : spellBtns) {
+//                    btn.setRect(left, top, BTN_SIZE, BTN_SIZE);
+//                    left += btn.width();
+//                }
+//            }
         }
 
-        resize(width(), top + BTN_SIZE);
+        resize(width(), top);
 
         //if we are on mobile, offset the window down to just above the toolbar
         if (SPDSettings.interfaceSize() != 2){

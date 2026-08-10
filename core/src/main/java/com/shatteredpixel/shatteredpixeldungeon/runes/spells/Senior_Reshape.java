@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.runes.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Transmuting;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -11,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -89,11 +91,10 @@ public class Senior_Reshape extends InventorySpell{
             Transmuting.show(hero, origin, result);
             origin.detach(hero.belongings.backpack);
             result.collect();
-        } else if (item instanceof MissileWeapon) {
+        } else if (item instanceof MissileWeapon && !(item instanceof TippedDart)) {
             MissileWeapon origin = (MissileWeapon) item;
             MissileWeapon result = (MissileWeapon) Generator.randomUsingDefaults(Generator.misTiers[origin.tier - 2]);
             result.level(0);
-            result.quantity(1);
             int level = origin.trueLevel();
             if (origin.enchantment!=null) {
                 if (Arrays.asList(Weapon.Enchantment.curses).contains(origin.enchantment.getClass())
@@ -109,6 +110,7 @@ public class Senior_Reshape extends InventorySpell{
             } else if (level < 0) {
                 result.degrade( -level );
             }
+            result.quantity(origin.quantity());
 
             result.enchantment = null;
             result.curseInfusionBonus = origin.curseInfusionBonus;
@@ -127,8 +129,15 @@ public class Senior_Reshape extends InventorySpell{
                 Catalog.setSeen(result.getClass());
             }
 
+            //technically a new set, ensure old one is destroyed (except for darts)
+            if (origin.isUpgradable()){
+                Buff.affect(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(origin.setID, Integer.MAX_VALUE);
+                //also extra missile weapon properties
+                result.damage(100 - result.durabilityLeft());
+            }
+
             Transmuting.show(hero, origin, result);
-            origin.detach(hero.belongings.backpack);
+            origin.detachAll(hero.belongings.backpack);
             result.collect();
         } else if (item instanceof Armor) {
             Armor origin = (Armor) item;

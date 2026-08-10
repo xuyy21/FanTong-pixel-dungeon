@@ -35,5 +35,5 @@ public class Xuanmi extends MissileWeapon{
     }
 
     @Override
-    public int value() {return 500 * quantity;}
+    public int value() {return 500 * quantity / 3;}
 }

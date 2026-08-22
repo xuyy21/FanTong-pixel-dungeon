@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ThiefSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
@@ -22,10 +23,42 @@ import java.util.ArrayList;
 
 public class v0_5_X_FTChanges {
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ) {
+        add_v0_5_4_Changes(changeInfos);
         add_v0_5_3_Changes(changeInfos);
         add_v0_5_2_Changes(changeInfos);
         add_v0_5_1_Changes(changeInfos);
         add_v0_5_0_Changes(changeInfos);
+    }
+
+    public static void add_v0_5_4_Changes(ArrayList<ChangeInfo> changeInfos ) {
+        ChangeInfo changes = new ChangeInfo("v0.5.4", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.IMPLEMENT_BOOK), "大改法器与符术系统",
+                "现在每个法器拥有独立计算的过载和独立存储的符术列表。在一件法器上使用的符术只会积累这件法器上的过载，试验出来的符术也只能由这件法器使用。\n\n" +
+                        "每个法器现在会有一个独特的固有符术，固有符术在你获得该法器时自动加入存储，不可以通过符文试验获得。为此新增了6个符术，电电触击与生命混乱从此改为固有符术，神圣之盾也被加入了固有符术。此外，法器在生成时不会再给予粉尘补偿。\n\n" +
+                        "如果你已经鉴定了一个符术，你可以在信息模式看到这个符术的符文序列，如果有的话。这样你可以直接在另一件法器上直接花费粉尘抄录。\n\n" +
+                        "法器的破解功能的效果改为：删除该法器，将其上存储的符术全部复制一份到背包中的其他法器上，并且消除其他法器的过载，还会给予6个粉尘。\n\n" +
+                        "符术施法与试验界面的UI做了一定的改动。\n\n" +
+                        "轰轰雷鸣由3阶改为1阶\n\n" +
+                        "_注意！！！_作为跨版本存档兼容的方法，仅限此版本，法器拥有_录入_功能，可以将已经鉴定的全部符术免费加入存储。跨版本存档请自便。"));
+
+        changes.addButton( new ChangeButton(new Image(new RatKingSprite()), "鼠王BOSS",
+                "与鼠王卫队战斗不再会提供对自然回复封锁的缓解。"));
+
+        changes.addButton( new ChangeButton(new Image(new PrisonWarden.PrisonWardenSprite()), "典狱长BOSS",
+                "典狱长在转阶段时会获得一次全面净化效果。"));
+
+        changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+                "寻觅长枪的单个出售价减为1/3，修复了由于给与一组3个寻觅长枪而导致实际可以卖出3倍预期价格的BUG。\n\n" +
+                        "修复了初级重塑与高级重塑只会删除一个投武，导致嬗变后仍可能保留原投武的BUG\n\n" +
+                        "修复了鼠王与典狱长的图鉴无法解锁的BUG。\n\n" +
+                        "补充了典狱长的挑战加强文本。\n\n" +
+                        "修复了莲花玉盘的实际效果与文本不符的BUG，先前其实是缩短逆熵符术的施法时间。"));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.AUDIO), "贴图框架改动",
+                "改动了物品贴图的加载方法，物品贴图不再用单一的items.png存储。为此如果出现物品贴图方面的BUG请及时反馈。"));
     }
 
     public static void add_v0_5_3_Changes(ArrayList<ChangeInfo> changeInfos ) {

@@ -252,6 +252,7 @@ public abstract class Spell {
                 spells.add(ShieldOfLight.INSTANCE);
                 spells.add(ReverseReaction.INSTANCE);
                 spells.add(Thunder_Sound.INSTANCE);
+                spells.add(WindOfRevival.INSTANCE);
                 spells.add(Burning.INISTANCE);
                 spells.add(Blight.INSTANCE);
                 spells.add(ElectricTouch.INSTANCE);
@@ -340,6 +341,7 @@ public abstract class Spell {
         spells.add(Grassyterrain.INSTANCE);
         spells.add(SpinCocoon.INSTANCE);
         spells.add(BeanSoldier.INSTANCE);
+        spells.add(WindOfRevival.INSTANCE);
 
         spells.add(Burning.INISTANCE);
         spells.add(Electric_Power.INSTANCE);
@@ -455,6 +457,10 @@ public abstract class Spell {
 //                spells.add(ChaosOfLife.class); //在0.5.4版本以后作为混沌之书的固有符术
                 spells.add(Ascending.class);
                 spells.add(PowerSwap.class);
+            case "0.5.4": //但是这里只是注明了新增的符术，并没有应用于跨版本存档转换
+                spells.add(CrazyVoice.class);
+                spells.add(GoldenPower.class);
+                spells.add(WindOfRevival.class);
         }
 
         return spells;

@@ -2,11 +2,13 @@ package com.shatteredpixel.shatteredpixeldungeon.items.implement;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.WindOfRevival;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 public class JadeLotus extends Implement{
     {
         image = ItemSpriteSheet.IMPLEMENT_LOTUS;
+        staticSpell = WindOfRevival.class;
     }
 
     @Override

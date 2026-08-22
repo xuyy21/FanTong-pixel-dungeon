@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.runes.Runes;
 import com.shatteredpixel.shatteredpixeldungeon.runes.RunicAsh;
 import com.shatteredpixel.shatteredpixeldungeon.runes.WndSpell;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.WindOfRevival;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
@@ -251,6 +252,9 @@ public class Implement extends Item {
     }
 
     public float delay(Hero hero, Spell spell) {
+        if (spell instanceof WindOfRevival) {
+            return DELAY / powerMultiplier(hero, spell);
+        }
         return DELAY;
     }
 

@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -174,6 +175,7 @@ public class PrisonWarden extends Mob{
         ((PrisonWardenSprite)sprite).passive();
         HP = HT/2;
         Buff.affect(this, WardenBarrier.class).setShield(50);
+        PotionOfCleansing.cleanse(this);
         GLog.p(Messages.get(this, "switch_state"));
     }
 

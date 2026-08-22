@@ -54,7 +54,7 @@ public class Implement extends Item {
 
     public ArrayList<Class<Spell>> spells = new ArrayList<>();
 
-    private Class<Spell> staticSpell;
+    protected Class staticSpell;
 
     public int maxCooldown = 50;
     public int curCooldown = 0;

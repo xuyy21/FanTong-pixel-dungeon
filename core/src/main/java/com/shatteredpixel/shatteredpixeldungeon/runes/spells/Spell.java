@@ -249,7 +249,7 @@ public abstract class Spell {
                 spells.add(BlessSpell.INSTANCE);
                 spells.add(GuidingLight.INSTANCE);
                 spells.add(HolyIntuition.INSTANCE);
-//                spells.add(ShieldOfLight.INSTANCE);
+                spells.add(ShieldOfLight.INSTANCE);
                 spells.add(ReverseReaction.INSTANCE);
                 spells.add(Burning.INISTANCE);
                 spells.add(Blight.INSTANCE);
@@ -412,7 +412,7 @@ public abstract class Spell {
         spells.add(Suppress.class);
         spells.add(AnatomicalView.class);
         spells.add(AbsorbDamage.class);
-        spells.add(ChaosOfLife.class);
+//        spells.add(ChaosOfLife.class);
         spells.add(Ascending.class);
         spells.add(PowerSwap.class);
 
@@ -446,7 +446,7 @@ public abstract class Spell {
                 spells.add(Suppress.class);
                 spells.add(AnatomicalView.class);
                 spells.add(AbsorbDamage.class);
-                spells.add(ChaosOfLife.class);
+//                spells.add(ChaosOfLife.class); //在0.5.4版本以后作为混沌之书的固有符术
                 spells.add(Ascending.class);
                 spells.add(PowerSwap.class);
         }

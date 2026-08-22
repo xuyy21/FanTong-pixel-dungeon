@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.RatKingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.WornKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel_Rat;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
@@ -148,6 +149,9 @@ public class RatKingBoss extends Mob{
     @Override
     public void die( Object cause ) {
         super.die(cause);
+
+        Bestiary.setSeen(getClass());
+        Bestiary.countEncounter(getClass());
 
         Dungeon.level.unseal();
 

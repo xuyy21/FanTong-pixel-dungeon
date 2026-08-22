@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -197,6 +198,9 @@ public class PrisonWarden extends Mob{
 
     @Override
     public void die( Object cause ) {
+        Bestiary.setSeen(getClass());
+        Bestiary.countEncounter(getClass());
+
         if (Dungeon.hero.subClass == HeroSubClass.NONE) {
             Dungeon.level.drop( new IronKey( Dungeon.depth), pos ).sprite.drop();
             if (Dungeon.hero.subClass == HeroSubClass.NONE) {

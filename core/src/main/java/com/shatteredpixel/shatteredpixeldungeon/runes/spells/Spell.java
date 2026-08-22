@@ -247,6 +247,7 @@ public abstract class Spell {
                 spells.add(See_Though.INSTANCE);
                 spells.add(RingWave.INSTANCE);
                 spells.add(StasisField.INSTANCE);
+                spells.add(QianKunRoll.INSTANCE);
                 spells.add(Junior_Phantom.INSTANCE);
                 spells.add(BlessSpell.INSTANCE);
                 spells.add(GuidingLight.INSTANCE);
@@ -321,6 +322,7 @@ public abstract class Spell {
         spells.add(Animate_Armor.INSTANCE);
         spells.add(RingWave.INSTANCE);
         spells.add(StasisField.INSTANCE);
+        spells.add(QianKunRoll.INSTANCE);
 
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
@@ -467,6 +469,7 @@ public abstract class Spell {
                 spells.add(WindOfRevival.class);
                 spells.add(RingWave.class);
                 spells.add(StasisField.class);
+                spells.add(QianKunRoll.class);
         }
 
         return spells;

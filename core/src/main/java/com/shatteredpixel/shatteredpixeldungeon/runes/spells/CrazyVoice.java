@@ -35,11 +35,9 @@ public class CrazyVoice extends TargetedSpell{
             hero.busy();
             hero.sprite.operate(hero.pos);
             Sample.INSTANCE.play( Assets.Sounds.DEGRADE );
-            if (ch.properties().contains(Char.Property.BOSS)) {
-                Buff.affect(ch, Amok.class, 3f);
-            } else {
-                Buff.affect(ch, Amok.class, 6f);
-            }
+            float duration = ch.properties().contains(Char.Property.BOSS) ? 3f : 6f;
+            duration *= implement.powerMultiplier(hero, this);
+            Buff.affect(ch, Amok.class, duration);
             hero.spendAndNext(implement.delay(hero, this));
             onSpellCast(implement, hero);
         }

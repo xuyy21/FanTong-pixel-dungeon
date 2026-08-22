@@ -87,7 +87,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.RatTail;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ScorpioTail;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.Cassock;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.ChaosBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.EnergrticRing;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.JadeLotus;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicBell;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicCube;
+import com.shatteredpixel.shatteredpixeldungeon.items.implement.RunicPlate;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
@@ -280,9 +288,10 @@ public enum HeroClass {
 			new WandOfWind().collect();
 			new MetalShard().quantity(10).collect();
 			new PiranhaPot().collect();
-			new Implement().collect();
 			new RunicAsh().quantity(100).collect();
-			new PawWithRings().collect();
+			new RunicBell().collect();
+			new RunicCube().collect();
+			new RunicPlate().collect();
 		}
 		if (Testing) {
 			new Sungrass.Seed().quantity(100).collect();

@@ -246,6 +246,7 @@ public abstract class Spell {
             case 1:
                 spells.add(See_Though.INSTANCE);
                 spells.add(RingWave.INSTANCE);
+                spells.add(StasisField.INSTANCE);
                 spells.add(Junior_Phantom.INSTANCE);
                 spells.add(BlessSpell.INSTANCE);
                 spells.add(GuidingLight.INSTANCE);
@@ -319,6 +320,7 @@ public abstract class Spell {
         spells.add(RunicBoom.INSTANCE);
         spells.add(Animate_Armor.INSTANCE);
         spells.add(RingWave.INSTANCE);
+        spells.add(StasisField.INSTANCE);
 
         spells.add(BlessSpell.INSTANCE);
         spells.add(Cleanse.INSTANCE);
@@ -464,6 +466,7 @@ public abstract class Spell {
                 spells.add(GoldenPower.class);
                 spells.add(WindOfRevival.class);
                 spells.add(RingWave.class);
+                spells.add(StasisField.class);
         }
 
         return spells;

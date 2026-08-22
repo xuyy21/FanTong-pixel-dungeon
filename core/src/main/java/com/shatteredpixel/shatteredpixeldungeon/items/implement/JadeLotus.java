@@ -21,7 +21,7 @@ public class JadeLotus extends Implement{
 
     @Override
     public float delay(Hero hero, Spell spell){
-        if (spell.type == Spell.TYPE.INVERSE){
+        if (spell.type == Spell.TYPE.NATURE){
             return super.delay(hero, spell) * 0.5f;
         }
         return super.delay(hero, spell) * 1.5f;

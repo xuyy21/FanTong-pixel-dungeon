@@ -218,7 +218,7 @@ public class ItemSprite extends MovieClip {
 	public ItemSprite item(Item item) {
 		texture(item.texture());
 		film = item.textureFilm();
-		view( item.image(), glowing );
+		view( item.image(), item.glowing() );
 
 		return this;
 	}

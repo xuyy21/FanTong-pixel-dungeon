@@ -75,28 +75,28 @@ public class CrystalVaultRoom extends SpecialRoom {
 
 		Heap h1 = level.drop( i1, i1Pos );
 		h1.type = Heap.Type.CRYSTAL_CHEST;
-		//add three runic ash if it's an implement
-		if (i1 instanceof Implement) {
-			h1.items.add(new RunicAsh().quantity(3));
-		}
+//		//add three runic ash if it's an implement
+//		if (i1 instanceof Implement) {
+//			h1.items.add(new RunicAsh().quantity(3));
+//		}
 
 		float altChance = 1/10f * RatSkull.exoticChanceMultiplier();
 		if (altChance > 0.1f) altChance = (altChance+0.1f)/2f; //rat skull is 1/2 as effective here
 		altChance *= MimicTooth.mimicChanceMultiplier(); //mimic tooth has full effectiveness
 		if (Random.Float() < altChance){
 			Mimic m = Mimic.spawnAt(i2Pos, CrystalMimic.class, i2);
-			//add three runic ash if it's an implement
-			if (i2 instanceof Implement) {
-				m.items.add(new RunicAsh().quantity(3));
-			}
+//			//add three runic ash if it's an implement
+//			if (i2 instanceof Implement) {
+//				m.items.add(new RunicAsh().quantity(3));
+//			}
 			level.mobs.add(m);
 		} else {
 			Heap h2 = level.drop(i2, i2Pos);
 			h2.type = Heap.Type.CRYSTAL_CHEST;
-			//add three runic ash if it's an implement
-			if (i2 instanceof Implement) {
-				h2.items.add(new RunicAsh().quantity(3));
-			}
+//			//add three runic ash if it's an implement
+//			if (i2 instanceof Implement) {
+//				h2.items.add(new RunicAsh().quantity(3));
+//			}
 		}
 		Painter.set(level, i1Pos, Terrain.PEDESTAL);
 		Painter.set(level, i2Pos, Terrain.PEDESTAL);

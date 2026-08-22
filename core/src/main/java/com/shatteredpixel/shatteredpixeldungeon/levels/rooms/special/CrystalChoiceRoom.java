@@ -131,10 +131,10 @@ public class CrystalChoiceRoom extends SpecialRoom {
 		chest.type = Heap.Type.CHEST;
 		//opening the chest is optional, so it doesn't count for exploration bonus
 		chest.autoExplored = true;
-		//add three runic ash if it's an implement
-		if (hidden instanceof Implement) {
-			chest.items.add(new RunicAsh().quantity(3));
-		}
+//		//add three runic ash if it's an implement
+//		if (hidden instanceof Implement) {
+//			chest.items.add(new RunicAsh().quantity(3));
+//		}
 
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
 

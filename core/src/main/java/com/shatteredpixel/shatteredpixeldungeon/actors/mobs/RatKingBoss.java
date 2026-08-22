@@ -138,8 +138,8 @@ public class RatKingBoss extends Mob{
 
             LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
             if (lock != null){
-                if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(5);
-                else                                                    lock.addTime(7.5f);
+                if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(7.5f);
+                else                                                    lock.addTime(10f);
             }
         }
 
@@ -304,15 +304,15 @@ public class RatKingBoss extends Mob{
             return super.damageRoll() + dmgBoost;
         }
 
-        @Override
-        public void damage(int dmg, Object src) {
-            super.damage(dmg, src);
-            LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-            if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
-                if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg);
-                else                                                    lock.addTime(dmg*1.5f);
-            }
-        }
+//        @Override
+//        public void damage(int dmg, Object src) {
+//            super.damage(dmg, src);
+//            LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
+//            if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+//                if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg);
+//                else                                                    lock.addTime(dmg*1.5f);
+//            }
+//        }
     }
 
     private boolean summonRat() {

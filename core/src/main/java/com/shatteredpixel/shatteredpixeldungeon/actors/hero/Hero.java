@@ -172,6 +172,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.AbsorbDamage;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.BloodyRunes;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.ElectricTouch;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.GoldenPower;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.PowerSwap;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -297,6 +298,10 @@ public class Hero extends Char {
 
 		if (hasTalent(Talent.STRONGMAN)){
 			strBonus += (int)Math.floor(STR * (0.03f + 0.05f*pointsInTalent(Talent.STRONGMAN)));
+		}
+
+		if (buff(GoldenPower.GoldenPowerBuff.class)!=null) {
+			strBonus += buff(GoldenPower.GoldenPowerBuff.class).strengthBonus();
 		}
 
 		return STR + strBonus;
@@ -525,6 +530,11 @@ public class Hero extends Char {
 		float accuracy = 1;
 		accuracy *= RingOfAccuracy.accuracyMultiplier( this );
 
+		int accuracyBonus = 0;
+		if (buff(GoldenPower.GoldenPowerBuff.class)!=null) {
+			accuracyBonus += buff(GoldenPower.GoldenPowerBuff.class).attackSkillBonus();
+		}
+
 		//precise assault and liquid agility
 		if (!(wep instanceof MissileWeapon)) {
 			if ((hasTalent(Talent.PRECISE_ASSAULT) || hasTalent(Talent.LIQUID_AGILITY))
@@ -572,9 +582,9 @@ public class Hero extends Char {
 		}
 		
 		if (!RingOfForce.fightingUnarmed(this)) {
-			return Math.max(1, Math.round(attackSkill * accuracy * wep.accuracyFactor( this, target )));
+			return Math.max(1, Math.round(attackSkill * accuracy * wep.accuracyFactor( this, target )) + accuracyBonus);
 		} else {
-			return Math.max(1, Math.round(attackSkill * accuracy));
+			return Math.max(1, Math.round(attackSkill * accuracy) + accuracyBonus);
 		}
 	}
 	

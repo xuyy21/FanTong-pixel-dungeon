@@ -255,6 +255,7 @@ public abstract class Spell {
                 spells.add(Blight.INSTANCE);
                 spells.add(ElectricTouch.INSTANCE);
                 spells.add(BloodyRunes.INSTANCE);
+                spells.add(GoldenPower.INSTANCE);
                 spells.add(Junior_Reshape.INSTANCE);
                 spells.add(ChaosOfLife.INSTANCE);
                 spells.add(CrazyVoice.INSTANCE);
@@ -355,6 +356,7 @@ public abstract class Spell {
         spells.add(Suppress.INSTANCE);
         spells.add(AnatomicalView.INSTANCE);
         spells.add(AbsorbDamage.INSTANCE);
+        spells.add(GoldenPower.INSTANCE);
 
         spells.add(Junior_Reshape.INSTANCE);
         spells.add(Senior_Reshape.INSTANCE);

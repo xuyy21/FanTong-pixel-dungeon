@@ -17,7 +17,7 @@ public class CrazyVoice extends TargetedSpell{
 
     {
         type = TYPE.INVERSE;
-        icon = CHAOS_LIVES;
+        icon = CRAZYVOICE;
         tier = 1;
     }
 

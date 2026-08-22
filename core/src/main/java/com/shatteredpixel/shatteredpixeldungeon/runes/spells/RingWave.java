@@ -17,7 +17,7 @@ public class RingWave extends TargetedSpell{
 
     {
         type = TYPE.NORMAL;
-        icon = RUNICBOMB;
+        icon = RINGWAVE;
         tier = 1;
     }
 

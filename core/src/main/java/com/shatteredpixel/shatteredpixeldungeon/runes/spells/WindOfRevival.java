@@ -16,7 +16,7 @@ public class WindOfRevival extends Spell{
 
     {
         type = TYPE.NATURE;
-        icon = THUNDER_SOUND;
+        icon = WINDOFREVIVAL;
         tier = 1;
     }
 

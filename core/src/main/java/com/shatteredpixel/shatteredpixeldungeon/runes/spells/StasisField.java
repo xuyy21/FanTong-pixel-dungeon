@@ -17,7 +17,7 @@ public class StasisField extends TargetedSpell{
 
     {
         type = TYPE.NORMAL;
-        icon = RUNICBOMB;
+        icon = STASISFIELD;
         tier = 1;
     }
 

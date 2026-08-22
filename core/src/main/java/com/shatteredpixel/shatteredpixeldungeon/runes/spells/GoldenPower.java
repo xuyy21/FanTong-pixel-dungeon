@@ -5,6 +5,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
 public class GoldenPower extends Spell{
@@ -12,7 +14,7 @@ public class GoldenPower extends Spell{
 
     {
         type = TYPE.PHYSICAL;
-        icon = PROOFING;
+        icon = GOLDENPOWER;
         tier = 1;
     }
 
@@ -30,6 +32,16 @@ public class GoldenPower extends Spell{
 
         private int gold = 0;
         public static String GOLD = "gold";
+
+        @Override
+        public int icon() {
+            return BuffIndicator.GOLD;
+        }
+
+        @Override
+        public String desc() {
+            return Messages.get(this, "desc", strengthBonus(), attackSkillBonus(), dispTurns());
+        }
 
         public void setGold(int gold) {
             this.gold = gold;

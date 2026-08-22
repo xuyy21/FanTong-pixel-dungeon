@@ -22,7 +22,7 @@ public class QianKunRoll extends TargetedSpell{
 
     {
         type = TYPE.NORMAL;
-        icon = RUNICBOMB;
+        icon = QIANKUN;
         tier = 1;
     }
 

@@ -42,9 +42,12 @@ public abstract class Spell {
     public static final int SENIOR_PHANTOM  = SPELLICON+5;
     public static final int RUNICBOMB       = SPELLICON+6;
     public static final int ANIMATE_ARMOR   = SPELLICON+7;
+    public static final int RINGWAVE        = SPELLICON+8;
+    public static final int STASISFIELD     = SPELLICON+9;
+    public static final int QIANKUN         = SPELLICON+10;
 
     //holy spells
-    public static int HOLY_SPELLICON        = SPELLICON+8;
+    public static int HOLY_SPELLICON        = SPELLICON+16;
     public static final int GUIDING_LIGHT   = HOLY_SPELLICON+0;
     public static final int HOLY_WEAPON     = HOLY_SPELLICON+1;
     public static final int HOLY_WARD       = HOLY_SPELLICON+2;
@@ -75,7 +78,7 @@ public abstract class Spell {
     public static final int HEAVEN_EYE      = HOLY_SPELLICON+27;
 
     //nature spells
-    public static int NATURE_SPELLICON      = SPELLICON+40;
+    public static int NATURE_SPELLICON      = SPELLICON+48;
     public static final int EVAPORATING     = NATURE_SPELLICON+0;
     public static final int THUNDER_SOUND   = NATURE_SPELLICON+1;
     public static final int SWITCH_GRAVITY  = NATURE_SPELLICON+2;
@@ -83,9 +86,10 @@ public abstract class Spell {
     public static final int GARDEN_SPELL    = NATURE_SPELLICON+4;
     public static final int SPIN_COCOON     = NATURE_SPELLICON+5;
     public static final int BEAN_SOLDIER    = NATURE_SPELLICON+6;
+    public static final int WINDOFREVIVAL   = NATURE_SPELLICON+7;
 
     //energetic spells
-    public static int ENERGETIC_SPELLICON   = SPELLICON+48;
+    public static int ENERGETIC_SPELLICON   = SPELLICON+56;
     public static final int BURNING         = ENERGETIC_SPELLICON+0;
     public static final int ELECTRIC_POWER  = ENERGETIC_SPELLICON+1;
     public static final int ELECTRIC_TOUCH  = ENERGETIC_SPELLICON+2;
@@ -95,7 +99,7 @@ public abstract class Spell {
     public static final int WANDS_CHARGE    = ENERGETIC_SPELLICON+6;
 
     //physical spells
-    public static int PHYSICAL_SPELLICON    = SPELLICON+56;
+    public static int PHYSICAL_SPELLICON    = SPELLICON+64;
     public static final int PROOFING        = PHYSICAL_SPELLICON+0;
     public static final int FRAMING         = PHYSICAL_SPELLICON+1;
     public static final int BLOODY_RUNES    = PHYSICAL_SPELLICON+2;
@@ -103,15 +107,17 @@ public abstract class Spell {
     public static final int SUPPRESS        = PHYSICAL_SPELLICON+4;
     public static final int ANATOMICAL_VIEWS    = PHYSICAL_SPELLICON+5;
     public static final int ABSORB_DAMAGE   = PHYSICAL_SPELLICON+6;
+    public static final int GOLDENPOWER     = PHYSICAL_SPELLICON+7;
 
     //inverse spells
-    public static int INVERSE_SPELLICON     = SPELLICON+64;
+    public static int INVERSE_SPELLICON     = SPELLICON+72;
     public static final int JUNIOR_RESHAPE  = INVERSE_SPELLICON+0;
     public static final int SENIOR_RESHAPE  = INVERSE_SPELLICON+1;
     public static final int SWAP_BETWEEN    = INVERSE_SPELLICON+2;
     public static final int CHAOS_LIVES     = INVERSE_SPELLICON+3;
     public static final int ASCENDING       = INVERSE_SPELLICON+4;
     public static final int SWAP_POWER      = INVERSE_SPELLICON+5;
+    public static final int CRAZYVOICE      = INVERSE_SPELLICON+6;
 
     public Image icon() {
         return new RuneIcon(icon);

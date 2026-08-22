@@ -69,6 +69,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocki
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.HolyDart;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DisintegrationTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GrimTrap;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.QianKunRoll;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSprite;
 import com.watabou.utils.Random;
 
@@ -107,6 +108,7 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( com.shatteredpixel.shatteredpixeldungeon.runes.spells.GuidingLight.class );
 		RESISTS.add( com.shatteredpixel.shatteredpixeldungeon.runes.spells.HolyLance.class );
 		RESISTS.add( com.shatteredpixel.shatteredpixeldungeon.runes.spells.Sunray.class );
+		RESISTS.add( QianKunRoll.class );
 
 		RESISTS.add( ElementalBlast.class );
 		RESISTS.add( CursedWand.class );

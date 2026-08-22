@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.implement;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.ElectricTouch;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
@@ -8,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSh
 public class EnergrticRing extends Implement{
     {
         image = ItemSpriteSheet.IMPLEMENT_RING;
+        staticSpell = ElectricTouch.class;
     }
 
     @Override

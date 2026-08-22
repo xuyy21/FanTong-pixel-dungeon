@@ -407,7 +407,7 @@ public abstract class Spell {
         spells.add(SpinCocoon.class);
         spells.add(BeanSoldier.class);
         spells.add(Blight.class);
-        spells.add(ElectricTouch.class);
+//        spells.add(ElectricTouch.class);
         spells.add(FireRing.class);
         spells.add(LivingFire.class);
         spells.add(FastCharge.class);
@@ -443,7 +443,7 @@ public abstract class Spell {
                 spells.add(SpinCocoon.class);
                 spells.add(BeanSoldier.class);
                 spells.add(Blight.class);
-                spells.add(ElectricTouch.class);
+//                spells.add(ElectricTouch.class); //在0.5.4版本以后作为高能法环的固有符术
                 spells.add(FireRing.class);
                 spells.add(LivingFire.class);
                 spells.add(FastCharge.class);

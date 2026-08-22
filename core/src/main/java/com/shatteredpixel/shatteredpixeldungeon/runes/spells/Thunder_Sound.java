@@ -17,7 +17,7 @@ public class Thunder_Sound extends TargetedSpell{
     {
         type = TYPE.NATURE;
         icon = THUNDER_SOUND;
-        tier = 3;
+        tier = 1;
     }
 
     @Override

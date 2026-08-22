@@ -251,6 +251,7 @@ public abstract class Spell {
                 spells.add(HolyIntuition.INSTANCE);
                 spells.add(ShieldOfLight.INSTANCE);
                 spells.add(ReverseReaction.INSTANCE);
+                spells.add(Thunder_Sound.INSTANCE);
                 spells.add(Burning.INISTANCE);
                 spells.add(Blight.INSTANCE);
                 spells.add(ElectricTouch.INSTANCE);
@@ -282,7 +283,6 @@ public abstract class Spell {
 //                spells.add(HallowedGround.INSTANCE);
                 spells.add(MnemonicPrayer.INSTANCE);
                 spells.add(WallOfLight.INSTANCE);
-                spells.add(Thunder_Sound.INSTANCE);
                 spells.add(SpinCocoon.INSTANCE);
                 spells.add(BeanSoldier.INSTANCE);
                 spells.add(LivingFire.INSTANCE);

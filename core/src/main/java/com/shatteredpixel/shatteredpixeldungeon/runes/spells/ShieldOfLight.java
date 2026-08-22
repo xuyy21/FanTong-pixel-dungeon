@@ -61,8 +61,8 @@ public class ShieldOfLight extends TargetedSpell{
         //1 turn less as the casting is instant
         Buff.prolong( hero, ShieldOfLightTracker.class, 4f).object = ch.id();
         ShieldOfLightTracker shield = hero.buff(ShieldOfLightTracker.class);
-        shield.min = Math.round(2 * implement.powerMultiplier(hero, this));
-        shield.max = Math.round(4 * implement.powerMultiplier(hero, this));
+        shield.min = Math.round(1 * implement.powerMultiplier(hero, this));
+        shield.max = Math.round(Dungeon.scalingDepth() * implement.powerMultiplier(hero, this));
 
         hero.busy();
         hero.sprite.operate(hero.pos);

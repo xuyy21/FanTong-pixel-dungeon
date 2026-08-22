@@ -257,6 +257,7 @@ public abstract class Spell {
                 spells.add(BloodyRunes.INSTANCE);
                 spells.add(Junior_Reshape.INSTANCE);
                 spells.add(ChaosOfLife.INSTANCE);
+                spells.add(CrazyVoice.INSTANCE);
                 break;
             case 2:
                 spells.add(Eating.INSTANCE);
@@ -361,6 +362,7 @@ public abstract class Spell {
         spells.add(ChaosOfLife.INSTANCE);
         spells.add(Ascending.INSTANCE);
         spells.add(PowerSwap.INSTANCE);
+        spells.add(CrazyVoice.INSTANCE);
 
         return spells;
     }
@@ -415,6 +417,8 @@ public abstract class Spell {
 //        spells.add(ChaosOfLife.class);
         spells.add(Ascending.class);
         spells.add(PowerSwap.class);
+
+        spells.add(CrazyVoice.class);
 
         return spells;
     }

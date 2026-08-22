@@ -1,12 +1,14 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.implement;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.runes.spells.ChaosOfLife;
 import com.shatteredpixel.shatteredpixeldungeon.runes.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.itemsprites.ItemSpriteSheet;
 
 public class ChaosBook extends Implement{
     {
         image = ItemSpriteSheet.IMPLEMENT_CHAOS;
+        staticSpell = ChaosOfLife.class;
     }
 
     @Override

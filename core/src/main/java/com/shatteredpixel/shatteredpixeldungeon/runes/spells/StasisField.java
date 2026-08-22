@@ -23,6 +23,10 @@ public class StasisField extends TargetedSpell{
 
     @Override
     protected void onTargetSelected(Implement implement, Hero hero, Integer target) {
+        if (target == null){
+            return;
+        }
+
         Char ch = Actor.findChar(target);
         if (ch==null || !Dungeon.level.heroFOV[target]) {
             GLog.w(Messages.get(this, "invalid_target"));

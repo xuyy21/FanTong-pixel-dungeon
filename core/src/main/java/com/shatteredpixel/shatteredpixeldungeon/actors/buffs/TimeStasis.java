@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 
 //this is largely a copy-paste from timekeeper's hourglass with the artifact-specific code removed
@@ -56,10 +57,11 @@ public class TimeStasis extends FlavourBuff {
 	protected void spend(float time) {
 		super.spend(time);
 
-		//don't punish the player for going into stasis frequently
-		Hunger hunger = Buff.affect(target, Hunger.class);
-		if (hunger != null && !hunger.isStarving()) {
-			hunger.affectHunger(cooldown(), true);
+		if(target instanceof Hero){//don't punish the player for going into stasis frequently
+			Hunger hunger = Buff.affect(target, Hunger.class);
+			if (hunger != null && !hunger.isStarving()) {
+				hunger.affectHunger(cooldown(), true);
+			}
 		}
 	}
 

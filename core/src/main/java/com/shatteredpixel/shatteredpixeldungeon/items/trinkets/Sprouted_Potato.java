@@ -104,7 +104,7 @@ public class Sprouted_Potato extends Trinket{
                 ((Hero) target).updateHT(false);
             }
 
-            if (target.HT <= 0) {
+            if (target!=null && target.HT <= 0) {
                 detach();
 
                 target.HP = 0;
@@ -133,7 +133,8 @@ public class Sprouted_Potato extends Trinket{
         @Override
         public void detach() {
             level = 0;
-            ((Hero) target).updateHT(false);
+            if (target!=null)
+                ((Hero) target).updateHT(false);
 
             super.detach();
         }

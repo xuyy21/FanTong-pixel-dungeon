@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.implement.Implement;
@@ -33,6 +34,7 @@ public class StasisField extends TargetedSpell{
         } else {
             hero.sprite.operate(target);
             Sample.INSTANCE.play( Assets.Sounds.TELEPORT );
+            Buff.affect(ch, Invulnerability.class, 10f);
             Buff.affect(ch, TimeStasis.class, 10f);
             onSpellCast(implement, hero);
             hero.spendAndNext(implement.delay(hero, this));

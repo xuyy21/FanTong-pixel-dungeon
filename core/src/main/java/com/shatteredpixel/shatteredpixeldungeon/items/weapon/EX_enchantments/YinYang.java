@@ -22,11 +22,11 @@ public class YinYang extends Weapon.Enchantment {
             if (attacker.distance(defender)==1
                     && Random.Float()<(5f+level)/(15f+level)*procChanceMultiplier(attacker)){
                 Buff.prolong(defender, Terror.class, 15f);
-            } else if (attacker.distance(defender)==weapon.reachFactor(attacker)
-                    && Random.Float()<(5f+level)/(15f+level)*procChanceMultiplier(attacker)) {
+            } else if (attacker.distance(defender)>=weapon.reachFactor(attacker)) {
                 if (attacker instanceof Hero && RingOfForce.fightingUnarmed((Hero) attacker) && !RingOfForce.unarmedGetsWeaponEnchantment((Hero) attacker))
                     return damage;
-                Buff.prolong(defender, Blindness.class, 10f);
+                if (Random.Float()<(5f+level)/(15f+level)*procChanceMultiplier(attacker))
+                    Buff.prolong(defender, Blindness.class, 10f);
                 return 0;
             }
         }

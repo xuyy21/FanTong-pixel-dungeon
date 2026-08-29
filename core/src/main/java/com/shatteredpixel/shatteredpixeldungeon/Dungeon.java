@@ -314,14 +314,10 @@ public class Dungeon {
 			switch (depth) {
 				case 1:
 					if (SPDSettings.testing()){
-						level = new SewerBossLevel_Rat();
-						break;
-					}
-				case 2:
-					if (SPDSettings.testing()){
 						level = new PrisonBossLevel_Warden();
 						break;
 					}
+				case 2:
 				case 3:
 				case 4:
 					level = new SewerLevel();

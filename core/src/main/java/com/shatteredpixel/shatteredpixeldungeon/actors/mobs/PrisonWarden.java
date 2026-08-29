@@ -203,11 +203,9 @@ public class PrisonWarden extends Mob{
         Bestiary.setSeen(getClass());
         Bestiary.countEncounter(getClass());
 
+        Dungeon.level.drop( new IronKey( Dungeon.depth), pos ).sprite.drop();
         if (Dungeon.hero.subClass == HeroSubClass.NONE) {
-            Dungeon.level.drop( new IronKey( Dungeon.depth), pos ).sprite.drop();
-            if (Dungeon.hero.subClass == HeroSubClass.NONE) {
-                Dungeon.level.drop(new TengusMask(), pos).sprite.drop();
-            }
+            Dungeon.level.drop(new TengusMask(), pos).sprite.drop();
         }
 
         yell(Messages.get(this, "defeated"));

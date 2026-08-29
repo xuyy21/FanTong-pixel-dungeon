@@ -520,7 +520,7 @@ public class PrisonWarden extends Mob{
                     break;
                 }
             }
-            if (warden != null && warden.buff(successTracker.class)==null) {
+            if (warden != null && warden.state == warden.PASSIVE && warden.buff(successTracker.class)==null) {
                 Buff.affect(warden, skeletonCounter.class).count++;
                 if (Buff.affect(warden, skeletonCounter.class).count>=10)
                     warden.success();
